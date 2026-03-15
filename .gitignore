@@ -271,3 +271,25 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse,windows,dbeaver,git,intellij,visualstudiocode
+
+.project
+Servers/
+
+# IntelliJ IDEA project files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# SmartTomcat configuration
+.smarttomcat/
+
+# Eclipse Server configuration project
+Servers/
+.project
+.classpath
+.settings/
+
+# OS generated files
+Thumbs.db
+[Dd]esktop.ini

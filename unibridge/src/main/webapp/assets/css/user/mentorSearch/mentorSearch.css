@@ -1,0 +1,176 @@
+@charset "UTF-8";
+
+*{
+  margin : 0px;
+  padding : 0px;
+  font-family: NanumSquareRound
+}
+
+main{
+  padding-top : 100px;
+}
+
+nav ul{
+  list-style: none;
+  display : flex;
+}
+
+a:link, a:visited{
+  text-decoration: none;
+  color : #94A3B8;
+}
+
+a:hover{
+  color : black;
+}
+
+#nowCategory{
+  color : red;
+}
+
+nav, hr{
+  margin : 0px 90px;
+}
+
+#mentoTitle{
+  margin : 0px 90px;
+  font-size: 36px;
+  padding : 20px;
+  font-weight: bold;
+  text-shadow : 1px 1px 2px black;
+}
+
+#category{
+  margin : 0px 90px;
+  font-size: 26px;
+  padding : 10px;
+}
+
+nav ul li{
+  padding: 20px 12px 30px 12px;
+  font-size:20px;
+}
+
+.contents{
+  margin : 20px 90px 50px;
+  display : flex;
+  flex-direction: column;
+}
+
+.mentoList{
+  size : 300px;
+  margin-bottom : 50px;
+  display : flex;
+  justify-content:space-between;
+}
+
+.mentoInfo{
+  width : 45%;
+  height : 375px;
+}
+
+.mentoName{
+  font-size : 32px;
+  margin-left: 30px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.mentoCard{
+  width : 100%;
+  height : 329px;
+  border-radius: 18px;
+  background : linear-gradient(#ECF4FF,#F8FBFF);
+  box-shadow: 0px 0px 5px black;
+}
+
+.mentoSubject{
+  font-size : 20px;
+  margin: 11px 0px 20px 30px;
+  padding-top: 20px ;
+}
+
+.mentoCardMain{
+  padding: 7px;
+  display: flex;
+  justify-content: space-between;
+  height: 250px;
+  width : 100%;
+}
+
+.mentoFront{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mentoFront img{
+  height : 167px;
+  width : 167px;
+  border-radius: 100%;
+}
+
+.mentoFront button{
+  height : 55px;
+  border-radius: 11px;
+  background-color : white;
+  font-size: 28px;
+  cursor:pointer;
+  border-color : #D9E2F0;
+}
+
+.mentoBack{
+  height:100%;
+  width: 600px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding:10px 10px 10px 25px;
+}
+
+.mentoringPurpose{
+  font-size : 24px;
+  font-weight :bolder;
+  color:#8B7D7D;
+}
+
+.mentoUniSchool, .mentoMajor{
+  font-size : 20px;
+  color:#8B7D7D;
+}
+
+.mentoringDay{
+  font-size: 32px;
+  font-weight: bold;
+}
+
+#pageNumber ul {
+  display : flex;
+  justify-content: center;
+  margin : 40px;
+}
+
+#pageNumber li {
+  display : inline-block;
+  margin: 10px;
+  padding: 12px;
+  width : 50px;
+  height: 50px;
+  text-align: center;
+  border : 2px solid #CFE0FF;
+  cursor:pointer;
+  background-color: #EEF4FF;
+  color: #2F6FED;
+}
+
+#pageNumber li:hover{
+  background-color: #2f6eed7f;
+  border-color : #CFE0FF;
+  color : #EEF4FF;
+}
+
+#pageNumber #nowPage, #pageNumber li:active{
+  background-color: #2F6FED;
+  border-color : #CFE0FF;
+  color : #EEF4FF;
+}

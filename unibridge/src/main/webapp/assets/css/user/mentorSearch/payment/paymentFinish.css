@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+*{
+  margin : 0px;
+  padding : 0px;
+  font-family: NanumSquareRound
+}
+
+main{
+  display : flex;
+  justify-content: space-around;
+}
+
+#mentoringInfo{
+  width: 1099px;
+  border:1px solid black;
+  margin: 112px auto;
+  padding: 30px;
+  border-radius: 18px;
+  background-color:#ECF4FF;
+  display : flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+img{
+  height : 316px;
+  width: 316px;
+}a
+
+#mentoringPurpose{
+  width : 550px;
+  height : 100%;
+  font-size:25px;
+  color : #334155;
+  font-weight: bold;
+  padding : 15px;
+  display: flex;
+  align-items: center;
+}
+
+#price{
+  display: flex;
+  align-items: center;
+  font-size:25px;
+  font-weight: bold;
+}
+
+#pay{
+  width: 383px;
+  margin: 112px auto;
+  display : flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#payment{
+  border:1px solid black; 
+  border-radius: 50px;
+  padding : 20px;
+}
+
+.title{
+  color : black;
+  font-weight: bold;
+  font-size : 24px;
+  padding : 10px;
+}
+
+#payWay{
+  margin : 10px;
+}
+
+#kakaoPay{
+  border: 1px solid yellow;
+  background-color: yellow;
+  height : 100px;
+  width : 300px;
+  padding : 20px;
+  margin : 10px;
+}
+
+#price{
+  display: flex;
+  justify-content: space-between;
+}
+
+button{
+  margin-top: 42px;
+  height: 75px;
+  width: 100%;
+  background-color: #FFFB7C;
+  border: 1px solid #FFFB7C;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size : 30px;
+}
+
+#payNumber{
+  color : black;
+  font-weight: bold;
+  font-size : 24px;
+  padding : 10px;
+}
+
+#payAccount{
+  font-size : 20px;
+  padding : 10px;
+  font-weight: bold;
+}
+
+#payResult{
+  margin : 10px;
+}
