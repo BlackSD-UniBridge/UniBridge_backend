@@ -1,0 +1,163 @@
+@charset "UTF-8";
+
+*{
+  margin : 0px;
+  padding : 0px;
+}
+
+main{
+  display : flex;
+  justify-content: space-around;
+  font-family: NanumSquareRound
+}
+
+#mentorDetail{
+  width: 1325px;
+  border:1px solid linear-gradient(#ECF4FF, #F8FBFF);
+  margin: 112px auto;
+  padding: 30px;
+  border-radius: 18px;
+  background: linear-gradient(#ECF4FF,#F8FBFF);
+}
+
+#detailHead{
+  display:flex;
+  justify-content: space-between;
+}
+
+#profileImg{
+  height : 422px;
+  width: 422px;
+  border-radius: 100%;
+}
+
+#mentoExplan{
+  width : 750px;
+  height : 436px;
+}
+
+.mentoSpec div{
+  display: inline-block;
+  margin: 15px;
+  font-size: 20px;
+  color : #334155;
+}
+
+.title{
+  font-size: 40px;
+}
+
+#mentoName::before{
+  content:"이름 : ";
+}
+
+#mentoSubject::before{
+  content:"학습과목 : ";
+}
+
+#mentorUniSchool::before{
+  content:"졸업 대학 : ";
+}
+
+#mentoMajor::before{
+  content:"졸업 학과 : ";
+}
+
+#mentoringPurpose{
+  font-size:25px;
+  margin-top :25px;
+  height: 306px;
+  border:1px solid linear-gradient(#ECF4FF, #F8FBFF);
+  border-radius: 10px;
+  background-color: white;
+  color : #334155;
+  padding : 15px;
+}
+
+#detailfoot{ 
+  height : 45%;
+  width: 100%;
+  padding : 10px;
+}
+
+.title{
+  font-size:30px;
+  margin: 20px;
+  color : #8B7D7D;
+}
+
+#mentoringCurriculum{
+  border:1px solid linear-gradient(#ECF4FF, #F8FBFF);
+  background-color: white;
+  color : #334155;
+  width:100%;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#payment{
+  width: 383px;
+  height: 603px;
+  border:1px solid black;
+  margin: 112px auto;
+  border-radius: 18px;
+  display : flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color : #334155;
+}
+
+#paymenthead{
+   margin : 23px 36px;
+}
+
+#paymenthead .mentoSpec{
+  font-weight: bold;
+}
+
+#paymentTitle{
+  font-size:24px;
+  text-align: center;
+  margin-bottom : 12px;
+  font-weight: bold;
+}
+
+#startDay{
+  margin-top: 42px;
+  font-size : 20px;
+  font-weight: bold;
+}
+
+#mentoringDay{
+  font-size : 30px;
+  margin-top : 17px;
+  font-weight: bold;
+}
+
+#paymentfoot{
+  margin : 23px 36px;
+}
+
+#price{
+  display : flex;
+  justify-content: space-between;
+}
+
+#price div{
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+button{
+  width: 312px;
+  height: 54px;; 
+  margin-bottom: 30px;
+  color: white;
+  background-color: red;
+}
+
+#other{
+  width: 383px;
+  height: 603px;
+  margin: 112px auto;
+}
