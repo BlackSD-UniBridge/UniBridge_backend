@@ -272,24 +272,28 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse,windows,dbeaver,git,intellij,visualstudiocode
 
-.project
-Servers/
-
-# IntelliJ IDEA project files
-.idea/
-*.iml
-*.ipr
-*.iws
-
-# SmartTomcat configuration
-.smarttomcat/
-
-# Eclipse Server configuration project
+# 이클립스 및 서버 관련 설정
+.metadata/
 Servers/
 .project
 .classpath
 .settings/
+.smarttomcat/
 
-# OS generated files
+# 인텔리제이 및 빌드 결과물
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# 보안 및 환경 설정 (DB 정보 등)
+src/main/resources/db.properties
+db.properties
+jdbc.properties
+.env
+.env.*
+
+# OS 및 기타
 Thumbs.db
 [Dd]esktop.ini

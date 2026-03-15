@@ -20,7 +20,7 @@
 
   <main>
     <div id="mentoTitle">멘토</div>
-    <div id="category">직무 카테고리</div>
+    <div id="category">직무 카테고리</div> 
     <hr>
     <nav>
       <ul>

@@ -6,17 +6,37 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/kimwo/Documents/카카오톡 받은 파일/t_day08_final_jsp_0313/src/main/webapp/WEB-INF/lib/jstl.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/kimwo/Documents/카카오톡 받은 파일/t_day08_final_jsp_0313/src/main/webapp/WEB-INF/lib/mybatis-3.5.13.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/kimwo/Documents/카카오톡 받은 파일/t_day08_final_jsp_0313/src/main/webapp/WEB-INF/lib/ojdbc6.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/kimwo/Documents/카카오톡 받은 파일/t_day08_final_jsp_0313/src/main/webapp/WEB-INF/lib/standard.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/kimwo/Documents/카카오톡 받은 파일/t_day08_final_jsp_0313/src/main/webapp/WEB-INF/lib/jstl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="C:/Users/kimwo/Documents/카카오톡 받은 파일/t_day08_final_jsp_0313/src/main/webapp/WEB-INF/lib/mybatis-3.5.13.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="C:/Users/kimwo/Documents/카카오톡 받은 파일/t_day08_final_jsp_0313/src/main/webapp/WEB-INF/lib/ojdbc6.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="C:/Users/kimwo/Documents/카카오톡 받은 파일/t_day08_final_jsp_0313/src/main/webapp/WEB-INF/lib/standard.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
+	<classpathentry exported="true" kind="lib" path="C:/Users/kimwo/Documents/카카오톡 받은 파일/t_day08_final_jsp_0313/src/main/webapp/WEB-INF/lib/tomcat-dbcp.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Users/kimwo/Documents/카카오톡 받은 파일/t_day08_final_jsp_0313/src/main/webapp/WEB-INF/lib/tomcat-dbcp.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
