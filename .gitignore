@@ -1,12 +1,17 @@
 # Created by https://www.toptal.com/developers/gitignore/api/java,eclipse,windows,dbeaver,git,intellij,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse,windows,dbeaver,git,intellij,visualstudiocode
 
+
+### Eclipse Dynamic server launcher ###
+**/Servers/**
+
 ### DBeaver ###
 # ide config file
 .dbeaver-data-sources*.xml
 
 ### Eclipse ###
 .metadata
+src/build/
 bin/
 tmp/
 *.tmp
@@ -17,6 +22,8 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+.classpath
+.project
 
 # External tool builders
 .externalToolBuilders/
@@ -139,6 +146,9 @@ cmake-build-*/
 *.iws
 
 # IntelliJ
+.idea/
+*.iml
+*.iws
 out/
 
 # mpeltonen/sbt-idea plugin
@@ -202,6 +212,7 @@ fabric.properties
 ### Java ###
 # Compiled class file
 *.class
+*.jar
 
 # Log file
 *.log
