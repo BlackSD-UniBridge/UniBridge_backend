@@ -12,7 +12,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/fonts.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMentoCreate/mentoring.css">
+	href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMentoCreate/mentoringView.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/header.css">
 <link rel="stylesheet"

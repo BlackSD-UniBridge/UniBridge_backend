@@ -9,7 +9,7 @@
   
   <%-- 공통 CSS 및 폰트 경로 --%>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/fonts.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMentoCreate/mentoring.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMentoCreate/mentoringModify.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   
