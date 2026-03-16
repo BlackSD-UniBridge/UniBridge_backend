@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>멘토 상세 정보</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/user/mentorSearch/mentorDetail/mentorDetail.css">
+	href="${pageContext.request.contextPath}/assets/css/user/mentorSearch/mentorDetail.css">
 <link href="${pageContext.request.contextPath}/assets/css/fonts.css"
 	rel="stylesheet">
 <link rel="stylesheet"
@@ -16,7 +16,7 @@
 	href="${pageContext.request.contextPath}/assets/css/footer.css">
 
 <script defer
-	src="${pageContext.request.contextPath}/assets/js/user/mentorSearch/mentorDetail/mentorDetail.js"></script>
+	src="${pageContext.request.contextPath}/assets/js/user/mentorSearch/mentorDetail.js"></script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/header.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
@@ -68,8 +68,9 @@
 					<div>결제금액</div>
 					<div>10,000원</div>
 				</div>
-				<button type="button" id="pay" onclick="location.href='payment.me'">결제
-					하기</button>
+				<button type="button" id="pay"
+					onclick="location.href='${pageContext.request.contextPath}/pay/paymentOk.pay?memberNumber=${mentor.memberNumber}'">
+					결제하기</button>
 			</div>
 		</div>
 	</main>

@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.unibridge.app.Result;
+
 public class PayFrontController extends HttpServlet {
 
 	private String kakaoSecretKey;
@@ -48,21 +50,41 @@ public class PayFrontController extends HttpServlet {
 	}
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	        throws ServletException, IOException {
 
-		String requestURI = request.getRequestURI();
-		String contextPath = request.getContextPath();
-		String target = requestURI.substring(contextPath.length());
+	    String requestURI = request.getRequestURI();
+	    String contextPath = request.getContextPath();
+	    String target = requestURI.substring(contextPath.length());
+	    Result result = null;
 
-		System.out.println(">>> [DEBUG] 컨트롤러 진입 - target: " + target);
+	    System.out.println(">>> [DEBUG] 컨트롤러 진입 - target: " + target);
 
-		if (target.contains("paymentFinish.pay")) {
-			System.out.println(">>> [7] 결제 승인 로직 시작 (PaymentOkController 진입)");
-			new PaymentOkController().execute(request, response);
-		} else if (target.contains("paymentOk.pay")) {
-			System.out.println(">>> [2] 결제 준비 로직 시작");
-			kakaoPayReady(request, response);
-		}
+	    // 1. 상세페이지에서 결제 버튼 클릭 시 -> 결제 정보 확인 페이지(JSP)로 이동
+	    if (target.contains("/payment.pay")) {
+	        System.out.println(">>> [1] 결제 정보 확인 페이지 이동");
+	        // 별도의 DB 조회가 필요 없다면 바로 Result 객체 생성, 필요하다면 Controller 호출
+	        result = new PaymentController().execute(request, response);
+	    } 
+	    // 2. 결제 페이지에서 '카카오페이 결제' 버튼 클릭 시 -> API 준비 단계
+	    else if (target.contains("/paymentOk.pay")) {
+	        System.out.println(">>> [2] 카카오페이 결제 준비 시작");
+	        kakaoPayReady(request, response);
+	        // kakaoPayReady 내부에서 리다이렉트 처리를 하므로 result는 null로 둠
+	    } 
+	    // 3. 결제 완료 후 돌아오는 경로
+	    else if (target.contains("/paymentFinish.pay")) {
+	        System.out.println(">>> [7] 결제 승인 로직 시작");
+	        result = new PaymentOkController().execute(request, response);
+	    }
+
+	    // [중요] Result 객체가 있는 경우에만 페이지 이동 처리
+	    if (result != null) {
+	        if (result.isRedirect()) {
+	            response.sendRedirect(result.getPath());
+	        } else {
+	            request.getRequestDispatcher(result.getPath()).forward(request, response);
+	        }
+	    }
 	}
 
 	private void kakaoPayReady(HttpServletRequest request, HttpServletResponse response) {

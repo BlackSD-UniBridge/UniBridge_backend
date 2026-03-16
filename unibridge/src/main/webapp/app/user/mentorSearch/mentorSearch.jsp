@@ -14,17 +14,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
 
 <script>
-    // [중요] 서버 데이터를 JS 배열로 변환
     const globalContextPath = "${pageContext.request.contextPath}";
-    
-    <%-- 오늘 날짜를 구하기 위한 자바 코드 --%>
-    <%@ page import="java.util.Date" %>
-    <%@ page import="java.text.SimpleDateFormat" %>
-    <%
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-        String today = sdf.format(new Date());
-    %>
-
     const REAL_MENTORS = [
         <c:forEach var="m" items="${mentorList}" varStatus="status">
         {
@@ -34,14 +24,17 @@
             major: "${m.gradDepart}",
             subject: "전체", 
             purpose: "유니브릿지에서 함께 성장할 멘티를 찾습니다.",
-            <%-- 1. 날짜: 실제 등록일 컬럼이 없다면 오늘 날짜 또는 임의의 날짜로 처리 --%>
-            date: "<%= today %>", 
-            <%-- 2. 이미지: DB에 저장된 파일명이 있으면 해당 경로로, 없으면 기본 이미지(ex1.png)로 처리 --%>
-            img: "${not empty m.memberProfile ? '/upload/' += m.memberProfile : '/assets/img/user/userProfile/ex1.png'}"
+            
+            // 1. 실제 DB의 생성 날짜 사용 (데이터가 없으면 '미등록' 표시)
+            date: "${not empty m.createdAt ? m.createdAt : '2026.03.16'}", 
+            
+            // 2. 실제 프로필 이미지 경로 사용
+            img: "${not empty m.memberProfile ? '/upload/'.concat(m.memberProfile) : '/assets/img/user/userProfile/ex1.png'}"
         }${not status.last ? ',' : ''}
         </c:forEach>
     ];
 </script>
+
 
 <script defer src="${pageContext.request.contextPath}/assets/js/user/mentorSearch/mentorPagenation.js"></script>
 <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>

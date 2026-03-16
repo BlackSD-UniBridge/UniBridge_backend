@@ -5,79 +5,92 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class PaymentOkController {
+import com.unibridge.app.Execute;
+import com.unibridge.app.Result;
+import com.unibridge.app.pay.dao.PaymentDAO;
+import com.unibridge.app.pay.dto.PaymentDTO;
 
-    public void execute(HttpServletRequest request, HttpServletResponse response) {
-        try {
-        	// properties에서 키 값 가져오기
-            String secretKey = "SECRET_KEY " + ConfigReader.getProperty("kakao.secret.key");
-            
-            String cid = ConfigReader.getProperty("kakao.cid");
+import java.io.IOException;
 
-            HttpSession session = request.getSession();
-            String tid = (String) session.getAttribute("tid");
-            String pgToken = request.getParameter("pg_token");
+public class PaymentOkController implements Execute {
 
-            System.out.println(">>> [승인 단계] TID: " + tid);
-            System.out.println(">>> [승인 단계] PG_TOKEN: " + pgToken);
+	@Override
+	public Result execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Result result = new Result();
 
-            URL url = new URL("https://open-api.kakaopay.com/online/v1/payment/approve");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            
-            conn.setRequestMethod("POST");
-            
-            conn.setRequestProperty("Authorization", secretKey);
-            conn.setRequestProperty("Content-type", "application/json;charset=utf-8");
-            conn.setDoOutput(true);
+		try {
+			// 1. 설정 정보 로드
+			String secretKey = "SECRET_KEY " + ConfigReader.getProperty("kakao.secret.key");
+			String cid = ConfigReader.getProperty("kakao.cid");
 
-            // 승인 요청에 필요한 JSON 데이터
-            String jsonParams = "{"
-                    + "\"cid\":\"" + cid + "\","
-                    + "\"tid\":\"" + tid + "\","
-                    + "\"partner_order_id\":\"1001\","
-                    + "\"partner_user_id\":\"unibridge\","
-                    + "\"pg_token\":\"" + pgToken + "\""
-                    + "}";
+			HttpSession session = request.getSession();
+			String tid = (String) session.getAttribute("tid");
+			String pgToken = request.getParameter("pg_token");
 
-            try (OutputStream out = conn.getOutputStream()) {
-                out.write(jsonParams.getBytes("utf-8"));
-            }
+			// 2. 카카오페이 승인 API 호출 준비
+			URL url = new URL("https://open-api.kakaopay.com/online/v1/payment/approve");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Authorization", secretKey);
+			conn.setRequestProperty("Content-type", "application/json;charset=utf-8");
+			conn.setDoOutput(true);
 
-            int code = conn.getResponseCode();
-            System.out.println(">>> [승인 응답 코드]: " + code);
+			// 승인 요청 JSON (partner_order_id 등은 가입/예약 번호와 연동 권장)
+			String jsonParams = "{" + "\"cid\":\"" + cid + "\"," + "\"tid\":\"" + tid + "\","
+					+ "\"partner_order_id\":\"1001\"," + "\"partner_user_id\":\"unibridge\"," + "\"pg_token\":\""
+					+ pgToken + "\"" + "}";
 
-            if (code == 200) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
-                String line;
-                StringBuilder sb = new StringBuilder();
-                while ((line = br.readLine()) != null) { sb.append(line); }
-                
-                System.out.println(">>> [결제 최종 성공 데이터]: " + sb.toString());
-                
-                session.removeAttribute("tid");
-                
-                System.out.println(">>> [8] 모든 처리 완료. 화면 이동 시작");
-                
-                // [수정] 실제 파일 경로와 이름(Finsih 오타 주의)을 정확히 입력합니다.
-                String movePath = request.getContextPath() + "/app/user/mentorSearch/payment/paymentFinish.jsp";
-                response.sendRedirect(movePath);
-            } else {
-                // [추가] 400, 500 에러 발생 시 상세 내용을 브라우저에 출력합니다.
-                BufferedReader errorBr = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "utf-8"));
-                String errorMsg = errorBr.readLine();
-                
-                System.err.println(">>> [승인 에러 상세]: " + errorMsg);
-                
-                response.setContentType("text/html; charset=UTF-8");
-                response.getWriter().print("<script>alert('승인 에러: " + errorMsg + "'); history.back();</script>");
-            }
+			try (OutputStream out = conn.getOutputStream()) {
+				out.write(jsonParams.getBytes("utf-8"));
+			}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			int code = conn.getResponseCode();
+
+			if (code == 200) {
+				// 1. 응답 데이터 처리 (필요시 JSON 파싱하여 금액 등 추출)
+
+				// 2. DB 저장을 위한 DTO 세팅
+				PaymentDTO payDTO = new PaymentDTO();
+
+				// 세션이나 리퀘스트에서 필요한 정보 가져오기
+				Long memberNumber = (Long) session.getAttribute("memberNumber");
+				// 매칭 번호는 결제 전 단계에서 생성되어 전달되었다고 가정
+				Long matchingNumber = (Long) session.getAttribute("matchingNumber");
+
+				payDTO.setMemberNumber(memberNumber);
+				payDTO.setMatchingNumber(matchingNumber);
+				payDTO.setPayAmount("50000"); // 예시 금액 (실제 결제 금액 사용)
+				payDTO.setPayMethod("카카오페이");
+				payDTO.setPayStatus("SUCCESS");
+
+				// 3. DAO 호출하여 저장
+				PaymentDAO dao = new PaymentDAO();
+				dao.insertPayment(payDTO);
+
+				System.out.println(">>> [DB 저장 완료] 결제 내역 저장 성공");
+
+				session.removeAttribute("tid");
+
+				result.setPath(request.getContextPath() + "/app/user/payment/paymentFinish.jsp");
+				result.setRedirect(true);
+
+			} else {
+				// [실패] 에러 처리
+				response.setContentType("text/html; charset=UTF-8");
+				response.getWriter().print("<script>alert('결제 승인에 실패하였습니다.'); location.href='index.jsp';</script>");
+				return null; // 스크립트로 직접 응답했으므로 null 리턴
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
 }

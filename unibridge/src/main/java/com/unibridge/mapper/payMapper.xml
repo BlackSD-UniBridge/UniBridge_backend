@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pay">
+	<insert id="insertPayment"
+		parameterType="com.unibridge.app.pay.dto.PaymentDTO">
+		INSERT INTO UB_PAY (
+		pay_id,
+		matching_number,
+		pay_amount,
+		pay_method,
+		pay_date,
+		pay_status,
+		member_number
+		) VALUES (
+		SEQ_UB_PAY.NEXTVAL,
+		#{matchingNumber},
+		#{payAmount},
+		'카카오페이',
+		SYSDATE,
+		'SUCCESS',
+		#{memberNumber}
+		)
+	</insert>
+</mapper>

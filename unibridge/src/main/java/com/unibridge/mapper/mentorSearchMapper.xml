@@ -10,15 +10,38 @@
 		s.grad_school,
 		s.grad_depart,
 		m.survey_number,
-		f.file_name AS memberProfile,
+		f.file_name AS
+		memberProfile,
+		TO_CHAR(mt.created_at, 'YYYY.MM.DD') AS createdAt
+		FROM
+		UB_MEMBER m
+		JOIN UB_SURVEY_MENTOR s ON m.survey_number =
+		s.survey_number
+		LEFT JOIN UB_FILE f ON m.member_profile = f.file_number
+		LEFT JOIN UB_MENTORING mt ON m.member_number = mt.mentor_number
+		WHERE
+		m.member_type = 'MENTOR'
+		AND m.member_state = '계정 활성화'
+		ORDER BY
+		m.member_number DESC
+	</select>
+
+	<select id="selectMentorDetail" parameterType="long"
+		resultType="com.unibridge.app.mentorSearch.dto.MentorSearchDTO">
+		SELECT
+		m.member_number,
+		m.member_nickname,
+		s.grad_school,
+		s.grad_depart,
+		m.member_profile AS memberProfile,
+		mt.mentoring_title AS mentoringTitle,
+		mt.mentoring_goal AS mentoringGoal,
+		mt.mentoring_detail AS mentoringDetail,
 		TO_CHAR(mt.created_at, 'YYYY.MM.DD') AS createdAt
 		FROM UB_MEMBER m
 		JOIN UB_SURVEY_MENTOR s ON m.survey_number = s.survey_number
-		LEFT JOIN UB_FILE f ON m.member_profile = f.file_number
 		LEFT JOIN UB_MENTORING mt ON m.member_number = mt.mentor_number
-		WHERE m.member_type = 'MENTOR'
-		AND m.member_state = '계정 활성화'
-		ORDER BY m.member_number DESC
+		WHERE m.member_number = #{memberNumber}
 	</select>
 
 </mapper>
