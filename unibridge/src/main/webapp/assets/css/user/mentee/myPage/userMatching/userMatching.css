@@ -1,0 +1,364 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    /* 폰트 글꼴 지정 NanumSquareRound */
+    font-family: 'NanumSquareRound', sans-serif;
+}
+
+/* 기본 레이아웃 구성 */
+.mainContainer {
+    display: flex;
+    margin-top: 40px;
+    gap: 30px;
+    padding: 80px 100px;
+    min-height: 100vh; /* 고정값보다는 vh 단위가 유연합니다 */
+}
+
+a {
+    text-decoration: none;
+}
+
+/* 사이드바 스타일 */
+aside {
+    width: 220px;
+    height: 750px;
+    margin-left: 30px;
+    background-color: #eef2ff;
+    border-radius: 20px;
+    padding: 28px 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    margin-top: 25px;
+}
+
+.myPageTitle {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    color: #222;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #dde3f0;
+    margin-bottom: 20px;
+}
+
+/* 사이드바 리스트 초기화 */
+aside ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 간격 살짝 조정 */
+}
+
+/* li가 아닌 a 태그에 스타일을 집중 (클릭 범위 확대) */
+aside ul li a {
+    display: block;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 20px; /* 25px은 너무 커서 레이아웃을 깰 수 있음 */
+    color: #888;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+/* 마우스 호버 시 */
+aside ul li a:hover {
+    background-color: #eef2ff;
+    color: #4f73e3;
+}
+
+aside ul li a:hover {
+    background-color: #eef2ff;
+    color: #4f73e3;
+}
+
+/* ✅ 활성화된 메뉴 스타일 (이 부분이 적용됩니다) */
+aside ul li a.active {
+    /* background-color: #4f73e3; 배경을 파란색으로 */
+    color: #4f73e3;              /* 글자를 흰색으로 (혹은 원하는 디자인대로) */
+    font-weight: 700;
+}
+
+/* 사이드바 끝 */
+
+/* 메인 콘텐츠 영역 */
+main {
+    flex: 1;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    align-items: center;
+}
+
+/* 제목 부분 (아이콘 + 텍스트) */
+.userManageTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    margin-left: 145px;
+}
+
+.userManageTitle img {
+    margin-top: 30px;
+    width: 36px;
+    height: 36px;
+}
+
+.userManageTitle .title {
+    margin-top: 30px;
+    font-size: 30px;
+    font-weight: 500;
+    color: #222;
+}
+
+/* 유저 정보 카드 (사진 + 텍스트 가로 배치) */
+.userMain {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    height: 70%;
+    text-align: center;
+    gap: 60px;
+    background: #eef2ff;   /* 연한 배경만, 테두리 없음 */
+    padding: 40px 50px;
+    border-radius: 16px;
+    border: 1px solid black;           /* 기존 border 제거 */
+    position: relative;
+
+}
+
+/* 유저 프로필 이미지 */
+.userMain > img {
+    width: 300px;
+    height: 360px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+/* 전체 컨테이너 (중앙 정렬용) */
+.container {
+    width: 60%; /* .userTypeBox와 동일한 너비 */
+    margin: 30px auto;
+}
+
+.userTypeBox {
+    padding: 30px 40px; /* 내부 여백 조정 */
+    background-color: #eef2ff;
+    border-radius: 12px;
+    width: 80%; /* 컨테이너 너비에 맞춤 */
+    box-sizing: border-box; /* 패딩이 너비에 영향을 주지 않도록 설정 */
+}
+
+.mentoring{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.userText {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 라벨과 버튼을 세로 중앙 정렬 */
+    margin-top: 30px;
+}
+
+.userText label:first-child {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* 오른쪽 텍스트 정렬 */
+.userText label:last-child {
+    font-size: 22px;
+    font-weight: 600;
+    color: #222;
+}
+
+/* 학습보고서 확인 버튼 */
+.mentoringCheck {
+    padding: 8px 16px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* 매칭 취소 신청 버튼 */
+.matchingCancel {
+    width: 100%; /* .container의 100%이므로 위의 박스와 너비가 같아짐 */
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.matchingCancel:hover {
+    background-color: #c7d2fe;
+}
+
+.mentoringCheck:hover {
+    background-color: #c7d2fe;
+}
+
+/* 모달 기능 */
+/* 모달 배경 (어둡게) */
+.matingCancel {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은 배경 */
+}
+
+/* 모달 박스 */
+.cancelBox {
+    background-color: white;
+    margin: 3% auto; /* 상단 여백 및 가로 중앙 정렬 */
+    padding: 30px;
+    width: 600px;
+    height: 80%;
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* 닫기 버튼 스타일 */
+.closeBtn {
+    position: absolute;  /* 부모인 .modal-content를 기준으로 절대 위치 */
+    top: 20px;          /* 위에서 20px 내림 */
+    right: 20px;        /* 오른쪽에서 20px 당김 */
+    
+    border: none;
+    outline: none;
+    background-color: transparent; /* 배경을 투명하게 해서 깔끔하게 */
+    cursor: pointer;
+    z-index: 10;        /* 다른 요소보다 위에 보이도록 설정 */
+}
+
+/* 이미지 크기 조절 (필요한 경우) */
+.closeBtn img {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.cacelTitle {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 25px;
+    margin-bottom: 20px;     /* 제목과 입력창 사이 간격 */
+    text-align: center;
+}
+
+.cancelModalBox {
+    background-color: white;
+    padding: 30px 40px;
+    height: 85%;
+    border: 1px solid black;
+    border-radius: 12px;
+    width: 100%;
+    display: flex; /* 내부 요소 정렬을 위해 flex 추가 */
+    flex-direction: column;
+}
+
+.cancelModalBox form {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* 부모 높이를 다 채워서 버튼을 바닥으로 보냄 */
+}
+
+/* 2. 상단 2x2 그리드 (오타 수정: info-grid -> infoGrid) */
+.infoGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 정확히 반반 나눔 */
+    gap: 15px 10px; 
+    margin-bottom: 20px;
+}
+
+.printRow {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.printRow label {
+    width: 70px; /* 라벨 너비 고정 */
+    color: #666;
+    font-weight: 500;
+}
+
+.mentoringText {
+    font-weight: 700;
+    color: #333;
+}
+
+/* 3. 취소 사유 입력창 영역 */
+.cencelInputBox {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* 남은 공간을 이 박스가 다 차지하게 함 */
+    margin-bottom: 20px;
+}
+
+.contextTitle {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    margin-top: 15px;
+}
+
+.cencelIput {
+    width: 100%;
+    flex-grow: 1; /* 부모인 inputBox의 남은 높이를 꽉 채움 */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    resize: none; /* 사용자 임의 크기조절 금지 */
+    outline: none;
+    font-family: inherit;
+}
+
+/* 4. 버튼 우측 하단 정렬 */
+.cancelFooter {
+    display: flex;
+    justify-content: flex-end; /* 우측 정렬 */
+    gap: 12px;
+    margin-top: auto; /* 위쪽 여백을 자동으로 밀어내어 바닥에 고정 */
+}
+
+.submitBtn, .cancelBtn {
+    padding: 10px 25px;
+    border: 1px solid #ccc;
+    border-radius: 12px; /* 사진처럼 더 둥글게 */
+    background-color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.submitBtn:hover, .cancelBtn:hover {
+    background-color: #f5f7ff;
+    border-color: #4f73e3;
+    color: #4f73e3;
+}
