@@ -1,0 +1,258 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    font-family: 'NanumSquareRound', sans-serif; 
+}
+
+.mainContainer {
+    display: flex;
+    margin-top: 40px;
+    gap: 30px;
+    padding: 80px 100px;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+aside {
+    width: 220px;
+    height: 750px;
+    margin-left: 30px;
+    background-color: #eef2ff;
+    border-radius: 20px;
+    padding: 28px 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    margin-top: 25px;
+}
+
+.myPageTitle {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    color: #222;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #dde3f0;
+    margin-bottom: 20px;
+}
+
+aside ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+aside ul li a {
+    display: block;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 20px;
+    color: #888;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+aside ul li a:hover {
+    background-color: #eef2ff;
+    color: #4f73e3;
+}
+
+aside ul li a.active {
+    color: #4f73e3;
+    font-weight: 700;
+}
+
+main {
+    flex: 1;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    align-items: center;
+}
+
+.userManageTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    margin-left: 145px;
+}
+
+.userManageTitle img {
+    margin-top: 30px;
+    width: 36px;
+    height: 36px;
+}
+
+.userManageTitle .title {
+    margin-top: 30px;
+    font-size: 30px;
+    font-weight: 500;
+    color: #222;
+}
+
+.userMain {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+    text-align: center;
+    gap: 160px;
+    background: #eef2ff;
+    padding: 40px 50px;
+    border-radius: 16px;
+    border: 1px solid black;
+    position: relative;
+}
+
+.userImg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.userImg > img {
+    width: 300px;
+    height: 360px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.userImg > button {
+    width: 130px;
+    height: 40px;
+    margin-top: 15px;
+    background-color: white;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid #eef2ff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.modifyForm {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+label {
+    width: 150px;
+    text-align: left;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.userInput {
+    flex: 1;
+    height: 40px;
+    background-color: white;
+    border: 1px solid #CFE0FF; 
+    border-radius: 10px;
+    padding: 0 15px;
+}
+
+.duplication, .change, .authBtn {
+    margin-left: 10px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.duplication, .change {
+    width: 18%;
+}
+
+.authBtn {
+    width: 18%;
+}
+
+.spacer {
+    margin-left: 10px;
+    width: 18%;
+}
+
+.spacer2 {
+    margin-left: 10px;
+    width: 18%;
+}
+
+.radioGroup {
+    display: flex;
+    flex: 1;
+}
+
+.radioUserType {
+    width: 20px;
+    height: 20px;
+    transform: scale(1.5);
+    cursor: pointer;
+    margin: 0 5px;
+    vertical-align: middle;
+}
+
+.radioItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 40px;
+}
+
+.userModifyBtn {
+    position: absolute;
+    bottom: 15px;
+    right: 145px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 10px;
+    background-color: #dde5ff;
+    color: #4f46e5;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.userModifyBtn:hover {
+    background-color: #c7d2fe;
+}
+
+.errorMsg {
+    flex-basis: 100%;
+    order: 99;
+    color: red;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 5px;
+    padding-left: 150px;
+    text-align: left;
+}

@@ -1,0 +1,423 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    /* 폰트 글꼴 지정 NanumSquareRound */
+    font-family: 'NanumSquareRound', sans-serif;
+}
+
+.mainContainer {
+    display: flex;
+    margin-top: 40px;
+    gap: 30px;
+    padding: 80px 100px;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+aside {
+    width: 220px;
+    height: 750px;
+    margin-left: 30px;
+    background-color: #eef2ff;
+    border-radius: 20px;
+    padding: 28px 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    margin-top: 25px;
+}
+
+.myPageTitle {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    color: #222;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #dde3f0;
+    margin-bottom: 20px;
+}
+
+aside ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+aside ul li a {
+    display: block;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 20px;
+    color: #888;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+aside ul li a:hover {
+    background-color: #eef2ff;
+    color: #4f73e3;
+}
+
+aside ul li a.active {
+    color: #4f73e3;
+    font-weight: 700;
+}
+
+main {
+    flex: 1;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    align-items: center;
+}
+
+/* 제목 부분 (아이콘 + 텍스트) */
+.userManageTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    margin-left: 145px;
+}
+
+.userManageTitle img {
+    margin-top: 30px;
+    width: 36px;
+    height: 36px;
+}
+
+.userManageTitle .title {
+    margin-top: 30px;
+    font-size: 30px;
+    font-weight: 500;
+    color: #222;
+}
+
+.userTypeBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2열로 나누기 */
+    column-gap: 60px;               /* 좌우 아이템 간격 */
+    width: 60%;
+    height: 65%;
+    background: #eef2ff;
+    padding: 40px 50px;
+    border-radius: 16px;
+    border: 1px solid black;
+    position: relative;
+    margin-top: 30px;
+}
+
+.userText {
+    height: 50px;
+    display: flex;
+    gap: 40px;
+}
+
+.userText label:first-child {
+    width: 120px;
+    height: 40px;
+    font-size: 25px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 5px;
+}
+
+.userType {
+    display: flex;
+    width: 200px;
+    height: 40px;
+    font-size: 25px;
+    color: #222;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.userItem {
+    display: flex;
+    align-items: center;
+}
+
+.userItem label {
+    width: 120px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;            /* 글자 줄바꿈 방지 */
+}
+
+.userValue {
+    flex-grow: 1;                   /* 남은 공간 꽉 채우기 */
+    max-width: 300px;               /* 너무 길어지지 않게 제한 */
+    height: 30%;
+    font-size: 20px;
+    color: #222;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #d1d9e6;      /* 연한 테두리 */
+    border-radius: 13px;            /* 이미지처럼 둥근 알약 모양 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 약간의 입체감 */
+}
+
+/* 작성 버튼 우측 하단 absolute */
+#userWriteBtn {
+    position: absolute;
+    bottom: 100px;
+    right: 145px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 10px;
+    background-color: #dde5ff;
+    color: #4f46e5;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#userWriteBtn:hover {
+    background-color: #c7d2fe;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+    background-color: white;
+    margin: 3% auto;
+    padding: 30px;
+    width: 600px;
+    height: 80%;
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.closeBtn img {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.surveyTitle {
+    font-size: 20px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modalBox {
+    background-color: white;
+    padding: 30px 40px;
+    height: 85%;
+    border: 1px solid black;
+    border-radius: 12px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.modalBox form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.radioGroup {
+    display: flex;
+    gap: 20px;
+    height: 40px;
+}
+
+.radioItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    width: auto; /* 라벨 너비 고정 해제 */
+}
+
+.radioItem input[type="radio"] {
+    width: 18px;
+    height: 15px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.modalSelect {
+    flex: 1;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 12px; /* 사진처럼 아주 둥글게 */
+    padding: 0 15px;
+    background-color: white;
+    font-family: 'NanumSquareRound', sans-serif;
+    font-size: 16px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 20px;
+    cursor: pointer;
+}
+
+.modalSelect:focus {
+    outline: none;
+    border-color: #4f46e5;
+}
+
+.fileInfoActive {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.fileInfoActive:hover {
+    background-color: #f0f4ff;
+}
+
+.fileIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.fileNameText {
+    font-size: 14px;
+    color: #4f46e5;
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.fileAttachSection {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.fileLabel {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.fileInputWrapper {
+    position: relative;
+    width: 100%;
+}
+
+#surveyFile {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.fakeFileInput {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    padding: 5px;
+    height: 45px;
+}
+
+.fileSelectBtn {
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 6px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 15px;
+    border: 1px solid #bcbcbc;
+    width: auto;
+    text-align: center;
+}
+
+.modalFooter {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.inputRow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+.inputRow label {
+    width: 100px;
+    text-align: left;
+    font-size: 18px;
+}
+
+.modalInput {
+    flex: 1;
+    height: 40px;
+    background-color: white;
+    border: 1px solid black; 
+    border-radius: 12px;
+    padding: 0 15px;
+}
+
+.submitBtn, .cancelBtn {
+    padding: 8px 20px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.submitBtn:hover, .cancelBtn:hover {
+    background-color: #f0f4ff;
+}

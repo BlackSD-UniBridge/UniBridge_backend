@@ -1,0 +1,200 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    /* 폰트 글꼴 지정 NanumSquareRound */
+    font-family: 'NanumSquareRound', sans-serif;
+}
+
+/* 기본 레이아웃 구성 */
+.mainContainer {
+    display: flex;
+    margin-top: 40px;
+    gap: 30px;
+    padding: 80px 100px;
+    min-height: 100vh; /* 고정값보다는 vh 단위가 유연합니다 */
+}
+
+a {
+    text-decoration: none;
+}
+
+/* 사이드바 스타일 */
+aside {
+    width: 220px;
+    height: 750px;
+    margin-left: 30px;
+    background-color: #eef2ff;
+    border-radius: 20px;
+    padding: 28px 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    margin-top: 25px;
+}
+
+.myPageTitle {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    color: #222;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #dde3f0;
+    margin-bottom: 20px;
+}
+
+/* 사이드바 리스트 초기화 */
+aside ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 간격 살짝 조정 */
+}
+
+/* li가 아닌 a 태그에 스타일을 집중 (클릭 범위 확대) */
+aside ul li a {
+    display: block;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 20px; /* 25px은 너무 커서 레이아웃을 깰 수 있음 */
+    color: #888;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+/* 마우스 호버 시 */
+aside ul li a:hover {
+    background-color: #eef2ff;
+    color: #4f73e3;
+}
+
+aside ul li a:hover {
+    background-color: #eef2ff;
+    color: #4f73e3;
+}
+
+/* ✅ 활성화된 메뉴 스타일 (이 부분이 적용됩니다) */
+aside ul li a.active {
+    /* background-color: #4f73e3; 배경을 파란색으로 */
+    color: #4f73e3;              /* 글자를 흰색으로 (혹은 원하는 디자인대로) */
+    font-weight: 700;
+}
+
+/* 사이드바 끝 */
+
+/* 메인 콘텐츠 영역 */
+main {
+    flex: 1;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    align-items: center;
+}
+
+/* 제목 부분 (아이콘 + 텍스트) */
+.userManageTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    margin-left: 145px;
+}
+
+.userManageTitle img {
+    margin-top: 30px;
+    width: 36px;
+    height: 36px;
+}
+
+.userManageTitle .title {
+    margin-top: 30px;
+    font-size: 30px;
+    font-weight: 500;
+    color: #222;
+}
+
+/* 유저 정보 카드 (사진 + 텍스트 가로 배치) */
+.userMain {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    height: 70%;
+    text-align: center;
+    gap: 60px;
+    background: #eef2ff;   /* 연한 배경만, 테두리 없음 */
+    padding: 40px 50px;
+    border-radius: 16px;
+    border: 1px solid black;           /* 기존 border 제거 */
+    position: relative;
+
+}
+
+/* 유저 프로필 이미지 */
+.userMain > img {
+    width: 300px;
+    height: 360px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+/* 유저 텍스트 정보 정렬 */
+.userProfile {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    gap: 5px;
+    flex: 1;
+    background-color: transparent;  /* 배경 제거 */
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+.userTextGroup {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.userTextGroup label:first-child {
+    width: 100px;
+    font-size: 25px;
+    font-weight: 600;
+    color: #333;
+    margin-left: 30px;
+    margin-top: 40px;
+}
+
+.userText {
+    font-size: 25px;
+    margin-top: 30px;
+    color: #222;
+}
+
+/* 수정 버튼 우측 하단 absolute */
+.userModifyBtn {
+    position: absolute;
+    right: 125px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 10px;
+    background-color: #dde5ff;
+    color: #4f46e5;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.userModifyBtn:hover {
+    background-color: #c7d2fe;
+}
