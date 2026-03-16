@@ -63,7 +63,7 @@
                       <option value="C">C</option>
                       <option value="JAVA">JAVA</option>
                       <option value="C++">C++</option>
-                      <option value="Python">python</option>
+                      <option value="Python">Python</option>
                       <option value="game">게임 제작</option>
                     </select>
                     <div class="error">과목명을 선택해주세요.</div>

@@ -41,6 +41,11 @@ public class MentorSearchFrontController extends HttpServlet {
 		String target = request.getRequestURI().substring(request.getContextPath().length());
 		System.out.println("현재 경로 : " + target);
 		
+	
+		if (target.equals("/mentor/mentorSearchOk.ms")) {
+		    // 멘토 검색 페이지 로직 실행
+		    new MentorSearchOkController().execute(request, response);
+		}
 
 	}
 
