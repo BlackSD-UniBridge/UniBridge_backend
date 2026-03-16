@@ -16,24 +16,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class PayFrontController extends HttpServlet {
-	
+
 	private String kakaoSecretKey;
 
-    @Override
-    public void init() throws ServletException {
-        // properties 파일을 읽어오는 로직
-        Properties props = new Properties();
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream("config/api.properties")) {
-            if (is != null) {
-                props.load(is);
-                this.kakaoSecretKey = props.getProperty("kakao.secret.key");
-            } else {
-                System.err.println(">>> [ERROR] api.properties 파일을 찾을 수 없습니다.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	@Override
+	public void init() throws ServletException {
+		// properties 파일을 읽어오는 로직 (ConfigReader를 사용 중이라면 생략 가능하지만 유지합니다)
+		Properties props = new Properties();
+		try (InputStream is = getClass().getClassLoader().getResourceAsStream("config/api.properties")) {
+			if (is != null) {
+				props.load(is);
+				this.kakaoSecretKey = props.getProperty("kakao.secret.key");
+			} else {
+				System.err.println(">>> [ERROR] api.properties 파일을 찾을 수 없습니다.");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,92 +50,89 @@ public class PayFrontController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.err.println("###################################################");
-		System.err.println("### 컨트롤러 진입 성공! 경로: " + request.getRequestURI());
-		System.err.println("###################################################");
-
 		String requestURI = request.getRequestURI();
-	    String contextPath = request.getContextPath();
-	    String target = requestURI.substring(contextPath.length());
+		String contextPath = request.getContextPath();
+		String target = requestURI.substring(contextPath.length());
 
-	    System.out.println(">>> [DEBUG] 최종 target 경로: " + target);
+		System.out.println(">>> [DEBUG] 컨트롤러 진입 - target: " + target);
 
-	    if (target.contains("paymentFinish.pay")) {
-	        System.out.println(">>> [7] 결제 승인 로직 시작 (PaymentOkController 진입)");
-	        new PaymentOkController().execute(request, response);
-	        return; // 승인 컨트롤러 안에서 forward를 하므로 여기서 반드시 return해야 합니다.
-	    } 
-	    
-	    // 2. 결제 준비 단계
-	    else if (target.contains("paymentOk.pay")) {
-	        System.out.println(">>> [2] 결제 준비 로직 시작");
-	        kakaoPayReady(request, response);
-	    }
+		if (target.contains("paymentFinish.pay")) {
+			System.out.println(">>> [7] 결제 승인 로직 시작 (PaymentOkController 진입)");
+			new PaymentOkController().execute(request, response);
+		} else if (target.contains("paymentOk.pay")) {
+			System.out.println(">>> [2] 결제 준비 로직 시작");
+			kakaoPayReady(request, response);
+		}
 	}
 
 	private void kakaoPayReady(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			
-			// 1. request객체로부터 session을 가져옵니다.
-	        HttpSession session = request.getSession(); 
-	        
-	        // 2. 세션에서 저장해둔 tid를 꺼냅니다.
-	        String tid = (String) session.getAttribute("tid");
-	        String pgToken = request.getParameter("pg_token");
-	        
+			HttpSession session = request.getSession();
+
+			// 전달받은 상품 정보
 			String itemName = request.getParameter("item_name");
 			String totalAmount = request.getParameter("total_amount");
 
+			// 1. 호스트 정보를 동적으로 가져오기 (localhost:9999 하드코딩 제거)
+			String scheme = request.getScheme(); // http
+			String serverName = request.getServerName(); // localhost 또는 IP
+			int serverPort = request.getServerPort(); // 9999 또는 8888 등
+			String contextPath = request.getContextPath(); // /unibridge
+
+			// 베이스 URL 조립 (예: http://localhost:9999/unibridge)
+			String baseUrl = String.format("%s://%s:%d%s", scheme, serverName, serverPort, contextPath);
+
 			URL url = new URL("https://open-api.kakaopay.com/online/v1/payment/ready");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            conn.setRequestMethod("POST");
-            
-            // ★ 하드코딩 대신 필드 변수 사용
-            String secretKey = "SECRET_KEY " + ConfigReader.getProperty("kakao.secret.key");
-            conn.setRequestProperty("Authorization", secretKey);
-            conn.setRequestProperty("Content-type", "application/json;charset=utf-8");
-            conn.setDoOutput(true);
+			conn.setRequestMethod("POST");
 
-			// 데이터를 JSON 형태로 만듭니다. (문자열 더하기로 간단히 구현)
-			String jsonParams = "{" + "\"cid\":\"TC0ONETIME\"," + "\"partner_order_id\":\"1001\","
-					+ "\"partner_user_id\":\"unibridge\"," + "\"item_name\":\"" + itemName + "\"," + "\"quantity\":1,"
-					+ "\"total_amount\":" + totalAmount + "," + "\"tax_free_amount\":0,"
-					+ "\"approval_url\":\"http://localhost:9999" + request.getContextPath() + "/paymentFinish.pay\","
-					+ "\"cancel_url\":\"http://localhost:9999" + request.getContextPath() + "/payment.pay\","
-					+ "\"fail_url\":\"http://localhost:9999" + request.getContextPath() + "/payment.pay\"" + "}";
+			// Authorization 설정
+			String secretKey = "SECRET_KEY " + ConfigReader.getProperty("kakao.secret.key");
+			conn.setRequestProperty("Authorization", secretKey);
+			conn.setRequestProperty("Content-type", "application/json;charset=utf-8");
+			conn.setDoOutput(true);
+
+			// 2. 동적 URL이 적용된 JSON 생성
+			String jsonParams = String.format("{" + "\"cid\":\"TC0ONETIME\"," + "\"partner_order_id\":\"1001\","
+					+ "\"partner_user_id\":\"unibridge\"," + "\"item_name\":\"%s\"," + "\"quantity\":1,"
+					+ "\"total_amount\":%s," + "\"tax_free_amount\":0," + "\"approval_url\":\"%s/paymentFinish.pay\","
+					+ "\"cancel_url\":\"%s/payment.pay\"," + "\"fail_url\":\"%s/payment.pay\"" + "}", itemName,
+					totalAmount, baseUrl, baseUrl, baseUrl);
 
 			System.out.println(">>> [JSON 전송 확인]: " + jsonParams);
 
 			try (OutputStream out = conn.getOutputStream()) {
-				byte[] input = jsonParams.getBytes("utf-8");
-				out.write(input, 0, input.length);
+				out.write(jsonParams.getBytes("utf-8"));
 			}
 
 			int code = conn.getResponseCode();
 			System.out.println(">>> [4] 카카오 서버 응답 코드: " + code);
 
 			if (code == 200) {
-			    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
-			    StringBuilder sb = new StringBuilder();
-			    String line;
-			    while ((line = br.readLine()) != null) { sb.append(line); }
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+				StringBuilder sb = new StringBuilder();
+				String line;
+				while ((line = br.readLine()) != null) {
+					sb.append(line);
+				}
 
-			    String result = sb.toString();
-			    System.out.println(">>> [5] 카카오 응답 데이터: " + result);
+				String result = sb.toString();
 
-			    // 1. 서버가 준 데이터에서 tid를 먼저 추출합니다.
-			    String tidFromServer = result.split("\"tid\":\"")[1].split("\"")[0];
-			    String pcUrl = result.split("\"next_redirect_pc_url\":\"")[1].split("\"")[0];
+				// TID 및 Redirect URL 추출
+				String tidFromServer = result.split("\"tid\":\"")[1].split("\"")[0];
+				String pcUrl = result.split("\"next_redirect_pc_url\":\"")[1].split("\"")[0];
 
-			    // 2. 추출한 tid를 세션에 새로 저장합니다.
-			    session.setAttribute("tid", tidFromServer);
-			    System.out.println(">>> [TID 세션 저장 완료]: " + tidFromServer);
-			    
-			    response.sendRedirect(pcUrl);
+				// 승인 단계에서 사용하기 위해 TID를 세션에 저장
+				session.setAttribute("tid", tidFromServer);
+				System.out.println(">>> [TID 세션 저장 완료]: " + tidFromServer);
+
+				response.sendRedirect(pcUrl);
 			} else {
-				BufferedReader errorBr = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "utf-8"));
-				System.out.println(">>> [ERROR] 상세 내용: " + errorBr.readLine());
+				try (BufferedReader errorBr = new BufferedReader(
+						new InputStreamReader(conn.getErrorStream(), "utf-8"))) {
+					System.out.println(">>> [ERROR] 상세 내용: " + errorBr.readLine());
+				}
 			}
 
 		} catch (Exception e) {

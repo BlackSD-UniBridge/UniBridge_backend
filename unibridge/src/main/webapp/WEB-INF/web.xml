@@ -18,15 +18,23 @@
 
 	<!-- 결제 페이지 -->
 	<servlet>
-		<servlet-name>PayController</servlet-name>
+		<servlet-name>Pay</servlet-name>
 		<servlet-class>com.unibridge.app.pay.controller.PayFrontController</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>PayController</servlet-name>
+		<servlet-name>Pay</servlet-name>
 		<url-pattern>*.pay</url-pattern>
 	</servlet-mapping>
 
 
 	<!-- 멘토 검색 페이지 -->
+	<servlet>
+		<servlet-name>MentorSearch</servlet-name>
+		<servlet-class>com.unibridge.app.mentorSearch.MentorSearchFrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MentorSearch</servlet-name>
+		<url-pattern>*.search</url-pattern>
+	</servlet-mapping>
 
 </web-app>
