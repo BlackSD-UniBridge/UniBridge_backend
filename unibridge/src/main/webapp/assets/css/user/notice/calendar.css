@@ -1,0 +1,257 @@
+@charset "UTF-8";
+.date-filter-wrap {
+  position: relative;
+  width: 245px;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+.date-filter-trigger {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 16px;
+  border: 1px solid #d7e2f2;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  color: #8ea0bc;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.date-filter-trigger:hover {
+  border-color: #bdd0ea;
+  box-shadow: 0 8px 20px rgba(70, 98, 140, 0.08);
+}
+
+.date-filter-trigger.active {
+  border-color: #98b8ea;
+  box-shadow: 0 10px 24px rgba(63, 97, 155, 0.12);
+}
+
+.date-filter-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date-filter-icon {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.date-picker-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  width: 360px;
+  padding: 18px;
+  border: 1px solid #d9e4f3;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 24px 50px rgba(28, 52, 84, 0.14);
+  z-index: 1000;
+  display: none;
+}
+
+.date-picker-panel.open {
+  display: block;
+}
+
+.date-picker-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.date-picker-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2d3d;
+}
+
+.date-picker-close {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #dbe5f3;
+  border-radius: 10px;
+  background: #f8fbff;
+  color: #7f92ae;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.date-picker-quick {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.quick-btn {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid #d8e3f2;
+  background: #f8fbff;
+  color: #5f7391;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quick-btn:hover {
+  border-color: #bcd1ee;
+  background: #f1f7ff;
+}
+
+.quick-btn.active {
+  border-color: #a7c5f5;
+  background: #edf4ff;
+  color: #2f6fed;
+}
+
+.date-picker-calendar {
+  border: 1px solid #e1e8f4;
+  border-radius: 20px;
+  padding: 16px;
+  background: #fcfdff;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.month-nav {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #dde7f5;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #6e84a3;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.month-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #25364a;
+}
+
+.week-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 10px;
+  color: #8c9cb3;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.week-row div {
+  padding: 6px 0;
+}
+
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.day-cell {
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.day-cell:hover {
+  background: #f3f7ff;
+  border-color: #d6e4f9;
+}
+
+.day-cell.muted {
+  color: #c0cad8;
+  cursor: default;
+  pointer-events: none;
+}
+
+.day-cell.today {
+  border-color: #bfd5f6;
+  background: #f7fbff;
+}
+
+.day-cell.selected-start,
+.day-cell.selected-end {
+  background: #2f6fed;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.day-cell.in-range {
+  background: #eaf2ff;
+  color: #2f4a72;
+}
+
+.date-picker-bottom {
+  margin-top: 18px;
+}
+
+.selected-range {
+  min-height: 22px;
+  margin-bottom: 14px;
+  color: #44566f;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.date-picker-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.action-btn {
+  min-width: 84px;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-btn {
+  border: 1px solid #d9e4f2;
+  background: #ffffff;
+  color: #60758f;
+}
+
+.apply-btn {
+  border: 1px solid #c9daf8;
+  background: #edf4ff;
+  color: #2f6fed;
+}
+
+.reset-btn:hover,
+.apply-btn:hover,
+.month-nav:hover,
+.date-picker-close:hover {
+  box-shadow: 0 8px 18px rgba(70, 98, 140, 0.08);
+}

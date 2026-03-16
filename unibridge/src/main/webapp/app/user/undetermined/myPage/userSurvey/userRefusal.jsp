@@ -35,7 +35,8 @@
                     <label>멘토/멘티</label>
                     <div class="userType">미정</div>
                 </div>
-                <div class="context"> <div class="refusalTitle">신청 거부 사유</div>
+                <div class="context"> 
+                <div class="refusalTitle">신청 거부 사유</div>
                     <div class="refusalContext">
                         <div class="refusaltext">
                             조건 미달

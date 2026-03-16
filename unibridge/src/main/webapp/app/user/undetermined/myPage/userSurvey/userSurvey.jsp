@@ -73,8 +73,13 @@
                                     <select class="modalSelect">
                                         <option value="" disabled selected>선택해 주세요</option>
                                         <option value="korean">국어</option>
+                                        <option value="english">영어</option>
+                                        <option value="math">수학</option>
+                                        <option value="C">C언어</option>
                                         <option value="java">JAVA</option>
+                                        <option value="cplus">C++</option>
                                         <option value="python">Python</option>
+                                        <option value="game">게임</option>
                                     </select>
                                 </div>
                             </div>
@@ -85,6 +90,13 @@
                                     <select class="modalSelect">
                                         <option value="" disabled selected>선택해 주세요</option>
                                         <option value="korean">국어</option>
+                                        <option value="english">영어</option>
+                                        <option value="math">수학</option>
+                                        <option value="C">C언어</option>
+                                        <option value="java">JAVA</option>
+                                        <option value="cplus">C++</option>
+                                        <option value="python">Python</option>
+                                        <option value="game">게임</option>
                                     </select>
                                 </div>
                                 <div class="inputRow">

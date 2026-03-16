@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>멘토 수정페이지</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/frontend/assets/css/header.css" />
-    <link rel="stylesheet" href="/frontend/assets/css/footer.css" />
-    <link rel="stylesheet" href="/frontend/assets/css/user/mentor/myPage/userManage/userModify.css">
-    <script defer src="/frontend/assets/js/user/mentor/myPage/userManage/userModify.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userManage/userModify.css">
+    <script defer src="${pageContext.request.contextPath}/assets/js/user/mentor/myPage/userManage/userModify.js"></script>
 </head>
 <body>
     <div id="headerContainer"></div>
@@ -19,21 +19,21 @@
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="/frontend/html/user/mentor/myPage/myPage.jsp" class="active">계정 관리</a></li>
-                <li><a href="/frontend/html/user/mentor/myPage/userSurvey/userSurvey.jsp">설문 조사</a></li>
-                <li><a href="/frontend/html/user/mentor/myPage/userMatching/userMatching.jsp">매칭 정보</a></li>
-                <li><a href="/frontend/html/user/mentor/myPage/userMentoCreate/mentoringCreate.jsp">멘토링</a></li>
-                <li><a href="/frontend/html/user/mentor/myPage/userDelete/userDelete.jsp">회원 탈퇴</a></li>
+                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/myPage.jsp" class="active">계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userSurvey/userSurvey.jsp">설문 조사</a></li>
+                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userMatching/userMatching.jsp">매칭 정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userMentoCreate/mentoringCreate.jsp">멘토링</a></li>
+                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userDelete/userDelete.jsp">회원 탈퇴</a></li>
             </ul>
         </aside>
         <main>
             <div class="userManageTitle">
-                <img src="/frontend/assets/img/user/userProfile/userIcon.png" alt="프로필 아이콘">
+                <img src="${pageContext.request.contextPath}/assets/img/user/userProfile/userIcon.png" alt="프로필 아이콘">
                 <div class="title">계정관리</div>
             </div>
             <div class="userMain">
                 <div class="userImg">
-                    <img src="/frontend/assets/img/user/userProfile/ex1.png" alt="유저의 프로필 사진">
+                    <img src="${pageContext.request.contextPath}/assets/img/user/userProfile/ex1.png" alt="유저의 프로필 사진">
                     <button id="imgBtn">사진 변경</button>
                     <div class="errorMsg"></div>
                 </div>
