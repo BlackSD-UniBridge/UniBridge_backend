@@ -2,10 +2,13 @@ package com.unibridge.app.pay.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +16,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class PayFrontController extends HttpServlet {
+	
+	private String kakaoSecretKey;
+
+    @Override
+    public void init() throws ServletException {
+        // properties 파일을 읽어오는 로직
+        Properties props = new Properties();
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("config/api.properties")) {
+            if (is != null) {
+                props.load(is);
+                this.kakaoSecretKey = props.getProperty("kakao.secret.key");
+            } else {
+                System.err.println(">>> [ERROR] api.properties 파일을 찾을 수 없습니다.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -66,21 +87,23 @@ public class PayFrontController extends HttpServlet {
 			String totalAmount = request.getParameter("total_amount");
 
 			URL url = new URL("https://open-api.kakaopay.com/online/v1/payment/ready");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Authorization", "SECRET_KEY DEV343EB9FECD7DD7A4D3803ED70C568F6C3F88D");
-			// ★ Content-type을 json으로 변경합니다.
-			conn.setRequestProperty("Content-type", "application/json;charset=utf-8");
-			conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            
+            // ★ 하드코딩 대신 필드 변수 사용
+            String secretKey = "SECRET_KEY " + ConfigReader.getProperty("kakao.secret.key");
+            conn.setRequestProperty("Authorization", secretKey);
+            conn.setRequestProperty("Content-type", "application/json;charset=utf-8");
+            conn.setDoOutput(true);
 
 			// 데이터를 JSON 형태로 만듭니다. (문자열 더하기로 간단히 구현)
 			String jsonParams = "{" + "\"cid\":\"TC0ONETIME\"," + "\"partner_order_id\":\"1001\","
 					+ "\"partner_user_id\":\"unibridge\"," + "\"item_name\":\"" + itemName + "\"," + "\"quantity\":1,"
 					+ "\"total_amount\":" + totalAmount + "," + "\"tax_free_amount\":0,"
-					+ "\"approval_url\":\"http://localhost:8888" + request.getContextPath() + "/paymentFinish.pay\","
-					+ "\"cancel_url\":\"http://localhost:8888" + request.getContextPath() + "/payment.pay\","
-					+ "\"fail_url\":\"http://localhost:8888" + request.getContextPath() + "/payment.pay\"" + "}";
+					+ "\"approval_url\":\"http://localhost:9999" + request.getContextPath() + "/paymentFinish.pay\","
+					+ "\"cancel_url\":\"http://localhost:9999" + request.getContextPath() + "/payment.pay\","
+					+ "\"fail_url\":\"http://localhost:9999" + request.getContextPath() + "/payment.pay\"" + "}";
 
 			System.out.println(">>> [JSON 전송 확인]: " + jsonParams);
 

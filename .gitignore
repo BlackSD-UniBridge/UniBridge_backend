@@ -300,8 +300,7 @@ out/
 
 # 보안 및 환경 설정 (DB 정보 등)
 src/main/resources/db.properties
-db.properties
-jdbc.properties
+.properties
 .env
 .env.*
 

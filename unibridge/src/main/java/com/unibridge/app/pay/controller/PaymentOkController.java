@@ -13,6 +13,11 @@ public class PaymentOkController {
 
     public void execute(HttpServletRequest request, HttpServletResponse response) {
         try {
+        	// properties에서 키 값 가져오기
+            String secretKey = "SECRET_KEY " + ConfigReader.getProperty("kakao.secret.key");
+            
+            String cid = ConfigReader.getProperty("kakao.cid");
+
             HttpSession session = request.getSession();
             String tid = (String) session.getAttribute("tid");
             String pgToken = request.getParameter("pg_token");
@@ -24,18 +29,19 @@ public class PaymentOkController {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "SECRET_KEY DEV343EB9FECD7DD7A4D3803ED70C568F6C3F88D");
+            
+            conn.setRequestProperty("Authorization", secretKey);
             conn.setRequestProperty("Content-type", "application/json;charset=utf-8");
             conn.setDoOutput(true);
 
             // 승인 요청에 필요한 JSON 데이터
             String jsonParams = "{"
-                + "\"cid\":\"TC0ONETIME\","
-                + "\"tid\":\"" + tid + "\","
-                + "\"partner_order_id\":\"1001\","
-                + "\"partner_user_id\":\"unibridge\","
-                + "\"pg_token\":\"" + pgToken + "\""
-                + "}";
+                    + "\"cid\":\"" + cid + "\","
+                    + "\"tid\":\"" + tid + "\","
+                    + "\"partner_order_id\":\"1001\","
+                    + "\"partner_user_id\":\"unibridge\","
+                    + "\"pg_token\":\"" + pgToken + "\""
+                    + "}";
 
             try (OutputStream out = conn.getOutputStream()) {
                 out.write(jsonParams.getBytes("utf-8"));
@@ -57,7 +63,8 @@ public class PaymentOkController {
                 System.out.println(">>> [8] 모든 처리 완료. 화면 이동 시작");
                 
                 // [수정] 실제 파일 경로와 이름(Finsih 오타 주의)을 정확히 입력합니다.
-                request.getRequestDispatcher("/app/user/mentorSearch/payment/paymentFinish.jsp").forward(request, response);
+                String movePath = request.getContextPath() + "/app/user/mentorSearch/payment/paymentFinish.jsp";
+                response.sendRedirect(movePath);
             } else {
                 // [추가] 400, 500 에러 발생 시 상세 내용을 브라우저에 출력합니다.
                 BufferedReader errorBr = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "utf-8"));
