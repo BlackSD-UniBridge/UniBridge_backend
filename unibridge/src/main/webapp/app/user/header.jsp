@@ -38,9 +38,9 @@
             <c:when test="${empty sessionScope.loginUser}">
                 <%-- 비로그인 상태 --%>
                 <div class="headerAuthGroup">
-                    <a href="${pageContext.request.contextPath}/user/signUp/terms.jsp" class="headerBtnText">회원가입</a>
+                    <a href="${pageContext.request.contextPath}/signup.mem" class="headerBtnText">회원가입</a>
                     <div class="headerDivider"></div>
-                    <a href="${pageContext.request.contextPath}/user/signIn/login.jsp" class="headerBtnSignIn">로그인</a>
+                    <a href="${pageContext.request.contextPath}/signin.mem" class="headerBtnSignIn">로그인</a>
                 </div>
             </c:when>
             <c:otherwise>

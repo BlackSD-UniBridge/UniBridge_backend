@@ -15,7 +15,9 @@
 	<title>login</title>
 </head>
 <body>
-    <div id="headerContainer"></div>
+    <div id="headerContainer">
+    	<jsp:include page="/app/user/header.jsp"/>
+    </div>
     <main>
         <div class="content">
             <div class="loginBox">
@@ -32,7 +34,7 @@
                     <div id="errorMsg" class="errorMsg">${loginError}</div>
                     <button type="submit" class="loginBtn">로그인</button>
                 </form>
-                <a href="${pageContext.request.contextPath}/html/user/siginUp/terms.html">
+                <a href="${pageContext.request.contextPath}/signup.mem">
                 	<div class="signup">회원가입</div>
                 </a>
             </div>

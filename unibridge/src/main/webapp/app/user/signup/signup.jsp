@@ -15,7 +15,9 @@
     <script src="${pageContext.request.contextPath}/assets/js/footer.js" defer></script>
 </head>
 <body>
-    <div id="headerContainer"></div>
+    <div id="headerContainer">
+    	<jsp:include page="/app/user/header.jsp"/>
+    </div>
     <main>
         <div class="content">
             <div class="signUpBox">
