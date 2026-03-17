@@ -29,13 +29,13 @@
 	<!-- 멘토 검색 페이지 -->
 	<servlet>
 		<servlet-name>MentorSearch</servlet-name>
-		<servlet-class>com.unibridge.app.mentorSearch.MentorSearchFrontController</servlet-class>
+		<servlet-class>com.unibridge.app.mentorSearch.controller.MentorSearchFrontController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MentorSearch</servlet-name>
 		<url-pattern>*.sch</url-pattern>
 	</servlet-mapping>
-
+	
 	<!-- 회원가입, 로그인 -->
 	<servlet>
 		<servlet-name>Member</servlet-name>
@@ -105,7 +105,7 @@
 		<servlet-name>Main</servlet-name>
 		<url-pattern>*.main</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 관리자 -->
 	<servlet>
 		<servlet-name>Admin</servlet-name>

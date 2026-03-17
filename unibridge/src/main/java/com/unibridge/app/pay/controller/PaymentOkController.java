@@ -23,13 +23,12 @@ public class PaymentOkController implements Execute {
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Result result = new Result();
+		HttpSession session = request.getSession();
 
 		try {
 			// 1. 설정 정보 로드
 			String secretKey = "SECRET_KEY " + ConfigReader.getProperty("kakao.secret.key");
 			String cid = ConfigReader.getProperty("kakao.cid");
-
-			HttpSession session = request.getSession();
 			String tid = (String) session.getAttribute("tid");
 			String pgToken = request.getParameter("pg_token");
 
@@ -53,7 +52,15 @@ public class PaymentOkController implements Execute {
 			int code = conn.getResponseCode();
 
 			if (code == 200) {
+
 				// 1. 응답 데이터 처리 (필요시 JSON 파싱하여 금액 등 추출)
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+				StringBuilder sb = new StringBuilder();
+				String line;
+				while ((line = br.readLine()) != null) {
+					sb.append(line);
+				}
+				System.out.println(">>> [카카오 승인 응답]: " + sb.toString());
 
 				// 2. DB 저장을 위한 DTO 세팅
 				PaymentDTO payDTO = new PaymentDTO();
@@ -63,9 +70,9 @@ public class PaymentOkController implements Execute {
 				// 매칭 번호는 결제 전 단계에서 생성되어 전달되었다고 가정
 				Long matchingNumber = (Long) session.getAttribute("matchingNumber");
 
-				payDTO.setMemberNumber(memberNumber);
-				payDTO.setMatchingNumber(matchingNumber);
-				payDTO.setPayAmount("50000"); // 예시 금액 (실제 결제 금액 사용)
+				payDTO.setMemberNumber(memberNumber != null ? memberNumber : 0L);
+				payDTO.setMatchingNumber(matchingNumber != null ? matchingNumber : 0L);
+				payDTO.setPayAmount("10000"); // 예시 금액 (실제 데이터에 맞게 수정)
 				payDTO.setPayMethod("카카오페이");
 				payDTO.setPayStatus("SUCCESS");
 
@@ -73,10 +80,10 @@ public class PaymentOkController implements Execute {
 				PaymentDAO dao = new PaymentDAO();
 				dao.insertPayment(payDTO);
 
-				System.out.println(">>> [DB 저장 완료] 결제 내역 저장 성공");
-
+				System.out.println(">>> [DB 저장 완료] 회원번호 " + memberNumber + "의 결제 내역 저장 성공");
+				
+				// 4. 세션 정리 및 결과 페이지 이동
 				session.removeAttribute("tid");
-
 				result.setPath(request.getContextPath() + "/app/user/payment/paymentFinish.jsp");
 				result.setRedirect(true);
 
