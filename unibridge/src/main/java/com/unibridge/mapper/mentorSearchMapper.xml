@@ -1,47 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mentorSearch">
-	<select id="selectAllMentors"
-		resultType="com.unibridge.app.mentorSearch.dto.MentorSearchDTO">
+
+	<select id="selectAllMentors" resultType="MentorSearchDTO">
 		SELECT
-		m.member_number,
-		m.member_id,
-		m.member_nickname,
-		s.grad_school,
-		s.grad_depart,
-		m.survey_number,
-		f.file_name AS
-		memberProfile,
-		TO_CHAR(mt.created_at, 'YYYY.MM.DD') AS createdAt
-		FROM
-		UB_MEMBER m
-		JOIN UB_SURVEY_MENTOR s ON m.survey_number =
-		s.survey_number
-		LEFT JOIN UB_FILE f ON m.member_profile = f.file_number
-		LEFT JOIN UB_MENTORING mt ON m.member_number = mt.mentor_number
-		WHERE
-		m.member_type = 'MENTOR'
-		AND m.member_state = '계정 활성화'
-		ORDER BY
-		m.member_number DESC
+		m.member_number
+		AS memberNumber,
+		m.member_name AS memberName,
+		m.member_nickname AS memberNickname,
+		s.grad_school AS gradSchool,
+		s.grad_depart AS
+		gradDepart,
+		f.file_name AS file_number,
+		TO_CHAR(mt.created_at,
+		'YYYY.MM.DD') AS createdAt
+		FROM UB_MEMBER m
+		LEFT JOIN UB_SURVEY_MENTOR s
+		ON m.survey_number = s.survey_number
+		LEFT JOIN UB_FILE f ON
+		m.file_number = f.file_number
+		LEFT JOIN UB_MENTORING mt ON
+		m.member_number = mt.mentor_number
+		WHERE m.member_type = 'MENTOR'
+		AND
+		m.member_state = '계정 활성화'
+		ORDER BY m.member_number DESC
 	</select>
 
 	<select id="selectMentorDetail" parameterType="long"
-		resultType="com.unibridge.app.mentorSearch.dto.MentorSearchDTO">
+		resultType="MentorSearchDTO">
 		SELECT
-		m.member_number,
-		m.member_nickname,
-		s.grad_school,
-		s.grad_depart,
-		m.member_profile AS memberProfile,
-		mt.mentoring_title AS mentoringTitle,
-		mt.mentoring_goal AS mentoringGoal,
-		mt.mentoring_detail AS mentoringDetail,
-		TO_CHAR(mt.created_at, 'YYYY.MM.DD') AS createdAt
+		m.member_number AS memberNumber,
+		m.member_name AS
+		memberName,
+		m.member_nickname AS memberNickname,
+		s.grad_school AS gradSchool,
+		s.grad_depart AS
+		gradDepart,
+		f.file_name AS file_number,
+		TO_CHAR(mt.created_at,
+		'YYYY.MM.DD') AS createdAt
 		FROM UB_MEMBER m
-		JOIN UB_SURVEY_MENTOR s ON m.survey_number = s.survey_number
-		LEFT JOIN UB_MENTORING mt ON m.member_number = mt.mentor_number
-		WHERE m.member_number = #{memberNumber}
+		LEFT JOIN UB_SURVEY_MENTOR s
+		ON m.survey_number = s.survey_number
+		LEFT JOIN UB_FILE f ON
+		m.file_number = f.file_number
+		LEFT JOIN UB_MENTORING mt ON
+		m.member_number = mt.mentor_number
+		WHERE m.member_number =
+		#{memberNumber}
 	</select>
 
 </mapper>

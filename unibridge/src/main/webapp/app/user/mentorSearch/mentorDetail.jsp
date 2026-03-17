@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -32,47 +33,53 @@
 					alt="사진" id="profileImg">
 				<div id="mentoExplan">
 					<div class="mentoSpec">
-						<div id="mentoName">아무개</div>
-						<div id="mentoSubject">국어</div>
-						<div id="mentorUniSchool">코딩대학교</div>
-						<div id="mentoMajor">코딩학과</div>
+						<%-- DTO에 존재하는 memberName 사용 --%>
+						<div id="mentoName">${mentor.memberName}멘토님</div>
+
+						<%-- DTO에 없는 subject는 주석 처리하거나 임시 텍스트 사용 --%>
+						<div id="mentoSubject">전문 분야 준비 중</div>
+
+						<div id="mentorUniSchool">학교: ${mentor.gradSchool}</div>
+						<div id="mentoMajor">학과: ${mentor.gradDepart}</div>
 					</div>
-					<div id="mentoringPurpose">국어를 집중적으로 공부하여, 수능 최저를 맞출 수 있도록 도와
-						드리겠습니다.</div>
+					<%-- 에러 유발 지점: mentoringContent가 DTO에 없으므로 주석 처리 --%>
+					<%-- <div id="mentoringPurpose">${mentor.mentoringContent}</div> --%>
 				</div>
 			</div>
 
 			<div id="detailfoot">
 				<div class="title">커리큘럼 소개</div>
-				<div id="mentoringCurriculum">
-					“아무개 대학교를 가기 위해 수능 국어 및 관련 학과 커리큘럼을 미리 배우는 멘토”<br> 올해 아무개 대학교를
-					졸업했습니다.<br> 끝까지 열심히 참여할 학생이면 누구든지 신청 가능합니다
-				</div>
+				<%-- 에러 유발 지점: mentoringCurriculum 주석 처리 --%>
+				<div id="mentoringCurriculum">상세 커리큘럼을 준비 중입니다.</div>
 			</div>
 		</div>
-		<div id="payment">
-			<div id="paymenthead">
-				<div class="mentoSpec">
-					<div>국어</div>
-					<div>코딩대학교</div>
-					<div>코딩학과</div>
-				</div>
-				<div id="paymentTitle">수능 국어 맞춤 멘토링</div>
-				<hr>
-				<div id="startDay">멘토링 시작일</div>
-				<div id="mentoringDay">2026.3.3(월)</div>
-			</div>
 
-			<div id="paymentfoot">
-				<div id="price">
-					<div>결제금액</div>
-					<div>10,000원</div>
+		<%-- 1. 로그인한 유저의 상태가 'mentee'일 때만 결제 박스 전체를 보여줌 --%>
+		<c:if test="${sessionScope.userStatus == 'mentee'}">
+			<div id="payment">
+				<div id="paymenthead">
+					<div class="mentoSpec">
+						<div>${mentor.subjectName}</div>
+						<div>${mentor.universityName}</div>
+						<div>${mentor.majorName}</div>
+					</div>
+					<div id="paymentTitle">${mentor.mentoringTitle}</div>
+					<hr>
+					<div id="startDay">멘토링 시작일</div>
+					<div id="mentoringDay">2026.3.3(월)</div>
 				</div>
-				<button type="button" id="pay"
-					onclick="location.href='${pageContext.request.contextPath}/pay/paymentOk.pay?memberNumber=${mentor.memberNumber}'">
-					결제하기</button>
+
+				<div id="paymentfoot">
+					<div id="price">
+						<div>결제금액</div>
+						<div>10,000원</div>
+					</div>
+					<button type="button" id="pay"
+						onclick="location.href='${pageContext.request.contextPath}/pay/paymentOk.pay?memberNumber=${mentor.memberNumber}'">
+						결제하기</button>
+				</div>
 			</div>
-		</div>
+		</c:if>
 	</main>
 
 	<%-- <jsp:include page="/app/common/footer.jsp" /> --%>

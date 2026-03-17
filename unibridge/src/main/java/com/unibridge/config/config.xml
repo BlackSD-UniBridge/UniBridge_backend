@@ -2,8 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-   <properties resource="context.properties"></properties>
-   
+   <properties resource="context.properties"></properties>   
    <settings>
       <!-- 카멜케이스 매핑 설정 -->
       <setting name="mapUnderscoreToCamelCase" value="true"></setting>
@@ -13,12 +12,15 @@
       
       <!-- 쿼리에 보내는 파라미터가 null인 경우 오류가 발생하는 것을 방지 설정 -->
       <setting name="jdbcTypeForNull" value="NULL"></setting>
+      
    </settings>
 
    <!-- DTO 별칭 설정 -->
    <typeAliases>
       <typeAlias type="com.unibridge.app.member.dto.MemberDTO" alias="MemberDTO"></typeAlias>
       <!-- <typeAlias type="com.unibridge.app.Board.dto.BoardDTO" alias="BoardDTO"></typeAlias> -->
+      <typeAlias type="com.unibridge.app.pay.dto.PaymentDTO" alias="PaymentDTO"></typeAlias>
+      <typeAlias type="com.unibridge.app.mentorSearch.dto.MentorSearchDTO" alias="MentorSearchDTO"></typeAlias>
    </typeAliases>
 
    <environments default="oracle">
@@ -37,6 +39,8 @@
    <mappers>
       <mapper resource="com/unibridge/mapper/MemberMapper.xml" />
       <!-- <mapper resource="com/unibridge/mapper/BoardMapper.xml" /> -->
+      <mapper resource="com/unibridge/mapper/payMapper.xml" />
+      <mapper resource="com/unibridge/mapper/mentorSearchMapper.xml" />
    </mappers>
    
 </configuration>
