@@ -11,7 +11,7 @@ public class FileDTO {
 	private String fileName;
 	private String fileOriginalName;
 	private String fileExtension;
-	private int fileSize;
+	private long fileSize;
 	private String filePath;
 	
 	public int getFileNumber() {
@@ -54,12 +54,12 @@ public class FileDTO {
 	}
 
 
-	public int getFileSize() {
+	public long getFileSize() {
 		return fileSize;
 	}
 
 
-	public void setFileSize(int fileSize) {
+	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
 	}
 

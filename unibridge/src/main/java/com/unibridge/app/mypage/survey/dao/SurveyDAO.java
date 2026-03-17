@@ -16,12 +16,15 @@ public class SurveyDAO {
         try (SqlSession session = factory.openSession(false)) {
             try {
                 // 2. 파일이 첨부되었다면 파일 정보 먼저 저장 (UB_FILE)
-                if (fileDTO != null) {
-                    session.insert("file.insertFile", fileDTO);
-                    System.out.println("[DB] 1단계: 파일 정보 저장 완료 (FileNo: " + fileDTO.getFileNumber() + ")");
-                    // 매퍼의 selectKey에 의해 fileDto에 fileNumber가 채워짐
-                    menteeDTO.setFileNumber(fileDTO.getFileNumber());
-                }
+            	Integer fileNumber = null; // 🔥 핵심
+
+            	if (fileDTO != null) {
+            	    session.insert("file.insertFile", fileDTO);
+            	    System.out.println("[DB] 1단계: 파일 정보 저장 완료 (FileNo: " + fileDTO.getFileNumber() + ")");
+            	    fileNumber = fileDTO.getFileNumber();
+            	}
+
+            	menteeDTO.setFileNumber(fileNumber); // 🔥 반드시 실행
 
                 // 3. 설문 공통 정보 저장 (UB_SURVEY)
                 // 매퍼의 selectKey에 의해 menteeDto에 surveyNumber가 채워짐
@@ -48,12 +51,15 @@ public class SurveyDAO {
         try (SqlSession session = factory.openSession(false)) {
         	try {
                 // 2. 파일이 첨부되었다면 파일 정보 먼저 저장 (UB_FILE)
-                if (fileDTO != null) {
-                    session.insert("file.insertFile", fileDTO);
-                    // 매퍼의 selectKey에 의해 fileDto에 fileNumber가 채워짐
-                    System.out.println("[DB] 1단계: 파일 정보 저장 완료 (FileNo: " + fileDTO.getFileNumber() + ")");
-                    mentorDTO.setFileNumber(fileDTO.getFileNumber());
-                }
+        		Integer fileNumber = null; // 🔥 핵심
+
+        		if (fileDTO != null) {
+        		    session.insert("file.insertFile", fileDTO);
+        		    System.out.println("[DB] 1단계: 파일 정보 저장 완료 (FileNo: " + fileDTO.getFileNumber() + ")");
+        		    fileNumber = fileDTO.getFileNumber();
+        		}
+
+        		mentorDTO.setFileNumber(fileNumber); // 🔥 반드시 실행
 
                 // 3. 설문 공통 정보 저장 (UB_SURVEY)
                 // 매퍼의 selectKey에 의해 menteeDto에 surveyNumber가 채워짐

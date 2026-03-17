@@ -61,11 +61,14 @@ submitBtn.onclick = (event) => {
     
     // 현재 프로젝트 경로가 /unibridge 이므로 이를 포함해야 합니다.
     // 또는 컨트롤러 구조에 맞춰 상대 경로로 설정하세요.
-    if (selectedRole === "mentor") {
-        form.action = "/unibridge/auth/mentor/surveyMentorOk.my";
-    } else if (selectedRole === "mentee") {
-        form.action = "/unibridge/auth/mentee/surveyMenteeOk.my";
-    }
+	// JSP 상단에 선언된 ${pageContext.request.contextPath}를 활용하세요.
+	// const contextPath = "${pageContext.request.contextPath}"; 
+
+	if (selectedRole === "mentor") {
+	    form.action = contextPath + "/auth/mentor/survey.my";
+	} else if (selectedRole === "mentee") {
+	    form.action = contextPath + "/auth/mentee/survey.my";
+	}
 
     console.log("[JS LOG] 전송 경로: " + form.action);
     form.submit(); // 반드시 폼의 submit()을 호출해야 POST + multipart가 유지됩니다.

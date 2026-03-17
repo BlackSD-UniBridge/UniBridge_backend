@@ -79,14 +79,14 @@
                                     <label>교육과목</label>
                                     <select name="subjectNumber" class="modalSelect">
                                         <option value="" disabled selected>선택해 주세요</option>
-                                        <option value="korean">국어</option>
-                                        <option value="english">영어</option>
-                                        <option value="math">수학</option>
-                                        <option value="C">C언어</option>
-                                        <option value="java">JAVA</option>
-                                        <option value="cplus">C++</option>
-                                        <option value="python">Python</option>
-                                        <option value="game">게임</option>
+                                        <option value="1">국어</option>
+                                        <option value="2">영어</option>
+                                        <option value="3">수학</option>
+                                        <option value="4">C언어</option>
+                                        <option value="5">JAVA</option>
+                                        <option value="6">C++</option>
+                                        <option value="7">Python</option>
+                                        <option value="8">게임</option>
                                     </select>
                                 </div>
                             </div>
@@ -96,14 +96,14 @@
                                     <label>희망 과목</label>
                                     <select name="subjectNumber" class="modalSelect">
                                         <option value="" disabled selected>선택해 주세요</option>
-                                        <option value="korean">국어</option>
-                                        <option value="english">영어</option>
-                                        <option value="math">수학</option>
-                                        <option value="C">C언어</option>
-                                        <option value="java">JAVA</option>
-                                        <option value="cplus">C++</option>
-                                        <option value="python">Python</option>
-                                        <option value="game">게임</option>
+                                        <option value="1">국어</option>
+                                        <option value="2">영어</option>
+                                        <option value="3">수학</option>
+                                        <option value="4">C언어</option>
+                                        <option value="5">JAVA</option>
+                                        <option value="6">C++</option>
+                                        <option value="7">Python</option>
+                                        <option value="8">게임</option>
                                     </select>
                                 </div>
                                 <div class="inputRow">
@@ -151,5 +151,6 @@
 
     <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
+    <script>const contextPath = "${pageContext.request.contextPath}";</script>
 </body>
 </html>

@@ -16,7 +16,8 @@ public class SurveyDTO {
 	private String surveyRejReason;
 	private String surveyAppDate;
 	private int adminNumber;
-	private int fileNumber;
+	//Integer NULL 입력가능;
+	private Integer fileNumber;
 	private int memberNumber;
 	public int getSurveyNumber() {
 		return surveyNumber;
@@ -54,11 +55,11 @@ public class SurveyDTO {
 	public void setAdminNumber(int adminNumber) {
 		this.adminNumber = adminNumber;
 	}
-	public int getFileNumber() {
-		return fileNumber;
+	public Integer getFileNumber() {
+	    return fileNumber;
 	}
-	public void setFileNumber(int fileNumber) {
-		this.fileNumber = fileNumber;
+	public void setFileNumber(Integer fileNumber) {
+	    this.fileNumber = fileNumber;
 	}
 	public int getMemberNumber() {
 		return memberNumber;
