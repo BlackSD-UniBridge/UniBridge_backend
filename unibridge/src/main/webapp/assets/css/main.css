@@ -1,0 +1,412 @@
+/* 메인 컨텐츠 영역 */
+.mainContent {
+  /* 중요: 헤더(56px) + 간격(40px) = 96px */
+  margin-top: 96px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* 광고 배너 섹션 (카멜 표기법) */
+.adBanner {
+  /* 헤더 높이 56px + 간격 40px */
+  padding-top: 96px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* 배너 본체 컨테이너 */
+.bannerContainer {
+  width: 90%;
+  max-width: 1100px;
+  height: 300px;
+  background-color: #3578e5;
+  /* DACON 브랜드 블루 */
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* 텍스트 스타일 */
+.bannerLogo {
+  font-size: clamp(40px, 8vw, 85px);
+  font-weight: 900;
+  margin: 0;
+  letter-spacing: -2px;
+}
+
+.bannerSubtitle {
+  font-size: clamp(16px, 2vw, 24px);
+  margin-top: 10px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+/* 유저 이름 뱃지 */
+.userName {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ── 진행중인 대회 섹션 전체 ── */
+.contestWrap {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto 80px;
+  overflow: hidden;
+  /* 슬라이더가 옆으로 삐져나가지 않게 */
+}
+
+.contestNavGroup {
+  display: flex;
+  gap: 6px;
+}
+
+.contestHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+/* ── 진행중인 대회 섹션 버튼 ── */
+.contestNavBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #555;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.contestNavBtn:hover {
+  border-color: #2c5f8a;
+  color: #2c5f8a;
+  background: #f0f6ff;
+}
+
+.contestNavBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* 슬라이더 트랙: 카드들을 가로로 배치 */
+.contestSliderTrack {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.4s ease;
+}
+
+/* ── 대회 카드 (핵심 수정) ── */
+.contestCard {
+  flex: 0 0 calc(20% - 16px);
+  /* 5개씩 배치 기준 */
+  min-width: 210px;
+  display: flex;
+  flex-direction: column;
+  /* 내부 요소를 세로로 쌓음 */
+  background: #fff;
+  padding: 10px;
+  border-radius: 12px;
+  /* 카드의 최소 높이를 지정하거나, 내부 요소가 밀어내도록 설정 */
+  height: 100%;
+}
+
+/* 1. 이미지/썸네일 영역 비율 고정 */
+.contestCardThumbEmpty {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  /* 이미지 영역의 높이를 일정하게 고정 */
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #adb5bd;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* 2. 제목 영역: 높이 고정 및 말줄임표 처리 */
+.contestCardTitle {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #333;
+  margin-bottom: 8px;
+
+  /* 제목이 길어도 최대 2줄만 보여주고 높이를 고정함 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.8em;
+  /* line-height(1.4) * 2줄 */
+}
+
+/* 3. 날짜 영역 */
+.contestCardDate {
+  font-size: 13px;
+  color: #868e96;
+  margin-bottom: 12px;
+}
+
+/* 4. 태그 리스트: 제목이 짧아도 항상 맨 아래로 붙게 만듦 */
+.contestCardTagList {
+  margin-top: auto;
+  /* 핵심: 위쪽 공간을 다 채우고 아래로 밀려남 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.contestCardTag {
+  font-size: 11px;
+  padding: 3px 8px;
+  background: #f1f3f5;
+  border-radius: 4px;
+  color: #495057;
+  white-space: nowrap;
+}
+
+/* 활성화된 태그 (진행 대회 등) */
+.contestCardTagActive {
+  background: #fff9db;
+  color: #f08c00;
+  font-weight: 600;
+}
+
+/* ── 추천 멘토 섹션 ── */
+.mentoRecommendWrap {
+  width: 100%;
+  max-width: 1144px;
+  margin: 36px auto 0;
+  padding: 0 28px;
+}
+
+.mentoRecommendTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.2px;
+  margin-bottom: 20px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* ── 멘토 목록 ── */
+.mentoRecommendList {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ── 멘토 카드 ── */
+.mentoRecommendCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  cursor: pointer;
+}
+
+/* 프로필 이미지 (동그라미) */
+.mentoRecommendAvatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 12px;
+  border: 2px solid #e8eef5;
+  background-color: #dde8f5;
+}
+
+.mentoRecommendName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 3px;
+  font-family: 'Noto Sans KR', sans-serif;
+  white-space: nowrap;
+}
+
+.mentoRecommendSchool {
+  font-size: 12px;
+  color: #444;
+  margin-bottom: 2px;
+  font-family: 'Noto Sans KR', sans-serif;
+  line-height: 1.5;
+}
+
+.mentoRecommendMajor {
+  font-size: 11.5px;
+  color: #666;
+  margin-bottom: 8px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.mentoRecommendInfo {
+  font-size: 11px;
+  color: #aaa;
+  line-height: 1.7;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+/* ── 취업 섹션 ── */
+.jobBannerWrap {
+  width: 100%;
+  max-width: 1144px;
+  margin: 36px auto 0;
+  padding: 0 28px;
+}
+
+.jobBannerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.jobBannerTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.2px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* ── 슬라이더 버튼 ── */
+.jobBannerNavGroup {
+  display: flex;
+  gap: 6px;
+}
+
+.jobBannerNavBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #555;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.jobBannerNavBtn:hover {
+  border-color: #2c5f8a;
+  color: #2c5f8a;
+  background: #f0f6ff;
+}
+
+.jobBannerNavBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ── 슬라이더 트랙 ── */
+.jobBannerSliderWrap {
+  overflow: hidden;
+}
+
+.jobBannerSliderTrack {
+  display: flex;
+  gap: 16px;
+  transition: transform 0.35s ease;
+}
+
+/* ── 취업 카드 ── */
+.jobBannerCard {
+  flex: 0 0 calc((100% - 64px) / 5);
+  min-width: 0;
+  cursor: pointer;
+  /* 추가: 내부 정렬을 위한 설정 */
+  display: flex;
+  flex-direction: column;
+}
+
+.jobBannerCardThumb {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 10px;
+  background: #e8eef5;
+  flex-shrink: 0;
+  /* 썸네일 크기 고정 */
+}
+
+.jobBannerCardTitle {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #222;
+  line-height: 1.5;
+  margin-bottom: 4px;
+  font-family: 'Noto Sans KR', sans-serif;
+
+  /* 높이 고정: 제목이 1줄이어도 2줄만큼의 공간을 차지하게 함 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 3em;
+  /* line-height(1.5) * 2줄 */
+}
+
+.jobBannerCardDate {
+  font-size: 11px;
+  color: #aaa;
+  margin-bottom: 6px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.jobBannerCardTagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  /* 핵심: 제목이 짧아 남는 공간이 생기면 이 영역을 바닥으로 밀어냄 */
+  margin-top: auto;
+}
+
+.jobBannerCardTag {
+  font-size: 10.5px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: #f0f4f8;
+  color: #555;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.jobBannerCardTag.active {
+  background: #fff3cd;
+  color: #856404;
+}

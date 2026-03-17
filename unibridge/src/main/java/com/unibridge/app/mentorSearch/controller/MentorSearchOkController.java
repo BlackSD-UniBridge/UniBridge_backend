@@ -12,16 +12,14 @@ import com.unibridge.app.mentorSearch.dto.MentorSearchDTO;
 
 public class MentorSearchOkController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MentorSearchDAO dao = new MentorSearchDAO();
-        
-        // 1. DB에서 조인된 멘토 리스트 가져오기
-        List<MentorSearchDTO> mentorList = dao.selectAllMentors();
-        
-        // 2. JSP에서 사용하기 위해 request 객체에 저장
-        request.setAttribute("mentorList", mentorList);
-        
-        // 3. 데이터를 가지고 mentorSearch.jsp로 이동
-        request.getRequestDispatcher("/app/user/mentorSearch/mentorSearch.jsp").forward(request, response);
-    }
+		MentorSearchDAO dao = new MentorSearchDAO();
+		List<MentorSearchDTO> mentorList = dao.selectAllMentors();
+
+		// 데이터 유무를 리퀘스트에 담기 전 마지막 확인
+		request.setAttribute("mentorList", mentorList);
+		System.out.println(">>> [LOG] Controller: request에 mentorList 세팅 완료");
+
+		request.getRequestDispatcher("/app/user/mentorSearch/mentorSearch.jsp").forward(request, response);
+	}
 
 }

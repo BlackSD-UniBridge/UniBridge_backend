@@ -1,0 +1,296 @@
+@charset "UTF-8";
+/* ── 멘티 게시판 상세 페이지 ── */
+.menteeBoardDetailWrap {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 96px 75px 60px;
+  }
+  
+  /* ── 제목 영역 ── */
+  .menteeBoardDetailHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  
+  .menteeBoardDetailBadge {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2c5f8a;
+    font-family: 'Noto Sans KR', sans-serif;
+    white-space: nowrap;
+  }
+  
+  .menteeBoardDetailTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+  }
+  
+  /* ── 메타 정보 ── */
+  .menteeBoardDetailMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  
+  .menteeBoardDetailAuthor {
+    font-size: 12.5px;
+    color: #888;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  
+  .menteeBoardDetailMetaRight {
+    display: flex;
+    gap: 14px;
+  }
+  
+  .menteeBoardDetailViews,
+  .menteeBoardDetailCommentCount {
+    font-size: 12.5px;
+    color: #888;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  
+  /* ── 본문 영역 ── */
+  .menteeBoardDetailBody {
+    width: 100%;
+    min-height: 220px;
+    border: 1px solid #dde6f0;
+    border-radius: 8px;
+    background: #f8fbff;
+    padding: 24px;
+    font-size: 14px;
+    color: #555;
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* ── 글목록 / 수정 / 삭제 버튼 영역 ── */
+  .menteeBoardDetailBtnWrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  
+  .menteeBoardDetailBackBtn {
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    background: #fff;
+    border: 1px solid #ccd6e0;
+    border-radius: 20px;
+    padding: 7px 18px;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  
+  .menteeBoardDetailBackBtn:hover {
+    background: #f0f6ff;
+    border-color: #2c5f8a;
+    color: #2c5f8a;
+  }
+  
+  .menteeBoardDetailActionGroup {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .menteeBoardDetailEditBtn,
+  .menteeBoardDetailDeleteBtn {
+    font-size: 13px;
+    font-weight: 500;
+    background: #fff;
+    border-radius: 20px;
+    padding: 7px 18px;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  
+  .menteeBoardDetailEditBtn {
+    color: #2c5f8a;
+    border: 1px solid #2c5f8a;
+  }
+  
+  .menteeBoardDetailEditBtn:hover {
+    background: #2c5f8a;
+    color: #fff;
+  }
+  
+  .menteeBoardDetailDeleteBtn {
+    color: #c0392b;
+    border: 1px solid #c0392b;
+  }
+  
+  .menteeBoardDetailDeleteBtn:hover {
+    background: #c0392b;
+    color: #fff;
+  }
+  
+  /* ── 댓글 입력 영역 ── */
+  .menteeBoardDetailCommentForm {
+    display: flex;
+    border: 1px solid #dde6f0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .menteeBoardDetailCommentNic {
+    width: 100px;
+    background: #eef3f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #2c5f8a;
+    font-family: 'Noto Sans KR', sans-serif;
+    border-right: 1px solid #dde6f0;
+    flex-shrink: 0;
+    padding: 14px 10px;
+    text-align: center;
+  }
+  
+  .menteeBoardDetailCommentInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #333;
+    background: #fff;
+    resize: none;
+  }
+  
+  .menteeBoardDetailCommentInput::placeholder {
+    color: #bbb;
+  }
+  
+  .menteeBoardDetailCommentSubmitBtn {
+    width: 64px;
+    background: #eef3f8;
+    border: none;
+    border-left: 1px solid #dde6f0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2c5f8a;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+  
+  .menteeBoardDetailCommentSubmitBtn:hover {
+    background: #d6e6f5;
+  }
+  
+  /* ── 댓글 목록 ── */
+  .menteeBoardDetailCommentList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .menteeBoardDetailCommentItem {
+    border: 1px solid #dde6f0;
+    border-radius: 8px;
+    padding: 16px 20px;
+    background: #fff;
+    position: relative;
+  }
+  
+  .menteeBoardDetailCommentItemTop {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 6px;
+  }
+  
+  .menteeBoardDetailCommentDate {
+    font-size: 11.5px;
+    color: #bbb;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  
+  .menteeBoardDetailCommentBody {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .menteeBoardDetailCommentNicname {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Noto Sans KR', sans-serif;
+    white-space: nowrap;
+    min-width: 70px;
+  }
+  
+  .menteeBoardDetailCommentText {
+    font-size: 13.5px;
+    color: #555;
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.6;
+    flex: 1;
+  }
+  
+  /* 본인 댓글 액션 */
+  .menteeBoardDetailCommentActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  
+  .menteeBoardDetailCommentNewBadge {
+    font-size: 11px;
+    font-weight: 600;
+    background: #2c5f8a;
+    color: #fff;
+    border-radius: 20px;
+    padding: 2px 8px;
+  }
+  
+  .menteeBoardDetailCommentEditBtn,
+  .menteeBoardDetailCommentDeleteBtn {
+    font-size: 12px;
+    font-weight: 500;
+    background: #fff;
+    border-radius: 20px;
+    padding: 4px 14px;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: background 0.15s;
+  }
+  
+  .menteeBoardDetailCommentEditBtn {
+    color: #2c5f8a;
+    border: 1px solid #2c5f8a;
+  }
+  
+  .menteeBoardDetailCommentEditBtn:hover {
+    background: #2c5f8a;
+    color: #fff;
+  }
+  
+  .menteeBoardDetailCommentDeleteBtn {
+    color: #c0392b;
+    border: 1px solid #c0392b;
+  }
+  
+  .menteeBoardDetailCommentDeleteBtn:hover {
+    background: #c0392b;
+    color: #fff;
+  }
