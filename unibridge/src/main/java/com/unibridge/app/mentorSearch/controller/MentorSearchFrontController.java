@@ -1,7 +1,6 @@
 package com.unibridge.app.mentorSearch.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,24 +12,15 @@ import com.unibridge.app.Result;
  * Servlet implementation class MentorSearchFrontController
  */
 public class MentorSearchFrontController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doProcess(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doProcess(request, response);
 	}
 
@@ -38,32 +28,44 @@ public class MentorSearchFrontController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		Result result = null; // 결과 객체를 담을 변수
-		System.out.println("MentorSearchFrontController 실행!!");
+
+		// 1. 요청 경로 추출
 		String target = request.getRequestURI().substring(request.getContextPath().length());
-		System.out.println("현재 경로 : " + target);
+		System.out.println("MentorSearchFrontController 현재 경로 : " + target);
 
-		if (target.equals("/app/user/mentorSearch/mentorSearchOk.sch")) {
-			new MentorSearchOkController().execute(request, response);
-		}
-		// 2. 멘토 상세 페이지 보기 요청
-		else if (target.equals("/mentor/mentorDetailOk.sch")) {
-			result = new MentorDetailOkController().execute(request, response); // 결과를 변수에 담음
+		// 2. 결과 객체 초기화
+		Result result = new Result();
+
+		// 3. 분기 처리 (Switch-case 구조)
+		switch (target) {
+		case "/app/user/mentorSearch/mentorSearchOk.sch":
+			System.out.println("멘토 검색 처리 요청");
+			// MentorSearchOkController가 Result를 반환하도록 설계되어 있다면 아래와 같이 작성
+			result = new MentorSearchOkController().execute(request, response);
+			System.out.println("멘토 검색 처리 완료");
+			break;
+
+		case "/mentor/mentorDetailOk.sch":
+			System.out.println("멘토 상세 페이지 처리 요청");
+			result = new MentorDetailOkController().execute(request, response);
+			System.out.println("멘토 상세 페이지 처리 완료");
+			break;
+
+		case "/mentor/mentorSearch.sch":
+			System.out.println("단순 페이지 이동 요청");
+			// 단순 이동도 Result 객체에 경로와 방식(forward)을 담아 일관성 있게 처리
+			result.setPath("/app/user/mentorSearch/mentorSearch.jsp");
+			result.setRedirect(false);
+			break;
 		}
 
-		// 3. 단순 페이지 이동 (데이터 처리 없이 JSP만 띄울 때)
-		else if (target.equals("/mentor/mentorSearch.sch")) {
-			request.getRequestDispatcher("/app/user/mentorSearch/mentorSearch.jsp").forward(request, response);
-		}
-
-		if (result != null) {
+		// 4. 전송 처리 (공통 로직)
+		if (result != null && result.getPath() != null) {
 			if (result.isRedirect()) {
 				response.sendRedirect(result.getPath());
 			} else {
 				request.getRequestDispatcher(result.getPath()).forward(request, response);
 			}
 		}
-
 	}
-
 }

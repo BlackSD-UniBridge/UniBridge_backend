@@ -51,4 +51,5 @@
       WHERE member_number = #{memberNumber}
    </select>
    
+   
 </mapper>

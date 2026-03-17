@@ -9,7 +9,7 @@ public class MentorSearchDTO {
 	private String gradSchool; // 학교
 	private String gradDepart; // 학과
 	private int surveyNumber;
-	private String file_number;
+	private String fileNumber;
 	private String createdAt;
 	private String subject;
 	private String purpose;
@@ -48,11 +48,11 @@ public class MentorSearchDTO {
 	}
 
 	public String getFile() {
-		return file_number;
+		return fileNumber;
 	}
 
-	public void setFile(String file_number) {
-		this.file_number = file_number;
+	public void setFile(String fileNumber) {
+		this.fileNumber = fileNumber;
 	}
 
 	public int getMemberNumber() {

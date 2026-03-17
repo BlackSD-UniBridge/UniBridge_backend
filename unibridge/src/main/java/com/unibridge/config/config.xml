@@ -21,6 +21,7 @@
       <!-- <typeAlias type="com.unibridge.app.Board.dto.BoardDTO" alias="BoardDTO"></typeAlias> -->
       <typeAlias type="com.unibridge.app.pay.dto.PaymentDTO" alias="PaymentDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mentorSearch.dto.MentorSearchDTO" alias="MentorSearchDTO"></typeAlias>
+      <typeAlias type="com.unibridge.app.mypage.mentoring.dto.MentoringDTO" alias="MentoringDTO"></typeAlias>
    </typeAliases>
 
    <environments default="oracle">
@@ -41,6 +42,7 @@
       <!-- <mapper resource="com/unibridge/mapper/BoardMapper.xml" /> -->
       <mapper resource="com/unibridge/mapper/payMapper.xml" />
       <mapper resource="com/unibridge/mapper/mentorSearchMapper.xml" />
+      <mapper resource="com/unibridge/mapper/mentoringMapper.xml" />
    </mappers>
    
 </configuration>
