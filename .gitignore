@@ -18,8 +18,8 @@ tmp/
 *.bak
 *.swp
 *~.nib
-*/local.properties
-*/context.properties
+**/local.properties
+**/context.properties
 .settings/
 .loadpath
 .recommenders
