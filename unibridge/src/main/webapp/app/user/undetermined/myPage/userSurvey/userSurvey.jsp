@@ -20,9 +20,9 @@
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/app/user/undetermined/myPage/myPage.jsp" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/undetermined/myPage/userSurvey/userSurvey.jsp" class="active">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/undetermined/myPage/userDelete/userDelete.jsp">회원 탈퇴</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/undecided/mypage.my" >계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/undecided/survey.my" class="active">설문 조사</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/undecided/delete.my">회원 탈퇴</a></li>
             </ul>
         </aside>
         <main>
@@ -42,7 +42,7 @@
                     <button class="closeBtn"><img src="${pageContext.request.contextPath}/assets/img/user/userProfile/close.png" alt=""></button>
                     <div class="surveyTitle">설문 조사</div>
                     <div class="modalBox">
-                        <form id="surveyForm" method="post" enctype="multipart/form-data">
+                        <form id="surveyForm" action="${pageContext.request.contextPath}/auth/undecided/survey.my" method="post" enctype="multipart/form-data">
                             <div class="inputRow">
                                 <label>멘토/멘티</label>
                                 <div class="radioGroup">

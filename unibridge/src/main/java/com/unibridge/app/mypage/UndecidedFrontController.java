@@ -10,16 +10,16 @@ import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.member.controller.DeleteController;
 import com.unibridge.app.member.controller.UpdateController;
-import com.unibridge.app.mypage.matching.controller.MatchingController;
-import com.unibridge.app.mypage.matching.controller.PayLogController;
 import com.unibridge.app.mypage.survey.controller.SurveyController;
 
-public class MenteeFrontController implements Execute {
+public class UndecidedFrontController implements Execute{
 	Result outResult = new Result();
-	
+
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		// 미정 컨트롤러
 		String requestURI = request.getRequestURI();
 		String target = extractTargetPath(requestURI);
 		
@@ -36,14 +36,6 @@ public class MenteeFrontController implements Execute {
 			System.out.println("회원탈퇴 신청 요청 수신");
 			this.outResult = new DeleteController().execute(request, response);
 			break;
-		case "matching.my":
-			System.out.println("매칭 정보 조회 수신");
-			this.outResult = new MatchingController().execute(request, response);
-			break;
-		case "log.my":
-			System.out.println("결제 정보 조회 수신");
-			this.outResult = new PayLogController().execute(request, response);
-			break;
 		default:
 			break;
 		}
@@ -55,4 +47,5 @@ public class MenteeFrontController implements Execute {
 		String   target = splitedPaths[splitedPaths.length - 1];
 		return target;
 	}
+
 }

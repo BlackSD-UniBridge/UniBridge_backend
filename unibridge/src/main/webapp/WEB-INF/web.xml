@@ -50,7 +50,7 @@
 	<!-- 마이페이지 -->
 	<servlet>
 		<servlet-name>Mypage</servlet-name>
-		<servlet-class>com.unibridge.app.mentorSearch.controller.MentorSearchFrontController</servlet-class>
+		<servlet-class>com.unibridge.app.mypage.MypageFrontController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Mypage</servlet-name>

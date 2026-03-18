@@ -8,8 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
+import com.unibridge.app.member.controller.DeleteController;
+import com.unibridge.app.member.controller.UpdateController;
 import com.unibridge.app.mypage.entrypoint.controller.MentorController;
-import com.unibridge.app.mypage.surveyMentor.controller.SurveyMentorOkController;
+import com.unibridge.app.mypage.matching.controller.MatchingController;
+import com.unibridge.app.mypage.survey.controller.SurveyController;
+import com.unibridge.app.mypage.surveyMentor.controller.SurveyMentorController;
 
 public class MentorFrontController implements Execute {
 	Result outResult = new Result();
@@ -21,13 +25,20 @@ public class MentorFrontController implements Execute {
 		String target = extractTargetPath(requestURI);
 		switch (target) {
 		case  "myPage.my":
-		case "/myPage.my":
-			this.outResult = new MentorController().execute(request, response);
+			System.out.println("계정관리 요청 수신");
+			this.outResult = new UpdateController().execute(request, response);
 			break;
-		case "surveyMentorOk.my":
-		case "/surveyMentorOk.my":
-			System.out.println("멘토 설문 등록 요청 수신");
-			this.outResult = new SurveyMentorOkController().execute(request, response);
+		case "survey.my":
+		    System.out.println("설문 요청 수신");
+		    this.outResult = new SurveyController().execute(request, response);
+		    break;
+		case "delete.my":
+			System.out.println("회원탈퇴 신청 요청 수신");
+			this.outResult = new DeleteController().execute(request, response);
+			break;
+		case "matching.my":
+			System.out.println("매칭 정보 조회 수신");
+			this.outResult = new MatchingController().execute(request, response);
 			break;
 		default:
 			break;

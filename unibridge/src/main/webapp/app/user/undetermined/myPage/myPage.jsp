@@ -19,9 +19,9 @@
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/app/user/undetermined/myPage/mypage.jsp" class="active">계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/undetermined/myPage/userSurvey/userSurvey.jsp">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/undetermined/myPage/userDelete/userDelete.jsp">회원 탈퇴</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/undecided/mypage.my" class="active">계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/undecided/survey.my" >설문 조사</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/undecided/delete.my">회원 탈퇴</a></li>
             </ul>
         </aside>
         <main>

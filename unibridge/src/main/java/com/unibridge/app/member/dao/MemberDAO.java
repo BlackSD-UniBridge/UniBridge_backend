@@ -34,4 +34,13 @@ public class MemberDAO {
     	Integer result = sqlSession.insert("member.join", member);
     	return result != null ? result : -1;
     }
+    
+    public boolean checkMember(MemberDTO member) {
+        Integer result = sqlSession.selectOne("member.checkMember", member);
+        return result != null && result > 0;
+    }
+    
+    public void deleteMember(int memberNumber) {
+        sqlSession.delete("member.deleteMember", memberNumber);
+    }
 }

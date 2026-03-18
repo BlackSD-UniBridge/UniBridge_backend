@@ -57,7 +57,7 @@ public class SurveyMentorController implements Execute{
         }
 
         // 2. MultipartRequest 생성
-        final int FILE_SIZE = 500 * 1024 * 1024; // 500MB 
+        final int FILE_SIZE = 100 * 1024 * 1024; // 100MB 
         MultipartRequest multi = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "UTF-8", new DefaultFileRenamePolicy());
 
         // 3. 세션 정보 확인 (중요: memberNumber가 반드시 있어야 합니다!)
@@ -65,15 +65,15 @@ public class SurveyMentorController implements Execute{
         Object memberNumObj = session.getAttribute("memberNumber");
         
         // 👉 무조건 41 사용
-        int memberNumber = 43;
-        System.out.println("[LOG] 임시 memberNumber 사용: 43");
+//        int memberNumber = 42;
+//        System.out.println("[LOG] 임시 memberNumber 사용: 42");
         
         //테스트를 위한 주석처리 -> 테스트 해제시 주석 해제 
-//        if (memberNumObj == null) {
-//            outResult.setRedirect(true);
-//            outResult.setPath(request.getContextPath() + "/member/login.me");
-//            return;
-//        }
+        if (memberNumObj == null) {
+            outResult.setRedirect(true);
+            outResult.setPath(request.getContextPath() + "/member/login.me");
+            return;
+        }
         
         // 4. 파일 데이터 수집
         String filesystemName = multi.getFilesystemName("surveyFile");
@@ -110,7 +110,7 @@ public class SurveyMentorController implements Execute{
         }
 
         // 5. 멘토 설문 데이터 수집 (SurveyDTO 상속 필드 포함)
-//        int memberNumber = (int)memberNumObj; //테스트 해제시 주석처리 해제할 것
+        int memberNumber = (int)memberNumObj; //테스트 해제시 주석처리 해제할 것
         mentorDTO.setMemberNumber(memberNumber); // 부모 클래스 필드
         mentorDTO.setSurveyType("MENTOR");       // 부모 클래스 필드   
         
@@ -138,8 +138,19 @@ public class SurveyMentorController implements Execute{
         surveyDAO.insertMentorSurvey(mentorDTO, fileDTO);
 
         // 7. 결과 반환 (Redirect로 마이페이지 메인 이동) - 임지(추후 마이페이지 계정관리 이동예정)
+        session = request.getSession();
+        String role = (String) session.getAttribute("role");
+
+        String path = "/auth/undecided/mypage.my"; // 기본값
+
+        if ("mentor".equals(role)) {
+            path = "/auth/mentor/mypage.my";
+        } else if ("mentee".equals(role)) {
+            path = "/auth/mentee/mypage.my";
+        }
+
         outResult.setRedirect(true);
-        outResult.setPath(request.getContextPath() + "/mypage/main.my");
+        outResult.setPath(request.getContextPath() + path);
 		
 	}
 	

@@ -38,7 +38,7 @@
                 </ul>
             </div>
             <div class="userInputBox">
-                <form id="deleteForm" action="">
+                <form id="deleteForm" action="${pageContext.request.contextPath}/auth/undecided/delete.my" method="post">
                     <div class="inputGroupContainer">
                         <div class="inputGroup">
                             <label>아이디</label>

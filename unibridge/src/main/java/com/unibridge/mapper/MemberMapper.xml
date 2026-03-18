@@ -51,5 +51,19 @@
       WHERE member_number = #{memberNumber}
    </select>
    
+   <!-- 회원 검증 -->
+   <select id="checkMember" parameterType="com.unibridge.app.member.dto.MemberDTO" resultType="int">
+    SELECT COUNT(*) 
+    FROM member
+    WHERE member_id = #{memberId}
+      AND member_pw = #{memberPw}
+      AND member_phone = #{memberPhone}
+	</select>
+   
+   <!-- 회원삭제 -->
+   <delete id="deleteMember" parameterType="int">
+    DELETE FROM member
+    WHERE member_number = #{memberNumber}
+	</delete>
    
 </mapper>
