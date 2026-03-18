@@ -11,15 +11,26 @@
 }
 
 body {
-  margin: 0;
-  padding: 0;
+    /* Flex 설정을 해제하여 일반적인 스크롤 흐름으로 변경 */
+    display: block !important; 
+    
+    /* 화면 높이 고정을 해제 */
+    height: auto !important;
+    min-height: 100% !important;
+    
+    /* 나머지 폰트 및 배경은 유지 */
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
 }
 
 .admin-header {
+position: relative !important;
   width: calc(100% - 68px);
   max-width: 1280px;
   height: 76px;
-  margin: 26px 34px 0;
+  margin: 26px auto 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -29,6 +40,7 @@ body {
   background-color: #efefef;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
   font-family: "NanumSquareRound", sans-serif;
+  z-index: 100;
 }
 
 .admin-header__logo {

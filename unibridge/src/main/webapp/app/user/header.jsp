@@ -15,7 +15,7 @@
 <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css?v=1.1" />
 
 <header class="headerWrap">
     <div class="headerInner">

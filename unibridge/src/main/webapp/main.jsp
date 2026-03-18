@@ -18,7 +18,7 @@
 <body>
 
   <%-- header.js의 renderHeader() + #headerContainer 대체 --%>
-	<div id="headerContainer"></div>
+	<%@ include file="/app/user/header.jsp" %>
   <!-- ====== MAIN ====== -->
   <main class="mainWrap">
 
@@ -251,7 +251,7 @@
 
   </main>
 
-  <div id="footerContainer"></div>
+  <%@ include file="/app/user/footer.jsp" %>
 
   <script src="${pageContext.request.contextPath}/assets/js/user/header.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/user/footer.js"></script>
