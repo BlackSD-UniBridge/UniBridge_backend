@@ -49,7 +49,7 @@
                     <button class="closeBtn"><img src="${pageContext.request.contextPath}/assets/img/user/userProfile/close.png" alt=""></button>
                     <div class="surveyTitle">설문 조사</div>
                     <div class="modalBox">
-                        <form>
+                        <form id="surveyForm" method="post" enctype="multipart/form-data">
                             <div class="inputRow">
                                 <label>멘토/멘티</label>
                                 <div class="radioGroup">
@@ -65,28 +65,28 @@
                             <div id="mentorContent" class="mentorContentList" style="display: block;">
                                 <div class="inputRow">
                                     <label>대학</label>
-                                    <input type="text" class="modalInput">
+                                    <input type="text" name="gradSchool" class="modalInput">
                                 </div>
                                 <div class="inputRow">
                                     <label>전공</label>
-                                    <input type="text" class="modalInput">
+                                    <input type="text" name="gradDepart" class="modalInput">
                                 </div>
                                 <div class="inputRow">
                                     <label>졸업학점</label>
-                                    <input type="text" class="modalInput">
+                                    <input type="text" name="gradScore" class="modalInput">
                                 </div>
                                 <div class="inputRow">
                                     <label>교육과목</label>
-                                    <select class="modalSelect">
+                                    <select name="subjectNumber" class="modalSelect">
                                         <option value="" disabled selected>선택해 주세요</option>
-                                        <option value="korean">국어</option>
-                                        <option value="english">영어</option>
-                                        <option value="math">수학</option>
-                                        <option value="C">C언어</option>
-                                        <option value="java">JAVA</option>
-                                        <option value="cplus">C++</option>
-                                        <option value="python">Python</option>
-                                        <option value="game">게임</option>
+                                        <option value="1">국어</option>
+                                        <option value="2">영어</option>
+                                        <option value="3">수학</option>
+                                        <option value="4">C언어</option>
+                                        <option value="5">JAVA</option>
+                                        <option value="6">C++</option>
+                                        <option value="7">Python</option>
+                                        <option value="8">게임</option>
                                     </select>
                                 </div>
                             </div>
@@ -94,40 +94,40 @@
                             <div id="menteeContent" class="menteeContentList" style="display: none;">
                                 <div class="inputRow">
                                     <label>희망 과목</label>
-                                    <select class="modalSelect">
+                                    <select name="subjectNumber" class="modalSelect">
                                         <option value="" disabled selected>선택해 주세요</option>
-                                        <option value="korean">국어</option>
-                                        <option value="english">영어</option>
-                                        <option value="math">수학</option>
-                                        <option value="C">C언어</option>
-                                        <option value="java">JAVA</option>
-                                        <option value="cplus">C++</option>
-                                        <option value="python">Python</option>
-                                        <option value="game">게임</option>
+                                        <option value="1">국어</option>
+                                        <option value="2">영어</option>
+                                        <option value="3">수학</option>
+                                        <option value="4">C언어</option>
+                                        <option value="5">JAVA</option>
+                                        <option value="6">C++</option>
+                                        <option value="7">Python</option>
+                                        <option value="8">게임</option>
                                     </select>
                                 </div>
                                 <div class="inputRow">
                                     <label>학교</label>
-                                    <input type="text" class="modalInput">
+                                    <input type="text" name="menteeSchool" class="modalInput">
                                 </div>
                                 <div class="inputRow">
                                     <label>학년</label>
-                                    <input type="text" class="modalInput">
+                                    <input type="text" name="menteeGrade" class="modalInput">
                                 </div>
                                 <div class="inputRow">
                                     <label>희망 대학</label>
-                                    <input type="text" class="modalInput">
+                                    <input type="text" name="menteeHopeuni" class="modalInput">
                                 </div>
                                 <div class="inputRow">
                                     <label>희망 전공</label>
-                                    <input type="text" class="modalInput">
+                                    <input type="text" name="menteeHopemajor" class="modalInput">
                                 </div>
                             </div>
 
                             <div class="fileAttachSection">
                                 <p class="fileLabel">파일 첨부</p>
                                 <div class="fileInputWrapper">
-                                    <input type="file" id="surveyFile" accept=".pdf, .xlsx, .xls, .doc, .docx, .jpg, .png" onchange="updateFileName()">
+                                    <input type="file" id="surveyFile" name="surveyFile" accept=".pdf, .xlsx, .xls, .doc, .docx, .jpg, .png" onchange="updateFileName()">
                                     <div class="fakeFileInput">
                                         <label for="surveyFile" id="fileSelector" class="fileSelectBtn">파일 선택</label>
                                         <label for="surveyFile" id="fileInfoDisplay" class="fileInfoActive" style="display: none;">
@@ -151,5 +151,6 @@
 
     <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
+    <script>const contextPath = "${pageContext.request.contextPath}";</script>
 </body>
 </html>

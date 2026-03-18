@@ -1,11 +1,11 @@
 /**
- * 
+ * 미정 설문조사
  */
 const modal = document.getElementById("surveyModal");
 const openBtn = document.getElementById("userWriteBtn");
-const xBtn = document.querySelector(".closeBtn");
+const xBtn = document.querySelector(".closeBtn");    // 상단 X 버튼
 const closeBtn = document.getElementById("closeModalBtn");
-const submitBtn = document.getElementById("submitBtn"); 
+const submitBtn = document.getElementById("submitBtn"); //작성완료
 
 // 모든 라디오 버튼과 컨텐츠 영역을 가져옵니다.
 const roleRadios = document.querySelectorAll('.radioUserType');
@@ -47,19 +47,35 @@ function updateFileName() {
         // 3. 파일 이름 출력
         fileNameDisplay.textContent = fileInput.files[0].name;
     } else {
-        // 파일 선택을 취소하거나 비었을 때 다시 초기 상태로
+        // 파일 선택을 취소하거나 비었을 때 다시 초기 상태로 (필요 시)
         fileSelector.classList.remove('hidden');
         fileInfoDisplay.style.display = 'none';
     }
 }
 
 submitBtn.onclick = (event) => {
-    // 1. 폼 전송으로 인한 새로고침 방지
+    // 1. 기본 동작(페이지 이동) 방지
     event.preventDefault();
 
-    // 2. 원하는 경로를 직접 지정하여 이동합니다.
-    const targetPath = "/frontend/html/user/mentor/myPage/myPage.html"; 
-    window.location.href = targetPath;
+    const form = document.getElementById("surveyForm");
+    
+    // 2. 현재 선택된 라디오 버튼(멘토 또는 멘티) 가져오기
+    const selectedRole = document.querySelector('input[name="role"]:checked').value;
+    
+    // 3. 역할에 따라 전송할 컨트롤러 경로 설정
+    // contextPath가 필요한 경우 앞부분에 추가해 주세요 (예: /unibridge/mypage/...)
+    if (selectedRole === "mentor") {
+        form.action = "/mypage/surveyMentorOk.my";
+    } else if (selectedRole === "mentee") {
+        form.action = "/mypage/surveyMenteeOk.my";
+    }
+
+    // 4. 데이터가 잘 수집되는지 확인하기 위한 로그 (선택 사항)
+    console.log("[JS LOG] 제출 역할: " + selectedRole);
+    console.log("[JS LOG] 전송 경로: " + form.action);
+
+    // 5. 서버로 폼 데이터 전송
+    form.submit();
 };
 
 roleRadios.forEach(radio => {
@@ -73,4 +89,6 @@ roleRadios.forEach(radio => {
             menteeContent.style.display = 'block';
         }
     });
-});
+});/**
+ * 
+ */

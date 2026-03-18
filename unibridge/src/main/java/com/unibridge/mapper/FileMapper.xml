@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+
+	<!-- 파일 추가 -->
+    <insert id="insertFile" parameterType="FileDTO">
+        <selectKey keyProperty="fileNumber" resultType="int" order="BEFORE">
+            SELECT SEQ_FILE.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO UB_FILE (file_number, file_name, file_original_name, file_extension, file_size, file_path)
+        VALUES (#{fileNumber}, #{fileName}, #{fileOriginalName}, #{fileExtension}, #{fileSize}, #{filePath})
+    </insert>
+    
+</mapper>

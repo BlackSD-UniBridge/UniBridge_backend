@@ -1,11 +1,11 @@
 /**
- * 멘티 설문조사
+ * 미정 설문조사
  */
 const modal = document.getElementById("surveyModal");
 const openBtn = document.getElementById("userWriteBtn");
-const xBtn = document.querySelector(".closeBtn");
+const xBtn = document.querySelector(".closeBtn");    // 상단 X 버튼
 const closeBtn = document.getElementById("closeModalBtn");
-const submitBtn = document.getElementById("submitBtn"); 
+const submitBtn = document.getElementById("submitBtn"); //작성완료
 
 // 모든 라디오 버튼과 컨텐츠 영역을 가져옵니다.
 const roleRadios = document.querySelectorAll('.radioUserType');
@@ -47,19 +47,31 @@ function updateFileName() {
         // 3. 파일 이름 출력
         fileNameDisplay.textContent = fileInput.files[0].name;
     } else {
-        // 파일 선택을 취소하거나 비었을 때 다시 초기 상태로
+        // 파일 선택을 취소하거나 비었을 때 다시 초기 상태로 (필요 시)
         fileSelector.classList.remove('hidden');
         fileInfoDisplay.style.display = 'none';
     }
 }
 
 submitBtn.onclick = (event) => {
-    // 1. 폼 전송으로 인한 새로고침 방지
     event.preventDefault();
 
-    // 2. 원하는 경로를 직접 지정하여 이동합니다.
-    const targetPath = "/frontend/html/user/mentee/myPage/myPage.html"; 
-    window.location.href = targetPath;
+    const form = document.getElementById("surveyForm");
+    const selectedRole = document.querySelector('input[name="role"]:checked').value;
+    
+    // 현재 프로젝트 경로가 /unibridge 이므로 이를 포함해야 합니다.
+    // 또는 컨트롤러 구조에 맞춰 상대 경로로 설정하세요.
+	// JSP 상단에 선언된 ${pageContext.request.contextPath}를 활용하세요.
+	// const contextPath = "${pageContext.request.contextPath}"; 
+
+	if (selectedRole === "mentor") {
+	    form.action = contextPath + "/auth/mentor/survey.my";
+	} else if (selectedRole === "mentee") {
+	    form.action = contextPath + "/auth/mentee/survey.my";
+	}
+
+    console.log("[JS LOG] 전송 경로: " + form.action);
+    form.submit(); // 반드시 폼의 submit()을 호출해야 POST + multipart가 유지됩니다.
 };
 
 roleRadios.forEach(radio => {
@@ -73,4 +85,6 @@ roleRadios.forEach(radio => {
             menteeContent.style.display = 'block';
         }
     });
-});
+});/**
+ * 
+ */

@@ -19,7 +19,8 @@ public class MenteeFrontController implements Execute {
 		String requestURI = request.getRequestURI();
 		String target = extractTargetPath(requestURI);
 		switch (target) {
-		case "/mypage/surveyMenteeOk.my":
+		case "surveyMenteeOk.my":
+		case "/surveyMenteeOk.my":
 			System.out.println("멘티 설문 등록 요청 수신");
 			outResult = new SurveyMenteeOkController().execute(request, response);
 		default:

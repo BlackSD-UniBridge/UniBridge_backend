@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="survey">
+
+    <insert id="insertSurvey" parameterType="SurveyDTO">
+        <selectKey keyProperty="surveyNumber" resultType="int" order="BEFORE">
+            SELECT SEQ_SERVEY.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO UB_SURVEY (
+            survey_number, 
+            survey_type, 
+            member_number,  
+            admin_number, 
+            file_number
+        )
+        VALUES (
+            #{surveyNumber}, 
+            #{surveyType}, 
+            #{memberNumber}, 
+            5, 
+            #{fileNumber, jdbcType=INTEGER} )
+            <!-- #{fileNumber}의 처리 (NULL 값 대응) -->
+    </insert>
+
+    <insert id="insertMenteeSurvey" parameterType="SurveyDTO">
+        INSERT INTO UB_SURVEY_MENTEE (
+            survey_number, mentee_school, mentee_grade, 
+            mentee_hopeuni, mentee_hopemajor, subject_number
+        )
+        VALUES (
+            #{surveyNumber}, #{menteeSchool}, #{menteeGrade}, 
+            #{menteeHopeuni}, #{menteeHopemajor}, #{subjectNumber}
+        )
+    </insert>
+    
+    <insert id="insertMentorSurvey" parameterType="SurveyDTO">
+        INSERT INTO UB_SURVEY_MENTOR (
+            survey_number, grad_school, grad_depart, grad_score, subject_number
+        )
+        VALUES (
+            #{surveyNumber}, #{gradSchool}, #{gradDepart}, #{gradScore}, #{subjectNumber}
+        )
+    </insert>
+
+    <select id="selectMySurvey" parameterType="int" resultType="SurveyDTO">
+        SELECT * FROM UB_SURVEY WHERE member_number = #{memberNumber}
+    </select>
+    
+</mapper>
