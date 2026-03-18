@@ -1,7 +1,6 @@
 package com.unibridge.app.noticeBoard.controller;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,41 +10,40 @@ import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.noticeBoard.dao.NoticeBoardDAO;
 import com.unibridge.app.noticeBoard.dto.NoticeBoardListDTO;
-import com.unibridge.app.file.dao.FileDAO;
 
 public class NoticeBoardReadOkController implements Execute {
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("게시글 상세 페이지 이동 완료");
+		System.out.println("게시글 상세 페이지 이동 시작");
 		
 		Result result = new Result();
 		
 		//noticeBoardNumber가 빈 문자열이거나 null인 경우
-		String noticeBoardNumberStr = request.getParameter("noticeBoardNumber");
+		String noticeBoardNumberStr = request.getParameter("boardNumber");
 		if(noticeBoardNumberStr == null || noticeBoardNumberStr.trim().isEmpty()) {
 			System.out.println("noticeBoardNumber 값이 없습니다");
-			result.setPath("${pageContext.request.contextPath}/app/user/common/noticeBoardList.jsp"); //게시글 목록 페이지로 리다이렉트
+			result.setPath("/app/user/common/noticeBoardList.jsp");
 			result.setRedirect(true);
 			return result;
 		}
 		
 		int noticeBoardNumber = Integer.parseInt(noticeBoardNumberStr);
-		
 		NoticeBoardDAO noticeBoardDAO = new NoticeBoardDAO();
-		FileDAO fileDAO = new FileDAO();
 		
-		//DB에서 게시글 가져오기
+		// DB에서 게시글 가져오기
 		NoticeBoardListDTO noticeBoardListDTO = noticeBoardDAO.selectBoard(noticeBoardNumber);
 		
-		//게시글이 존재하지 않을 경우
-				if(noticeBoardListDTO == null) {
-					System.out.println("존재하지 않는 게시물입니다." + noticeBoardNumber);
-					result.setPath("${pageContext.request.contextPath}/app/user/common/noticeBoardList.jsp");
-					result.setRedirect(true);
-					return result;
-				}
+//		FileDAO fileDAO = new FileDAO(); 아직 구현 불가
+		
+		// 게시글이 존재하지 않을 경우 목록으로 리다이렉트
+		if (noticeBoardListDTO == null) {
+			System.out.println("존재하지 않는 게시물 : " + noticeBoardNumber);
+			result.setPath("/app/user/common/noticeBoardList.jsp");
+			result.setRedirect(true);
+			return result;
+		}
 				
 //				//첨부파일 가져오기
 //				List<FileDTO> files = fileDAO.select(noticeBoardNumber); //추후 파일 DAO확인 후 수정
@@ -56,21 +54,14 @@ public class NoticeBoardReadOkController implements Execute {
 				//첨부파일 붙이기
 //				noticeBoardListDTO.setFiles(files);
 		
-		//로그인 한 사용자 번호 가져오기
+		//조회시 무조건 조회수 증가
 		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("memberNumber");
-		System.out.println("로그인 한 멤버 번호 : " + loginMemberNumber);
-		
-		//현재 게시글 작성자 번호 가져오기
-		int noticeBoardWriterNumber = noticeBoardListDTO.getMemberNumber();
-		System.out.println("현재 게시글 작성자 번호 : " + noticeBoardWriterNumber);
-		
-		//로그인한 사용자가 작성자가 아닐 때만 조회 수 증가
-		if(!Objects.equals(loginMemberNumber, noticeBoardWriterNumber)) {
+		if (loginMemberNumber == null || loginMemberNumber != noticeBoardListDTO.getMemberNumber()) {
 			noticeBoardDAO.updateReadCount(noticeBoardNumber);
 		}
 		
 		request.setAttribute("noticeBoard", noticeBoardListDTO);
-		result.setPath("${pageContext.request.contextPath}/app/user/common/noticeBoardRead.jsp");
+		result.setPath("/app/user/common/noticeBoardRead.jsp");
 		result.setRedirect(false);
 		
 		return result;

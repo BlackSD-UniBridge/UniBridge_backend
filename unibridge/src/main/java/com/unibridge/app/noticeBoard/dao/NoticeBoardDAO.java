@@ -32,7 +32,7 @@ public class NoticeBoardDAO {
 	//게시글 상세 페이지 조회 메소드
 	public NoticeBoardListDTO selectBoard(int noticeBoardNumber) {
 		System.out.println("게시글 상세 페이지 조회(1건조회) - selectBoard 메소드 실행");
-		return sqlSession.selectOne("board.select", noticeBoardNumber);
+		return sqlSession.selectOne("noticeBoard.select", noticeBoardNumber);
 	}
 	
 	//모든 게시글 가져오기

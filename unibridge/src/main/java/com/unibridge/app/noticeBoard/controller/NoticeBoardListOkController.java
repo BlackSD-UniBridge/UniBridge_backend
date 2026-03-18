@@ -74,7 +74,7 @@ public class NoticeBoardListOkController implements Execute {
 				"startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("=========================");
 
-		result.setPath("${pageContext.request.contextPath}/app/user/common/noticeBoardList.jsp");
+		result.setPath("/app/user/common/noticeBoardList.jsp");
 		result.setRedirect(false);
 
 		return result;

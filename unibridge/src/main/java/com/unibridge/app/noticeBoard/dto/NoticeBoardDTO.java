@@ -8,7 +8,7 @@ public class NoticeBoardDTO {
 //	board_update DATE DEFAULT SYSDATE,
 //	board_read_count NUMBER DEFAULT 0,
 //	member_number NUMBER,
-	private int noticeBoardNumber;
+	private int boardNumber;
 	private String boardTitle;
 	private String boardContent;
 	private String boardDate;
@@ -16,10 +16,10 @@ public class NoticeBoardDTO {
 	private int memberNumber;
 	
 	public int getBoardNumber() {
-		return noticeBoardNumber;
+		return boardNumber;
 	}
 	public void setBoardNumber(int boardNumber) {
-		this.noticeBoardNumber = boardNumber;
+		this.boardNumber = boardNumber;
 	}
 	public String getBoardTitle() {
 		return boardTitle;
@@ -54,7 +54,7 @@ public class NoticeBoardDTO {
 	
 	@Override
 	public String toString() {
-		return "BoardDTO [boardNumber=" + noticeBoardNumber + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
+		return "BoardDTO [boardNumber=" + boardNumber + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", boardDate=" + boardDate + ", boardReadCount=" + boardReadCount + ", memberNumber=" + memberNumber
 				+ "]";
 	}

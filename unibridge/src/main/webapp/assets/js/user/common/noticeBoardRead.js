@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	console.log("확인 boardNumber : ", boardNumber);
 	console.log("확인 memberNumber : ", memberNumber);
 	
-	//이동버튼
+	// 목록 버튼 → 목록 페이지로 이동
 	listBtn?.addEventListener("click", ()=>{
-		window.location.href = "/noticeBoard/NoticeBoardListOk.bo";
+		window.location.href = "/unibridge/noticeBoardList.ntb";
 	});
 
 });

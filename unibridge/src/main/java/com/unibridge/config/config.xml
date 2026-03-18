@@ -26,8 +26,8 @@
       <typeAlias type="com.unibridge.app.mypage.survey.dto.SurveyDTO" alias="SurveyDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mypage.surveyMentee.dto.SurveyMenteeDTO" alias="SurveyMenteeDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mypage.surveyMentor.dto.SurveyMentorDTO" alias="SurveyMentorDTO"></typeAlias>
-      <typeAlias type="com.unibridge.app.noticeBoard.dto.noticeBoardDTO" alias="noticeBoardDTO"></typeAlias>
-      <typeAlias type="com.unibridge.app.noticeBoard.dto.noticeBoardListDTO" alias="noticeBoardListDTO"></typeAlias>	
+      <typeAlias type="com.unibridge.app.noticeBoard.dto.NoticeBoardDTO"             alias="NoticeBoardDTO"    />
+      <typeAlias type="com.unibridge.app.noticeBoard.dto.NoticeBoardListDTO"         alias="NoticeBoardListDTO"/>
       <!-- <typeAlias type="com.unibridge.app.mypage.mentoring.dto.MentoringDTO" alias="MentoringDTO"></typeAlias -->
    </typeAliases>
 
@@ -54,8 +54,7 @@
       <mapper resource="com/unibridge/mapper/FileMapper.xml" />
       <!-- <mapper resource="com/unibridge/mapper/mentoringMapper.xml" /> -->
       <mapper resource="com/unibridge/mapper/mainMapper.xml"/>
-      <mapper resource="com/unibridge/mapper/headerMapper.xml"/>
-      <mapper resource="com/unibridge/mapper/noticeBoardMapper.xml" />
+      <mapper resource="com/unibridge/mapper/NoticeBoardMapper.xml" />
    </mappers>
    
 </configuration>
