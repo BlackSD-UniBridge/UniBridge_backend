@@ -14,17 +14,17 @@
 </head>
 <body>
 
-    <div id="headerContainer"></div>
+    <jsp:include page="/app/user/header.jsp" />
     
     <div class="mainContainer">
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/myPage.jsp" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userSurvey/userSurvey.jsp" class="active">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userMatching/userMatching.jsp" >매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userMentoCreate/mentoringCreate.jsp">멘토링</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userDelete/userDelete.jsp">회원 탈퇴</a></li>
+                <li><a href="${pageContext.request.contextPath}auth/mentor/myPage.my" >계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}auth/mentor/survey.my" class="active">설문 조사</a></li>
+                <li><a href="${pageContext.request.contextPath}auth/mentor/matching.my">매칭 정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentor/mentoringCreate.my">멘토링</a></li>
+                <li><a href="${pageContext.request.contextPath}auth/mentor/app/delete.my">회원 탈퇴</a></li>
             </ul>
         </aside>
         <main>
@@ -61,7 +61,7 @@
                     <button class="closeBtn"><img src="${pageContext.request.contextPath}/assets/img/user/userProfile/close.png" alt=""></button>
                     <div class="surveyTitle">설문 조사</div>
                     <div class="modalBox">
-                        <form id="surveyForm" method="post" enctype="multipart/form-data">
+                        <form id="surveyForm" action="${pageContext.request.contextPath}/auth/mentor/survey.my" method="post" enctype="multipart/form-data">
                             <div class="inputRow">
                                 <label>멘토/멘티</label>
                                 <div class="radioGroup">
@@ -163,6 +163,5 @@
 
     <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
-    <script>const contextPath = "${pageContext.request.contextPath}";</script>
 </body>
 </html>

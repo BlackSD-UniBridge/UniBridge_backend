@@ -14,17 +14,17 @@
 </head>
 <body>
     
-    <div id="headerContainer"></div>
+    <jsp:include page="/app/user/header.jsp" />
 
     <div class="mainContainer">
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/myPage.jsp" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userSurvey/userSurvey.jsp">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userPayLog/payLog.jsp">결제 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userMatching/userMatching.jsp" class="active">매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userDelete/userDelete.jsp">회원 탈퇴</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/myPage.my" >계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/survey.my">설문 조사</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/log.my">결제 정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/matching.my" class="active">매칭 정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/delete.my">회원 탈퇴</a></li>
             </ul>
         </aside>
         <main>
@@ -64,7 +64,7 @@
                     <button class="closeBtn"><img src="${pageContext.request.contextPath}/assets/img/user/userProfile/close.png" alt=""></button>
                     <div class="cacelTitle">매칭 취소 신청서</div>
                     <div class="cancelModalBox">
-                        <form>
+                        <form action="${pageContext.request.contextPath}/auth/mentor/matching.my" method="post">
                             <div class="infoGrid">
                                 <div class="printRow">
                                     <label>멘토 이름</label>
@@ -86,11 +86,11 @@
 
                             <div class="cencelInputBox">
                                 <div class="contextTitle">매칭취소 사유</div>
-                                <textarea class="cencelIput"></textarea>
+                                <textarea name="cancelReason" class="cencelIput"></textarea>
                             </div>
 
                             <div class="cancelFooter">
-                                <button type="button" class="submitBtn" id="sumbitBtn">취소 신청</button>
+                                <button type="submit" class="submitBtn" id="sumbitBtn">취소 신청</button>
                                 <button type="button" class="cancelBtn" id="closeModalBtn">취소</button>
                             </div>
                         </form>

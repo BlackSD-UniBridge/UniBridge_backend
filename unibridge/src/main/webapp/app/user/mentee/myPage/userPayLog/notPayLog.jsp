@@ -13,17 +13,17 @@
 </head>
 <body>
     
-    <div id="headerContainer"></div>
+    <jsp:include page="/app/user/header.jsp" />
 
     <div class="mainContainer">
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/myPage.jsp" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userSurvey/userSurvey.jsp">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userPayLog/payLog.jsp" class="active">결제 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userMatching/nonMatching.jsp">매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userDelete/userDelete.jsp">회원 탈퇴</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/myPage.my" >계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/survey.my">설문 조사</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/log.my" class="active">결제 정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/matching.my">매칭 정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/delete.my">회원 탈퇴</a></li>
             </ul>
         </aside>
         <main>

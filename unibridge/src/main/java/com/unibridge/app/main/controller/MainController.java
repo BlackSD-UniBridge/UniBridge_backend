@@ -53,7 +53,7 @@ public class MainController implements Execute {
         request.setAttribute("mentorCardList", mentorCardList);
 
         // 3. main.jsp로 forward (redirect 아님)
-        outResult.setRedirect(false);
         outResult.setPath("/main.jsp");
+        outResult.setRedirect(false);
     }
 }

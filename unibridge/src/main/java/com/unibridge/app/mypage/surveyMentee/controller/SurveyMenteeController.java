@@ -55,7 +55,7 @@ public class SurveyMenteeController implements Execute{
         }
 
         // 2. MultipartRequest 생성 (파일 업로드 실행)
-        final int FILE_SIZE = 500 * 1024 * 1024; // 500MB
+        final int FILE_SIZE = 100 * 1024 * 1024; // 500MB
         MultipartRequest multi = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "UTF-8", new DefaultFileRenamePolicy());
 
         // 3. 세션 정보 확인
@@ -138,8 +138,20 @@ public class SurveyMenteeController implements Execute{
         surveyDAO.insertMenteeSurvey(menteeDTO, fileDTO);
 
         // 7. 결과 반환
+        session = request.getSession();
+        String role = (String) session.getAttribute("role");
+
+        String path = "/auth/undecided/mypage.my"; // 기본값
+
+        if ("mentor".equals(role)) {
+            path = "/auth/mentor/mypage.my";
+        } else if ("mentee".equals(role)) {
+            path = "/auth/mentee/mypage.my";
+        }
+
+        // redirect 설정
         outResult.setRedirect(true);
-        outResult.setPath(request.getContextPath() + "/mypage/main.my");
+        outResult.setPath(request.getContextPath() + path);
 		
 	}
 	

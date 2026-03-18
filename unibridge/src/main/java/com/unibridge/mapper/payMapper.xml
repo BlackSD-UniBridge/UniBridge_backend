@@ -21,4 +21,27 @@
 		#{memberNumber}
 		)
 	</insert>
+	
+	<select id="selectLatestPaymentByMember"
+	        parameterType="long"
+	        resultType="PaymentDTO">
+	
+	    SELECT *
+	    FROM (
+	        SELECT 
+	            PAY_ID            AS payId,
+	            MATCHING_NUMBER   AS matchingNumber,
+	            PAY_AMOUNT        AS payAmount,
+	            PAY_METHOD        AS payMethod,
+	            TO_CHAR(PAY_DATE, 'YYYY-MM-DD') AS payDate,
+	            PAY_STATUS        AS payStatus,
+	            MEMBER_NUMBER     AS memberNumber
+	        FROM UB_PAY
+	        WHERE MEMBER_NUMBER = #{memberNumber}
+	        ORDER BY PAY_ID DESC
+	    )
+	    WHERE ROWNUM = 1
+	
+	</select>
+	
 </mapper>

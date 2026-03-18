@@ -126,14 +126,25 @@
 		<servlet-name>Admin</servlet-name>
 		<url-pattern>*.admin</url-pattern>
 	</servlet-mapping>
-
+	
+	
+	<!--  API  -->
+	<servlet>
+		<servlet-name>ApiAdmin</servlet-name>
+		<servlet-class>com.unibridge.api.admin.controller.AdminFrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ApiAdmin</servlet-name>
+		<url-pattern>/api/admin/*</url-pattern>
+	</servlet-mapping>
+	
+	<!--  Filter  -->
 	<filter>
-    	<filter-name>MVCAuthFilter</filter-name>
-    	<filter-class>com.unibridge.filter.MVCAuthFilter</filter-class>
+		<filter-name>MVCAuthFilter</filter-name>
+		<filter-class>com.unibridge.filter.MVCAuthFilter</filter-class>
 	</filter>
 	<filter-mapping>
-	    <filter-name>MVCAuthFilter</filter-name>
-	    <url-pattern>/mvc/*</url-pattern>
+		<filter-name>MVCAuthFilter</filter-name>
+		<url-pattern>/mvc/*</url-pattern>
 	</filter-mapping>
-	
 </web-app>

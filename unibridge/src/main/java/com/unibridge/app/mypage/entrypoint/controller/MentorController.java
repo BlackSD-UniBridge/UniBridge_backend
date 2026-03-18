@@ -37,14 +37,14 @@ public class MentorController implements Execute {
 		outResult.setPath(request.getContextPath() + "/app/user/mentor/myPage/myPage.jsp");
 		
 
-		HttpSession session = request.getSession();
-		session.setAttribute("memberId", "user1");
-		session.setAttribute("memberName", "노진구");
-		session.setAttribute("memberNickname", "미닉1");
-		session.setAttribute("memberPhone", "010-1-01");
-		session.setAttribute("memberGender", "남성");
-		session.setAttribute("memberType", "미정");
-		session.setAttribute("memberState", "계정 활성화");
+//		HttpSession session = request.getSession();
+//		session.setAttribute("memberId", "user1");
+//		session.setAttribute("memberName", "노진구");
+//		session.setAttribute("memberNickname", "미닉1");
+//		session.setAttribute("memberPhone", "010-1-01");
+//		session.setAttribute("memberGender", "남성");
+//		session.setAttribute("memberType", "미정");
+//		session.setAttribute("memberState", "계정 활성화");
 	}
 	
 	private void doPost(HttpServletRequest request, HttpServletResponse response) {

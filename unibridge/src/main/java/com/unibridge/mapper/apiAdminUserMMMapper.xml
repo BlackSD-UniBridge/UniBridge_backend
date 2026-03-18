@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="api.adminUserMM">
+	<select id="selectAll" resultType="AdminUserMMDTO">
+		SELECT DISTINCT 
+		    um.member_number,
+		    um.member_name,
+		    CASE um.member_type
+		    	WHEN 'MENTOR' 	 THEN '멘토'
+		    	WHEN 'MENTEE' 	 THEN '멘티'
+		    	WHEN 'NODECIDED' THEN '미정'
+		    	ELSE '알 수 없음'
+		    END AS member_type,
+		    CASE
+		        WHEN um.member_type = 'MENTOR' THEN
+		            CASE
+		                WHEN mth_mentor.matching_state = '매칭됨' THEN '매칭됨'
+		                WHEN mth_mentor.matching_state = '매칭 취소' THEN '매칭 취소'
+		                WHEN iusm.survey_number IS NOT NULL THEN '매칭 대기'
+		                ELSE '기본'
+		            END
+		        WHEN um.member_type = 'MENTEE' THEN
+		            CASE
+		                WHEN mth_mentee.matching_state = '매칭됨' THEN '매칭됨'
+		                WHEN mth_mentee.matching_state = '매칭 취소' THEN '매칭 취소'
+		                ELSE '기본'
+		            END
+		        WHEN um.member_type = 'NODECIDED' THEN
+		        	CASE 
+		        		WHEN ius.survey_approval = 'P' THEN '대기'
+		        		WHEN ius.survey_approval = 'T' THEN '승인'
+		        		WHEN ius.survey_approval = 'F' THEN '거부'
+		        		ELSE '기본'
+		        	END
+		        ELSE '기본'
+		    END AS member_state
+		FROM UB_MEMBER um
+		LEFT JOIN UB_MATCHING mth_mentor
+		    ON um.member_type = 'MENTOR'
+		   AND um.member_number = mth_mentor.mentor_number
+		LEFT JOIN UB_SURVEY_MENTOR iusm
+		    ON um.member_type = 'MENTOR'
+		   AND um.survey_number = iusm.survey_number
+		LEFT JOIN UB_SURVEY ius
+			ON um.member_type = 'NODECIDED'
+			AND um.survey_number = ius.survey_number
+		LEFT JOIN UB_MATCHING mth_mentee
+		    ON um.member_type = 'MENTEE'
+		   AND um.member_number = mth_mentee.mentee_number
+		WHERE um.member_type IN ('MENTOR', 'MENTEE', 'NODECIDED')
+	</select>
+</mapper>

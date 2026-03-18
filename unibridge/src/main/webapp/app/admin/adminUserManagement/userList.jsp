@@ -7,10 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>유저 관리</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminUserManagement/user.css" />
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminUserManagement/user.js" defer></script>
 </head>
 <body>
 
-  <div id="header-wrap"></div>
+  <div id="header-wrap">
+  	<jsp:include page="/header/adminHeader.jsp"/>
+  </div>
 
   <div class="page-wrap">
 
@@ -30,29 +33,28 @@
     </div>
 
     <!-- 유저 카드 리스트 -->
-    <div class="user-list" id="userList"></div>
+    <div class="user-list" id="userList">
+    	
+    </div>
 
   </div>
 
   <script>
-  fetch("${pageContext.request.contextPath}/header/adminHeader.jsp")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("header-wrap").innerHTML = html;
-      const s = document.createElement("script");
-      s.src = "${pageContext.request.contextPath}/header/adminHeader.js";
-      document.body.appendChild(s);
-    });
+  	  window.contextPath = "${pageContext.request.contextPath}";
+  	  
+  	  // 유저 아바타 (유저_아이콘.png)
+	  const avatarSVG = `<img 
+	  	src="${pageContext.request.contextPath}/assets/img/admin/유저_아이콘.png" 
+	  	alt="유저 아이콘" 
+	  	style="width:40px;height:40px;" 
+	  />`;
+	
+	  // 상세보기 아이콘 (상세보기_아이콘.png)
+	  const detailSVG = `<img 
+	  	src="${pageContext.request.contextPath}/assets/img/admin/상세보기_아이콘.png" 
+	  	alt="상세보기 아이콘" 
+	  	style="width:36px;height:36px;" 
+	  />`;
   </script>
-
-  <script>
-  // 유저 아바타 (유저_아이콘.png)
-  const avatarSVG = `<img src="${pageContext.request.contextPath}/assets/img/admin/유저_아이콘.png" alt="유저 아이콘" style="width:40px;height:40px;" />`;
-
-  // 상세보기 아이콘 (상세보기_아이콘.png)
-  const detailSVG = `<img src="${pageContext.request.contextPath}/assets/img/admin/상세보기_아이콘.png" alt="상세보기 아이콘" style="width:36px;height:36px;" />`;
-  </script>
-
-  <script src="${pageContext.request.contextPath}/assets/js/admin/adminUserManagement/user.js"></script>
 </body>
 </html>

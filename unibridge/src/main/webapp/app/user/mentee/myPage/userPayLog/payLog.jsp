@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,17 +14,17 @@
 </head>
 <body>
     
-    <div id="headerContainer"></div>
+    <jsp:include page="/app/user/header.jsp" />
 
     <div class="mainContainer">
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/myPage.jsp" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userSurvey/userSurvey.jsp">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userPayLog/payLog.jsp" class="active">결제 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userMatching/userMatching.jsp">매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentee/myPage/userDelete/userDelete.jsp">회원 탈퇴</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/myPage.my" >계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/survey.my">설문 조사</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/log.my" class="active">결제 정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/matching.my">매칭 정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/mentee/delete.my">회원 탈퇴</a></li>
             </ul>
         </aside>
         <main>
@@ -31,34 +32,45 @@
                 <img src="${pageContext.request.contextPath}/assets/img/user/userProfile/pay.png" alt="프로필 아이콘">
                 <div class="title">결제 정보</div>
             </div>
-            <div class="userTypeBox">
-                <div class="userText">
-                        <label for="">아이디</label>
-                        <label for="">hongdong11</label>
-                    </div>
-                    <div class="userText">
-                        <label for="">이름</label>
-                        <label for="">홍길동</label>
-                    </div>
-                    <div class="userText">
-                        <label for="">계좌</label>
-                        <label for="">카카오) 012345-11-987654</label>
-                    </div>
-                    <div class="userText">
-                        <label for="">결제 금액</label>
-                        <label for="">10,000원</label>
-                    </div>
-                    <div class="userText">
-                        <label for="">결제일</label>
-                        <label for="">2026/02/25</label>
-                    </div>
-                    <div class="userText">
-                        <label for="">결제 번호</label>
-                        <label for="">T12341234528269</label>
-                    </div>
-                </div>
+            <c:if test="${not empty payLog}">
+    			<div class="userTypeBox">
+			        <div class="userText">
+			            <label>회원번호</label>
+			            <label>${payLog.memberNumber}</label>
+			        </div>
+			
+			        <div class="userText">
+			            <label>결제번호</label>
+			            <label>${payLog.payId}</label>
+			        </div>
+			
+			        <div class="userText">
+			            <label>매칭번호</label>
+			            <label>${payLog.matchingNumber}</label>
+			        </div>
+			
+			        <div class="userText">
+			            <label>결제금액</label>
+			            <label>${payLog.payAmount}원</label>
+			        </div>
+			
+			        <div class="userText">
+			            <label>결제수단</label>
+			            <label>${payLog.payMethod}</label>
+			        </div>
+			
+			        <div class="userText">
+			            <label>결제일</label>
+			            <label>${payLog.payDate}</label>
+			        </div>
+			
+			        <div class="userText">
+			            <label>결제상태</label>
+			            <label>${payLog.payStatus}</label>
+			        </div>
+			    </div>
+			</c:if>
                 
-            </div>
         </main>
 
     </div>
