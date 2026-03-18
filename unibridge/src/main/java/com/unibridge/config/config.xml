@@ -2,7 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-   <properties resource="context.properties"></properties>   
+   <properties resource="context.properties" />   
    <settings>
       <!-- 카멜케이스 매핑 설정 -->
       <setting name="mapUnderscoreToCamelCase" value="true"></setting>
