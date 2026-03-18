@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
@@ -44,12 +45,23 @@ public class SigninController implements Execute {
 		memberDTO.setMemberId(memberId);
 		memberDTO.setMemberPw(memberPw);
 		
-		int dtoResult = memberDAO.memberLogin(memberDTO);
-		if (dtoResult >= 0) {
+		MemberDTO dtoResult = memberDAO.memberLogin(memberDTO);
+		if (dtoResult != null) {
 			/* 로그인 성공 */
 			request.setAttribute("loginError", "로그인 성공");
 			outResult.setRedirect(true);
-			outResult.setPath(request.getContextPath() + "/app/user/signin/signin.jsp");
+			outResult.setPath(request.getContextPath() + "/index.main");
+			
+			
+			HttpSession oldSession = request.getSession(false);
+			if (oldSession != null) {
+				oldSession.invalidate();
+			}
+			
+			HttpSession newSession = request.getSession(true);
+			newSession.setAttribute("loginUser", dtoResult);
+			newSession.setMaxInactiveInterval(30 * 60); // 30분 지속
+			
 		} else {
 			/* 로그인 실패 */
 			request.setAttribute("loginError", "아이디 또는 비밀번호가 옳바르지 않습니다.");
