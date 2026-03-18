@@ -8,12 +8,23 @@ public class MentoringDTO {
 	private String mentoringGoal;
 	private String mentoringDetail;
 	private int fileNumber;
+	private String fileName;
 	private String createAt;
 	private String updateAt;
 
 	// Getter & Setter (철자 주의: InternalId)
+	
+	
 	public int getInternalId() {
 		return internalId;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	public void setInternalId(int internalId) {
