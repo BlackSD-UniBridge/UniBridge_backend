@@ -14,7 +14,7 @@
 </head>
 <body>
     
-    <div id="headerContainer"></div>
+    <jsp:include page="/app/user/header.jsp" />
 
     <div class="mainContainer">
         <aside>

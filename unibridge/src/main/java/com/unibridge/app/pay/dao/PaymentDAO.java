@@ -1,6 +1,7 @@
 package com.unibridge.app.pay.dao;
 
 import org.apache.ibatis.session.SqlSession;
+
 import com.unibridge.app.pay.dto.PaymentDTO; // DTO 패키지 위치 확인
 import com.unibridge.config.MyBatisConfig;
 
@@ -13,5 +14,9 @@ public class PaymentDAO {
 
     public void insertPayment(PaymentDTO paymentDTO) {
         sqlSession.insert("pay.insertPayment", paymentDTO);
+    }
+    
+    public PaymentDTO selectLatestByMemberNumber(long memberNumber) {
+        return sqlSession.selectOne("pay.selectLatestByMemberNumber", memberNumber);
     }
 }

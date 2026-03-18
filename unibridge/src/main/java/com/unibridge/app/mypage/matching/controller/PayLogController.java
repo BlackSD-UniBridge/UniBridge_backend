@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
+import com.unibridge.app.pay.dao.PaymentDAO;
+import com.unibridge.app.pay.dto.PaymentDTO;
 
 public class PayLogController implements Execute{
 	
@@ -31,9 +33,16 @@ public class PayLogController implements Execute{
 	}
 
 	private void doGet(HttpServletRequest request, HttpServletResponse response) {
-		outResult.setPath("/app/user/mentee/myPage/userPayLog/payLog.jsp");
-        outResult.setRedirect(false);
-		
+
+	    long memberNumber = (long) request.getSession().getAttribute("memberNumber");
+
+	    PaymentDAO dao = new PaymentDAO();
+	    PaymentDTO payLog = dao.selectLatestByMemberNumber(memberNumber);
+
+	    request.setAttribute("payLog", payLog);
+
+	    outResult.setPath("/app/user/mentee/myPage/userPayLog/payLog.jsp");
+	    outResult.setRedirect(false);
 	}
 
 	private void doPost(HttpServletRequest request, HttpServletResponse response) {

@@ -21,4 +21,26 @@
 		#{memberNumber}
 		)
 	</insert>
+	
+	<select id="selectLatestByMemberNumber"
+        parameterType="long"
+        resultType="com.unibridge.app.pay.dto.PaymentDTO">
+    
+    SELECT *
+    FROM (
+        SELECT 
+            PAY_ID,
+            MATCHING_NUMBER,
+            PAY_AMOUNT,
+            PAY_METHOD,
+            PAY_DATE,
+            PAY_STATUS,
+            MEMBER_NUMBER
+        FROM UB_PAY
+        WHERE MEMBER_NUMBER = #{memberNumber}
+        ORDER BY PAY_DATE DESC
+    )
+    WHERE ROWNUM = 1
+	</select>
+	
 </mapper>

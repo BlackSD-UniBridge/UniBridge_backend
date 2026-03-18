@@ -13,7 +13,7 @@
     <script defer src="${pageContext.request.contextPath}/assets/js/user/mentor/myPage/userManage/userModify.js"></script>
 </head>
 <body>
-    <div id="headerContainer"></div>
+    <jsp:include page="/app/user/header.jsp" />
     
     <div class="mainContainer">
         <aside>
