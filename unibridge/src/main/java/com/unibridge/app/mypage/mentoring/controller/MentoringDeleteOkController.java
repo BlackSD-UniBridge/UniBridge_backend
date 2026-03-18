@@ -35,7 +35,7 @@ public class MentoringDeleteOkController implements Execute {
             System.out.println("[Log] DB 삭제 프로세스 완료");
 
             // 3. 결과 페이지 설정 (삭제 후 목록으로 리다이렉트)
-            result.setPath(request.getContextPath() + "/mentoring.my");
+            result.setPath(request.getContextPath() + "/mvc/auth/mentor/myPage.my");
             result.setRedirect(true); 
             System.out.println("[Log] 리다이렉트 경로 설정: " + result.getPath());
 

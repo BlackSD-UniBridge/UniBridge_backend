@@ -2,44 +2,22 @@
  * mentoringView.js 
  */
 
-// 삭제 버튼 클릭 시
-function deleteMentoring(internalId) {
-    if(confirm("정말로 이 멘토링을 삭제하시겠습니까?")) {
-        // 경로에 id 파라미터명 확인
-        location.href = "mentoringDelete.my?id=" + internalId;
-    }
-}
 
-function goToModify(internalId) {
-    location.href = contextPath + "mentoringModify.my?id=" + internalId;
-}
-
-// 입력 폼 유효성 검사 (Create/Modify 공통)
+// 입력 폼 유효성 검사 (나중에 수정 폼 등에서 재사용 가능)
 const validateForm = () => {
     const title = document.querySelector('input[name="mentoringTitle"]');
-    if (title.value.trim() === "") {
+    if (!title || title.value.trim() === "") {
         alert("제목을 입력해주세요.");
-        title.focus();
+        if(title) title.focus();
         return false;
     }
     return true;
 };
 
+// 페이지 로드 시 필요한 설정 (현재는 특별한 설정이 없으므로 비워두거나 확장 가능)
 document.addEventListener("DOMContentLoaded", function() {
-    const delBtn = document.getElementById("delBtn");
-    const modifyBtn = document.querySelector(".btn-modify"); // 수정 버튼 클래스명 확인 필요
-
-    // 삭제 버튼 클릭 시
-    if(delBtn) {
-        delBtn.addEventListener("click", function() {
-            // JSP에서 넘겨준 ID값을 가져오거나 함수 호출 방식 사용
-            // 예시: deleteMentoring('${mentoring.id}');
-        });
-    }
+    console.log("[Log] mentoringView.js 로드 완료");
+    
+    // 만약 버튼에 별도의 애니메이션이나 추가 로그가 필요하다면 여기에 작성합니다.
 });
-
-// 수정 페이지 이동 시에도 internalId 사용
-function goToModify(internalId) {
-    location.href = contextPath + "mentoringModify.my?id=" + internalId;
-}
 

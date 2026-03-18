@@ -12,8 +12,9 @@
 		m.MENTORING_GOAL as mentoringGoal,
 		m.MENTORING_DETAIL as mentoringDetail,
 		m.FILE_NUMBER as fileNumber,
-		f.FILE_NAME as fileName FROM UB_MENTORING m
-		LEFT JOIN UB_FILE f ON m.FILE_NUMBER = f.FILE_ID
+		f.FILE_NAME as fileName
+		FROM UB_MENTORING m
+		LEFT JOIN UB_FILE f ON m.FILE_NUMBER = f.FILE_NUMBER
 		WHERE m.INTERNAL_ID = #{internalId}
 	</select>
 
@@ -40,7 +41,8 @@
 		#{mentoringTitle},
 		#{mentoringGoal},
 		#{mentoringDetail},
-		#{fileNumber}, CURRENT_TIMESTAMP,
+		#{fileNumber},
+		CURRENT_TIMESTAMP,
 		CURRENT_TIMESTAMP
 		)
 	</insert>
@@ -63,5 +65,11 @@
 		WHERE
 		INTERNAL_ID = #{internalId}
 	</delete>
+
+	<!-- 중복체크 -->
+	<select id="checkExists" parameterType="int" resultType="int">
+		SELECT
+		COUNT(*) FROM UB_MENTORING WHERE MENTOR_NUMBER = #{mentorNumber}
+	</select>
 
 </mapper>

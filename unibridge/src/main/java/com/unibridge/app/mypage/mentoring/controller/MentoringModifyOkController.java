@@ -50,11 +50,14 @@ public class MentoringModifyOkController implements Execute {
 
             // 4. DTO 데이터 세팅
             int mentoringNumber = Integer.parseInt(mentoringNumberStr);
-            dto.setInternalId(mentoringNumber); // DTO의 오타(interanlId) 주의
+            dto.setInternalId(mentoringNumber);
             dto.setMentoringTitle(title);
             dto.setMentoringGoal(purpose);
             dto.setMentoringDetail(curriculum);
 
+            String subjectStr = multi.getParameter("mentoringSubject");
+            dto.setSubjectNumber(Integer.parseInt(subjectStr));
+            
             // 5. DB 업데이트 실행
             System.out.println("[Log] DB Update 실행 시도 (ID: " + mentoringNumber + ")");
             dao.update(dto);
