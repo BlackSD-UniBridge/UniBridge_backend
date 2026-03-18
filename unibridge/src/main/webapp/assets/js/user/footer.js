@@ -6,7 +6,7 @@
         const path = window.location.pathname;
         // 'frontend' 문자열이 포함된 위치를 찾아 그 앞까지만 자릅니다.
         if (path.includes('/unibridge')) {
-            return window.location.origin + path.substring(0, path.indexOf('/unibridge') + 9);
+            return window.location.origin + path.substring(0, path.indexOf('/unibridge') + 10);
         }
         // 만약 frontend 폴더가 주소에 없다면 현재 호스트 주소만 사용합니다.
         return window.location.origin;

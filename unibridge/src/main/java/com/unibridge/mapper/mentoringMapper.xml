@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mentoring">
+
+	<select id="select" parameterType="int"
+		resultType="MentoringDTO">
+		SELECT
+		m.INTERNAL_ID as internalId,
+		m.MENTOR_NUMBER as mentorNumber,
+		m.SUBJECT_NUMBER as subjectNumber,
+		m.MENTORING_TITLE as mentoringTitle,
+		m.MENTORING_GOAL as mentoringGoal,
+		m.MENTORING_DETAIL as mentoringDetail,
+		m.FILE_NUMBER as fileNumber,
+		f.FILE_NAME as fileName FROM UB_MENTORING m
+		LEFT JOIN UB_FILE f ON m.FILE_NUMBER = f.FILE_ID
+		WHERE m.INTERNAL_ID = #{internalId}
+	</select>
+
+	<insert id="insert" parameterType="MentoringDTO">
+		<selectKey keyProperty="internalId" resultType="int"
+			order="BEFORE">
+			SELECT SEQ_MENTORING.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO UB_MENTORING (
+		INTERNAL_ID,
+		MENTOR_NUMBER,
+		SUBJECT_NUMBER,
+		MENTORING_TITLE,
+		MENTORING_GOAL,
+		MENTORING_DETAIL,
+		FILE_NUMBER,
+		CREATED_AT,
+		UPDATED_AT
+		) VALUES (
+		#{internalId},
+		#{mentorNumber},
+		#{subjectNumber},
+		#{mentoringTitle},
+		#{mentoringGoal},
+		#{mentoringDetail},
+		#{fileNumber}, CURRENT_TIMESTAMP,
+		CURRENT_TIMESTAMP
+		)
+	</insert>
+
+	<update id="update" parameterType="MentoringDTO">
+		UPDATE UB_MENTORING
+		SET
+		SUBJECT_NUMBER = #{subjectNumber},
+		MENTORING_TITLE = #{mentoringTitle},
+		MENTORING_GOAL = #{mentoringGoal},
+		MENTORING_DETAIL =
+		#{mentoringDetail},
+		UPDATED_AT = CURRENT_TIMESTAMP
+		WHERE INTERNAL_ID =
+		#{internalId}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM UB_MENTORING
+		WHERE
+		INTERNAL_ID = #{internalId}
+	</delete>
+
+</mapper>

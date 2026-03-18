@@ -46,6 +46,8 @@
 <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
 </head>
 <body>
+	<jsp:include page="/app/user/header.jsp" />
+
 	<main>
 		<div id="mentoTitle">멘토</div>
 		<div id="category">직무 카테고리</div>
@@ -69,5 +71,7 @@
 			<ul></ul>
 		</div>
 	</main>
+	
+	<jsp:include page="/app/user/footer.jsp" />
 </body>
 </html>

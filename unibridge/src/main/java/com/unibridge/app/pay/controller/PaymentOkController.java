@@ -65,14 +65,18 @@ public class PaymentOkController implements Execute {
 				// 2. DB 저장을 위한 DTO 세팅
 				PaymentDTO payDTO = new PaymentDTO();
 
-				// 세션이나 리퀘스트에서 필요한 정보 가져오기
-				Long memberNumber = (Long) session.getAttribute("memberNumber");
-				// 매칭 번호는 결제 전 단계에서 생성되어 전달되었다고 가정
-				Long matchingNumber = (Long) session.getAttribute("matchingNumber");
+				// [기존 코드 주석 처리] 세션에서 정보를 가져오지 못해 0L이 들어가는 현상 방지
+				// Long memberNumber = (Long) session.getAttribute("memberNumber");
+				// Long matchingNumber = (Long) session.getAttribute("matchingNumber");
 
-				payDTO.setMemberNumber(memberNumber != null ? memberNumber : 0L);
-				payDTO.setMatchingNumber(matchingNumber != null ? matchingNumber : 0L);
-				payDTO.setPayAmount("10000"); // 예시 금액 (실제 데이터에 맞게 수정)
+				// [임시 코드] DB 테스트를 위해 강제로 1L 할당 (DB에 matching_number=1, member_number=1이 있어야 함)
+				Long memberNumber = 11L; 
+				Long matchingNumber = 1L;
+
+				// DTO 세팅
+				payDTO.setMemberNumber(memberNumber);
+				payDTO.setMatchingNumber(matchingNumber);
+				payDTO.setPayAmount("10000"); // 예시 금액
 				payDTO.setPayMethod("카카오페이");
 				payDTO.setPayStatus("SUCCESS");
 
@@ -84,7 +88,11 @@ public class PaymentOkController implements Execute {
 				
 				// 4. 세션 정리 및 결과 페이지 이동
 				session.removeAttribute("tid");
-				result.setPath(request.getContextPath() + "/app/user/payment/paymentFinish.jsp");
+				// [수정 전]
+				// result.setPath(request.getContextPath() + "/app/user/payment/paymentFinish.jsp");
+
+				// [수정 후 - 방법 A] 실제 폴더가 app/user/mentorSearch/payment/ 아래에 있는 경우 (추천)
+				result.setPath(request.getContextPath() + "/app/user/mentorSearch/payment/paymentFinish.jsp");
 				result.setRedirect(true);
 
 			} else {

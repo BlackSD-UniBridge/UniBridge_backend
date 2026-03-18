@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypage">
+	<delete id="delete" parameterType="MemberDTO">
+		UPDATE UB_MEMBER SET MEMBER_STATE = '계정 비활성화'
+		WHERE member_id = #{memberId} AND member_pw = #{memberPw}
+	</delete>
+</mapper>

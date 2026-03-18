@@ -8,18 +8,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
+<<<<<<< HEAD
 import com.unibridge.app.member.controller.DeleteController;
 import com.unibridge.app.member.controller.UpdateController;
 import com.unibridge.app.mypage.entrypoint.controller.MentorController;
 import com.unibridge.app.mypage.matching.controller.MatchingController;
 import com.unibridge.app.mypage.survey.controller.SurveyController;
 import com.unibridge.app.mypage.surveyMentor.controller.SurveyMentorController;
+=======
+import com.unibridge.app.mypage.delete.controller.MentorDeleteController;
+import com.unibridge.app.mypage.entrypoint.controller.MentorController;
+import com.unibridge.app.mypage.mentoring.controller.MentoringFrontController;
+import com.unibridge.app.mypage.surveyMentor.controller.SurveyMentorController;
+
+>>>>>>> 2dcfaea6b47442a48a168dc7e8f723285f026411
 
 public class MentorFrontController implements Execute {
 	Result outResult = new Result();
 	
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
+<<<<<<< HEAD
 			throws ServletException, IOException {
 		String requestURI = request.getRequestURI();
 		String target = extractTargetPath(requestURI);
@@ -44,6 +53,40 @@ public class MentorFrontController implements Execute {
 			break;
 		}
 		return outResult;
+=======
+	        throws ServletException, IOException {
+	    String requestURI = request.getRequestURI();
+	    String target = extractTargetPath(requestURI);
+	    
+	    System.out.println("[Log] MentorFrontController target: " + target);
+
+	    switch (target) {
+	        case "myPage.my":
+	            this.outResult = new MentorController().execute(request, response);
+	            break;
+	        case "delete.my":
+	            this.outResult = new MentorDeleteController().execute(request, response);
+	            break;
+	        case "survey.my":
+	            this.outResult = new SurveyMentorController().execute(request, response);
+	            break;
+	            
+	        // 멘토링 관련 요청들을 모두 MentoringFrontController로 토스
+	        case "mentoringCreate.my":
+	        case "mentoringWriteOk.my":
+	        case "mentoringView.my":
+	        case "mentoringModify.my":
+	        case "mentoringModifyOk.my":
+	        case "mentoringDeleteOk.my":
+	            System.out.println("[Log] 멘토링 관련 요청 -> MentoringFrontController로 이동");
+	            this.outResult = new MentoringFrontController().execute(request, response);
+	            break;
+	        default:
+	            System.out.println("[Warn] 매칭되는 target이 없음: " + target);
+	            break;
+	    }
+	    return outResult;
+>>>>>>> 2dcfaea6b47442a48a168dc7e8f723285f026411
 	}
 	
 	private String extractTargetPath(String requestUri) {

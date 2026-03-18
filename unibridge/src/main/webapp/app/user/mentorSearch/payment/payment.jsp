@@ -8,15 +8,15 @@
 <title>결제</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/user/mentorSearch/payment/payment.css">
-<%-- <link rel="stylesheet"
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/header.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/footer.css">
 <link href="${pageContext.request.contextPath}/assets/css/fonts.css"
-	rel="stylesheet"> --%>
+	rel="stylesheet">
 </head>
 <body>
-	<%-- <jsp:include page="/app/common/header.jsp" /> --%>
+	<jsp:include page="/app/user/header.jsp" />
 
 	<main>
 		<div id="mentoringInfo">
@@ -54,7 +54,7 @@
 		</div>
 	</main>
 
-	<%-- <jsp:include page="/app/common/footer.jsp" /> --%>
+	<jsp:include page="/app/user/footer.jsp" />
 	<script src="${pageContext.request.contextPath}/assets/js/user/mentorSearch/payment/payment.js"></script>
 </body>
 </html>

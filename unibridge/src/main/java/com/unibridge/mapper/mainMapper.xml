@@ -29,7 +29,7 @@
         <result property="subjectNumber"   column="subject_number"    />
         <result property="subjectName"     column="subject_name"      />
         <result property="memberNickname"  column="member_nickname"   />
-        <result property="memberProfile"   column="member_profile"    />
+        <result property="memberProfile"   column="member_file_number"    />
     </resultMap>
 
     <!-- =========================================================
@@ -54,7 +54,9 @@
             WHERE status = '진행중'
             ORDER BY end_date ASC
         )
-        WHERE ROWNUM &lt;= 10
+        <![CDATA[
+        WHERE ROWNUM <= 10
+        ]]>
     </select>
 
     <!-- =========================================================
@@ -71,17 +73,19 @@
                 m.MENTORING_TITLE  AS mentoring_title,
                 m.MENTORING_GOAL   AS mentoring_goal,
                 m.MENTORING_DETAIL AS mentoring_detail,
-                m.MENTORING_FILE   AS mentoring_file,
+                m.FILE_NUMBER      AS mentoring_file,
                 m.SUBJECT_NUMBER   AS subject_number,
                 s.subject_name     AS subject_name,
                 mb.member_nickname AS member_nickname,
-                mb.member_profile  AS member_profile
+                mb.file_number     AS member_file_number
             FROM UB_MENTORING m
             JOIN UB_MEMBER  mb ON m.MENTOR_NUMBER  = mb.member_number
             JOIN UB_SUBJECT s  ON m.SUBJECT_NUMBER = s.subject_number
             ORDER BY m.CREATED_AT DESC
         )
-        WHERE ROWNUM &lt;= 7
+        <![CDATA[
+    	WHERE ROWNUM <= 7
+    	]]>
     </select>
 
 </mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
     ※ 사용 방법: 각 JSP의 <body> 최상단에 include
        <%@ include file="/app/user/header.jsp" %>
@@ -15,7 +16,7 @@
 <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css?v=1.1" />
 
 <header class="headerWrap">
     <div class="headerInner">
@@ -47,13 +48,13 @@
                 <%-- 로그인 상태 (Servlet에서 session.setAttribute("loginUser", userDto) 후 동작) --%>
                 <div class="headerAuthGroup">
                     <div class="userInfoWrap">
-                        <span class="userName">${sessionScope.loginUser.userName}</span>
+                        <span class="userName">${sessionScope.loginUser.memberName}</span>
                         <span class="userRoleDivider">/</span>
                         <c:choose>
-                            <c:when test="${sessionScope.loginUser.role eq 'mentor'}">
+                            <c:when test="${fn:toLowerCase(sessionScope.loginUser.memberType) eq 'mentor'}">
                                 <span class="userRoleBadge mentoRoleBadge">멘토</span>
                             </c:when>
-                            <c:when test="${sessionScope.loginUser.role eq 'mentee'}">
+                            <c:when test="${fn:toLowerCase(sessionScope.loginUser.memberType) eq 'mentee'}">
                                 <span class="userRoleBadge mentiRoleBadge">멘티</span>
                             </c:when>
                             <c:otherwise>

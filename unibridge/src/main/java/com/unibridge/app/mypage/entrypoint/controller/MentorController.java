@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
-import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.app.mypage.entrypoint.dao.MentorDAO;
 
 public class MentorController implements Execute {
@@ -49,5 +48,6 @@ public class MentorController implements Execute {
 	}
 	
 	private void doPost(HttpServletRequest request, HttpServletResponse response) {
+		
 	}
 }

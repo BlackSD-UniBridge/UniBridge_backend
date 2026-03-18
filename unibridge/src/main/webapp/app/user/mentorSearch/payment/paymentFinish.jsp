@@ -18,7 +18,7 @@
 <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
 </head>
 <body>
-	<%-- <jsp:include page="/app/common/header.jsp" /> --%>
+	<jsp:include page="/app/user/header.jsp" />
 
 	<main>
 		<div id="mentoringInfo">
@@ -49,12 +49,13 @@
 			</div>
 
 			<div>
-				<button type="button" onclick="location.href='main.me'">홈으로
-					가기</button>
+				<button type="button"
+					onclick="location.href='${pageContext.request.contextPath}/main.me'">
+					홈으로 가기</button>
 			</div>
 		</div>
 	</main>
 
-	<%-- <jsp:include page="/app/common/footer.jsp" /> --%>
+	<jsp:include page="/app/user/footer.jsp" />
 </body>
 </html>

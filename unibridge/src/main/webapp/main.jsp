@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="ko">
 
@@ -18,7 +20,7 @@
 <body>
 
   <%-- header.js의 renderHeader() + #headerContainer 대체 --%>
-	<div id="headerContainer"></div>
+	<%@ include file="/app/user/header.jsp" %>
   <!-- ====== MAIN ====== -->
   <main class="mainWrap">
 
@@ -251,7 +253,7 @@
 
   </main>
 
-  <div id="footerContainer"></div>
+  <%@ include file="/app/user/footer.jsp" %>
 
   <script src="${pageContext.request.contextPath}/assets/js/user/header.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/user/footer.js"></script>

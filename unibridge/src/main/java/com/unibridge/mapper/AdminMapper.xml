@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+
+	<!-- 관리자 로그인 -->
+	<select id="adlogin" parameterType="AdminDTO" resultType="AdminDTO">
+		SELECT * FROM UB_ADMIN
+		WHERE admin_id = #{adminId} and admin_pw = #{adminPw}
+	</select>
+	
+	<!-- 메인페이지  -->
+	<select id="membertotal" resultType="int">
+		SELECT 
+	</select>
+	
+</mapper>

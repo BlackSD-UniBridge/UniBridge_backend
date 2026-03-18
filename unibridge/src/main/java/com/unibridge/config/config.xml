@@ -2,7 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-   <properties resource="context.properties"></properties>   
+   <properties resource="context.properties" />   
    <settings>
       <!-- 카멜케이스 매핑 설정 -->
       <setting name="mapUnderscoreToCamelCase" value="true"></setting>
@@ -21,12 +21,11 @@
       <!-- <typeAlias type="com.unibridge.app.Board.dto.BoardDTO" alias="BoardDTO"></typeAlias> -->
       <typeAlias type="com.unibridge.app.pay.dto.PaymentDTO" alias="PaymentDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mentorSearch.dto.MentorSearchDTO" alias="MentorSearchDTO"></typeAlias>
-      
       <typeAlias type="com.unibridge.app.file.dto.FileDTO" alias="FileDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mypage.survey.dto.SurveyDTO" alias="SurveyDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mypage.surveyMentee.dto.SurveyMenteeDTO" alias="SurveyMenteeDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mypage.surveyMentor.dto.SurveyMentorDTO" alias="SurveyMentorDTO"></typeAlias>
-      <!-- <typeAlias type="com.unibridge.app.mypage.mentoring.dto.MentoringDTO" alias="MentoringDTO"></typeAlias -->
+      <typeAlias type="com.unibridge.app.mypage.mentoring.dto.MentoringDTO" alias="MentoringDTO"></typeAlias>
    </typeAliases>
 
    <environments default="oracle">
@@ -43,14 +42,14 @@
    
    <!-- Mapper.xml 등록 추후 필요 , 추가되면 만들기 -->
    <mappers>
-      <mapper resource="com/unibridge/mapper/MemberMapper.xml" />
+      <mapper resource="com/unibridge/mapper/memberMapper.xml" />
       <!-- <mapper resource="com/unibridge/mapper/BoardMapper.xml" /> -->
       <mapper resource="com/unibridge/mapper/payMapper.xml" />
       <mapper resource="com/unibridge/mapper/mentorSearchMapper.xml" />
       
-      <mapper resource="com/unibridge/mapper/SurveyMapper.xml" />
-      <mapper resource="com/unibridge/mapper/FileMapper.xml" />
-      <!-- <mapper resource="com/unibridge/mapper/mentoringMapper.xml" /> -->
+      <mapper resource="com/unibridge/mapper/surveyMapper.xml" />
+      <mapper resource="com/unibridge/mapper/fileMapper.xml" />
+      <mapper resource="com/unibridge/mapper/mentoringMapper.xml" />
       <mapper resource="com/unibridge/mapper/mainMapper.xml"/>
    </mappers>
    

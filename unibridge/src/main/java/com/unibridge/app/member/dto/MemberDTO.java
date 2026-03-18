@@ -36,12 +36,13 @@ public class MemberDTO {
 		super();
 	}
 	
-	public MemberDTO(int memberNumber, String memberId, String memberName, String memberNickname, String memberPhone,
-			String memberGender, int surveyNumber, String memberType, String memberState, char surveyWrite,
-			int fileNumber) {
+	public MemberDTO(int memberNumber, String memberId, String memberPw, String memberName, String memberNickname,
+			String memberPhone, String memberGender, int surveyNumber, String memberType, String memberState,
+			char surveyWrite, int fileNumber) {
 		super();
 		this.memberNumber = memberNumber;
 		this.memberId = memberId;
+		this.memberPw = memberPw;
 		this.memberName = memberName;
 		this.memberNickname = memberNickname;
 		this.memberPhone = memberPhone;
@@ -52,7 +53,7 @@ public class MemberDTO {
 		this.surveyWrite = surveyWrite;
 		this.fileNumber = fileNumber;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "MemberDTO [memberNumber=" + memberNumber + ", memberId=" + memberId + ", memberName=" + memberName

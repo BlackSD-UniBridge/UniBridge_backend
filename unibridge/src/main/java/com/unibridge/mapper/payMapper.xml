@@ -12,7 +12,7 @@
 		pay_status,
 		member_number
 		) VALUES (
-		SEQ_UB_PAY.NEXTVAL,
+		SEQ_PAY.NEXTVAL,
 		#{matchingNumber},
 		#{payAmount},
 		'카카오페이',

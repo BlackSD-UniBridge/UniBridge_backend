@@ -25,9 +25,9 @@ public class MemberDAO {
      *             <li>...: 일치하는 회원 정보</li>
      *         </ul>
      */
-    public int memberLogin(MemberDTO member) {
-    	Integer result = sqlSession.selectOne("member.login", member);
-    	return result != null ? result : -1;
+    public MemberDTO memberLogin(MemberDTO member) {
+    	MemberDTO result = sqlSession.selectOne("member.login", member);
+    	return result;
     }
     
     public int memberSignup(MemberDTO member) {
