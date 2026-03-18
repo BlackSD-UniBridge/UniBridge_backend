@@ -34,11 +34,31 @@ public class PayLogController implements Execute{
 
 	private void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-	    long memberNumber = (long) request.getSession().getAttribute("memberNumber");
+	    Long memberNumber = (Long) request.getSession().getAttribute("memberNumber");
+	    //임시 값 결제 내역 O
+//	    memberNumber = 39L;
+	    
+	    //임시 값 결제 내역 X
+//	    memberNumber = 1L;
+
+	    if (memberNumber == null) {
+	        outResult.setPath("/app/user/signin/signin.jsp");
+	        outResult.setRedirect(true);
+	        return;
+	    }
 
 	    PaymentDAO dao = new PaymentDAO();
-	    PaymentDTO payLog = dao.selectLatestByMemberNumber(memberNumber);
+	    PaymentDTO payLog = dao.selectLatestPaymentByMember(memberNumber);
 
+	    // 핵심 분기
+	    if (payLog == null) {
+	        // 결제 내역 없음
+	        outResult.setPath("/app/user/mentee/myPage/userPayLog/notPayLog.jsp");
+	        outResult.setRedirect(false);
+	        return;
+	    }
+
+	    // 결제 내역 있음
 	    request.setAttribute("payLog", payLog);
 
 	    outResult.setPath("/app/user/mentee/myPage/userPayLog/payLog.jsp");

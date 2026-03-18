@@ -16,7 +16,7 @@ public class PaymentDAO {
         sqlSession.insert("pay.insertPayment", paymentDTO);
     }
     
-    public PaymentDTO selectLatestByMemberNumber(long memberNumber) {
-        return sqlSession.selectOne("pay.selectLatestByMemberNumber", memberNumber);
+    public PaymentDTO selectLatestPaymentByMember(long memberNumber) {
+        return sqlSession.selectOne("pay.selectLatestPaymentByMember", memberNumber);
     }
 }
