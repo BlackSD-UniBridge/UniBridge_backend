@@ -12,7 +12,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/fonts.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMentoing/mentoringForm.css">
+	href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMentoing/mentoringView.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/header.css">
 <link rel="stylesheet"
@@ -33,11 +33,21 @@
 		<aside>
 			<div class="myPageTitle">마이페이지</div>
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/myPage.jsp" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userSurvey/userSurvey.jsp">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userMatching/userMatching.jsp" >매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userMentoing/mentoringCreate.jsp" class="active">멘토링</a></li>
-                <li><a href="${pageContext.request.contextPath}/app/user/mentor/myPage/userDelete/userDelete.jsp">회원 탈퇴</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/app/user/mentor/myPage.jsp">계정
+						관리</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/app/user/mentor/userSurvey.jsp">설문
+						조사</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/app/user/mentor/userMatching.jsp">매칭
+						정보</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/app/user/mentor/mentoring.jsp"
+					class="active">멘토링</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/app/user/mentor/userDelete.jsp">회원
+						탈퇴</a></li>
 			</ul>
 		</aside>
 
@@ -107,11 +117,10 @@
 							</div>
 
 							<div id="profile">
-								<a href="#"> <img
-									src="${pageContext.request.contextPath}/assets/img/user/userProfile/userIcon.png"
-									alt="아이콘"> <img id="profileImg"
-									src="${pageContext.request.contextPath}/assets/img/user/userProfile/ex1.png"
-									alt="프로필이미지">
+								<a href="#"> <%-- 프로필 이미지가 저장된 경로 적용 --%> <img
+									src="${pageContext.request.contextPath}/upload/${mentoring.profileImg}"
+									alt="멘토 프로필" id="profileImg"
+									onerror="this.src='${pageContext.request.contextPath}/frontend/assets/img/user/userProfile/ex1.png'">
 								</a>
 							</div>
 						</div>

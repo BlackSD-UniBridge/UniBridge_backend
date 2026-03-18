@@ -42,7 +42,7 @@ public class MentoringViewController implements Execute {
             }
 
             // 3. 이동 경로 설정
-            result.setPath("/app/user/mentor/myPage/userMentoing/mentoringView.jsp");
+            result.setPath("/app/user/mentor/myPage/userMentoring/mentoringView.jsp");
             result.setRedirect(false); // 데이터를 담아서 가야 하므로 forward
             System.out.println("[Log] 이동 경로 설정(Forward): " + result.getPath());
 

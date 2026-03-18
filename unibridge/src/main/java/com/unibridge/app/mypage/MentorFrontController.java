@@ -10,6 +10,7 @@ import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.mypage.delete.controller.MentorDeleteController;
 import com.unibridge.app.mypage.entrypoint.controller.MentorController;
+import com.unibridge.app.mypage.mentoring.controller.MentoringFrontController;
 import com.unibridge.app.mypage.surveyMentor.controller.SurveyMentorController;
 
 
@@ -35,6 +36,14 @@ public class MentorFrontController implements Execute {
 			System.out.println("멘토 설문 등록 요청 수신");
 			this.outResult = new SurveyMentorController().execute(request, response);
 			break;
+		case "mentoringWriteOk.my":
+		case "mentoringView.my":
+		case "mentoringModify.my":
+		case "mentoringModifyOk.my":
+		case "mentoringDeleteOk.my":
+			System.out.println("멘토 메토링 페이지 요청");
+			this.outResult = new MentoringFrontController().execute(request, response);
+		    break;
 		default:
 			break;
 		}

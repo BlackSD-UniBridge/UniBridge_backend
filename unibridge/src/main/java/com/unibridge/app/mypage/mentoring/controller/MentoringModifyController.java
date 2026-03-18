@@ -45,7 +45,7 @@ public class MentoringModifyController implements Execute {
                 request.setAttribute("mentoring", mentoringDTO);
                 
                 // 4. 결과 객체(Result) 설정 및 이동 경로 지정
-                result.setPath("/app/user/mentor/myPage/userMentoing/mentoringModify.jsp");
+                result.setPath("/app/user/mentor/myPage/userMentoring/mentoringModify.jsp");
                 result.setRedirect(false); // 데이터를 유지해야 하므로 Forward
                 System.out.println("[Log] 수정 페이지(JSP)로 Forward 설정 완료");
             } else {
