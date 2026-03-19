@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const boardId = row.dataset.boardId;
             if (boardId) {
                 // 경로 주의: 상대 경로 ./ 가 현재 페이지 위치에 따라 달라질 수 있음
-                window.location.href = `./menteeBoardDetail.html?boardId=${boardId}`;
+                window.location.href = `./menteeBoardDetail.jsp?boardId=${boardId}`;
             }
         });
     });
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const writeBtn = document.getElementById('menteeBoardWriteBtn');
     if (writeBtn) {
         writeBtn.addEventListener('click', () => {
-            window.location.href = './menteeBoardCreate.html';
+            window.location.href = './menteeBoardCreate.jsp';
         });
     }
 });

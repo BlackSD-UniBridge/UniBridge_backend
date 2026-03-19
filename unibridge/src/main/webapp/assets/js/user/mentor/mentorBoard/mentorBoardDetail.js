@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const subject = document.querySelector('.mentorBoardDetailTitle')?.textContent || '';
       const content = document.querySelector('.mentorBoardDetailBody')?.textContent.trim() || '';
       sessionStorage.setItem('mentorBoardModifyData', JSON.stringify({ subject, content }));
-      window.location.href = `./mentorBoardModify.html?boardId=${boardId}`;
+      window.location.href = `./mentorBoardModify.jsp?boardId=${boardId}`;
     });
   }
 
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (deleteBtn) {
     deleteBtn.addEventListener('click', () => {
       if (confirm('게시글을 삭제하시겠습니까?')) {
-        window.location.href = './mentorBoardList.html';
+        window.location.href = './mentorBoardList.jsp';
       }
     });
   }

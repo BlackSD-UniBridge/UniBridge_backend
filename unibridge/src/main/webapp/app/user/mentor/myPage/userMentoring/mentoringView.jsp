@@ -12,7 +12,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/fonts.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMentoing/mentoringView.css">
+	href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMentoring/mentoringForm.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/header.css">
 <link rel="stylesheet"
@@ -134,8 +134,10 @@
 
 						<div id="buttons">
 							<button type="button" id="delBtn"
-								onclick="location.href='${pageContext.request.contextPath}/auth/mentor/mentoringDelete.my?id=${mentoring.internalId}'">삭제</button>
-							<button type="submit" id="modBtn">수정</button>
+								onclick="if(confirm('정말로 삭제하시겠습니까?')) { location.href='${pageContext.request.contextPath}/mvc/auth/mentor/mentoringDeleteOk.my?mentoringNumber=${mentoring.internalId}'; }">삭제</button>
+
+							<button type="button" id="modBtn"
+								onclick="location.href='${pageContext.request.contextPath}/mvc/auth/mentor/mentoringModify.my?mentoringNumber=${mentoring.internalId}'">수정</button>
 						</div>
 					</div>
 				</div>

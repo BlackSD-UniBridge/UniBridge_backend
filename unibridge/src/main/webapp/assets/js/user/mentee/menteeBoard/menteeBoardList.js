@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
       row.addEventListener('click', () => {
         const boardId = row.dataset.boardId;
         if (boardId) {
-          window.location.href = `/unibridge/app/user//mentee/menteeBoard/menteeBoardDetail.jsp?boardId=${boardId}`;
+          window.location.href = `/unibridge/app/user/mentee/menteeBoard/menteeBoardDetail.jsp?boardId=${boardId}`;
         }
       });
     });
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (writeBtn) {
       writeBtn.addEventListener('click', () => {
         // menteeBoardCreate.html로 이동
-        window.location.href = '/unibridge/app/user//mentee/menteeBoard/menteeBoardCreate.jsp';
+        window.location.href = '/unibridge/app/user/mentee/menteeBoard/menteeBoardCreate.jsp';
       });
     }
   });
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const writeBtn = document.getElementById('menteeBoardWriteBtn');
   if (writeBtn) {
     writeBtn.addEventListener('click', () => {
-      window.location.href = '/unibridge/app/user//mentee/menteeBoard/menteeBoardCreate.jsp';
+      window.location.href = '/unibridge/app/user/mentee/menteeBoard/menteeBoardCreate.jsp';
     });
   }
 });

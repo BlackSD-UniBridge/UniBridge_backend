@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Result;
 import com.unibridge.app.admin.controller.AdminReportController;
+import com.unibridge.app.admin.controller.AdminUserMMController;
 
 public class AdminFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,6 +37,7 @@ public class AdminFrontController extends HttpServlet {
 			break;
 		case  "userMM.admin":
 		case "/userMM.admin":
+			result = new AdminUserMMController().execute(request, response);
 			break;
 		default:
 			response.sendError(HttpServletResponse.SC_NOT_FOUND, "요청한 기능을 사용할 수 없습니다.");

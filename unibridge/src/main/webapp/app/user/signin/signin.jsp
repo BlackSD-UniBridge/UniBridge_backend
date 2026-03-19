@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/signin/signin.css">
     <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
     <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
-    <script defer src="${pageContext.request.contextPath}/assets/js/user/signin/login.js"></script>
+    <script defer src="${pageContext.request.contextPath}/assets/js/user/signin/signin.js"></script>
 	<title>login</title>
 </head>
 <body>

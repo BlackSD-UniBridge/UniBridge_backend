@@ -1,0 +1,191 @@
+@charset "UTF-8";
+/* ── 공지사항 페이지 ── */
+.announceWrap {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 96px 75px 32px;
+}
+
+.noticeBoardTitle {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2c5f8a;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-bottom: 28px;
+}
+
+/* ── 목록 컨테이너 ── */
+.noticeBoardList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 헤더 행 ── */
+.announceHeaderRow {
+  display: flex;
+  align-items: center;
+  border-top: 2px solid #2c5f8a;
+  border-bottom: 1px solid #dde6f0;
+  background: #fff;
+}
+
+.announceTh {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  padding: 12px 8px;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+/* ── 본문 행 ── */
+.announceRow {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eef2f7;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.announceRow:hover {
+  background: #f4f9ff;
+}
+
+.announceTd {
+  font-size: 13.5px;
+  color: #333;
+  padding: 13px 8px;
+  font-family: 'Noto Sans KR', sans-serif;
+  flex-shrink: 0;
+}
+
+/* ── 컬럼 너비 ── */
+.announceTh:first-child,
+.announceTdNum {
+  width: 60px;
+  text-align: center;
+}
+
+.announceThCategory,
+.announceTd:nth-child(2) {
+  width: 80px;
+  text-align: center;
+}
+
+.announceThTitle,
+.announceTdTitle {
+  flex: 1;
+  flex-shrink: 1;
+}
+
+.announceThDate,
+.announceTdDate {
+  width: 160px;
+  text-align: center;
+}
+
+.announceThAuthor,
+.announceTdAuthor {
+  width: 100px;
+  text-align: center;
+}
+
+.announceThViews,
+.announceTdViews {
+  width: 80px;
+  text-align: center;
+}
+
+/* ── 세부 스타일 ── */
+.announceTdNum {
+  color: #888;
+  font-size: 13px;
+}
+
+.announceCategoryBadge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.2px;
+}
+
+.announceCategoryBadge.contest {
+  background: #e8f0fe;
+  color: #2c5f8a;
+}
+
+.announceCategoryBadge.announce {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.announceTdTitle {
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.announceRow:hover .announceTdTitle {
+  color: #2c5f8a;
+  text-decoration: underline;
+}
+
+.announceTdDate {
+  color: #aaa;
+  font-size: 12.5px;
+}
+
+.announceTdAuthor {
+  color: #333;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.announceTdViews {
+  color: #aaa;
+  font-size: 12.5px;
+}
+
+/* ── 페이지네이션 ── */
+.announcePaginationWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+.announcePageBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid #dde6f0;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s;
+}
+
+.announcePageBtn:hover {
+  border-color: #2c5f8a;
+  color: #2c5f8a;
+  background: #f0f6ff;
+}
+
+.announcePageBtn.active {
+  background: #2c5f8a;
+  color: #fff;
+  border-color: #2c5f8a;
+  font-weight: 600;
+}
+
+.announcePageNext {
+  color: #2c5f8a;
+  font-size: 14px;
+}

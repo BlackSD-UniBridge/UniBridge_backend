@@ -106,6 +106,16 @@
 		<servlet-name>Main</servlet-name>
 		<url-pattern>*.main</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Header (로그인 / 로그아웃) -->
+	<servlet>
+	    <servlet-name>Header</servlet-name>
+	    <servlet-class>com.unibridge.app.header.HeaderFrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Header</servlet-name>
+	    <url-pattern>*.head</url-pattern>
+	</servlet-mapping>
 
 	<!-- 관리자 -->
 	<servlet>
@@ -116,7 +126,19 @@
 		<servlet-name>Admin</servlet-name>
 		<url-pattern>*.admin</url-pattern>
 	</servlet-mapping>
-
+	
+	
+	<!--  API  -->
+	<servlet>
+		<servlet-name>ApiAdmin</servlet-name>
+		<servlet-class>com.unibridge.api.admin.controller.AdminFrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ApiAdmin</servlet-name>
+		<url-pattern>/api/admin/*</url-pattern>
+	</servlet-mapping>
+	
+	<!--  Filter  -->
 	<filter>
 		<filter-name>MVCAuthFilter</filter-name>
 		<filter-class>com.unibridge.filter.MVCAuthFilter</filter-class>
@@ -125,5 +147,4 @@
 		<filter-name>MVCAuthFilter</filter-name>
 		<url-pattern>/mvc/*</url-pattern>
 	</filter-mapping>
-
 </web-app>

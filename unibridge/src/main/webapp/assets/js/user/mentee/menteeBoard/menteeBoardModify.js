@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const backBtn = document.getElementById('menteeBoardModifyBackBtn');
   if (backBtn) {
     backBtn.addEventListener('click', () => {
-      window.location.href = `./menteeBoardDetail.html?boardId=${boardId}`;
+      window.location.href = `./menteeBoardDetail.jsp?boardId=${boardId}`;
     });
   }
 
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!content) { alert('내용을 입력해주세요.'); return; }
 
       sessionStorage.removeItem('menteeBoardModifyData');
-      window.location.href = `./menteeBoardDetail.html?boardId=${boardId}`;
+      window.location.href = `./menteeBoardDetail.jsp?boardId=${boardId}`;
     });
   }
 
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     deleteBtn.addEventListener('click', () => {
       if (confirm('게시글을 삭제하시겠습니까?')) {
         sessionStorage.removeItem('menteeBoardModifyData');
-        window.location.href = './menteeBoardList.html';
+        window.location.href = './menteeBoardList.jsp';
       }
     });
   }

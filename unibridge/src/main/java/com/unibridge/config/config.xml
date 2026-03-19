@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
    <properties resource="context.properties" />   
@@ -25,6 +25,8 @@
       <typeAlias type="com.unibridge.app.mypage.survey.dto.SurveyDTO" alias="SurveyDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mypage.surveyMentee.dto.SurveyMenteeDTO" alias="SurveyMenteeDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mypage.surveyMentor.dto.SurveyMentorDTO" alias="SurveyMentorDTO"></typeAlias>
+      <typeAlias type="com.unibridge.app.noticeBoard.dto.NoticeBoardDTO"             alias="NoticeBoardDTO"    />
+      <typeAlias type="com.unibridge.app.noticeBoard.dto.NoticeBoardListDTO"         alias="NoticeBoardListDTO"/>
       <typeAlias type="com.unibridge.app.mypage.mentoring.dto.MentoringDTO" alias="MentoringDTO"></typeAlias>
    </typeAliases>
 
@@ -51,6 +53,7 @@
       <mapper resource="com/unibridge/mapper/fileMapper.xml" />
       <mapper resource="com/unibridge/mapper/mentoringMapper.xml" />
       <mapper resource="com/unibridge/mapper/mainMapper.xml"/>
+      <mapper resource="com/unibridge/mapper/NoticeBoardMapper.xml" />
    </mappers>
    
 </configuration>

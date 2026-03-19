@@ -9,8 +9,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/footer.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentee/menteeBoard/menteeBoardCreate.css" />
 </head>
 
@@ -42,8 +42,8 @@
 
   <div id="footerContainer"></div>
 
-  <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/user/header.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/user/footer.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/user/mentee/menteeBoard/menteeBoardCreate.js"></script>
 
 </body>

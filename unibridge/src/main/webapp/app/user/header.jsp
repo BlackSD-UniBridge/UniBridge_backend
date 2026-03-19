@@ -40,6 +40,45 @@
 			<a href="${pageContext.request.contextPath}/announceBoard.jsp">공지사항</a>
 		</nav>
 
+<<<<<<< HEAD
+        <!-- 인증 영역 -->
+        <c:choose>
+            <c:when test="${empty sessionScope.loginUser}">
+                <%-- 비로그인 상태 --%>
+                <div class="headerAuthGroup">
+                    <a href="${pageContext.request.contextPath}/signup.mem" class="headerBtnText">회원가입</a>
+                    <div class="headerDivider"></div>
+                    <a href="${pageContext.request.contextPath}/signin.mem" class="headerBtnSignIn">로그인</a>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <%-- 로그인 상태 (Servlet에서 session.setAttribute("loginUser", userDto) 후 동작) --%>
+                <div class="headerAuthGroup">
+                    <div class="userInfoWrap">
+                        <span class="userName">${sessionScope.loginUser.memberName}</span>
+                        <span class="userRoleDivider">/</span>
+                        <c:choose>
+                            <c:when test="${fn:toLowerCase(sessionScope.loginUser.memberType) eq 'mentor'}">
+                                <span class="userRoleBadge mentoRoleBadge">멘토</span>
+                            </c:when>
+                            <c:when test="${fn:toLowerCase(sessionScope.loginUser.memberType) eq 'mentee'}">
+                                <span class="userRoleBadge mentiRoleBadge">멘티</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="userRoleBadge nodecided">미정</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="headerDivider"></div>
+                    <a href="${pageContext.request.contextPath}/app/user/mentee/mypage" class="headerBtnText">마이페이지</a>
+                    <div class="headerDivider"></div>
+                    <a href="${pageContext.request.contextPath}/logout.head" class="headerBtnText logout">로그아웃</a>
+                </div>
+            </c:otherwise>
+        </c:choose>
+
+    </div>
+=======
 		<!-- 인증 영역 -->
 		<c:choose>
 			<c:when test="${empty sessionScope.loginUser}">
@@ -100,4 +139,5 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
+>>>>>>> 60f7e90a68ab30342cb6041fc9d40e247b9476e5
 </header>

@@ -70,5 +70,20 @@ public class MentoringDAO {
 		}
 	}
 	
+	// 멘토링 중복 체크
+	public int checkAlreadyExists(int mentorNumber) {
+	    System.out.println("[DAO] 중복 체크 시작 - 멘토 번호: " + mentorNumber);
+	    int count = 0;
+	    try {
+	        // mentoringMapper.xml에 작성할 select id="checkExists"를 호출합니다.
+	        count = sqlSession.selectOne("mentoring.checkExists", mentorNumber);
+	        System.out.println("[DAO] 중복 체크 결과 (개수): " + count);
+	    } catch (Exception e) {
+	        System.out.println("[DAO] 중복 체크 중 오류 발생!");
+	        e.printStackTrace();
+	    }
+	    return count;
+	}
+	
 	
 }
