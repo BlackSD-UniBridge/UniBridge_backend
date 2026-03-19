@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Result;
 import com.unibridge.app.member.controller.SigninController;
+import com.unibridge.app.member.controller.SignoutController;
 import com.unibridge.app.member.controller.SignupController;
 
 public class MemberFrontController extends HttpServlet {
@@ -39,6 +40,10 @@ public class MemberFrontController extends HttpServlet {
 		case  "signup.mem":
 		case "/signup.mem":
 			result = new SignupController().execute(request, response);
+			break;
+		case  "signout.mem":
+		case "/signout.mem":
+			result = new SignoutController().execute(request, response);
 			break;
 		default:
 			response.sendError(HttpServletResponse.SC_NOT_FOUND, "요청한 기능을 사용할 수 없습니다.");
