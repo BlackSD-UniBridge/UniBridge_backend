@@ -13,6 +13,7 @@ import com.unibridge.app.menteeBoard.controller.MenteeBoardListOkController;
 import com.unibridge.app.menteeBoard.controller.MenteeBoardReadOkController;
 import com.unibridge.app.menteeBoard.controller.MenteeBoardUpdateController;
 import com.unibridge.app.menteeBoard.controller.MenteeBoardUpdateOkController;
+import com.unibridge.app.menteeBoard.controller.MenteeBoardWriteController;
 import com.unibridge.app.menteeBoard.controller.MenteeBoardWriteOkController;
 
 /**
@@ -65,19 +66,24 @@ public class MenteeBoardFrontController extends HttpServlet {
 				break;
 				
 			case "MenteeBoardWrite.meb":
-				System.out.println("Mentee 게시물 목록 처리 요청");
-				result = new MenteeBoardWriteOkController().execute(request, response);
-				break;
+			    if ("POST".equals(request.getMethod())) {
+			        System.out.println("Mentee 게시물 작성 처리");
+			        result = new MenteeBoardWriteOkController().execute(request, response);
+			    } else {
+			        System.out.println("Mentee 게시물 작성 페이지 이동");
+			        result = new MenteeBoardWriteController().execute(request, response);
+			    }
+			    break;
 
 			case "MenteeBoardUpdate.meb":
 				if ("POST".equals(request.getMethod())) {
 					System.out.println("Mentee 게시물 목록 처리 요청");
 					result = new MenteeBoardUpdateOkController().execute(request, response);
-				break;
 				}else {
 					System.out.println("Mentee 게시물 수정 페이지 이동");
 					result = new MenteeBoardUpdateController().execute(request, response);
 				}
+				break;
 
 			case "MenteeBoardDelete.meb":
 				System.out.println("Mentee 게시물 목록 처리 요청");

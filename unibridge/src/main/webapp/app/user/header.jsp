@@ -34,10 +34,10 @@
 		<nav class="headerNav">
 			<a
 				href="${pageContext.request.contextPath}/mentor/mentorSearchOk.sch">멘토
-				검색</a> <a
-				href="${pageContext.request.contextPath}/mentee/menteeBoard/menteeBoardList.jsp">게시판</a>
+				검색</a> 
+			<a href="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardList.meb">게시판</a>
 			<a href="${pageContext.request.contextPath}/mvc/auth/reportList.rep">학습보고서</a>
-			<a href="${pageContext.request.contextPath}/announceBoard.jsp">공지사항</a>
+			<a href="${pageContext.request.contextPath}/common/noticeBoardList.ntb">공지사항</a>
 		</nav>
 
 		<!-- 인증 영역 -->

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
+import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.app.menteeBoard.dao.MenteeBoardDAO;
 import com.unibridge.app.menteeBoard.dto.MenteeBoardDTO;
 import com.oreilly.servlet.MultipartRequest;
@@ -25,14 +26,15 @@ public class MenteeBoardWriteOkController implements Execute {
 		Result result = new Result();
 		
 		//로그인 한 회원 정보 가져오기
-		Integer memberNumber = (Integer)request.getSession().getAttribute("memberNumber");
-		
-		System.out.println("현재 로그인한 회원 번호 : " + memberNumber);
-		if(memberNumber == null) {
-			System.out.println("오류 : 로그인 된 사용자가 없습니다");
-			response.sendRedirect("/app/user/signin/signin.jsp");
-			return null;
+		MemberDTO loginUser = (MemberDTO) request.getSession().getAttribute("loginUser");
+
+		if (loginUser == null) {
+		    System.out.println("오류 : 로그인 된 사용자가 없습니다");
+		    response.sendRedirect(request.getContextPath() + "/signin.mem");
+		    return null;
 		}
+
+		Integer memberNumber = loginUser.getMemberNumber();
 		
 		//파일 업로드 환경 설정
 		final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "upload/";
@@ -58,7 +60,7 @@ public class MenteeBoardWriteOkController implements Execute {
 		int MenteeBoardNumber = MenteeBoardDAO.insertBoard(MenteeBoardDTO);
 		System.out.println("생성된 게시글 번호 : " + MenteeBoardNumber);
 		
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.jsp");
+		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.meb");
 		result.setRedirect(true);
 		
 		return result;

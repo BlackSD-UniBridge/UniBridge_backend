@@ -8,7 +8,7 @@
 
 <footer class="footerWrap">
     <div class="footerInner">
-        <a href="${pageContext.request.contextPath}/main.jsp" class="footerLogo">
+        <a href="${pageContext.request.contextPath}/index.main" class="footerLogo">
             <img src="${pageContext.request.contextPath}/assets/img/UniBridge.png" alt="UniBridge" />
         </a>
 

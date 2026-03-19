@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
+import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.app.menteeBoard.dao.MenteeBoardDAO;
 import com.unibridge.app.menteeBoard.dto.MenteeBoardListDTO;
 
@@ -46,7 +47,8 @@ public class MenteeBoardReadOkController implements Execute {
 		}
 		
 		//로그인 한 사용자 번호 가져오기
-		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("memberNumber");
+		MemberDTO loginUser = (MemberDTO) request.getSession().getAttribute("loginUser");
+		Integer loginMemberNumber = (loginUser != null) ? loginUser.getMemberNumber() : null;
 		System.out.println("로그인 한 멤버 번호 : " + loginMemberNumber);
 		
 		//현재 게시글 작성자 번호 가져오기
@@ -59,7 +61,7 @@ public class MenteeBoardReadOkController implements Execute {
 		}
 		
 		request.setAttribute("MenteeBoard", MenteeBoardListDTO);
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardDetail.jsp");
+		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardDetail.meb");
 		result.setRedirect(false);
 		
 		return result;

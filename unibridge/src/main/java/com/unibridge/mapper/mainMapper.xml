@@ -52,16 +52,16 @@
         FROM (
             SELECT
                 /* m.INTERNAL_ID를 m.MENTORING_NUMBER로 변경 */
-                m.MENTORING_NUMBER AS mentoring_number,
-                m.MENTOR_NUMBER    AS mentor_number,
-                m.MENTORING_TITLE  AS mentoring_title,
-                m.MENTORING_GOAL   AS mentoring_goal,
-                m.MENTORING_DETAIL AS mentoring_detail,
-                m.FILE_NUMBER      AS mentoring_file,
-                m.SUBJECT_NUMBER   AS subject_number,
-                s.subject_name     AS subject_name,
-                mb.member_nickname AS member_nickname,
-                mb.file_number     AS member_file_number
+                m.MENTORING_NUMBER AS "mentoring_number",
+                m.MENTOR_NUMBER    AS "mentor_number",
+                m.MENTORING_TITLE  AS "mentoring_title",
+                m.MENTORING_GOAL   AS "mentoring_goal",
+                m.MENTORING_DETAIL AS "mentoring_detail",
+                m.FILE_NUMBER      AS "mentoring_file",
+                m.SUBJECT_NUMBER   AS "subject_number",
+                s.subject_name     AS "subject_name",
+                mb.member_nickname AS "member_nickname",
+                mb.file_number     AS "member_file_number"
             FROM UB_MENTORING m
             JOIN UB_MEMBER  mb ON m.MENTOR_NUMBER  = mb.member_number
             JOIN UB_SUBJECT s  ON m.SUBJECT_NUMBER = s.subject_number

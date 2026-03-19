@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
+import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.app.menteeBoard.dao.MenteeBoardDAO;
 import com.unibridge.app.menteeBoard.dto.MenteeBoardDTO;
 import com.oreilly.servlet.multipart.MultipartParser;
@@ -60,12 +61,17 @@ public class MenteeBoardUpdateOkController implements Execute {
 		}
  
 		// 게시글 업데이트 실행
-		MenteeBoardDTO.setMemberNumber((Integer) request.getSession().getAttribute("memberNumber"));
+		MemberDTO loginUser = (MemberDTO) request.getSession().getAttribute("loginUser");
+		if (loginUser == null) {
+		    response.sendRedirect(request.getContextPath() + "/signin.mem");
+		    return null;
+		}
+		MenteeBoardDTO.setMemberNumber(loginUser.getMemberNumber());
 		MenteeBoardDAO.updateBoard(MenteeBoardDTO);
 		System.out.println("게시글 수정 완료");
  
 		// 수정 완료 후 페이지 이동
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.jsp");
+		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.meb");
 		result.setRedirect(true);
  
 		return result;

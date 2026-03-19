@@ -40,6 +40,12 @@ public class MenteeBoardDAO {
 		return boardDTO.getMenteeBoardNumber();
 	}
 	
+	//댓글 삭제 메소드
+	public void deleteCommentByBoard(int menteeBoardNumber) {
+	    System.out.println("댓글 삭제 - deleteCommentByBoard 메소드 실행");
+	    sqlSession.delete("Menteeboard.deleteCommentByBoard", menteeBoardNumber);
+	}
+	
 	//게시글 삭제 메소드
 	public void deleteBoard(int MenteeboardNumber) {
 		System.out.println("게시글 삭제 - deleteBoard 메소드 실행");

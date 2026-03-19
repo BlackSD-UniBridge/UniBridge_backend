@@ -10,17 +10,16 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/footer.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentee/menteeBoard/menteeBoardList.css" />
 </head>
 
 <body>
+    <%@ include file="/app/user/header.jsp"%>
 
 <div class="container">
       <div class="write-btn-wrap">
         <!-- 글쓰기 페이지 이동 처리 -->
-        <a href="${pageContext.request.contextPath}/unibridge/MenteeBoardWrite.meb" class="write-btn">글쓰기</a>
+        <a href="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardWrite.meb" class="write-btn">글쓰기</a>
       </div>
 
       <!-- 게시글 목록 -->
@@ -39,10 +38,10 @@
                   <c:forEach var="board" items="${MenteeBoardList}">
                       <div class="board-row">
                          <div class="board-item no">
-                            <c:out value="${board.menteeboardNumber}" />
+                            <c:out value="${board.menteeBoardNumber}" />
                          </div>
                          <div class="board-item title">
-                            <a href="${pageContext.request.contextPath}/unibridge/MenteeBoardRead.meb?MenteeBoardNumber=${board.menteeboardNumber}">
+                            <a href="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardRead.meb?MenteeBoardNumber=${board.menteeBoardNumber}">
                                <c:out value="${board.boardTitle}" />
                             </a>
                          </div>
@@ -78,7 +77,7 @@
           <li><a href="#" class="next">&gt;</a></li> -->
           
           <c:if test="${prev}">
-          	<li><a href="${pageContext.request.contextPath}/unibridge/MenteeBoardList.meb?page=${startPage - 1}" class="prev">&lt;</a></li>
+          	<li><a href="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardList.meb?page=${startPage - 1}" class="prev">&lt;</a></li>
           </c:if>
           <c:set var="realStartPage" value="${startPage < 1 ? 1:startPage}" />
           <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
@@ -87,22 +86,21 @@
             <li><a href="#" class="active"><c:out value="${i}" /></a></li>
           </c:when>
           <c:otherwise>
-            <li><a href="${pageContext.request.contextPath}/unibridge/MenteeBoardList.meb?page=${i}"><c:out value="${i}" /></a></li>
+            <li><a href="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardList.meb?page=${i}"><c:out value="${i}" /></a></li>
           </c:otherwise>
         </c:choose>
       </c:forEach>
       <c:if test="${next}">
-        <li><a href="${pageContext.request.contextPath}/unibridge/MenteeBoardList.meb?page=${endPage + 1}" class="next">&gt;</a></li>
+        <li><a href="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardList.meb?page=${endPage + 1}" class="next">&gt;</a></li>
       </c:if>
     </ul>
   </div>
 </div>
 	<script>
 		let memberNumber = "${sessionScope.memberNumber}";
+		const contextPath = "${pageContext.request.contextPath}";
 	</script>
-
-  <script src="${pageContext.request.contextPath}/assets/js/user/header.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/user/footer.js"></script>
+<%@ include file="/app/user/footer.jsp"%>
   <script src="${pageContext.request.contextPath}/assets/js/user/mentee/menteeBoard/menteeBoardList.js"></script>
 
 </body>

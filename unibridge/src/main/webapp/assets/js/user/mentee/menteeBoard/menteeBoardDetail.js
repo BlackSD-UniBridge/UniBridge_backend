@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 		//엘리먼트 선택(DOM 요소 선택)
 		const listBtn = document.querySelector(".list-btn");
@@ -13,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		//이동버튼
 		listBtn?.addEventListener("click", ()=>{
-			window.location.href = "/unibridge/MenteeBoardList.meb";
+			window.location.href = "${contextPath}/mentee/menteeBoard/MenteeBoardList.meb";
 		});
 		
 		//수정버튼
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			if(!boardNumber){
 				return alert("boardNumber가 없습니다");
 			}
-			window.location.href=`/unibridge/MenteeBoardUpdate.meb?MenteeBoardNumber=${encodeURIComponent(boardNumber)}`;
+			window.location.href=`${contextPath}/mentee/menteeBoard/MenteeBoardUpdate.meb?MenteeBoardNumber=${encodeURIComponent(boardNumber)}`;
 		});
 		
 		//삭제시에는 fetch => await
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		
 			try{	
-				const res = await fetch(`/unibridge/MenteeBoardDelete.meb?boardNumber=${encodeURIComponent(boardNumber)}`, {
+				const res = await fetch(`${contextPath}/mentee/menteeBoard/MenteeBoardDelete.meb?MenteeBoardNumber=${encodeURIComponent(boardNumber)}`, {
 					method:"POST", //조회 : GET, 데이터 변경 : POST
 					headers:{"X-Requested-With" : "fetch"},
 				});
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 				
 				alert("게시글이 삭제되었습니다");
-				window.location.href="/unibridge/MenteeBoardList.meb";
+				window.location.href=`${contextPath}/mentee/menteeBoard/MenteeBoardList.meb`;
 			}catch(err){
 				console.error("게시글 삭제 실패 : ", err);
 				alert("게시글 삭제에 실패했습니다");

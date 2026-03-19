@@ -1,3 +1,4 @@
+
 // menteeBoardModify.js
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const backBtn = document.getElementById('menteeBoardModifyBackBtn');
   if (backBtn) {
     backBtn.addEventListener('click', () => {
-      window.location.href = `/unibridge/MenteeBoardList.jsp`;
+      window.location.href = `${contextPath}/mentee/menteeBoard/MenteeBoardList.jsp`;
     });
   }
 
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!content) { alert('내용을 입력해주세요.'); return; }
 
       sessionStorage.removeItem('menteeBoardModifyData');
-      window.location.href = `/unibridge/MenteeBoardDetail.jsp?boardId=${boardId}`;
+      window.location.href = `${contextPath}/mentee/menteeBoard/MenteeBoardDetail.jsp?boardId=${boardId}`;
     });
   }
 
@@ -52,14 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const res = await fetch(`/unibridge/MenteeBoardDelete.jsp?MenteeBoardNumber=${encodeURIComponent(boardNumber)}`, {
+            const res = await fetch(`${contextPath}/mentee/menteeBoard/MenteeBoardDelete.meb?MenteeBoardNumber=${encodeURIComponent(boardNumber)}`, {
                 method: "POST",
                 headers: { "X-Requested-With": "fetch" },
             });
             if (!res.ok) throw new Error("삭제 요청 실패");
 
             alert("게시글이 삭제되었습니다.");
-            window.location.href = '/unibridge/MenteeBoardList.jsp';
+            window.location.href = '${contextPath}/mentee/menteeBoard/MenteeBoardList.meb';
         } catch (err) {
             console.error("게시글 삭제 실패 : ", err);
             alert("게시글 삭제에 실패했습니다.");

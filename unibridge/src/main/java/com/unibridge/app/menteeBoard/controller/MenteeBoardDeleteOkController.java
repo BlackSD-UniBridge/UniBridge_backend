@@ -27,11 +27,13 @@ public class MenteeBoardDeleteOkController implements Execute{
 		//업로드 경로
 		final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "upload/";
 		
+		// 게시글 삭제 전 댓글 먼저 삭제
+		MenteeBoardDAO.deleteCommentByBoard(MenteeBoardNumber);
 		//게시글 삭제
 		MenteeBoardDAO.deleteBoard(MenteeBoardNumber);
 		
 		//이동
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.jsp");
+		result.setPath(request.getContextPath() + "/app/user/mentee/menteeBoard/MenteeBoardList.meb");
 		result.setRedirect(true);
 		
 		return result;

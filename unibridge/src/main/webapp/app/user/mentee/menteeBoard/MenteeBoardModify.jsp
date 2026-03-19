@@ -10,20 +10,19 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentee/menteeBoard/menteeBoardModify.css" />
 
 </head>
 
 <body>
-
+<%@ include file="/app/user/header.jsp"%>
   <!-- 헤더 -->
   <div id="container">
   <form id="modify-form"
-      action="${pageContext.request.contextPath}/unibridge/MenteeBoardUpdate.meb"
+      action="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardUpdate.meb"
       method="post" enctype="multipart/form-data">
       
-      <input type="hidden" name="MenteeBoardNumber" value="${MenteeBoard.menteeboardNumber}" />
+      <input type="hidden" name="MenteeBoardNumber" value="${MenteeBoard.menteeBoardNumber}" />
 	  <div class="menteeBoardModifyWrap">
 	
 	      <!-- 제목 영역 -->
@@ -59,8 +58,10 @@
   </div>
 
   <div id="footerContainer"></div>
+  <script>
+	  const contextPath = "${pageContext.request.contextPath}";
+	</script>
 
-  <script src="${pageContext.request.contextPath}/assets/js/user/header.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/user/mentee/menteeBoard/menteeBoardModify.js"></script>
 
 </body>

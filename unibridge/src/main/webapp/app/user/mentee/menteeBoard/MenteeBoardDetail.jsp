@@ -9,12 +9,12 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/footer.css" />
+
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentee/menteeBoard/menteeBoardDetail.css" />
 
 </head>
 <body>
+   <%@ include file="/app/user/header.jsp"%>
 
   <!-- 헤더 -->
     <div class="container">
@@ -80,9 +80,9 @@
         </div> --%>
         <div class="btn-group">
             <!-- 각 버튼 처리 경로 js로 수정하기 -->
-            <button type="button" class="list-btn" data-board-number="${MenteeBoard.menteeboardNumber}" data-member-number="${sessionScope.memberNumber}">목록</button>
+            <button type="button" class="list-btn" data-board-number="${MenteeBoard.menteeBoardNumber}" data-member-number="${sessionScope.loginUser.memberNumber}">목록</button>
             <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->
-            <c:if test="${sessionScope.memberNumber == MenteeBoard.memberNumber}">
+            <c:if test="${sessionScope.loginUser.memberNumber == MenteeBoard.memberNumber}">
                 <button type="button" class="modify-btn">수정</button>
           		<button type="button" class="delete-btn">삭제</button>
             </c:if>
@@ -92,11 +92,10 @@
       </div>
     </div>
     <script>
-    	let memberNumber = "${sessionScope.memberNumber}";
+    	let memberNumber = "${sessionScope.loginUser.memberNumber}";
+	  const contextPath = "${pageContext.request.contextPath}";
     </script>
-
-  <script src="${pageContext.request.contextPath}/assets/js/user/header.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/user/footer.js"></script>
+	<%@ include file="/app/user/footer.jsp"%>
   <script src="${pageContext.request.contextPath}/assets/js/user/mentee/menteeBoard/menteeBoardDetail.js"></script>
 
 

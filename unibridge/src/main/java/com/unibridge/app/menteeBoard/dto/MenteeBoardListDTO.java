@@ -27,10 +27,10 @@ public class MenteeBoardListDTO {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public int getMenteeboardNumber() {
+	public int getMenteeBoardNumber() {
 		return menteeBoardNumber;
 	}
-	public void setMenteeboardNumber(int menteeBoardNumber) {
+	public void setMenteeBoardNumber(int menteeBoardNumber) {
 		this.menteeBoardNumber = menteeBoardNumber;
 	}
 	public String getBoardTitle() {

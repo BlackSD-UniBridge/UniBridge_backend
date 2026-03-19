@@ -10,16 +10,14 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/footer.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentee/menteeBoard/menteeBoardCreate.css" />
 </head>
-
 <body>
+<%@ include file="/app/user/header.jsp"%>
 	<div class="container">
 		<!-- 작성완료 경로 처리하기 -->
 		<form id="write-form"
-			action="${pageContext.request.contextPath}/unibridge/MenteeBoardWrite.meb"
+			action="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardWrite.meb"
 			method="post" enctype="multipart/form-data">
 			<h1>글쓰기</h1>
 			<div class="form-group">
@@ -47,9 +45,10 @@
 			</div>
 		</form>
 	</div>
-
-  <script src="${pageContext.request.contextPath}/assets/js/user/header.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/user/footer.js"></script>
+<%@ include file="/app/user/footer.jsp"%>
+<script>
+  const contextPath = "${pageContext.request.contextPath}";
+</script>
   <script src="${pageContext.request.contextPath}/assets/js/user/mentee/menteeBoard/menteeBoardCreate.js"></script>
 
 </body>
