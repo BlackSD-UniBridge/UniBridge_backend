@@ -6,11 +6,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>공지사항 게시판</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/footer.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/common/noticeBoard.css" />
   </head>
   <body>
+  <%@ include file="/app/user/header.jsp"%>
     <div id="headerContainer"></div>
 
     <div class="announceWrap">
@@ -104,7 +103,6 @@
     <script>
       let memberNumber = "${sessionScope.memberNumber}";
     </script>
-    <script src="${pageContext.request.contextPath}/assets/js/user/header.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/user/footer.js"></script>
+    <%@ include file="/app/user/footer.jsp"%>
   </body>
 </html>

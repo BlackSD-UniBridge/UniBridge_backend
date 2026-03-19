@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+	<!-- 게시글 총 개수 -->
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(mentorBoard_number)
+		FROM UB_MENTOR_BOARD
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="updateReadCount" parameterType="int">
+		UPDATE UB_MENTOR_BOARD
+		SET board_click = board_click + 1
+		WHERE mentorBoard_number = #{mentorBoardNumber}
+	</update>
+
+	<!-- 게시글 추가 -->
+<!-- 	<insert id="insert" parameterType="MentorBoardDTO">
+		INSERT INTO UB_MENTOR_BOARD(mentorBoard_number, board_title, board_content, member_number)
+		VALUSE(seq_board.nextval, #{boardTitle}, #{boardContent}, #{memberNumber})
+	</insert>
+	방금 생성된 시퀀스 값 가져오기
+	<select id = "getCurrentmentorBoardNumber" resultType="int">
+		SELECT seq_board.currval
+		FROM DUAL
+	</select> -->
+
+	<!-- useGeneratedKeys와 keyProperty 활용 -->
+	<insert id="insert" parameterType="MentorBoardDTO">
+		<selectKey keyProperty="mentorBoardNumber" resultType="int" order="BEFORE">
+			SELECT seq_mentor_board.nextVal FROM DUAL
+		</selectKey>
+		INSERT INTO UB_MENTOR_BOARD(mentorBoard_number, board_title, board_content, member_number)
+		VALUES(#{mentorBoardNumber}, #{boardTitle}, #{boardContent}, #{memberNumber})
+	</insert>
+
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="MentorBoardDTO">
+		DELETE FROM UB_MENTOR_BOARD
+		WHERE mentorBoard_number = #{mentorBoardNumber}
+	</delete>
+	
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="MentorBoardDTO">
+		UPDATE UB_MENTOR_BOARD
+		SET board_title = #{boardTitle}, board_content = #{boardContent}
+		<!-- , board_update=#{boardUpdate} 수정일 -->
+		WHERE mentorBoard_number = #{mentorBoardNumber}
+	</update>
+	
+	<!-- 게시글 상세(1건 조회) -->
+	<select id="select" parameterType="int" resultType="MentorBoardListDTO">
+		<![CDATA[
+			SELECT m.member_number, m.member_id, b.mentorBoard_number, b.board_title,
+			 	b.board_content, b.board_date, b.board_click
+			FROM UB_MEMBER m JOIN UB_MENTOR_BOARD b
+			ON b.member_number = m.member_number
+			WHERE b.mentorBoard_number = #{mentorBoardNumber}
+		]]>
+	</select>
+	
+	<!-- 전체 게시글 조회 -->
+	<select id="selectAll" resultType="MentorBoardListDTO">
+	<![CDATA[
+		SELECT * FROM (
+			SELECT ROWNUM AS rnum, subquery.*
+			FROM (
+				SELECT m.member_number, m.member_id, b.mentorBoard_number, b.board_title, 
+					b.board_content, b.board_date, b.board_click
+				FROM UB_MEMBER m JOIN UB_MENTOR_BOARD b
+				ON m.member_number = b.member_number
+				ORDER BY b.board_date DESC
+			) subquery
+		) WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	]]>
+	</select>
+</mapper>
+
+
+
+
+
+
+

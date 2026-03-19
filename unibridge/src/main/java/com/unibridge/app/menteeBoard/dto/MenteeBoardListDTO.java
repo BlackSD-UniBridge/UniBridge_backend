@@ -1,17 +1,17 @@
-package com.example.app.board.dto;
+package com.unibridge.app.menteeBoard.dto;
 
 import java.util.List;
 
-import com.example.app.file.dto.FileDTO;
+import com.unibridge.app.file.dto.FileDTO;
 
-public class BoardListDTO {
+public class MenteeBoardListDTO {
 	private int memberNumber;
 	private String memberId;
-	private int boardNumber;
+	private int menteeBoardNumber;
 	private String boardTitle;
 	private String boardContent;
 	private String boardDate;
-	private int boardReadCount;
+	private int boardClick;
 	//파일 추가
 	private List<FileDTO> files;
 	
@@ -27,11 +27,11 @@ public class BoardListDTO {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public int getBoardNumber() {
-		return boardNumber;
+	public int getMenteeBoardNumber() {
+		return menteeBoardNumber;
 	}
-	public void setBoardNumber(int boardNumber) {
-		this.boardNumber = boardNumber;
+	public void setMenteeBoardNumber(int menteeBoardNumber) {
+		this.menteeBoardNumber = menteeBoardNumber;
 	}
 	public String getBoardTitle() {
 		return boardTitle;
@@ -51,11 +51,11 @@ public class BoardListDTO {
 	public void setBoardDate(String boardDate) {
 		this.boardDate = boardDate;
 	}
-	public int getBoardReadCount() {
-		return boardReadCount;
+	public int getBoardClick() {
+		return boardClick;
 	}
-	public void setBoardReadCount(int boardReadCount) {
-		this.boardReadCount = boardReadCount;
+	public void setBoardClick(int boardClick) {
+		this.boardClick = boardClick;
 	}
 	public List<FileDTO> getFiles() {
 		return files;
@@ -65,9 +65,9 @@ public class BoardListDTO {
 	}
 	@Override
 	public String toString() {
-		return "BoardListDTO [memberNumber=" + memberNumber + ", memberId=" + memberId + ", boardNumber=" + boardNumber
+		return "BoardListDTO [memberNumber=" + memberNumber + ", memberId=" + memberId + ", menteeBoardNumber=" + menteeBoardNumber
 				+ ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", boardDate=" + boardDate
-				+ ", boardReadCount=" + boardReadCount + "]";
+				+ ", boardClick=" + boardClick + "]";
 	}
 	
 	

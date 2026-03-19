@@ -1,10 +1,9 @@
-
 // mentorBoardModify.js
 
 document.addEventListener('DOMContentLoaded', () => {
   // URL에서 boardId 추출
   const params = new URLSearchParams(window.location.search);
-  const boardId = params.get('boardId');
+  const boardId = params.get('mentorboard_number');
 
   // detail 페이지에서 넘어온 데이터를 sessionStorage에서 불러오기
   const savedData = sessionStorage.getItem('mentorBoardModifyData');
@@ -20,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const backBtn = document.getElementById('mentorBoardModifyBackBtn');
   if (backBtn) {
     backBtn.addEventListener('click', () => {
-      window.location.href = `./mentorBoardDetail.html?boardId=${boardId}`;
+      window.location.href = `./mentorBoardDetail.jsp?boardId=${boardId}`;
     });
   }
 
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!content) { alert('내용을 입력해주세요.'); return; }
 
       sessionStorage.removeItem('mentorBoardModifyData');
-      window.location.href = `./mentorBoardDetail.html?boardId=${boardId}`;
+      window.location.href = `./mentorBoardDetail.jsp?boardId=${boardId}`;
     });
   }
 
@@ -45,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     deleteBtn.addEventListener('click', () => {
       if (confirm('게시글을 삭제하시겠습니까?')) {
         sessionStorage.removeItem('mentorBoardModifyData');
-        window.location.href = './mentorBoardList.html';
+        window.location.href = './mentorBoardList.jsp';
       }
     });
   }

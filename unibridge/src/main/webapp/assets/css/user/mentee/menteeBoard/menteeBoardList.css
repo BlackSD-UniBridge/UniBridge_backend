@@ -1,177 +1,23 @@
+@charset "UTF-8";
 /* ── 멘티 게시판 페이지 ── */
-.menteeBoardWrap {
+
+.container {
   width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
   box-sizing: border-box;
-  padding: 96px 75px 60px;
+  padding: 60px 40px;
 }
 
-.menteeBoardTitle {
-  font-size: 26px;
-  font-weight: 700;
-  color: #2c5f8a;
-  font-family: 'Noto Sans KR', sans-serif;
-  margin-bottom: 28px;
-}
 
-/* ── 목록 컨테이너 ── */
-.menteeBoardList {
-  width: 100%;
+/* ── 글쓰기 버튼 ── */
+.write-btn-wrap {
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 16px;
 }
 
-/* ── 헤더 행 ── */
-.menteeBoardHeaderRow {
-  display: flex;
-  align-items: center;
-  border-top: 2px solid #2c5f8a;
-  border-bottom: 1px solid #dde6f0;
-  background: #fff;
-}
-
-.menteeBoardTh {
-  font-size: 13px;
-  font-weight: 600;
-  color: #555;
-  padding: 12px 8px;
-  font-family: 'Noto Sans KR', sans-serif;
-  text-align: left;
-  flex-shrink: 0;
-}
-
-/* ── 본문 행 ── */
-.menteeBoardRow {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #eef2f7;
-  cursor: pointer;
-  transition: background 0.12s;
-}
-
-.menteeBoardRow:hover {
-  background: #f4f9ff;
-}
-
-.menteeBoardTd {
-  font-size: 13.5px;
-  color: #333;
-  padding: 13px 8px;
-  font-family: 'Noto Sans KR', sans-serif;
-  flex-shrink: 0;
-}
-
-/* ── 컬럼 너비 ── */
-.menteeBoardTh:first-child,
-.menteeBoardTdNum {
-  width: 60px;
-  text-align: center;
-}
-
-.menteeBoardThTitle,
-.menteeBoardTdTitle {
-  flex: 1;
-  flex-shrink: 1;
-}
-
-.menteeBoardThDate,
-.menteeBoardTdDate {
-  width: 160px;
-  text-align: center;
-}
-
-.menteeBoardThAuthor,
-.menteeBoardTdAuthor {
-  width: 100px;
-  text-align: center;
-}
-
-.menteeBoardThViews,
-.menteeBoardTdViews {
-  width: 80px;
-  text-align: center;
-}
-
-/* ── 세부 스타일 ── */
-.menteeBoardTdNum {
-  color: #888;
-  font-size: 13px;
-}
-
-.menteeBoardTdTitle {
-  font-weight: 500;
-  color: #1a1a1a;
-}
-
-.menteeBoardRow:hover .menteeBoardTdTitle {
-  color: #2c5f8a;
-  text-decoration: underline;
-}
-
-.menteeBoardTdDate {
-  color: #aaa;
-  font-size: 12.5px;
-}
-
-.menteeBoardTdAuthor {
-  color: #333;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.menteeBoardTdViews {
-  color: #aaa;
-  font-size: 12.5px;
-}
-
-/* ── 하단 영역 ── */
-.menteeBoardFooter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 32px;
-}
-
-/* ── 페이지네이션 ── */
-.menteeBoardPaginationWrap {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-grow: 1;
-  justify-content: center;
-  margin-left: 80px;
-}
-
-.menteeBoardPageBtn {
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  border: 1px solid #dde6f0;
-  background: #fff;
-  font-size: 13px;
-  font-family: 'Noto Sans KR', sans-serif;
-  color: #555;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
-}
-
-.menteeBoardPageBtn:hover {
-  border-color: #2c5f8a;
-  color: #2c5f8a;
-  background: #f0f6ff;
-}
-
-.menteeBoardPageBtn.active {
-  background: #2c5f8a;
-  color: #fff;
-  border-color: #2c5f8a;
-  font-weight: 600;
-}
-
-/* ── 글작성 버튼 ── */
-.menteeBoardWriteBtn {
+.write-btn {
   font-size: 13px;
   font-weight: 500;
   color: #555;
@@ -181,12 +27,158 @@
   padding: 7px 18px;
   cursor: pointer;
   font-family: 'Noto Sans KR', sans-serif;
+  text-decoration: none;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
-  flex-shrink: 0;
 }
 
-.menteeBoardWriteBtn:hover {
+.write-btn:hover {
   background: #f0f6ff;
   border-color: #2c5f8a;
   color: #2c5f8a;
+}
+
+/* ── 목록 컨테이너 ── */
+.board-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 헤더 행 ── */
+.board-header {
+  display: flex;
+  align-items: center;
+  border-top: 2px solid #2c5f8a;
+  border-bottom: 1px solid #dde6f0;
+  background: #fff;
+  padding: 12px 8px;
+}
+
+.board-header span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
+}
+
+/* ── 본문 행 ── */
+.board-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eef2f7;
+  transition: background 0.12s;
+}
+
+.board-row:hover {
+  background: #f4f9ff;
+}
+
+.board-item {
+  font-size: 13.5px;
+  color: #333;
+  padding: 13px 8px;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
+}
+
+/* ── 컬럼 너비 ── */
+.board-header .no,
+.board-item.no {
+  width: 60px;
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+}
+
+.board-header .title,
+.board-item.title {
+  flex: 1;
+  text-align: left;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.board-item.title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.board-row:hover .board-item.title a {
+  color: #2c5f8a;
+  text-decoration: underline;
+}
+
+.board-header .author,
+.board-item.author {
+  width: 100px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.board-header .date,
+.board-item.date {
+  width: 160px;
+  text-align: center;
+  color: #aaa;
+  font-size: 12.5px;
+}
+
+.board-header .hit,
+.board-item.hit {
+  width: 80px;
+  text-align: center;
+  color: #aaa;
+  font-size: 12.5px;
+}
+
+/* ── 페이지네이션 ── */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.pagination ul {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid #dde6f0;
+  background: #fff;
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #555;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.pagination ul li a:hover {
+  border-color: #2c5f8a;
+  color: #2c5f8a;
+  background: #f0f6ff;
+}
+
+.pagination ul li a.active {
+  background: #2c5f8a;
+  color: #fff;
+  border-color: #2c5f8a;
+  font-weight: 600;
+}
+
+.pagination ul li a.prev,
+.pagination ul li a.next {
+  font-weight: 600;
 }

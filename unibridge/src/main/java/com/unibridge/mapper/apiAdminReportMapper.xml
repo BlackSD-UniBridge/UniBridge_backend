@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="api.adminReport">
+	<select id="selectAll" resultType="AdminReportDTO">
+		SELECT 
+			mtr.member_name AS "mentor_name",
+			mte.member_name AS "mentee_name",
+			mth.matching_start AS "matching_start"
+		FROM UB_MATCHING mth INNER JOIN UB_MEMBER mtr
+			ON mth.mentor_number = mtr.member_number
+		INNER JOIN UB_MEMBER mte
+		 	ON mth.mentee_number = mte.member_number
+		WHERE mth.matching_state != '매칭됨'
+	</select>
+</mapper>

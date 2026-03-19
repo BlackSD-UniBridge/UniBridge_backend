@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const backBtn = document.getElementById('mentorBoardDetailBackBtn');
   if (backBtn) {
     backBtn.addEventListener('click', () => {
-      window.location.href = './mentorBoardList.html';
+      window.location.href = './mentorBoardList.jsp';
     });
   }
 

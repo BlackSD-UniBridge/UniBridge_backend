@@ -7,11 +7,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>공지사항 확인</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/footer.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/common/noticeBoardDetail.css" />
   </head>
   <body>
+  <%@ include file="/app/user/header.jsp"%>
     <div class="headerContainer">
       <div class="announceDetailWrap">
               <!-- 제목 -->
@@ -77,7 +76,7 @@
     <script>
       let memberNumber = "${sessionScope.memberNumber}";
     </script>
-    <script src="${pageContext.request.contextPath}/assets/js/user/header.js"></script>
+    <%@ include file="/app/user/footer.jsp"%>
     <script src="${pageContext.request.contextPath}/assets/js/user/common/noticeBoardRead.js"></script>
   </body>
 </html>

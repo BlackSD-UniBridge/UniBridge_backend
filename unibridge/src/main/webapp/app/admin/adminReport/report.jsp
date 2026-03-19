@@ -10,12 +10,17 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminReport/report.css">
 
   <script src="${pageContext.request.contextPath}/assets/js/admin/adminReport/report.js" defer></script>
+  
+  <script>window.contextPath = "${pageContext.request.contextPath}";</script>
   <title>Document</title>
 </head>
 <body>
   <div id="root">
     <div class="root-container">
-      <div id="header-wrap"></div>
+      <div id="header-wrap">
+      	<jsp:include page="/header/adminHeader.jsp"/>
+      </div>
+      
       <main class="main-container">
         <div class="title-container">
           <div class="title">학습 보고서</div>
@@ -158,15 +163,5 @@
       </main>
     </div>
   </div>
-  <script>
-    fetch("${pageContext.request.contextPath}/header/adminHeader.jsp")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("header-wrap").innerHTML = html;
-        const s = document.createElement("script");
-        s.src = "${pageContext.request.contextPath}/header/adminHeader.js";
-        document.body.appendChild(s);
-      });
-  </script>
 </body>
 </html>

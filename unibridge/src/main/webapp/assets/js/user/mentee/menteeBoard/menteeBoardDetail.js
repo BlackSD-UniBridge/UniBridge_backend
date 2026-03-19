@@ -1,64 +1,54 @@
+
 document.addEventListener('DOMContentLoaded', () => {
-  // 글목록 버튼
-  const backBtn = document.getElementById('menteeBoardDetailBackBtn');
-  if (backBtn) {
-    backBtn.addEventListener('click', () => {
-      window.location.href = './menteeBoardList.jsp';
-    });
-  }
+		//엘리먼트 선택(DOM 요소 선택)
+		const listBtn = document.querySelector(".list-btn");
+		const modifyBtn = document.querySelector(".modify-btn");
+		const deleteBtn = document.querySelector(".delete-btn");
+		const submitBtn = document.querySelector(".submit-btn");
+		//데이터 읽기(data- 속성 사용)
+		const boardNumber = listBtn?.dataset.boardNumber??window.boardNumber;
+		const memberNumber = listBtn?.dataset.memberNumber??window.memberNumber;
+		
+		console.log("확인 boardNumber : ", boardNumber);
+		console.log("확인 memberNumber : ", memberNumber);
+		
+		//이동버튼
+		listBtn?.addEventListener("click", ()=>{
+			window.location.href = "${contextPath}/mentee/menteeBoard/MenteeBoardList.meb";
+		});
+		
+		//수정버튼
+		modifyBtn?.addEventListener("click", () => {
+			if(!boardNumber){
+				return alert("boardNumber가 없습니다");
+			}
+			window.location.href=`${contextPath}/mentee/menteeBoard/MenteeBoardUpdate.meb?MenteeBoardNumber=${encodeURIComponent(boardNumber)}`;
+		});
+		
+		//삭제시에는 fetch => await
+		deleteBtn?.addEventListener("click", async () => {
+			if (!boardNumber){
+				return alert("boardNumber가 없습니다.");
+			}
+			if (!confirm("정말 삭제하시겠습니까?")){
+				return;
+			}
+		
+			try{	
+				const res = await fetch(`${contextPath}/mentee/menteeBoard/MenteeBoardDelete.meb?MenteeBoardNumber=${encodeURIComponent(boardNumber)}`, {
+					method:"POST", //조회 : GET, 데이터 변경 : POST
+					headers:{"X-Requested-With" : "fetch"},
+				});
+				if(!res.ok){ 
+					throw new Error("삭제 요청 실패");
+				}
+				
+				alert("게시글이 삭제되었습니다");
+				window.location.href=`${contextPath}/mentee/menteeBoard/MenteeBoardList.meb`;
+			}catch(err){
+				console.error("게시글 삭제 실패 : ", err);
+				alert("게시글 삭제에 실패했습니다");
+			}
+		});
 
-  // 수정 버튼
-  const editBtn = document.getElementById('menteeBoardDetailEditBtn');
-  if (editBtn) {
-    editBtn.addEventListener('click', () => {
-      const boardId = new URLSearchParams(window.location.search).get('boardId');
-      // 현재 제목/내용을 sessionStorage에 저장
-      const subject = document.querySelector('.menteeBoardDetailTitle')?.textContent || '';
-      const content = document.querySelector('.menteeBoardDetailBody')?.textContent.trim() || '';
-      sessionStorage.setItem('menteeBoardModifyData', JSON.stringify({ subject, content }));
-      window.location.href = `./menteeBoardModify.jsp?boardId=${boardId}`;
-    });
-  }
-
-  // 삭제 버튼
-  const deleteBtn = document.getElementById('menteeBoardDetailDeleteBtn');
-  if (deleteBtn) {
-    deleteBtn.addEventListener('click', () => {
-      if (confirm('게시글을 삭제하시겠습니까?')) {
-        window.location.href = './menteeBoardList.jsp';
-      }
-    });
-  }
-
-  // 댓글 등록 버튼
-  const commentSubmitBtn = document.getElementById('menteeBoardDetailCommentSubmitBtn');
-  if (commentSubmitBtn) {
-    commentSubmitBtn.addEventListener('click', () => {
-      const input = document.getElementById('menteeBoardDetailCommentInput');
-      const content = input.value.trim();
-      if (!content) {
-        alert('댓글 내용을 입력해주세요.');
-        return;
-      }
-      input.value = '';
-    });
-  }
-
-  // 댓글 수정 버튼
-  document.querySelectorAll('.menteeBoardDetailCommentEditBtn').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const commentId = e.target.closest('.menteeBoardDetailCommentItem').dataset.commentId;
-      // 댓글 수정 로직
-    });
-  });
-
-  // 댓글 삭제 버튼
-  document.querySelectorAll('.menteeBoardDetailCommentDeleteBtn').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      if (confirm('댓글을 삭제하시겠습니까?')) {
-        const item = e.target.closest('.menteeBoardDetailCommentItem');
-        item.remove();
-      }
-    });
-  });
-});
+	});

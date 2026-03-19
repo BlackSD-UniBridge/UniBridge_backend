@@ -45,13 +45,11 @@ public class NoticeBoardFrontController extends HttpServlet {
 
 		switch (target) {
 			case "noticeBoardList.ntb":
-//			case "/noticeBoardListOk.ntb":
 				System.out.println("게시물 목록 처리 요청");
 				result = new NoticeBoardListOkController().execute(request, response);
 				break;
 
 			case "noticeBoardRead.ntb":
-//			case "/noticeBoardReadOk.ntb":
 				System.out.println("게시물 상세 페이지 처리 요청");
 				result = new NoticeBoardReadOkController().execute(request, response);
 				break;

@@ -1,6 +1,6 @@
-package com.example.app.board.dto;
+package com.unibridge.app.menteeBoard.dto;
 
-public class BoardDTO {
+public class MenteeBoardDTO {
 //	board_number NUMBER,
 //	board_title varchar2(200),
 //	board_content varchar2(2000),
@@ -8,18 +8,18 @@ public class BoardDTO {
 //	board_update DATE DEFAULT SYSDATE,
 //	board_read_count NUMBER DEFAULT 0,
 //	member_number NUMBER,
-	private int boardNumber;
+	private int MenteeBoardNumber;
 	private String boardTitle;
 	private String boardContent;
 	private String boardDate;
-	private int boardReadCount;
+	private int boardClick;
 	private int memberNumber;
 	
-	public int getBoardNumber() {
-		return boardNumber;
+	public int getMenteeBoardNumber() {
+		return MenteeBoardNumber;
 	}
-	public void setBoardNumber(int boardNumber) {
-		this.boardNumber = boardNumber;
+	public void setMenteeBoardNumber(int MenteeBoardNumber) {
+		this.MenteeBoardNumber = MenteeBoardNumber;
 	}
 	public String getBoardTitle() {
 		return boardTitle;
@@ -39,11 +39,11 @@ public class BoardDTO {
 	public void setBoardDate(String boardDate) {
 		this.boardDate = boardDate;
 	}
-	public int getBoardReadCount() {
-		return boardReadCount;
+	public int getBoardClick() {
+		return boardClick;
 	}
-	public void setBoardReadCount(int boardReadCount) {
-		this.boardReadCount = boardReadCount;
+	public void setBoardClick(int boardClick) {
+		this.boardClick = boardClick;
 	}
 	public int getMemberNumber() {
 		return memberNumber;
@@ -54,8 +54,8 @@ public class BoardDTO {
 	
 	@Override
 	public String toString() {
-		return "BoardDTO [boardNumber=" + boardNumber + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", boardDate=" + boardDate + ", boardReadCount=" + boardReadCount + ", memberNumber=" + memberNumber
+		return "MenteeBoardDTO [MenteeBoardNumber=" + MenteeBoardNumber + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
+				+ ", boardDate=" + boardDate + ", boardClick=" + boardClick + ", memberNumber=" + memberNumber
 				+ "]";
 	}
 

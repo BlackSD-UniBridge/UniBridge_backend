@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const backBtn = document.getElementById('mentorBoardCreateBackBtn');
   if (backBtn) {
     backBtn.addEventListener('click', () => {
-      window.location.href = './mentorBoardList.html'; 
+      window.location.href = './mentorBoardList.jsp'; 
     });
   }
 
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // 등록 성공 가정 후 목록으로 이동
       alert('게시글이 등록되었습니다.');
-      window.location.href = 'mentorBoardList.html';
+      window.location.href = 'mentorBoardList.jsp';
     });
   }
 
