@@ -13,6 +13,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.file.dto.FileDTO;
+import com.unibridge.app.member.dao.MemberDAO;
+import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.app.mypage.survey.dao.SurveyDAO;
 import com.unibridge.app.mypage.surveyMentor.dto.SurveyMentorDTO;
 
@@ -38,9 +40,32 @@ public class SurveyMentorController implements Execute{
 	private void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 기존 MentorController 예시처럼 세션 정보를 미리 채우거나 
 //         페이지 이동 설정을 수행합니다.
-        outResult.setRedirect(false); // JSP로 포워딩
-        outResult.setPath("/app/user/mentor/myPage/userSurvey/userSurvey.jsp");
-        
+		// 1. 세션에서 로그인 유저 객체 꺼내기
+		HttpSession session = request.getSession(false);
+		MemberDTO loginUser = (session != null) ? (MemberDTO) session.getAttribute("loginUser") : null;
+
+		// 2. 객체에서 유형(memberType) 정보 가져오기
+		// DB의 최신 상태를 반영하고 싶다면 앞서 만든 memberDAO.getMemberTypeByNum(loginUser.getMemberNumber())를 쓰세요.
+		String type = loginUser.getMemberType(); 
+		String path = "";
+
+		// 3. 유형별 FrontController 요청 경로 지정
+		if ("MENTOR".equals(type)) {
+		    path = "/auth/mentor/survey.my";
+		    outResult.setRedirect(true);
+		} 
+		else if ("MENTEE".equals(type)) {
+		    path = "/auth/mentee/survey.my";
+		    outResult.setRedirect(true);
+		} 
+		else {
+		    // NODECIDED (미정)
+		    path = "/auth/undecided/survey.my";
+		    outResult.setRedirect(true);
+		}
+
+		// 4. 최종 경로 설정 (ContextPath 포함)
+		outResult.setPath(request.getContextPath() + path);
         
 	}
 
@@ -62,20 +87,15 @@ public class SurveyMentorController implements Execute{
         final int FILE_SIZE = 100 * 1024 * 1024; // 100MB 
         MultipartRequest multi = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "UTF-8", new DefaultFileRenamePolicy());
 
-        // 3. 세션 정보 확인 (중요: memberNumber가 반드시 있어야 합니다!)
-        HttpSession session = request.getSession();
-        Object memberNumObj = session.getAttribute("memberNumber");
+        // 3. 세션 정보 확인 (로그인한 유저의 정보 가져오기)
+        HttpSession session = request.getSession(false);
+        MemberDTO loginUser = (session != null) ? (MemberDTO) session.getAttribute("loginUser") : null;
+        
+        int memberNumber = loginUser.getMemberNumber();
         
         // 👉 무조건 41 사용
 //        int memberNumber = 42;
 //        System.out.println("[LOG] 임시 memberNumber 사용: 42");
-        
-        //테스트를 위한 주석처리 -> 테스트 해제시 주석 해제 
-        if (memberNumObj == null) {
-            outResult.setRedirect(true);
-            outResult.setPath(request.getContextPath() + "/member/login.me");
-            return;
-        }
         
         // 4. 파일 데이터 수집
         String filesystemName = multi.getFilesystemName("surveyFile");
@@ -89,7 +109,7 @@ public class SurveyMentorController implements Execute{
             fileDTO.setFileOriginalName(originalName);
             fileDTO.setFilePath("/upload/" + filesystemName);
 
-            // 🔥 확장자 추출 (필수)
+            // 확장자 추출 (필수)
             String extension = "none";
 
             if (originalName != null && originalName.contains(".")) {
@@ -98,7 +118,7 @@ public class SurveyMentorController implements Execute{
 
             fileDTO.setFileExtension(extension);
 
-            // 🔥 파일 크기 (권장)
+            // 파일 크기 (권장)
             File file = multi.getFile("surveyFile");
             if (file != null) {
                 fileDTO.setFileSize(file.length());
@@ -112,7 +132,6 @@ public class SurveyMentorController implements Execute{
         }
 
         // 5. 멘토 설문 데이터 수집 (SurveyDTO 상속 필드 포함)
-        int memberNumber = (int)memberNumObj; //테스트 해제시 주석처리 해제할 것
         mentorDTO.setMemberNumber(memberNumber); // 부모 클래스 필드
         mentorDTO.setSurveyType("MENTOR");       // 부모 클래스 필드   
         
@@ -140,20 +159,36 @@ public class SurveyMentorController implements Execute{
         surveyDAO.insertMentorSurvey(mentorDTO, fileDTO);
 
         // 7. 결과 반환 (Redirect로 마이페이지 메인 이동) - 임지(추후 마이페이지 계정관리 이동예정)
-        session = request.getSession();
-        String role = (String) session.getAttribute("role");
+        // 1. 세션에서 로그인 유저 정보(객체) 가져오기
+        session = request.getSession(false);
+        MemberDTO sessionUser = (session != null) ? (MemberDTO) session.getAttribute("loginUser") : null;
 
-        String path = "/auth/undecided/mypage.my"; // 기본값
+        MemberDAO memberDAO = new MemberDAO();
+        String memberType = memberDAO.getMemberTypeByNum(sessionUser.getMemberNumber());
 
-        if ("mentor".equals(role)) {
-            path = "/auth/mentor/mypage.my";
-        } else if ("mentee".equals(role)) {
-            path = "/auth/mentee/mypage.my";
+        // 타입에 따른 페이지 분기 및 리다이렉트 설정
+        String path = "";
+
+        if ("MENTEE".equals(memberType)) {
+            path = "/app/user/mentee/myPage/myPage.jsp";
+            outResult.setRedirect(false); // 멘티는 포워딩
+        } 
+        else if ("MENTOR".equals(memberType)) {
+            path = "/app/user/mentor/myPage/myPage.jsp";
+            outResult.setRedirect(true);  // 멘토는 리다이렉트
+        } 
+        else {
+            // NODECIDED (미정)
+            path = "/app/user/undecided/myPage/myPage.jsp";
+            outResult.setRedirect(true);
         }
 
-        // redirect 설정
-        outResult.setRedirect(true);
-        outResult.setPath(request.getContextPath() + path);
+        // 4. 최종 경로 설정
+        if (outResult.isRedirect()) {
+            outResult.setPath(request.getContextPath() + path);
+        } else {
+            outResult.setPath(path);
+        }
 		
 	}
 	

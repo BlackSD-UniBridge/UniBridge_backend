@@ -19,6 +19,7 @@ public class MenteeMangeController implements Execute {
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+		System.out.println("---------------execute메소드실행-------------");
 
         String method = request.getMethod().toUpperCase();
 
@@ -35,7 +36,7 @@ public class MenteeMangeController implements Execute {
     }
 
 	private void doGet(HttpServletRequest request, HttpServletResponse response) {
-		
+		System.out.println("---------------doGet메소드실행-------------");
 		HttpSession session = request.getSession();
 	    Integer memberNumber = (Integer) session.getAttribute("memberNumber");
 
@@ -43,11 +44,11 @@ public class MenteeMangeController implements Execute {
 //	    memberNumber = 20;
 	    
 	    // 로그인 체크
-	    if (memberNumber == null) {
-	        outResult.setPath("/app/user/signin/signin.jsp");
-	        outResult.setRedirect(true); // redirect 처리
-	        return;
-	    }
+//	    if (memberNumber == null) {
+//	        outResult.setPath("/app/user/signin/signin.jsp");
+//	        outResult.setRedirect(true); // redirect 처리
+//	        return;
+//	    }
 
 	    // DAO로 회원정보 조회
 	    MemberDAO memberDAO = new MemberDAO();

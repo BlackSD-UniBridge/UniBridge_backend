@@ -42,11 +42,11 @@ public class UndecidedMangeController implements Execute{
 //	    memberNumber = 13;
 	    
 	    // 로그인 체크
-	    if (memberNumber == null) {
-	        outResult.setPath("/app/user/signin/signin.jsp");
-	        outResult.setRedirect(true); // redirect 처리
-	        return;
-	    }
+//	    if (memberNumber == null) {
+//	        outResult.setPath("/app/user/signin/signin.jsp");
+//	        outResult.setRedirect(true); // redirect 처리
+//	        return;
+//	    }
 
 	    // DAO로 회원정보 조회
 	    MemberDAO memberDAO = new MemberDAO();

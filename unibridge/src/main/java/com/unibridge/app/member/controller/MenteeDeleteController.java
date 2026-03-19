@@ -11,8 +11,6 @@ import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.member.dao.MemberDAO;
 import com.unibridge.app.member.dto.MemberDTO;
-import com.unibridge.app.mypage.surveyMentee.controller.SurveyMenteeController;
-import com.unibridge.app.mypage.surveyMentor.controller.SurveyMentorController;
 
 public class MenteeDeleteController implements Execute{
 

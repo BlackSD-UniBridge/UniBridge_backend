@@ -13,6 +13,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.file.dto.FileDTO;
+import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.app.mypage.survey.dao.SurveyDAO;
 import com.unibridge.app.mypage.surveyMentee.dto.SurveyMenteeDTO;
 
@@ -36,8 +37,32 @@ public class SurveyMenteeController implements Execute{
 	}
 
 	private void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		outResult.setRedirect(false); // 포워딩 방식
-        outResult.setPath("/app/user/mentee/myPage/userSurvey/userSurvey.jsp");
+		// 1. 세션에서 로그인 유저 객체 꺼내기
+		HttpSession session = request.getSession(false);
+		MemberDTO loginUser = (session != null) ? (MemberDTO) session.getAttribute("loginUser") : null;
+
+		// 2. 객체에서 유형(memberType) 정보 가져오기
+		// DB의 최신 상태를 반영하고 싶다면 앞서 만든 memberDAO.getMemberTypeByNum(loginUser.getMemberNumber())를 쓰세요.
+		String type = loginUser.getMemberType(); 
+		String path = "";
+
+		// 3. 유형별 FrontController 요청 경로 지정
+		if ("MENTOR".equals(type)) {
+		    path = "/auth/mentor/survey.my";
+		    outResult.setRedirect(true);
+		} 
+		else if ("MENTEE".equals(type)) {
+		    path = "/auth/mentee/survey.my";
+		    outResult.setRedirect(true);
+		} 
+		else {
+		    // NODECIDED (미정)
+		    path = "/auth/undecided/survey.my";
+		    outResult.setRedirect(true);
+		}
+
+		// 4. 최종 경로 설정 (ContextPath 포함)
+		outResult.setPath(request.getContextPath() + path);
 		
 	}
 

@@ -25,7 +25,7 @@ public class MentorFrontController implements Execute {
 		// 멘토 컨트롤러
 		String requestURI = request.getRequestURI();
 		String target = extractTargetPath(requestURI);
-		
+		System.out.println(target + "확인");
 		System.out.println("===MentorFrontController===");
 		
 		switch (target) {

@@ -37,7 +37,7 @@ public class MentorMangeController implements Execute{
 	private void doGet(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 	    Integer memberNumber = (Integer) session.getAttribute("memberNumber");
-
+	    System.out.println("MentorMange컨트롤러 : " + memberNumber);
 	    //임시 처리 테스트
 //	    memberNumber = 13;
 	    

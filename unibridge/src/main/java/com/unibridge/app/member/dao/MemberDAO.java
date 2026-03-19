@@ -53,4 +53,9 @@ public class MemberDAO {
         sqlSession.close();
         return member;
     }
+    
+    public String getMemberTypeByNum(int memberNumber) {
+        // MyBatis 실행 결과인 "MENTOR", "MENTEE", "NODECIDED" 문자열을 바로 반환
+        return sqlSession.selectOne("member.getMemberTypeByNum", memberNumber);
+    }
 }
