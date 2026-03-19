@@ -20,11 +20,11 @@
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}auth/mentor/myPage.my" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}auth/mentor/survey.my">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}auth/mentor/matching.my" class="active">매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/auth/mentor/mentoringCreate.my">멘토링</a></li>
-                <li><a href="${pageContext.request.contextPath}auth/mentor/app/delete.my">회원 탈퇴</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/myPage.my" >계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/survey.my">설문 조사</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my" class="active">매칭 정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoringCreate.my">멘토링</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/app/delete.my">회원 탈퇴</a></li>
             </ul>
         </aside>
         <main>

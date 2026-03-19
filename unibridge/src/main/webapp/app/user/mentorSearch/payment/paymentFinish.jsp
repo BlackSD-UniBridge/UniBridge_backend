@@ -16,6 +16,9 @@
 	src="${pageContext.request.contextPath}/assets/js/user/mentorSearch/paymentFinish.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+<script>
+    var globalContextPath = "${pageContext.request.contextPath}";
+</script>
 </head>
 <body>
 	<jsp:include page="/app/user/header.jsp" />
@@ -50,7 +53,7 @@
 
 			<div>
 				<button type="button"
-					onclick="location.href='${pageContext.request.contextPath}/main.me'">
+					onclick="location.href='${pageContext.request.contextPath}/index.main'">
 					홈으로 가기</button>
 			</div>
 		</div>

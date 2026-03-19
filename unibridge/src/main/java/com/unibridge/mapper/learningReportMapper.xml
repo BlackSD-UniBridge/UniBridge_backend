@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="learningReportMapper">
+
+    <select id="selectReportList" resultType="LearningReportDTO">
+        SELECT 
+            LEARNING_REPORT_NUMBER, MATCHING_NUMBER, SUBJECT_NUMBER,
+            SUBJECT_TITLE, SUBJECT_SUMMARY, SUBJECT_CONTENT,
+            REPORT_WEEK, REPORT_SESSION, 
+            TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE
+        FROM UB_LEARNING_REPORT
+        WHERE MATCHING_NUMBER = #{matchingNumber}
+        <if test="startDate != null and endDate != null">
+            AND REPORT_DATE BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') 
+                                AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+        </if>
+        ORDER BY REPORT_DATE DESC
+    </select>
+
+    <select id="getReportStatus" parameterType="int" resultType="map">
+        SELECT 
+            COUNT(*) AS TOTAL_COUNT,
+            SUM(CASE WHEN REPORT_DATE >= TRUNC(SYSDATE, 'IW') THEN 1 ELSE 0 END) AS WEEKLY_COUNT
+        FROM UB_LEARNING_REPORT
+        WHERE MATCHING_NUMBER = #{matchingNumber}
+    </select>
+
+</mapper>

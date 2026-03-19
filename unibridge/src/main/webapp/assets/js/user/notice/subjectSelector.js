@@ -1,47 +1,26 @@
 /**
- * 
+ * subjectSelector.js - 과목 선택 드롭다운 제어
  */
 const filterSubjectSelector = document.querySelector('.filter-subject-container');
-filterSubjectSelector.addEventListener('click', function() {
-  const filterSubjectDropdown = document.querySelector('.filter-subject-dropdown');
-  const isDisabled = filterSubjectDropdown.classList.contains('disabled');
 
-  if (isDisabled) {
-    filterSubjectDropdown.classList.remove('disabled');
-  } else {
-    filterSubjectDropdown.classList.add('disabled');
-  }
-});
-
-function createSubjectDropdown(data) {
-  return data.map((value) => `<li class="filter-subject-item">${value}</li>`).join("\n");
+if (filterSubjectSelector) {
+    filterSubjectSelector.addEventListener('click', function() {
+        const filterSubjectDropdown = document.querySelector('.filter-subject-dropdown');
+        filterSubjectDropdown.classList.toggle('disabled');
+    });
 }
 
-function closeDropdownAndSetPlaceHolder(event, thisEl) {
-  event.preventDefault();
-  event.stopPropagation();
-
-  const filterSubjectDropdown = document.querySelector('.filter-subject-dropdown');
-  filterSubjectDropdown.classList.add('disabled');
-
-  const filterSubjectPlaceholder = document.querySelector('.filter-subject-placeholder');
-  filterSubjectPlaceholder.textContent = thisEl.textContent;
-  filterSubjectPlaceholder.classList.add('selected');
-}
-
-// Dummy Data
-const subjectNamesDummyResponse = {
-  data : [
-    "영어 독해와 작문", "수학 II", "통합과학", "영어 어휘", "국어", "수학 I", "영어 듣기", "사회"
-  ]
-};
-
-const filterSubjectSelectorInner = filterSubjectSelector.querySelector(".filter-subject-dropdown__inner");
-filterSubjectSelectorInner.innerHTML = createSubjectDropdown(subjectNamesDummyResponse.data);
-
-const filterSubjectItems = document.querySelectorAll('.filter-subject-item');
-filterSubjectItems.forEach(function(item) {
-  item.addEventListener('click', function(event) {
-    closeDropdownAndSetPlaceHolder(event, item);
-  });
+// 과목 아이템 클릭 시 선택 처리 (이벤트 위임)
+document.addEventListener('click', (e) => {
+    const item = e.target.closest('.filter-subject-item');
+    if (item) {
+        const placeholder = document.querySelector('.filter-subject-placeholder');
+        placeholder.textContent = item.textContent;
+        placeholder.classList.add('selected');
+        document.querySelector('.filter-subject-dropdown').classList.add('disabled');
+        
+        // 여기서 선택된 과목으로 리스트를 필터링하는 로직(조회 API 호출 등)을 넣을 수 있습니다.
+    }
 });
+
+// 더미 데이터 관련 변수 및 초기화 코드 삭제됨

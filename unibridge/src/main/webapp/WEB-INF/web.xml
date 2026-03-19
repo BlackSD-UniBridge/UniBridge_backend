@@ -90,7 +90,7 @@
 	<!-- 학습보고서 페이지 -->
 	<servlet>
 		<servlet-name>LearningReport</servlet-name>
-		<servlet-class>com.unibridge.app.learningReport.LearningReportFrontController</servlet-class>
+		<servlet-class>com.unibridge.app.learningReport.controller.LearningReportFrontController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>LearningReport</servlet-name>

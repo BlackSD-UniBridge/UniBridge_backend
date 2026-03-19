@@ -30,6 +30,7 @@
       <typeAlias type="com.unibridge.app.mypage.mentoring.dto.MentoringDTO" alias="MentoringDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.admin.dto.AdminDTO" alias="AdminDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.admin.dto.AdMainDTO" alias="AdMainDTO"></typeAlias>
+      <typeAlias type="com.unibridge.app.learningReport.dto.LearningReportDTO" alias="LearningReportDTO"></typeAlias>
    </typeAliases>
 
    <environments default="oracle">
@@ -50,7 +51,7 @@
       <!-- <mapper resource="com/unibridge/mapper/BoardMapper.xml" /> -->
       <mapper resource="com/unibridge/mapper/payMapper.xml" />
       <mapper resource="com/unibridge/mapper/mentorSearchMapper.xml" />
-      
+      <mapper resource="com/unibridge/mapper/learningReportMapper.xml"/>
       <mapper resource="com/unibridge/mapper/surveyMapper.xml" />
       <mapper resource="com/unibridge/mapper/fileMapper.xml" />
       <mapper resource="com/unibridge/mapper/mentoringMapper.xml" />

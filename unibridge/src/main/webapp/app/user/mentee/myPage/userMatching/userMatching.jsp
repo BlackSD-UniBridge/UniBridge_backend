@@ -20,11 +20,11 @@
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/auth/mentee/myPage.my" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/auth/mentee/survey.my">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}/auth/mentee/log.my">결제 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/auth/mentee/matching.my" class="active">매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/auth/mentee/delete.my">회원 탈퇴</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentee/myPage.my" >계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentee/survey.my">설문 조사</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentee/log.my">결제 정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentee/matching.my" class="active">매칭 정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentee/delete.my">회원 탈퇴</a></li>
             </ul>
         </aside>
         <main>

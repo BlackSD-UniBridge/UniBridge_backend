@@ -36,7 +36,7 @@
 				href="${pageContext.request.contextPath}/mentor/mentorSearchOk.sch">멘토
 				검색</a> <a
 				href="${pageContext.request.contextPath}/mentee/menteeBoard/menteeBoardList.jsp">게시판</a>
-			<a href="${pageContext.request.contextPath}/notice/report.jsp">학습보고서</a>
+			<a href="${pageContext.request.contextPath}/mvc/auth/reportList.rep">학습보고서</a>
 			<a href="${pageContext.request.contextPath}/announceBoard.jsp">공지사항</a>
 		</nav>
 
@@ -93,7 +93,7 @@
 						</c:otherwise>
 					</c:choose>
 					<div class="headerDivider"></div>
-					<a href="${pageContext.request.contextPath}/logout.mem"
+					<a href="${pageContext.request.contextPath}/signout.mem"
 						class="headerBtnText logout">로그아웃</a>
 				</div>
 			</c:otherwise>
