@@ -102,7 +102,6 @@
 	</script>
   <script src="${pageContext.request.contextPath}/assets/js/user/mentee/menteeBoard/menteeBoardList.js"></script>
 
-<%@ include file="/app/user/footer.jsp"%>
 </body>
 
 </html>

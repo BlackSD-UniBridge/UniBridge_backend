@@ -9,7 +9,7 @@
 </select>
 	
 <!--  조회수 증가  -->
-<update id="updateReadCount" parameterType="int">
+<update id="updateClick" parameterType="int">
 		UPDATE UB_NOTICEBOARD
 		SET board_click = board_click + 1
 		WHERE noticeboard_number = #{noticeBoardNumber}
@@ -19,41 +19,63 @@
 <!--  config.xml의 mapUnderscoreToCamelCase=true 로 자동매핑 안되는 컬럼은 alias 지정  -->
 <select id="select" parameterType="int" resultType="NoticeBoardListDTO">
 <![CDATA[ SELECT
-				b.noticeboard_number  AS boardNumber,
-				b.board_title         AS boardTitle,
-				b.board_content       AS boardContent,
-				b.board_date          AS boardDate,
-				b.board_click         AS boardReadCount,
-				a.admin_nickname      AS memberId
-			FROM UB_NOTICEBOARD b
-			JOIN UB_ADMIN a ON b.admin_number = a.admin_number
-			WHERE b.noticeboard_number = #{noticeBoardNumber} ]]>
+		        noticeboard_number  AS noticeBoardNumber,
+		        board_type          AS boardType,
+		        board_title         AS boardTitle,
+		        board_content       AS boardContent,
+		        board_click         AS boardClick,
+		        TO_CHAR(board_date, 'YYYY-MM-DD') AS boardDate,
+		        admin_number        AS adminNumber,
+		        contest_number      AS contestNumber,
+		        file_number         AS fileNumber
+		    FROM UB_NOTICEBOARD
+		    WHERE noticeboard_number = #{noticeBoardNumber} ]]>
 </select>
 
 <!--  전체 게시글 조회 (페이징)  -->
-<select id="selectAll" resultType="NoticeBoardListDTO">
+<select id="selectAll" parameterType="map" resultType="NoticeBoardListDTO">
 <![CDATA[
-			SELECT * FROM (
-				SELECT ROWNUM AS rnum, subquery.*
-				FROM (
-					SELECT
-						b.noticeboard_number  AS boardNumber,
-						b.board_title         AS boardTitle,
-						b.board_content       AS boardContent,
-						b.board_date          AS boardDate,
-						b.board_click         AS boardReadCount,
-						a.admin_nickname      AS memberId
-					FROM UB_NOTICEBOARD b
-					JOIN UB_ADMIN a ON b.admin_number = a.admin_number
-					ORDER BY b.board_date DESC
-				) subquery
-			) WHERE rnum BETWEEN #{startRow} AND #{endRow} ]]>
+			SELECT *
+		    FROM (
+		        SELECT ROWNUM AS rn, n.*
+		        FROM (
+		            SELECT
+		                noticeboard_number  AS noticeBoardNumber,
+		                board_type          AS boardType,
+		                board_title         AS boardTitle,
+		                board_content       AS boardContent,
+		                board_click         AS boardClick,
+		                TO_CHAR(board_date, 'YYYY-MM-DD') AS boardDate,
+		                admin_number        AS adminNumber,
+		                contest_number      AS contestNumber,
+		                file_number         AS fileNumber
+		            FROM UB_NOTICEBOARD
+		            ORDER BY noticeboard_number DESC
+		        ) n
+		    )
+		    WHERE rn BETWEEN #{startRow} AND #{endRow} ]]>
 </select>
+
+<!-- contest_number 로 연결된 공지사항 1건 조회
+         대회 카드 클릭 시 해당 대회의 공지사항 상세 페이지로 이동할 때 사용 -->
+	<select id="selectByContestNumber" parameterType="int" resultType="NoticeBoardListDTO">
+	<![CDATA[    
+		SELECT
+		        noticeboard_number  AS noticeBoardNumber,
+		        board_type          AS boardType,
+		        board_title         AS boardTitle,
+		        board_content       AS boardContent,
+		        board_click         AS boardClick,
+		        TO_CHAR(board_date, 'YYYY-MM-DD') AS boardDate,
+		        admin_number        AS adminNumber,
+		        contest_number      AS contestNumber,
+		        file_number         AS fileNumber
+		    FROM UB_NOTICEBOARD
+		    WHERE contest_number = #{contestNumber}
+		    AND ROWNUM = 1 ]]>
+	</select>
+
 </mapper>
-
-
-
-
 
 
 

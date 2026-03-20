@@ -74,4 +74,18 @@
     ]]>
 </select>
 
+<select id="getCompanyList" resultType="com.unibridge.app.main.dto.MainDTO$CompanyDTO">
+    SELECT
+        employment_id        AS employmentId,
+        company_name         AS companyName,
+        employment_title     AS employmentTitle,
+        employment_location  AS employmentLocation,
+        employment_career    AS employmentCareer,
+        employment_education AS employmentEducation,
+        employment_log       AS employmentLog,
+        employment_url       AS employmentUrl
+    FROM UB_COMPANY
+    ORDER BY employment_id DESC
+</select>
+
 </mapper>

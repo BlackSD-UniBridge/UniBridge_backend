@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
+	
+	// URL에서 boardId 추출
+	const params = new URLSearchParams(window.location.search);
+	const boardId = params.get('mentorboard_number');
+
+	// detail 페이지에서 넘어온 데이터를 sessionStorage에서 불러오기
+	const savedData = sessionStorage.getItem('mentorBoardModifyData');
+	if (savedData) {
+	  const data = JSON.parse(savedData);
+	  const subjectInput = document.getElementById('mentorBoardModifySubject');
+	  const contentTextarea = document.getElementById('mentorBoardModifyContent');
+	  if (subjectInput) subjectInput.value = data.subject || '';
+	  if (contentTextarea) contentTextarea.value = data.content || '';
+	}
 
   // 글목록 버튼
   const backBtn = document.getElementById('mentorBoardModifyBackBtn');
@@ -11,8 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 수정 버튼
   const submitBtn = document.getElementById('mentorBoardModifySubmitBtn');
   if (submitBtn) {
-    submitBtn.addEventListener('click', (e) => {
-      e.preventDefault();
+    submitBtn.addEventListener('click', () => {
       const subject = document.getElementById('mentorBoardModifySubject').value.trim();
       const content = document.getElementById('mentorBoardModifyContent').value.trim();
 

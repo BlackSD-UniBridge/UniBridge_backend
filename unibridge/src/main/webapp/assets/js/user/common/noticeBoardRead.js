@@ -6,11 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	const submitBtn = document.querySelector(".submit-btn");
 	
 	//데이터 읽기(data- 속성 사용)
-	const boardNumber = listBtn?.dataset.boardNumber??window.boardNumber;
-	const memberNumber = listBtn?.dataset.memberNumber??window.memberNumber;
-	
-	console.log("확인 boardNumber : ", boardNumber);
-	console.log("확인 memberNumber : ", memberNumber);
+	const noticeBoardNumber = listBtn?.dataset.noticeBoardNumber??window.noticeBoardNumber;
+	console.log("확인 boardNumber : ", noticeBoardNumber);
 	
 	// 목록 버튼 → 목록 페이지로 이동
 	listBtn?.addEventListener("click", ()=>{

@@ -33,12 +33,20 @@
           <c:when test="${not empty noticeBoardList}">
             <c:forEach var="noticeBoard" items="${noticeBoardList}">
               <div class="announceRow"
-                   onclick="location.href='${pageContext.request.contextPath}/noticeBoardRead.ntb?boardNumber=${noticeBoard.boardNumber}'">
+                   onclick="location.href='${pageContext.request.contextPath}/noticeBoardRead.ntb?noticeBoardNumber=${noticeBoard.noticeBoardNumber}'">
                 <span class="announceTd announceTdNum">
-                  <c:out value="${noticeBoard.boardNumber}" />
+                  <c:out value="${noticeBoard.noticeBoardNumber}" />
                 </span>
                 <span class="announceTd">
-                  <span class="announceCategoryBadge announce">공지</span>
+                  <%-- ▼ boardType이 있으면 표시, 없으면 '공지' 기본값 --%>
+                  <span class="announceCategoryBadge announce">
+                    <c:choose>
+                      <c:when test="${not empty noticeBoard.boardType}">
+                        <c:out value="${noticeBoard.boardType}" />
+                      </c:when>
+                      <c:otherwise>공지</c:otherwise>
+                    </c:choose>
+                  </span>
                 </span>
                 <span class="announceTd announceTdTitle">
                   <c:out value="${noticeBoard.boardTitle}" />
@@ -47,10 +55,12 @@
                   <c:out value="${noticeBoard.boardDate}" />
                 </span>
                 <span class="announceTd announceTdAuthor">
-                  <c:out value="${noticeBoard.memberId}" />
+                  <%-- ▼ memberId 없음 → boardUserId 사용 --%>
+                  <c:out value="${noticeBoard.boardUserId}" />
                 </span>
                 <span class="announceTd announceTdViews">
-                  <c:out value="${noticeBoard.boardReadCount}" />
+                  <%-- ▼ boardReadCount 없음 → boardClick 사용 --%>
+                  <c:out value="${noticeBoard.boardClick}" />
                 </span>
               </div>
             </c:forEach>
@@ -100,9 +110,5 @@
 
     <div id="footerContainer"></div>
 
-    <script>
-      let memberNumber = "${sessionScope.memberNumber}";
-    </script>
-    <%@ include file="/app/user/footer.jsp"%>
   </body>
 </html>

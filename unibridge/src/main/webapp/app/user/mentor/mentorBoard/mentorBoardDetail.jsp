@@ -56,7 +56,6 @@
     let memberNumber = "${sessionScope.loginUser.memberNumber}";
     const contextPath = "${pageContext.request.contextPath}";
   </script>
-  <%@ include file="/app/user/footer.jsp"%>
   <script src="${pageContext.request.contextPath}/assets/js/user/mentor/mentorBoard/mentorBoardDetail.js"></script>
 
 </body>

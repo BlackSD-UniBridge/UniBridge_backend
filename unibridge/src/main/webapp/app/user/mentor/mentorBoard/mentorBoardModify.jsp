@@ -49,7 +49,6 @@
     </form>
   </div>
 
-  <%@ include file="/app/user/footer.jsp"%>
   <script>
     const contextPath = "${pageContext.request.contextPath}";
   </script>

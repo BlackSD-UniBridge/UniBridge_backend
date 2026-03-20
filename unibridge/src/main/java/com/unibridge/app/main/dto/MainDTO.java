@@ -110,9 +110,8 @@ public class MainDTO {
 	// MENTORING_FILE, CREATED_AT, UPDATED_AT
 	// UB_MEMBER: member_number, member_nickname, member_profile(파일번호)
 	// UB_SUBJECT: subject_name
-	// 2. 추천 멘토 정보 (수정됨)
+	// 추천 멘토 정보 (수정됨)
 	public static class MentorCardDTO {
-		// [수정] internalId -> mentoringNumber (타입도 long 권장)
 		private String mentoringNumber;
 	    private long mentorNumber;
 	    private String mentoringTitle;
@@ -215,4 +214,41 @@ public class MainDTO {
 		}
 		
 	}
+	
+    // 3. 취업 회사 정보 (UB_COMPANY)
+    public static class CompanyDTO {
+        private int    employmentId;
+        private String companyName;
+        private String employmentTitle;
+        private String employmentLocation;
+        private String employmentCareer;
+        private String employmentEducation;
+        private String employmentLog;
+        private String employmentUrl;
+
+        public CompanyDTO() {}
+
+        public int getEmploymentId() { return employmentId; }
+        public void setEmploymentId(int employmentId) { this.employmentId = employmentId; }
+        public String getCompanyName() { return companyName; }
+        public void setCompanyName(String companyName) { this.companyName = companyName; }
+        public String getEmploymentTitle() { return employmentTitle; }
+        public void setEmploymentTitle(String employmentTitle) { this.employmentTitle = employmentTitle; }
+        public String getEmploymentLocation() { return employmentLocation; }
+        public void setEmploymentLocation(String employmentLocation) { this.employmentLocation = employmentLocation; }
+        public String getEmploymentCareer() { return employmentCareer; }
+        public void setEmploymentCareer(String employmentCareer) { this.employmentCareer = employmentCareer; }
+        public String getEmploymentEducation() { return employmentEducation; }
+        public void setEmploymentEducation(String employmentEducation) { this.employmentEducation = employmentEducation; }
+        public String getEmploymentLog() { return employmentLog; }
+        public void setEmploymentLog(String employmentLog) { this.employmentLog = employmentLog; }
+        public String getEmploymentUrl() { return employmentUrl; }
+        public void setEmploymentUrl(String employmentUrl) { this.employmentUrl = employmentUrl; }
+
+        @Override
+        public String toString() {
+            return "CompanyDTO [employmentId=" + employmentId + ", companyName=" + companyName
+                    + ", employmentTitle=" + employmentTitle + ", employmentLocation=" + employmentLocation + "]";
+        }
+    }
 }

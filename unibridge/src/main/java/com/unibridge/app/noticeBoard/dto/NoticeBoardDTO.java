@@ -12,8 +12,9 @@ public class NoticeBoardDTO {
 	private String boardTitle;
 	private String boardContent;
 	private String boardDate;
-	private int boardReadCount;
+	private int boardClick;
 	private int memberNumber;
+	private int fileNumber;
 	
 	public int getBoardNumber() {
 		return boardNumber;
@@ -39,11 +40,11 @@ public class NoticeBoardDTO {
 	public void setBoardDate(String boardDate) {
 		this.boardDate = boardDate;
 	}
-	public int getBoardReadCount() {
-		return boardReadCount;
+	public int getBoardClick() {
+		return boardClick;
 	}
-	public void setBoardReadCount(int boardReadCount) {
-		this.boardReadCount = boardReadCount;
+	public void setBoardClick(int boardClick) {
+		this.boardClick = boardClick;
 	}
 	public int getMemberNumber() {
 		return memberNumber;
@@ -51,14 +52,17 @@ public class NoticeBoardDTO {
 	public void setMemberNumber(int memberNumber) {
 		this.memberNumber = memberNumber;
 	}
-	
+	public int getFileNumber() {
+		return fileNumber;
+	}
+	public void setFileNumber(int fileNumber) {
+		this.fileNumber = fileNumber;
+	}
 	@Override
 	public String toString() {
-		return "BoardDTO [boardNumber=" + boardNumber + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", boardDate=" + boardDate + ", boardReadCount=" + boardReadCount + ", memberNumber=" + memberNumber
-				+ "]";
+		return "NoticeBoardDTO [boardNumber=" + boardNumber + ", boardTitle=" + boardTitle + ", boardContent="
+				+ boardContent + ", boardDate=" + boardDate + ", boardClick=" + boardClick + ", memberNumber="
+				+ memberNumber + ", fileNumber=" + fileNumber + "]";
 	}
-
 	
-
 }

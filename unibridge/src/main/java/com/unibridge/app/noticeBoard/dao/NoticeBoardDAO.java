@@ -22,18 +22,24 @@ public class NoticeBoardDAO {
 	}
 	
 	//조회수 증가 메소드
-	public void updateReadCount(int noticeBoardNumber) {
-		System.out.println("조회수 업데이트 실행 : " + noticeBoardNumber);
-		int result = sqlSession.update("noticeBoard.updateReadCount", noticeBoardNumber);
+	public void updateClick(int fileNumber) {
+		System.out.println("조회수 업데이트 실행 : " + fileNumber);
+		int result = sqlSession.update("noticeBoard.updateClick", fileNumber);
 		System.out.println("조회수 업데이트 결과 : " + result);
 	}
 	
 	
 	//게시글 상세 페이지 조회 메소드
-	public NoticeBoardListDTO selectBoard(int noticeBoardNumber) {
+	public NoticeBoardListDTO selectBoard(int fileNumber) {
 		System.out.println("게시글 상세 페이지 조회(1건조회) - selectBoard 메소드 실행");
-		return sqlSession.selectOne("noticeBoard.select", noticeBoardNumber);
+		return sqlSession.selectOne("noticeBoard.select", fileNumber);
 	}
+	
+	//대회정보 조회
+	public NoticeBoardListDTO selectByContestNumber(int contestNumber) {
+        System.out.println("대회번호로 공지사항 조회(contestNumber=" + contestNumber + ") - selectByContestNumber 실행");
+        return sqlSession.selectOne("noticeBoard.selectByContestNumber", contestNumber);
+    }
 	
 	//모든 게시글 가져오기
 	public List<NoticeBoardListDTO> selectAll(Map<String, Integer> pageMap){

@@ -92,7 +92,6 @@
   const contextPath = "${pageContext.request.contextPath}";
 </script>
 <script src="${pageContext.request.contextPath}/assets/js/user/mentor/mentorBoard/mentorBoardList.js"></script>
-<%@ include file="/app/user/footer.jsp"%>
 
 </body>
 </html>

@@ -25,7 +25,7 @@ public class MentorBoardReadOkController implements Execute {
 		String mentorBoardNumberStr = request.getParameter("MentorBoardNumber");
 		if (mentorBoardNumberStr == null || mentorBoardNumberStr.trim().isEmpty()) {
 			System.out.println("MentorBoardNumber 값이 없습니다");
-			result.setPath("/app/user/mentor/mentorBoard/MentorBoardList.jsp");
+			result.setPath(request.getContextPath() + "/mentor/mentorBoard/MentorBoardList.mob");
 			result.setRedirect(true);
 			return result;
 		}
@@ -36,7 +36,7 @@ public class MentorBoardReadOkController implements Execute {
 
 		if (mentorBoardListDTO == null) {
 			System.out.println("존재하지 않는 게시물입니다." + mentorBoardNumber);
-			result.setPath("/app/user/mentor/mentorBoard/MentorBoardList.jsp");
+			result.setPath(request.getContextPath() + "/mentor/mentorBoard/MentorBoardList.mob");
 			result.setRedirect(true);
 			return result;
 		}
