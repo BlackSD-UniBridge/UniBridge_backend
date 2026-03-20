@@ -57,5 +57,35 @@
 		pay_id = #{payId}
 		WHERE matching_number = #{matchingNumber}
 	</update>
+	
+	<resultMap id="PaymentVOMap" type="com.unibridge.app.pay.dto.PaymentDTO">
+        <result column="MENTEE_NUMBER" property="memberNumber"/>
+        <result column="PAY_ID" property="payId"/>
+        <result column="MATCHING_NUMBER" property="matchingNumber"/>
+        <result column="PAY_AMOUNT" property="payAmount"/>
+        <result column="PAY_METHOD" property="payMethod"/>
+        <result column="PAY_DATE" property="payDate"/>
+        <result column="PAY_STATUS" property="payStatus"/>
+    </resultMap>
+
+    <select id="selectLatestPaymentByMemberNew" parameterType="long"
+    resultType="com.unibridge.app.pay.dto.PaymentDTO">
+	    SELECT *
+	    FROM (
+	        SELECT
+	            p.PAY_ID AS payId,
+	            p.PAY_AMOUNT AS payAmount,
+	            p.PAY_METHOD AS payMethod,
+	            TO_CHAR(p.PAY_DATE, 'YYYY-MM-DD') AS payDate,
+	            p.PAY_STATUS AS payStatus,
+	            m.MATCHING_NUMBER AS matchingNumber, 
+	            m.MENTEE_NUMBER AS memberNumber      
+	        FROM UB_PAY p
+	        JOIN UB_MATCHING m ON p.PAY_ID = m.PAY_ID
+	        WHERE m.MENTEE_NUMBER = #{memberNumber}
+	        ORDER BY p.PAY_ID DESC
+	    )
+	    WHERE ROWNUM = 1
+	</select>
 
 </mapper>

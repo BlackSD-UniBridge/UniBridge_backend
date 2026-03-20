@@ -23,7 +23,6 @@
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my" class="active">매칭 정보</a></li>
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my">멘토링</a></li>
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/delete.my">회원 탈퇴</a></li>
-
             </ul>
         </aside>
         <main>

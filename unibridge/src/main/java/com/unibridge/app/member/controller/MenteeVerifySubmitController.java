@@ -47,7 +47,7 @@ public class MenteeVerifySubmitController implements Execute {
         
         // 실제 DB 업데이트를 처리하는 컨트롤러로 이동
         outResult.setPath(request.getContextPath() + "/auth/mentee/updateOk.my");
-        outResult.setRedirect(false); // 데이터를 가지고 가야 하므로 forward 방식 사용
+        outResult.setRedirect(true); // 데이터를 가지고 가야 하므로 forward 방식 사용
         
         return outResult;
     }

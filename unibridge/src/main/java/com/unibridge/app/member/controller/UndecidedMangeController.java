@@ -20,6 +20,7 @@ public class UndecidedMangeController implements Execute{
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		String method = request.getMethod().toUpperCase();
 		System.out.println("미정 마이페이지로 들어옴");
 
@@ -37,20 +38,22 @@ public class UndecidedMangeController implements Execute{
 
 	private void doGet(HttpServletRequest request, HttpServletResponse response) {
 		
+		System.out.println("멘토/멘티 -- 회원 정보 출력");
+		
 		HttpSession session = request.getSession();
-		MemberDTO memberNumber = (MemberDTO) session.getAttribute("loginUser");
-	    System.out.println("MenteeMange컨트롤러 : " + memberNumber.getMemberNumber());
+		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+	    System.out.println("MenteeMange컨트롤러 : " + loginUser.getMemberNumber());
 
 
 	    // DAO로 회원정보 조회
 	    MemberDAO memberDAO = new MemberDAO();
-	    Map<String, Object> member = memberDAO.selectMember(memberNumber.getMemberNumber());
+	    Map<String, Object> member = memberDAO.selectMember(loginUser.getMemberNumber());
 	    System.out.println("DB에서 가져온 데이터: " + member.toString()); // 여기서 Key 이름을 확인!
 
 	    request.setAttribute("member", member);
 	    
 	    // outResult로 forward 설정
-	    outResult.setPath("/app/user/undetermined/myPage/myPage.jsp");
+	    outResult.setPath("/app/user/undecied/myPage/myPage.jsp");
 	    outResult.setRedirect(false); // forward 처리
 	    
 	    System.out.println("request.getContextPath() :" + request.getContextPath());
