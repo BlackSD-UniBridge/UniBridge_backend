@@ -68,12 +68,13 @@ public class MentorFrontController implements Execute {
 			System.out.println("[Log] 결과: MatchingController 실행 완료!");
 			break;   
         // 멘토링 관련 요청들을 모두 MentoringFrontController로 토스
-        case "mentoringCreate.my":
+		case "mentoringCreate.my":
         case "mentoringWriteOk.my":
         case "mentoringView.my":
         case "mentoringModify.my":
         case "mentoringModifyOk.my":
         case "mentoringDeleteOk.my":
+		case "mentoringMain.my":
             System.out.println("[Log] 멘토링 관련 요청 -> MentoringFrontController로 이동");
             outResult = new MentoringFrontController().execute(request, response);
             break;

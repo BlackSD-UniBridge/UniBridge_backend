@@ -36,7 +36,7 @@
                 <div class="modifyForm">
                     <form action="${pageContext.request.contextPath}/mvc/auth/mentee/verifySubmit.my" method="POST" id="goUserModify">
 
-                        <%-- ✅ 현재 비밀번호: spacer로 버튼 자리 확보 → input 너비 통일 --%>
+                        <%-- 현재 비밀번호: spacer로 버튼 자리 확보 → input 너비 통일 --%>
                         <div class="inputGroup">
                             <label>현재 비밀번호</label>
                             <div class="inputRow">
@@ -61,7 +61,7 @@
                             </c:if>
                         </div>
 
-                        <%-- ✅ 인증번호: 입력창 + 버튼 한 줄, 에러는 inputRow 바로 아래 --%>
+                        <%-- 인증번호: 입력창 + 버튼 한 줄, 에러는 inputRow 바로 아래 --%>
                         <div class="inputGroup">
                             <label>인증번호</label>
                             <div class="inputRow">

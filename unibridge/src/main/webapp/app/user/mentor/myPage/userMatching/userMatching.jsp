@@ -36,7 +36,7 @@
 					href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my"
 					class="active">매칭 정보</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoringCreate.my">멘토링</a></li>
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoringMain.my">멘토링</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/mvc/auth/mentor/delete.my">회원탈퇴</a></li>
 			</ul>

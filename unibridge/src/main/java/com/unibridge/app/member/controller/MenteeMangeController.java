@@ -38,7 +38,7 @@ public class MenteeMangeController implements Execute {
 
 	private void doGet(HttpServletRequest request, HttpServletResponse response) {
 		
-		System.out.println("멘토/멘티 -- 매칭 정보 출력");
+		System.out.println("멘토/멘티 -- 회원 정보 출력");
 		
 		HttpSession session = request.getSession();
 		MemberDTO memberNumber = (MemberDTO) session.getAttribute("loginUser");
