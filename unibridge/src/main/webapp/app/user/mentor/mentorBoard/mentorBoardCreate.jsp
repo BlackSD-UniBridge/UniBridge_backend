@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -9,44 +10,39 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentor/mentorBoard/mentorBoardCreate.css" />
 </head>
-
 <body>
-
-  <!-- 헤더 -->
-  <div id="headerContainer"></div>
-
-  <div class="pageContent">
-    <div class="mentorBoardCreateWrap">
-
-      <h1 class="mentorBoardCreateTitle">게시판 글 작성</h1>
-
-      <!-- 제목 입력 -->
-      <input type="text" id="mentorBoardCreateSubject" class="mentorBoardCreateSubjectInput"
-        placeholder="제목을 입력해주세요.(최대 50자)" maxlength="50" />
-
-      <!-- 본문 입력 -->
-      <textarea id="mentorBoardCreateContent" class="mentorBoardCreateContentTextarea"></textarea>
-
-      <!-- 하단 버튼 -->
-      <div class="mentorBoardCreateFooter">
-        <button class="mentorBoardCreateBackBtn" id="mentorBoardCreateBackBtn">글목록</button>
-        <button class="mentorBoardCreateSubmitBtn" id="mentorBoardCreateSubmitBtn">게시글 등록</button>
+<%@ include file="/app/user/header.jsp"%>
+  <div class="container">
+    <form id="write-form"
+      action="${pageContext.request.contextPath}/mentor/mentorBoard/MentorBoardWrite.mob"
+      method="post" enctype="multipart/form-data">
+      <h1>글쓰기</h1>
+      <div class="form-group">
+        <label for="mentorBoardCreateSubject">제목</label>
+        <input type="text" id="mentorBoardCreateSubject" name="MentorBoardTitle" required />
       </div>
-
-    </div>
+      <div class="form-group">
+        <label for="author">작성자</label>
+        <div class="writer">
+          <c:out value="${sessionScope.loginUser.memberId}" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mentorBoardCreateContent">내용</label>
+        <textarea id="mentorBoardCreateContent" name="MentorBoardContent" required></textarea>
+      </div>
+      <div class="btn-group">
+        <button type="submit" class="submit-btn">작성 완료</button>
+        <button type="button" class="cancle-btn">취소</button>
+      </div>
+    </form>
   </div>
-
-  <div id="footerContainer"></div>
-
-  <script src="${pageContext.request.contextPath}/assets/js/mentorHeader.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/user/mentor/mentorBoard/mentorBoardCreate.js"></script>
-
+<script>
+  const contextPath = "${pageContext.request.contextPath}";
+</script>
+<script src="${pageContext.request.contextPath}/assets/js/user/mentor/mentorBoard/mentorBoardCreate.js"></script>
 
 </body>
-
 </html>

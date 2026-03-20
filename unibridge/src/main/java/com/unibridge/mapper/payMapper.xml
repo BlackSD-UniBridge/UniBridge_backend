@@ -1,47 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pay">
-	<insert id="insertPayment"
-		parameterType="com.unibridge.app.pay.dto.PaymentDTO">
+
+	<insert id="insertPayment" parameterType="paymentDTO">
+		<selectKey keyProperty="payId" resultType="long"
+			order="BEFORE">
+			SELECT SEQ_PAY.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO UB_PAY (
 		pay_id,
-		matching_number,
 		pay_amount,
 		pay_method,
 		pay_date,
-		pay_status,
-		member_number
+		pay_status
 		) VALUES (
-		SEQ_PAY.NEXTVAL,
-		#{matchingNumber},
+		#{payId},
 		#{payAmount},
-		'카카오페이',
+		#{payMethod},
 		SYSDATE,
-		'SUCCESS',
-		#{memberNumber}
+		#{payStatus}
 		)
 	</insert>
-	
-	<select id="selectLatestPaymentByMember"
-	        parameterType="long"
-	        resultType="PaymentDTO">
-	
-	    SELECT *
-	    FROM (
-	        SELECT 
-	            PAY_ID            AS payId,
-	            MATCHING_NUMBER   AS matchingNumber,
-	            PAY_AMOUNT        AS payAmount,
-	            PAY_METHOD        AS payMethod,
-	            TO_CHAR(PAY_DATE, 'YYYY-MM-DD') AS payDate,
-	            PAY_STATUS        AS payStatus,
-	            MEMBER_NUMBER     AS memberNumber
-	        FROM UB_PAY
-	        WHERE MEMBER_NUMBER = #{memberNumber}
-	        ORDER BY PAY_ID DESC
-	    )
-	    WHERE ROWNUM = 1
-	
+
+	<select id="selectLatestPaymentByMember" parameterType="long"
+		resultType="com.unibridge.app.pay.dto.PaymentDTO">
+		SELECT *
+		FROM (
+		SELECT
+		p.PAY_ID AS payId,
+		p.PAY_AMOUNT AS
+		payAmount,
+		p.PAY_METHOD AS payMethod,
+		TO_CHAR(p.PAY_DATE, 'YYYY-MM-DD')
+		AS payDate,
+		p.PAY_STATUS AS payStatus
+		FROM UB_PAY p
+		JOIN UB_MATCHING m ON
+		p.PAY_ID = m.PAY_ID
+		WHERE m.MENTEE_NUMBER = #{memberNumber}
+		ORDER BY
+		p.PAY_ID DESC
+		)
+		WHERE ROWNUM = 1
 	</select>
-	
+
+
+
+	<select id="getLatestPayId" resultType="long">
+		SELECT SEQ_PAY.CURRVAL
+		FROM DUAL
+	</select>
+
+	<update id="updatePayId" parameterType="map">
+		UPDATE UB_MATCHING
+		SET
+		pay_id = #{payId}
+		WHERE matching_number = #{matchingNumber}
+	</update>
+
 </mapper>

@@ -11,4 +11,18 @@
         VALUES (#{fileNumber}, #{fileName}, #{fileOriginalName}, #{fileExtension}, #{fileSize}, #{filePath})
     </insert>
     
+    <!-- file_number 로 파일 1건 조회
+         UB_NOTICEBOARD.file_number(FK) → UB_FILE.file_number 로 조회할 때 사용 -->
+    <select id="selectFile" parameterType="int" resultType="FileDTO">
+        SELECT
+            file_number         AS fileNumber,
+            file_name           AS fileName,
+            file_original_name  AS fileOriginalName,
+            file_extension      AS fileExtension,
+            file_size           AS fileSize,
+            file_path           AS filePath
+        FROM UB_FILE
+        WHERE file_number = #{fileNumber}
+    </select>
+    
 </mapper>

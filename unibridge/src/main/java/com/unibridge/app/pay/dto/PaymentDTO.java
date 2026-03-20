@@ -1,13 +1,11 @@
 package com.unibridge.app.pay.dto;
 
 public class PaymentDTO {
-    private long payId;             // PAY_ID
-    private long matchingNumber;    // MATCHING_NUMBER
-    private String payAmount;       // PAY_AMOUNT (테이블 타입에 맞춰 String으로 설정)
-    private String payMethod;       // PAY_METHOD
-    private String payDate;         // PAY_DATE (보통 DB에서 SYSDATE로 넣지만 조회용으로 추가)
-    private String payStatus;       // PAY_STATUS
-    private long memberNumber;      // MEMBER_NUMBER (결제한 회원 번호)
+    private long payId;         // PAY_ID (PK)
+    private String payAmount;   // PAY_AMOUNT
+    private String payMethod;   // PAY_METHOD
+    private String payDate;     // PAY_DATE (조회 시 String 또는 LocalDateTime 사용)
+    private String payStatus;   // PAY_STATUS
 
     // 기본 생성자
     public PaymentDTO() {}
@@ -19,14 +17,6 @@ public class PaymentDTO {
 
     public void setPayId(long payId) {
         this.payId = payId;
-    }
-
-    public long getMatchingNumber() {
-        return matchingNumber;
-    }
-
-    public void setMatchingNumber(long matchingNumber) {
-        this.matchingNumber = matchingNumber;
     }
 
     public String getPayAmount() {
@@ -61,18 +51,10 @@ public class PaymentDTO {
         this.payStatus = payStatus;
     }
 
-    public long getMemberNumber() {
-        return memberNumber;
-    }
-
-    public void setMemberNumber(long memberNumber) {
-        this.memberNumber = memberNumber;
-    }
-
     @Override
     public String toString() {
-        return "PaymentDTO [payId=" + payId + ", matchingNumber=" + matchingNumber + ", payAmount=" + payAmount
-                + ", payMethod=" + payMethod + ", payDate=" + payDate + ", payStatus=" + payStatus + ", memberNumber="
-                + memberNumber + "]";
+        return "PaymentDTO [payId=" + payId + ", payAmount=" + payAmount 
+                + ", payMethod=" + payMethod + ", payDate=" + payDate 
+                + ", payStatus=" + payStatus + "]";
     }
 }

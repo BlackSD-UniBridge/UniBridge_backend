@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
+import com.unibridge.app.mypage.matching.dao.MatchingDAO;
 import com.unibridge.app.pay.dao.PaymentDAO;
 import com.unibridge.app.pay.dto.PaymentDTO;
 
@@ -40,7 +41,7 @@ public class PaymentOkController implements Execute {
 			conn.setRequestProperty("Content-type", "application/json;charset=utf-8");
 			conn.setDoOutput(true);
 
-			// 승인 요청 JSON (partner_order_id 등은 가입/예약 번호와 연동 권장)
+			// 승인 요청 JSON
 			String jsonParams = "{" + "\"cid\":\"" + cid + "\"," + "\"tid\":\"" + tid + "\","
 					+ "\"partner_order_id\":\"1001\"," + "\"partner_user_id\":\"unibridge\"," + "\"pg_token\":\""
 					+ pgToken + "\"" + "}";
@@ -52,8 +53,7 @@ public class PaymentOkController implements Execute {
 			int code = conn.getResponseCode();
 
 			if (code == 200) {
-
-				// 1. 응답 데이터 처리 (필요시 JSON 파싱하여 금액 등 추출)
+				// 1. 응답 데이터 처리
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
 				StringBuilder sb = new StringBuilder();
 				String line;
@@ -62,48 +62,65 @@ public class PaymentOkController implements Execute {
 				}
 				System.out.println(">>> [카카오 승인 응답]: " + sb.toString());
 
-				// 2. DB 저장을 위한 DTO 세팅
+				// 2. [수정] 세션에서 필요한 정보 미리 모두 가져오기 (순서 중요)
+				Long memberNumber = (Long) session.getAttribute("memberNumber");
+				Long matchingNumber = (Long) session.getAttribute("matchingNumber");
+				String payAmount = (String) session.getAttribute("payAmount");
+
+				// 안전장치
+				if (memberNumber == null) memberNumber = 1L;
+				if (payAmount == null) payAmount = "10000";
+
+				// 3. DTO 세팅 (DB 구조에 맞게 회원번호/매칭번호 제외)
 				PaymentDTO payDTO = new PaymentDTO();
-
-				// [기존 코드 주석 처리] 세션에서 정보를 가져오지 못해 0L이 들어가는 현상 방지
-				// Long memberNumber = (Long) session.getAttribute("memberNumber");
-				// Long matchingNumber = (Long) session.getAttribute("matchingNumber");
-
-				// [임시 코드] DB 테스트를 위해 강제로 1L 할당 (DB에 matching_number=1, member_number=1이 있어야 함)
-				Long memberNumber = 11L; 
-				Long matchingNumber = 1L;
-
-				// DTO 세팅
-				payDTO.setMemberNumber(memberNumber);
-				payDTO.setMatchingNumber(matchingNumber);
-				payDTO.setPayAmount("10000"); // 예시 금액
+				payDTO.setPayAmount(payAmount);
 				payDTO.setPayMethod("카카오페이");
 				payDTO.setPayStatus("SUCCESS");
 
-				// 3. DAO 호출하여 저장
-				PaymentDAO dao = new PaymentDAO();
-				dao.insertPayment(payDTO);
-
-				System.out.println(">>> [DB 저장 완료] 회원번호 " + memberNumber + "의 결제 내역 저장 성공");
+				// 4. DAO 호출하여 결제 내역 저장
+				PaymentDAO payDao = new PaymentDAO();
+				payDao.insertPayment(payDTO);
 				
-				// 4. 세션 정리 및 결과 페이지 이동
-				session.removeAttribute("tid");
-				// [수정 전]
-				// result.setPath(request.getContextPath() + "/app/user/payment/paymentFinish.jsp");
+				// [출력] 이제 memberNumber 변수가 선언되었으므로 정상 실행됩니다.
+				System.out.println(">>> [DB 저장 완료] 회원번호 " + memberNumber + "의 결제 로그 생성 성공");
 
-				// [수정 후 - 방법 A] 실제 폴더가 app/user/mentorSearch/payment/ 아래에 있는 경우 (추천)
-				result.setPath(request.getContextPath() + "/app/user/mentorSearch/payment/paymentFinish.jsp");
-				result.setRedirect(true);
+				// 5. 생성된 결제 ID 확보 및 매칭 정보 업데이트
+				long payId = payDao.getLatestPayId();
+				
+				/* 이 시점에서 MatchingDAO 등을 이용해 
+				   UPDATE UB_MATCHING SET PAY_ID = #{payId} WHERE MATCHING_NUMBER = #{matchingNumber} 를 수행
+				*/
+				MatchingDAO matchingDao = new MatchingDAO();
+				matchingDao.updatePayId(matchingNumber, payId); 
+				
+				System.out.println(">>> [매칭 연결 완료] 결제번호: " + payId + "를 매칭번호: " + matchingNumber + "에 연결함");
+
+				// 6. 결과 페이지로 보낼 정보 조회 (Join 쿼리 사용)
+				// 결제 정보와 매칭 정보를 한꺼번에 확인하기 위해 memberNumber 사용
+				PaymentDTO latestPay = payDao.selectLatestPaymentByMember(memberNumber);
+				request.setAttribute("payInfo", latestPay);
+
+				// 7. 세션 정리 및 페이지 이동
+				session.removeAttribute("tid");
+				session.removeAttribute("matchingNumber");
+				session.removeAttribute("payAmount");
+
+				result.setPath("/app/user/mentorSearch/payment/paymentFinish.jsp");
+				result.setRedirect(false);
 
 			} else {
-				// [실패] 에러 처리
+				// 결제 승인 실패 처리
 				response.setContentType("text/html; charset=UTF-8");
-				response.getWriter().print("<script>alert('결제 승인에 실패하였습니다.'); location.href='index.jsp';</script>");
-				return null; // 스크립트로 직접 응답했으므로 null 리턴
+				response.getWriter().print("<script>alert('결제 승인에 실패하였습니다.'); location.href='"
+						+ request.getContextPath() + "/mentor/mentorSearchOk.sch';</script>");
+				return null;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			response.setContentType("text/html; charset=UTF-8");
+			response.getWriter().print("<script>alert('결제 처리 중 오류가 발생했습니다.'); history.back();</script>");
+			return null;
 		}
 
 		return result;

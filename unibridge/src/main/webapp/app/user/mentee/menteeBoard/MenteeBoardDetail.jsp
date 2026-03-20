@@ -95,7 +95,6 @@
     	let memberNumber = "${sessionScope.loginUser.memberNumber}";
 	  const contextPath = "${pageContext.request.contextPath}";
     </script>
-	<%@ include file="/app/user/footer.jsp"%>
   <script src="${pageContext.request.contextPath}/assets/js/user/mentee/menteeBoard/menteeBoardDetail.js"></script>
 
 

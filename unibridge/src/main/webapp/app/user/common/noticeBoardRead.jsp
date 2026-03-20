@@ -11,12 +11,17 @@
   </head>
   <body>
   <%@ include file="/app/user/header.jsp"%>
-    <div class="headerContainer">
       <div class="announceDetailWrap">
               <!-- 제목 -->
       <div class="announceDetailHeader">
-        <span class="announceDetailBadge">공지</span>
-        <%-- ▼ noticeBoardTitle → boardTitle (NoticeBoardListDTO 필드명) --%>
+        <span class="announceDetailBadge">
+          <c:choose>
+            <c:when test="${not empty noticeBoard.boardType}">
+              <c:out value="${noticeBoard.boardType}" />
+            </c:when>
+            <c:otherwise>공지</c:otherwise>
+          </c:choose>
+        </span>
         <h2 class="announceDetailTitle">
           <c:out value="${noticeBoard.boardTitle}" />
         </h2>
@@ -27,7 +32,7 @@
         <span class="announceDetailAuthor">
           작성자 :
           <%-- ▼ memberId는 그대로 --%>
-          <c:out value="${noticeBoard.memberId}" />
+          <c:out value="${noticeBoard.boardUserId}" />
           &nbsp;|&nbsp;
           작성일 :
           <%-- ▼ noticeBoardDate → boardDate --%>
@@ -35,8 +40,8 @@
         </span>
         <span class="announceDetailViews">
           조회수 :
-          <%-- ▼ noticeBoardReadCount → boardReadCount --%>
-          <c:out value="${noticeBoard.boardReadCount}" />
+          <%-- ▼ noticeBoardClick → boardClick --%>
+          <c:out value="${noticeBoard.boardClick}" />
         </span>
       </div>
 
@@ -47,36 +52,33 @@
       </div>
 
       <!-- 아마도 첨부파일 (추후 구현) -->
-      <%--
-      <c:forEach var="file" items="${noticeBoard.files}">
-        <div class="img-box">
-          <img src="${pageContext.request.contextPath}/upload/${file.fileSystemName}" />
+      <c:if test="${not empty attachedFile}">
+        <div class="announceDetailFileWrap">
+          <span class="announceDetailFileLabel">첨부파일</span>
+          <a class="announceDetailFileLink"
+             href="${pageContext.request.contextPath}/file/download.file?fileNumber=${attachedFile.fileNumber}"
+             download="${attachedFile.fileOriginalName}">
+            <%-- 📎 아이콘 + 원본 파일명 표시 --%>
+            &#128206; <c:out value="${attachedFile.fileOriginalName}" />
+            <span class="announceDetailFileSize">
+              <%-- 파일 크기를 KB 단위로 표시 --%>
+              (<c:out value="${attachedFile.fileSize / 1024}" />KB)
+            </span>
+          </a>
         </div>
-      </c:forEach>
-      --%>
+      </c:if>
 
       <!-- 버튼 -->
-      <div>
+      <div class="announceDetailBtnWrap">
         <button type="button"
                 class="announceDetailBackBtn list-btn"
-                data-board-number="${noticeBoard.boardNumber}"
-                data-member-number="${sessionScope.memberNumber}">
-          목록
+                data-board-number="${noticeBoard.noticeBoardNumber}"> 목록
         </button>
-        <c:if test="${sessionScope.memberNumber == noticeBoard.memberNumber}">
-          <button type="button" class="modify-btn">수정</button>
-          <button type="button" class="delete-btn">삭제</button>
-        </c:if>
-      </div>
 
     </div><%-- announceDetailWrap 닫힘 --%>
 
     <div id="footerContainer"></div>
 
-    <script>
-      let memberNumber = "${sessionScope.memberNumber}";
-    </script>
-    <%@ include file="/app/user/footer.jsp"%>
     <script src="${pageContext.request.contextPath}/assets/js/user/common/noticeBoardRead.js"></script>
   </body>
 </html>

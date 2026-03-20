@@ -1,22 +1,38 @@
 package com.unibridge.app.pay.dao;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
-import com.unibridge.app.pay.dto.PaymentDTO; // DTO 패키지 위치 확인
+import com.unibridge.app.pay.dto.PaymentDTO;
 import com.unibridge.config.MyBatisConfig;
 
 public class PaymentDAO {
+	private SqlSessionFactory sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();
     public SqlSession sqlSession;
-
-    public PaymentDAO() {
-        sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true); // 자동 커밋 설정
-    }
-
-    public void insertPayment(PaymentDTO paymentDTO) {
-        sqlSession.insert("pay.insertPayment", paymentDTO);
-    }
     
+    public PaymentDAO() {
+        // 이 부분이 누락되었을 겁니다! 
+        // true를 넣으면 오토 커밋(Auto-commit)이 설정됩니다.
+        sqlSession = sqlSessionFactory.openSession(true); 
+    }
+
+    public void insertPayment(PaymentDTO payInfo) {
+    	sqlSession.insert("pay.insertPayment", payInfo);
+    }
+
+    // 2. 특정 회원의 결제 정보를 JOIN으로 가져오기
     public PaymentDTO selectLatestPaymentByMember(long memberNumber) {
         return sqlSession.selectOne("pay.selectLatestPaymentByMember", memberNumber);
     }
+    
+    // 3. (대안) 만약 JOIN이 번거롭다면, 방금 생성된 pay_id로 직접 조회
+    public PaymentDTO selectPaymentById(long payId) {
+        return sqlSession.selectOne("pay.selectPaymentById", payId);
+    }
+    
+    public long getLatestPayId() {
+        // 가장 최근에 생성된 시퀀스 번호(CURRVAL)를 가져옴
+        return sqlSession.selectOne("pay.getLatestPayId");
+    }
+    
 }

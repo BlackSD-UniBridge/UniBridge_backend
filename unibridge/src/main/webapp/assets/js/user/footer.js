@@ -35,13 +35,6 @@
         </footer>`;
     };
 
-    function renderFooter() {
-        const mount = document.getElementById('footerContainer');
-        if (mount) {
-            mount.innerHTML = getFooterTemplate();
-        }
-    }
-
     // 초기화 실행
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', renderFooter);

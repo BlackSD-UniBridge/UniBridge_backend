@@ -1,26 +1,18 @@
-package com.unibridge.app.noticeBoard.dto;
+package com.unibridge.app.mentorBoard.dto;
 
-public class NoticeBoardDTO {
-//	board_number NUMBER,
-//	board_title varchar2(200),
-//	board_content varchar2(2000),
-//	board_date DATE DEFAULT SYSDATE,
-//	board_update DATE DEFAULT SYSDATE,
-//	board_read_count NUMBER DEFAULT 0,
-//	member_number NUMBER,
-	private int boardNumber;
+public class MentorBoardDTO {
+	private int mentorBoardNumber;
 	private String boardTitle;
 	private String boardContent;
 	private String boardDate;
 	private int boardClick;
 	private int memberNumber;
-	private int fileNumber;
 	
-	public int getBoardNumber() {
-		return boardNumber;
+	public int getMentorBoardNumber() {
+		return mentorBoardNumber;
 	}
-	public void setBoardNumber(int boardNumber) {
-		this.boardNumber = boardNumber;
+	public void setMentorBoardNumber(int mentorBoardNumber) {
+		this.mentorBoardNumber = mentorBoardNumber;
 	}
 	public String getBoardTitle() {
 		return boardTitle;
@@ -52,17 +44,11 @@ public class NoticeBoardDTO {
 	public void setMemberNumber(int memberNumber) {
 		this.memberNumber = memberNumber;
 	}
-	public int getFileNumber() {
-		return fileNumber;
-	}
-	public void setFileNumber(int fileNumber) {
-		this.fileNumber = fileNumber;
-	}
+	
 	@Override
 	public String toString() {
-		return "NoticeBoardDTO [boardNumber=" + boardNumber + ", boardTitle=" + boardTitle + ", boardContent="
-				+ boardContent + ", boardDate=" + boardDate + ", boardClick=" + boardClick + ", memberNumber="
-				+ memberNumber + ", fileNumber=" + fileNumber + "]";
+		return "MentorBoardDTO [mentorBoardNumber=" + mentorBoardNumber + ", boardTitle=" + boardTitle
+				+ ", boardContent=" + boardContent + ", boardDate=" + boardDate
+				+ ", boardClick=" + boardClick + ", memberNumber=" + memberNumber + "]";
 	}
-	
 }

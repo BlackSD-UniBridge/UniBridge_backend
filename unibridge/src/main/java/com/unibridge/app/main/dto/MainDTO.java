@@ -110,108 +110,145 @@ public class MainDTO {
 	// MENTORING_FILE, CREATED_AT, UPDATED_AT
 	// UB_MEMBER: member_number, member_nickname, member_profile(파일번호)
 	// UB_SUBJECT: subject_name
-	// 2. 추천 멘토 정보 (수정됨)
+	// 추천 멘토 정보 (수정됨)
 	public static class MentorCardDTO {
-		// [수정] internalId -> mentoringNumber (타입도 long 권장)
-		private long mentoringNumber;
-		private long mentorNumber;
-		private String mentoringTitle;
-		private String mentoringGoal;
-		private String mentoringDetail;
-		private String mentoringFile;
-		private int subjectNumber;
-		private String subjectName;
-		private String memberNickname;
-		private int memberProfile;
+		private String mentoringNumber;
+	    private long mentorNumber;
+	    private String mentoringTitle;
+	    private String subjectName;
+	    private String memberNickname;
+	    private String fileName;     // 프로필 이미지 파일명
+	    private String gradSchool;   // 학교 명
+	    private String gradDepart;   // 학과 명
 
 		public MentorCardDTO() {
 		}
-
 		// [수정] Getter/Setter 명칭 변경
-		public long getMentoringNumber() {
+
+		
+		public String getMentoringNumber() {
 			return mentoringNumber;
 		}
 
-		public void setMentoringNumber(long v) {
-			this.mentoringNumber = v;
+		public void setMentoringNumber(String mentoringNumber) {
+			this.mentoringNumber = mentoringNumber;
 		}
+
+
 
 		public long getMentorNumber() {
 			return mentorNumber;
 		}
 
-		public void setMentorNumber(long v) {
-			this.mentorNumber = v;
+
+		public void setMentorNumber(long mentorNumber) {
+			this.mentorNumber = mentorNumber;
 		}
+
 
 		public String getMentoringTitle() {
 			return mentoringTitle;
 		}
 
-		public void setMentoringTitle(String v) {
-			this.mentoringTitle = v;
+
+		public void setMentoringTitle(String mentoringTitle) {
+			this.mentoringTitle = mentoringTitle;
 		}
 
-		public String getMentoringGoal() {
-			return mentoringGoal;
-		}
-
-		public void setMentoringGoal(String v) {
-			this.mentoringGoal = v;
-		}
-
-		public String getMentoringDetail() {
-			return mentoringDetail;
-		}
-
-		public void setMentoringDetail(String v) {
-			this.mentoringDetail = v;
-		}
-
-		public String getMentoringFile() {
-			return mentoringFile;
-		}
-
-		public void setMentoringFile(String v) {
-			this.mentoringFile = v;
-		}
-
-		public int getSubjectNumber() {
-			return subjectNumber;
-		}
-
-		public void setSubjectNumber(int v) {
-			this.subjectNumber = v;
-		}
 
 		public String getSubjectName() {
 			return subjectName;
 		}
 
-		public void setSubjectName(String v) {
-			this.subjectName = v;
+
+		public void setSubjectName(String subjectName) {
+			this.subjectName = subjectName;
 		}
+
 
 		public String getMemberNickname() {
 			return memberNickname;
 		}
 
-		public void setMemberNickname(String v) {
-			this.memberNickname = v;
+
+		public void setMemberNickname(String memberNickname) {
+			this.memberNickname = memberNickname;
 		}
 
-		public int getMemberProfile() {
-			return memberProfile;
+
+		public String getFileName() {
+			return fileName;
 		}
 
-		public void setMemberProfile(int v) {
-			this.memberProfile = v;
+
+		public void setFileName(String fileName) {
+			this.fileName = fileName;
+		}
+
+
+	public String getGradSchool() {
+			return gradSchool;
+		}
+
+
+		public void setGradSchool(String gradSchool) {
+			this.gradSchool = gradSchool;
+		}
+
+
+		public String getGradDepart() {
+			return gradDepart;
+		}
+
+
+		public void setGradDepart(String gradDepart) {
+			this.gradDepart = gradDepart;
 		}
 
 		@Override
 		public String toString() {
-			return "MentorCardDTO [mentoringNumber=" + mentoringNumber + ", memberNickname=" + memberNickname
-					+ ", subjectName=" + subjectName + ", mentoringTitle=" + mentoringTitle + "]";
+			return "MentorCardDTO [mentoringNumber=" + mentoringNumber + ", mentorNumber=" + mentorNumber
+					+ ", mentoringTitle=" + mentoringTitle + ", subjectName=" + subjectName + ", memberNickname="
+					+ memberNickname + ", fileName=" + fileName + ", gradSchool=" + gradSchool + ", gradDepart="
+					+ gradDepart + "]";
 		}
+		
 	}
+	
+    // 3. 취업 회사 정보 (UB_COMPANY)
+    public static class CompanyDTO {
+        private int    employmentId;
+        private String companyName;
+        private String employmentTitle;
+        private String employmentLocation;
+        private String employmentCareer;
+        private String employmentEducation;
+        private String employmentLog;
+        private String employmentUrl;
+
+        public CompanyDTO() {}
+
+        public int getEmploymentId() { return employmentId; }
+        public void setEmploymentId(int employmentId) { this.employmentId = employmentId; }
+        public String getCompanyName() { return companyName; }
+        public void setCompanyName(String companyName) { this.companyName = companyName; }
+        public String getEmploymentTitle() { return employmentTitle; }
+        public void setEmploymentTitle(String employmentTitle) { this.employmentTitle = employmentTitle; }
+        public String getEmploymentLocation() { return employmentLocation; }
+        public void setEmploymentLocation(String employmentLocation) { this.employmentLocation = employmentLocation; }
+        public String getEmploymentCareer() { return employmentCareer; }
+        public void setEmploymentCareer(String employmentCareer) { this.employmentCareer = employmentCareer; }
+        public String getEmploymentEducation() { return employmentEducation; }
+        public void setEmploymentEducation(String employmentEducation) { this.employmentEducation = employmentEducation; }
+        public String getEmploymentLog() { return employmentLog; }
+        public void setEmploymentLog(String employmentLog) { this.employmentLog = employmentLog; }
+        public String getEmploymentUrl() { return employmentUrl; }
+        public void setEmploymentUrl(String employmentUrl) { this.employmentUrl = employmentUrl; }
+
+        @Override
+        public String toString() {
+            return "CompanyDTO [employmentId=" + employmentId + ", companyName=" + companyName
+                    + ", employmentTitle=" + employmentTitle + ", employmentLocation=" + employmentLocation + "]";
+        }
+    }
 }

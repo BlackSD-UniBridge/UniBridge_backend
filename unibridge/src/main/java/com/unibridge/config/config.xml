@@ -34,9 +34,9 @@
       <typeAlias type="com.unibridge.app.learningReport.dto.LearningReportDTO" alias="LearningReportDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mypage.matching.dto.matchingDTO" alias="MatchingDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.menteeBoard.dto.MenteeBoardDTO"             alias="MenteeBoardDTO"    />
-      <typeAlias type="com.unibridge.app.menteeBoard.dto.MenteeBoardListDTO"         alias="MenteeBoardListDTO"/><!-- 
+      <typeAlias type="com.unibridge.app.menteeBoard.dto.MenteeBoardListDTO"         alias="MenteeBoardListDTO"/>
       <typeAlias type="com.unibridge.app.mentorBoard.dto.MentorBoardDTO"             alias="MentorBoardDTO"    />
-      <typeAlias type="com.unibridge.app.mentorBoard.dto.MentorBoardListDTO"         alias="MentorBoardListDTO"/> -->
+      <typeAlias type="com.unibridge.app.mentorBoard.dto.MentorBoardListDTO"         alias="MentorBoardListDTO"/>
       
       <!--  API DTO  -->
       <typeAlias type="com.unibridge.api.admin.dto.AdminUserMMDTO" alias="AdminUserMMDTO"></typeAlias>
@@ -71,9 +71,7 @@
 
       <mapper resource="com/unibridge/mapper/matchingMapper.xml"/>
       <mapper resource="com/unibridge/mapper/menteeBoardMapper.xml" />
-      <!-- <mapper resource="com/unibridge/mapper/mentorBoardMapper.xml" /> -->
-      
-      <!--  API  -->
+      <mapper resource="com/unibridge/mapper/mentorBoardMapper.xml" />
       <mapper resource="com/unibridge/mapper/apiAdminUserMMMapper.xml" />
       <mapper resource="com/unibridge/mapper/apiAdminReportMapper.xml" />
    </mappers>

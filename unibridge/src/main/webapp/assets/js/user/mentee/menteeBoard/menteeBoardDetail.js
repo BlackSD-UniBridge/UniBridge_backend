@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		//이동버튼
 		listBtn?.addEventListener("click", ()=>{
-			window.location.href = "${contextPath}/mentee/menteeBoard/MenteeBoardList.meb";
+			window.location.href = `${contextPath}/mentee/menteeBoard/MenteeBoardList.meb`;
 		});
 		
 		//수정버튼

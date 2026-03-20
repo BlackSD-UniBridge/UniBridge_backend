@@ -1,150 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UniBridge - 멘토 게시판</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentor/mentorBoard/mentorBoardList.css" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniBridge - 멘토 게시판</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentor/mentorBoard/mentorBoardList.css" />
 </head>
 
 <body>
+    <%@ include file="/app/user/header.jsp"%>
 
-    <!-- 헤더 (멘터 헤더) -->
-    <div id="headerContainer"></div>
+<div class="container">
+      <div class="write-btn-wrap">
+        <a href="${pageContext.request.contextPath}/mentor/mentorBoard/MentorBoardWrite.mob" class="write-btn">글쓰기</a>
+      </div>
 
-    <div class="pageContent">
-        <div class="mentorBoardWrap">
-
-            <h1 class="mentorBoardTitle">멘터전용 게시판</h1>
-            <div class="mentorBoardList">
-
-                <!-- 헤더 행 -->
-                <div class="mentorBoardHeader">
-                    <div class="mentorBoardHeaderRow">
-                        <div class="mentorBoardTh">번호</div>
-                        <div class="mentorBoardTh mentorBoardThTitle">제목</div>
-                        <div class="mentorBoardTh mentorBoardThDate">작성날짜 작성시간</div>
-                        <div class="mentorBoardTh mentorBoardThAuthor">작성자</div>
-                        <div class="mentorBoardTh mentorBoardThViews">조회수</div>
-                    </div>
-                </div>
-
-                <!-- 본문 행 -->
-                <div class="mentorBoardBody">
-
-                    <div class="mentorBoardRow" data-board-id="1">
-                        <div class="mentorBoardTd mentorBoardTdNum">1</div>
-                        <div class="mentorBoardTd mentorBoardTdTitle">게시글제목</div>
-                        <div class="mentorBoardTd mentorBoardTdDate">작성날짜 작성시간</div>
-                        <div class="mentorBoardTd mentorBoardTdAuthor">작성자1</div>
-                        <div class="mentorBoardTd mentorBoardTdViews">조회수 0</div>
-                    </div>
-
-                    <div class="mentorBoardRow" data-board-id="2">
-                        <div class="mentorBoardTd mentorBoardTdNum">2</div>
-                        <div class="mentorBoardTd mentorBoardTdTitle">게시글제목</div>
-                        <div class="mentorBoardTd mentorBoardTdDate">작성날짜 작성시간</div>
-                        <div class="mentorBoardTd mentorBoardTdAuthor">작성자1</div>
-                        <div class="mentorBoardTd mentorBoardTdViews">조회수 0</div>
-                    </div>
-
-                    <div class="mentorBoardRow" data-board-id="3">
-                        <div class="mentorBoardTd mentorBoardTdNum">3</div>
-                        <div class="mentorBoardTd mentorBoardTdTitle">게시글제목</div>
-                        <div class="mentorBoardTd mentorBoardTdDate">작성날짜 작성시간</div>
-                        <div class="mentorBoardTd mentorBoardTdAuthor">작성자1</div>
-                        <div class="mentorBoardTd mentorBoardTdViews">조회수 0</div>
-                    </div>
-
-                    <div class="mentorBoardRow" data-board-id="4">
-                        <div class="mentorBoardTd mentorBoardTdNum">4</div>
-                        <div class="mentorBoardTd mentorBoardTdTitle">게시글제목</div>
-                        <div class="mentorBoardTd mentorBoardTdDate">작성날짜 작성시간</div>
-                        <div class="mentorBoardTd mentorBoardTdAuthor">작성자1</div>
-                        <div class="mentorBoardTd mentorBoardTdViews">조회수 0</div>
-                    </div>
-
-                    <div class="mentorBoardRow" data-board-id="5">
-                        <div class="mentorBoardTd mentorBoardTdNum">5</div>
-                        <div class="mentorBoardTd mentorBoardTdTitle">게시글제목</div>
-                        <div class="mentorBoardTd mentorBoardTdDate">작성날짜 작성시간</div>
-                        <div class="mentorBoardTd mentorBoardTdAuthor">작성자1</div>
-                        <div class="mentorBoardTd mentorBoardTdViews">조회수 0</div>
-                    </div>
-
-                    <div class="mentorBoardRow" data-board-id="6">
-                        <div class="mentorBoardTd mentorBoardTdNum">6</div>
-                        <div class="mentorBoardTd mentorBoardTdTitle">게시글제목</div>
-                        <div class="mentorBoardTd mentorBoardTdDate">작성날짜 작성시간</div>
-                        <div class="mentorBoardTd mentorBoardTdAuthor">작성자1</div>
-                        <div class="mentorBoardTd mentorBoardTdViews">조회수 0</div>
-                    </div>
-
-                    <div class="mentorBoardRow" data-board-id="7">
-                        <div class="mentorBoardTd mentorBoardTdNum">7</div>
-                        <div class="mentorBoardTd mentorBoardTdTitle">게시글제목</div>
-                        <div class="mentorBoardTd mentorBoardTdDate">작성날짜 작성시간</div>
-                        <div class="mentorBoardTd mentorBoardTdAuthor">작성자1</div>
-                        <div class="mentorBoardTd mentorBoardTdViews">조회수 0</div>
-                    </div>
-
-                    <div class="mentorBoardRow" data-board-id="8">
-                        <div class="mentorBoardTd mentorBoardTdNum">8</div>
-                        <div class="mentorBoardTd mentorBoardTdTitle">게시글제목</div>
-                        <div class="mentorBoardTd mentorBoardTdDate">작성날짜 작성시간</div>
-                        <div class="mentorBoardTd mentorBoardTdAuthor">작성자1</div>
-                        <div class="mentorBoardTd mentorBoardTdViews">조회수 0</div>
-                    </div>
-
-                    <div class="mentorBoardRow" data-board-id="9">
-                        <div class="mentorBoardTd mentorBoardTdNum">9</div>
-                        <div class="mentorBoardTd mentorBoardTdTitle">게시글제목</div>
-                        <div class="mentorBoardTd mentorBoardTdDate">작성날짜 작성시간</div>
-                        <div class="mentorBoardTd mentorBoardTdAuthor">작성자1</div>
-                        <div class="mentorBoardTd mentorBoardTdViews">조회수 0</div>
-                    </div>
-
-                    <div class="mentorBoardRow" data-board-id="10">
-                        <div class="mentorBoardTd mentorBoardTdNum">10</div>
-                        <div class="mentorBoardTd mentorBoardTdTitle">게시글제목</div>
-                        <div class="mentorBoardTd mentorBoardTdDate">작성날짜 작성시간</div>
-                        <div class="mentorBoardTd mentorBoardTdAuthor">작성자3</div>
-                        <div class="mentorBoardTd mentorBoardTdViews">조회수 0</div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- 하단: 페이지네이션 + 글작성 -->
-            <div class="mentorBoardFooter">
-                <div class="mentorBoardPaginationWrap">
-                    <button class="mentorBoardPageBtn active" data-page="1">1</button>
-                    <button class="mentorBoardPageBtn" data-page="2">2</button>
-                    <button class="mentorBoardPageBtn" data-page="3">3</button>
-                    <button class="mentorBoardPageBtn" data-page="4">4</button>
-                    <button class="mentorBoardPageBtn" data-page="5">5</button>
-                    <button class="mentorBoardPageBtn mentorBoardPageNext">&#62;</button>
-                </div>
-                <button class="mentorBoardWriteBtn" id="mentorBoardWriteBtn">글작성</button>
-            </div>
-
+      <div class="board-list">
+        <div class="board-header">
+          <span class="no">번호</span>
+          <span class="title">제목</span>
+          <span class="author">작성자</span>
+          <span class="date">날짜</span>
+          <span class="hit">조회수</span>
         </div>
-    </div>
 
-    <div id="footerContainer"></div>
+        <div class="board-body">
+          <c:choose>
+            <c:when test="${not empty MentorBoardList}">
+              <c:forEach var="board" items="${MentorBoardList}">
+                <div class="board-row">
+                  <div class="board-item no">
+                    <c:out value="${board.mentorBoardNumber}" />
+                  </div>
+                  <div class="board-item title">
+                    <a href="${pageContext.request.contextPath}/mentor/mentorBoard/MentorBoardRead.mob?MentorBoardNumber=${board.mentorBoardNumber}">
+                      <c:out value="${board.boardTitle}" />
+                    </a>
+                  </div>
+                  <div class="board-item author">
+                    <c:out value="${board.memberId}" />
+                  </div>
+                  <div class="board-item date">
+                    <c:out value="${board.boardDate}" />
+                  </div>
+                  <div class="board-item hit">
+                    <c:out value="${board.boardClick}" />
+                  </div>
+                </div>
+              </c:forEach>
+            </c:when>
+            <c:otherwise>
+              <div>
+                <div colspan="5" align="center">등록된 게시물이 없습니다.</div>
+              </div>
+            </c:otherwise>
+          </c:choose>
+        </div>
+      </div>
 
-    <script src="${pageContext.request.contextPath}/assets/js/mentorHeader.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/user/mentor/mentorBoard/mentorBoardList.js"></script>
+      <div class="pagination">
+        <ul>
+          <c:if test="${prev}">
+            <li><a href="${pageContext.request.contextPath}/mentor/mentorBoard/MentorBoardList.mob?page=${startPage - 1}" class="prev">&lt;</a></li>
+          </c:if>
+          <c:set var="realStartPage" value="${startPage < 1 ? 1:startPage}" />
+          <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+            <c:choose>
+              <c:when test="${i == page}">
+                <li><a href="#" class="active"><c:out value="${i}" /></a></li>
+              </c:when>
+              <c:otherwise>
+                <li><a href="${pageContext.request.contextPath}/mentor/mentorBoard/MentorBoardList.mob?page=${i}"><c:out value="${i}" /></a></li>
+              </c:otherwise>
+            </c:choose>
+          </c:forEach>
+          <c:if test="${next}">
+            <li><a href="${pageContext.request.contextPath}/mentor/mentorBoard/MentorBoardList.mob?page=${endPage + 1}" class="next">&gt;</a></li>
+          </c:if>
+        </ul>
+      </div>
+</div>
+
+<script>
+  let memberNumber = "${sessionScope.loginUser.memberNumber}";
+  const contextPath = "${pageContext.request.contextPath}";
+</script>
+<script src="${pageContext.request.contextPath}/assets/js/user/mentor/mentorBoard/mentorBoardList.js"></script>
 
 </body>
-
 </html>

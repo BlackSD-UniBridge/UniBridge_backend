@@ -30,7 +30,7 @@ public class MenteeBoardWriteOkController implements Execute {
 
 		if (loginUser == null) {
 		    System.out.println("오류 : 로그인 된 사용자가 없습니다");
-		    response.sendRedirect(request.getContextPath() + "/signin.mem");
+		    response.sendRedirect(request.getContextPath() + "/signin.jsp");
 		    return null;
 		}
 
@@ -47,7 +47,7 @@ public class MenteeBoardWriteOkController implements Execute {
 		}
 		
 		//MultipartRequest를 이용한 데이터 파싱
-		MultipartRequest multipartRequest = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "utf-8", 
+		MultipartRequest multipartRequest = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "UTF-8", 
 				new DefaultFileRenamePolicy()); 
 		
 		//게시글 정보 설정
@@ -60,9 +60,9 @@ public class MenteeBoardWriteOkController implements Execute {
 		int MenteeBoardNumber = MenteeBoardDAO.insertBoard(MenteeBoardDTO);
 		System.out.println("생성된 게시글 번호 : " + MenteeBoardNumber);
 		
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.meb");
+		result.setPath(request.getContextPath() + "/mentee/menteeBoard/MenteeBoardList.meb");
 		result.setRedirect(true);
-		
+
 		return result;
 	}
 	

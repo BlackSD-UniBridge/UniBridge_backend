@@ -77,3 +77,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    // 대회 카드 클릭 시 이동
+    const contestCards = document.querySelectorAll('.contestCard');
+    contestCards.forEach((card) => {
+        card.addEventListener('click', function() {
+            // JSP에서 data-contest-id="${contest.contestNumber}" 로 넘겼을 경우
+            const contestId = this.dataset.contestId;
+            if(contestId) {
+                location.href = window.location.origin + "/unibridge/common/noticeBoardReadOk.ntb?contestNumber=" + contestId;
+            }
+        });
+    });
+});

@@ -74,7 +74,7 @@ public class MenteeBoardListOkController implements Execute {
 				"startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("=========================");
 
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.meb");
+		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.jsp");
 		result.setRedirect(false);
 
 		return result;

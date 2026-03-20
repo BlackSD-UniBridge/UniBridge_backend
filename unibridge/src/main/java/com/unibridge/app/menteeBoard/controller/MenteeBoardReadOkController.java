@@ -41,7 +41,7 @@ public class MenteeBoardReadOkController implements Execute {
 		//게시글이 존재하지 않을 경우
 		if(MenteeBoardListDTO == null) {
 			System.out.println("존재하지 않는 게시물입니다." + MenteeBoardNumber);
-			result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.jsp");
+			result.setPath(request.getContextPath() + "/app/user/mentee/menteeBoard/MenteeBoardList.meb");
 			result.setRedirect(true);
 			return result;
 		}
@@ -61,7 +61,7 @@ public class MenteeBoardReadOkController implements Execute {
 		}
 		
 		request.setAttribute("MenteeBoard", MenteeBoardListDTO);
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardDetail.meb");
+		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardDetail.jsp");
 		result.setRedirect(false);
 		
 		return result;

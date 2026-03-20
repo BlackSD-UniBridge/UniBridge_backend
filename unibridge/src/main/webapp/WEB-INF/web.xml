@@ -147,4 +147,14 @@
 		<filter-name>MVCAuthFilter</filter-name>
 		<url-pattern>/mvc/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- File -->
+	<servlet>
+	    <servlet-name>FileFrontController</servlet-name>
+	    <servlet-class>com.unibridge.app.file.controller.FileFrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>FileFrontController</servlet-name>
+	    <url-pattern>*.file</url-pattern>
+	</servlet-mapping>
 </web-app>

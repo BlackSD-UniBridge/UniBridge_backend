@@ -1,6 +1,9 @@
 package com.unibridge.app.mypage.matching.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import com.unibridge.app.mypage.matching.dto.matchingDTO;
 import com.unibridge.config.MyBatisConfig;
@@ -36,5 +39,14 @@ public class MatchingDAO {
     public void updateMatchingCancel(matchingDTO dto) {
         // 세션에서 update 실행 (ID: matching.updateMatchingCancel)
         sqlSession.update("matching.updateMatchingCancel", dto);
+    }
+    
+    public void updatePayId(long matchingNumber, long payId) {
+        Map<String, Long> map = new HashMap<>();
+        map.put("matchingNumber", matchingNumber);
+        map.put("payId", payId);
+        
+        // namespace="matching", id="updatePayId" 호출
+        sqlSession.update("matching.updatePayId", map);
     }
 }

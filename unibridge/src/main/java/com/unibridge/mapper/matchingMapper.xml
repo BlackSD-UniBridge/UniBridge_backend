@@ -10,6 +10,7 @@
             m.MENTOR_NUMBER AS mentorNumber,
             m.MENTEE_NUMBER AS menteeNumber,
             m.SUBJECT_NUMBER AS subjectNumber,
+            m.PAY_ID AS payId,
             t1.MEMBER_NAME AS mentorName,        
             t2.MEMBER_NAME AS menteeName,        
             s.SUBJECT_NAME AS subjectName        
@@ -32,4 +33,10 @@
         MATCHING_CANCEL = SYSDATE,
         MATCHING_CAN_REASON = #{matchingCanReason} WHERE MATCHING_NUMBER = #{matchinNumber}
 	</update>
+	
+	<update id="updatePayId" parameterType="map">
+        UPDATE UB_MATCHING 
+        SET PAY_ID = #{payId} 
+        WHERE MATCHING_NUMBER = #{matchingNumber}
+    </update>
 </mapper>

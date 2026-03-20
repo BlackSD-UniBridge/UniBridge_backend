@@ -1,11 +1,15 @@
+@charset "UTF-8";
 /* ── 게시판 글 작성 페이지 ── */
-.mentorBoardCreateWrap {
+
+.container {
   width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
   box-sizing: border-box;
-  padding: 96px 75px 60px;
+  padding: 60px 40px;
 }
 
-.mentorBoardCreateTitle {
+#write-form h1 {
   font-size: 20px;
   font-weight: 700;
   color: #2c5f8a;
@@ -13,11 +17,26 @@
   padding: 18px 0;
   border-top: 2px solid #2c5f8a;
   border-bottom: 1px solid #dde6f0;
+  margin-bottom: 20px;
+}
+
+/* ── 폼 그룹 ── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin-bottom: 16px;
 }
 
-/* ── 제목 입력 ── */
-.mentorBoardCreateSubjectInput {
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* ── 제목 input ── */
+.form-group input[type="text"] {
   width: 100%;
   box-sizing: border-box;
   border: 1px solid #dde6f0;
@@ -27,21 +46,23 @@
   font-family: 'Noto Sans KR', sans-serif;
   color: #333;
   outline: none;
-  margin-bottom: 12px;
   transition: border-color 0.15s;
 }
 
-.mentorBoardCreateSubjectInput::placeholder {
-  color: #2c5f8a;
-  font-size: 13.5px;
-}
-
-.mentorBoardCreateSubjectInput:focus {
+.form-group input[type="text"]:focus {
   border-color: #2c5f8a;
 }
 
-/* ── 본문 입력 ── */
-.mentorBoardCreateContentTextarea {
+/* ── 작성자 표시 ── */
+.writer {
+  font-size: 14px;
+  color: #555;
+  font-family: 'Noto Sans KR', sans-serif;
+  padding: 10px 0;
+}
+
+/* ── 내용 textarea ── */
+.form-group textarea {
   width: 100%;
   box-sizing: border-box;
   min-height: 360px;
@@ -55,22 +76,22 @@
   resize: vertical;
   line-height: 1.8;
   transition: border-color 0.15s;
-  margin-bottom: 20px;
 }
 
-.mentorBoardCreateContentTextarea:focus {
+.form-group textarea:focus {
   border-color: #2c5f8a;
 }
 
-/* ── 하단 버튼 영역 ── */
-.mentorBoardCreateFooter {
+/* ── 버튼 그룹 ── */
+.btn-group {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
-/* 글목록 버튼 */
-.mentorBoardCreateBackBtn {
+/* 취소 버튼 */
+.cancle-btn {
   font-size: 13px;
   font-weight: 500;
   color: #555;
@@ -83,14 +104,14 @@
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
-.mentorBoardCreateBackBtn:hover {
+.cancle-btn:hover {
   background: #f0f6ff;
   border-color: #2c5f8a;
   color: #2c5f8a;
 }
 
-/* 게시글 등록 버튼 */
-.mentorBoardCreateSubmitBtn {
+/* 작성 완료 버튼 */
+.submit-btn {
   font-size: 16px;
   font-weight: 600;
   color: #fff;
@@ -103,6 +124,6 @@
   transition: background 0.15s;
 }
 
-.mentorBoardCreateSubmitBtn:hover {
+.submit-btn:hover {
   background: #1e4570;
 }

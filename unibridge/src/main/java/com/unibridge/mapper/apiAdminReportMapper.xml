@@ -3,6 +3,7 @@
 <mapper namespace="api.adminReport">
 	<select id="selectAll" resultType="AdminReportDTO">
 		SELECT 
+			mth.matching_number AS "matching_number",
 			mtr.member_name AS "mentor_name",
 			mte.member_name AS "mentee_name",
 			mth.matching_start AS "matching_start"
@@ -11,5 +12,6 @@
 		INNER JOIN UB_MEMBER mte
 		 	ON mth.mentee_number = mte.member_number
 		WHERE mth.matching_state != '매칭됨'
+		ORDER BY mth.matching_number
 	</select>
 </mapper>

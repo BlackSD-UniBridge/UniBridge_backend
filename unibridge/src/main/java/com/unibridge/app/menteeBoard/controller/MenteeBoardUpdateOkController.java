@@ -31,10 +31,8 @@ public class MenteeBoardUpdateOkController implements Execute {
 		 
 		// MultipartParser 실행
 		MultipartParser parser = new MultipartParser(request, FILE_SIZE);
-		parser.setEncoding("utf-8");
+		parser.setEncoding("UTF-8");
 		System.out.println("MultipartParser 초기화 완료");
- 
-		int menteeBoardNumber = 0;
  
 		// 파일, 텍스트 데이터 처리
 		Part part; // multipart 요청안에 들어있는 각 조각을 의미(menteeBoardNumber, menteeBoardTitle, menteeBoardContent)
@@ -50,8 +48,7 @@ public class MenteeBoardUpdateOkController implements Execute {
 				System.out.println("파라미터 : " + paramName + " = " + paramValue);
  
 				if ("MenteeBoardNumber".equals(paramName)) {
-					menteeBoardNumber = Integer.parseInt(paramValue);
-					MenteeBoardDTO.setMenteeBoardNumber(menteeBoardNumber); // dto에 게시글 번호 저장
+					MenteeBoardDTO.setMenteeBoardNumber(Integer.parseInt(paramValue)); // dto에 게시글 번호 저장
 				} else if ("MenteeBoardTitle".equals(paramName)) {
 					MenteeBoardDTO.setBoardTitle(paramValue); // dto에 title 제목 저장
 				} else if ("MenteeBoardContent".equals(paramName)) {
@@ -63,7 +60,7 @@ public class MenteeBoardUpdateOkController implements Execute {
 		// 게시글 업데이트 실행
 		MemberDTO loginUser = (MemberDTO) request.getSession().getAttribute("loginUser");
 		if (loginUser == null) {
-		    response.sendRedirect(request.getContextPath() + "/signin.mem");
+		    response.sendRedirect(request.getContextPath() + "/signin.jsp");
 		    return null;
 		}
 		MenteeBoardDTO.setMemberNumber(loginUser.getMemberNumber());
@@ -71,7 +68,7 @@ public class MenteeBoardUpdateOkController implements Execute {
 		System.out.println("게시글 수정 완료");
  
 		// 수정 완료 후 페이지 이동
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.meb");
+		result.setPath(request.getContextPath() + "/mentee/menteeBoard/MenteeBoardList.meb");
 		result.setRedirect(true);
  
 		return result;

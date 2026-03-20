@@ -3,14 +3,14 @@
 <mapper namespace="Menteeboard">
 	<!-- 게시글 총 개수 -->
 	<select id="getTotal" resultType="int">
-		SELECT COUNT(menteeboard_id) FROM UB_MENTEE_BOARD
+		SELECT COUNT(menteeboard_number) FROM UB_MENTEE_BOARD
 	</select>
 	
 	<!-- 조회수 -->
 	<update id="updateClick" parameterType="int">
 	    UPDATE UB_MENTEE_BOARD
 	    SET board_click = board_click + 1
-	    WHERE menteeboard_id = #{menteeBoardNumber}
+	    WHERE menteeboard_number = #{menteeBoardNumber}
 	</update>
 
 	<!-- 게시글 추가 -->
@@ -29,27 +29,27 @@
 		<selectKey keyProperty="menteeBoardNumber" resultType="int" order="BEFORE">
 			SELECT seq_mentee_board.nextVal FROM DUAL
 		</selectKey>
-			INSERT INTO UB_MENTEE_BOARD(menteeboard_id, board_title, board_content, member_number)
+			INSERT INTO UB_MENTEE_BOARD(menteeboard_number, board_title, board_content, member_number)
 	    VALUES(#{menteeBoardNumber}, #{boardTitle}, #{boardContent}, #{memberNumber})
 	</insert>
 
 	<!-- 댓글 먼저 삭제 -->
 	<delete id="deleteCommentByBoard" parameterType="int">
 	    DELETE FROM UB_MENTEE_BOARD_COMMENT
-	    WHERE menteeboard_id = #{menteeBoardNumber}
+	    WHERE menteeboard_id  = #{menteeBoardNumber}
 	</delete>
 	
 	<!-- 게시글 삭제 -->
 	<delete id="delete" parameterType="int">
 	    DELETE FROM UB_MENTEE_BOARD
-	    WHERE menteeboard_id = #{menteeBoardNumber}
+	    WHERE menteeboard_number = #{menteeBoardNumber}
 	</delete>
 	
 	<!-- 게시글 수정 -->
 	<update id="update" parameterType="MenteeBoardDTO">
 	    UPDATE UB_MENTEE_BOARD
 	    SET board_title = #{boardTitle}, board_content = #{boardContent}
-	    WHERE menteeboard_id = #{menteeBoardNumber}
+	    WHERE menteeboard_number = #{menteeBoardNumber}
 	</update>
 	
 	<!-- 게시글 상세(1건 조회) -->
@@ -57,14 +57,14 @@
 		<![CDATA[
 		    SELECT m.member_number  AS memberNumber,
 		           m.member_id      AS memberId,
-		           b.menteeboard_id AS menteeBoardNumber,
+		           b.menteeboard_number AS menteeBoardNumber,
 		           b.board_title    AS boardTitle,
 		           b.board_content  AS boardContent,
 		           b.board_date     AS boardDate,
 		           b.board_click    AS boardClick
 		    FROM UB_MEMBER m JOIN UB_MENTEE_BOARD b
 		    ON b.member_number = m.member_number
-		    WHERE b.menteeboard_id = #{menteeBoardNumber}
+		    WHERE b.menteeboard_number = #{menteeBoardNumber}
 		]]>
 	</select>
 	
@@ -76,7 +76,7 @@
 			       FROM (
 			           SELECT m.member_number  AS memberNumber,
 			                  m.member_id      AS memberId,
-			                  b.menteeboard_id AS menteeBoardNumber,
+			                  b.menteeboard_number AS menteeBoardNumber,
 			                  b.board_title    AS boardTitle,
 			                  b.board_content  AS boardContent,
 			                  b.board_date     AS boardDate,

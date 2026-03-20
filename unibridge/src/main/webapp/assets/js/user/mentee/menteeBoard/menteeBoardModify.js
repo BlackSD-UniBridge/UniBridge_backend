@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const backBtn = document.getElementById('menteeBoardModifyBackBtn');
   if (backBtn) {
     backBtn.addEventListener('click', () => {
-      window.location.href = `${contextPath}/mentee/menteeBoard/MenteeBoardList.jsp`;
+      window.location.href = `${contextPath}/mentee/menteeBoard/MenteeBoardList.meb`;
     });
   }
 
@@ -33,9 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!subject) { alert('제목을 입력해주세요.'); return; }
       if (!content) { alert('내용을 입력해주세요.'); return; }
+	  
+	  // form 제출
+      document.getElementById('modify-form').submit();
 
-      sessionStorage.removeItem('menteeBoardModifyData');
-      window.location.href = `${contextPath}/mentee/menteeBoard/MenteeBoardDetail.jsp?boardId=${boardId}`;
     });
   }
 
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     deleteBtn.addEventListener('click', async () => {
       if (!confirm('게시글을 삭제하시겠습니까?')) return;
         //sessionStorage.removeItem('menteeBoardModifyData');
-        //window.location.href = './menteeBoardList.jsp';
+        //window.location.href = './menteeBoardList.meb';
 		const boardNumber = document.querySelector('input[name="MenteeBoardNumber"]')?.value;
 		
         if (!boardNumber) {
@@ -60,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!res.ok) throw new Error("삭제 요청 실패");
 
             alert("게시글이 삭제되었습니다.");
-            window.location.href = '${contextPath}/mentee/menteeBoard/MenteeBoardList.meb';
+            window.location.href = `${contextPath}/mentee/menteeBoard/MenteeBoardList.meb`;
         } catch (err) {
             console.error("게시글 삭제 실패 : ", err);
             alert("게시글 삭제에 실패했습니다.");

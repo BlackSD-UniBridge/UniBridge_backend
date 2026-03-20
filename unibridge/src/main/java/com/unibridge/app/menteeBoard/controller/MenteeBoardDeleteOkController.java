@@ -22,18 +22,15 @@ public class MenteeBoardDeleteOkController implements Execute{
 		Result result = new Result();
 		
 		//게시글 번호 받기
-		int MenteeBoardNumber = Integer.parseInt(request.getParameter("MenteeBoardNumber"));
-		
-		//업로드 경로
-		final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "upload/";
+		int menteeBoardNumber = Integer.parseInt(request.getParameter("MenteeBoardNumber"));
 		
 		// 게시글 삭제 전 댓글 먼저 삭제
-		MenteeBoardDAO.deleteCommentByBoard(MenteeBoardNumber);
+		MenteeBoardDAO.deleteCommentByBoard(menteeBoardNumber);
 		//게시글 삭제
-		MenteeBoardDAO.deleteBoard(MenteeBoardNumber);
+		MenteeBoardDAO.deleteBoard(menteeBoardNumber);
 		
 		//이동
-		result.setPath(request.getContextPath() + "/app/user/mentee/menteeBoard/MenteeBoardList.meb");
+		result.setPath(request.getContextPath() + "/mentee/menteeBoard/MenteeBoardList.meb");
 		result.setRedirect(true);
 		
 		return result;

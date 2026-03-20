@@ -63,31 +63,24 @@ public class PayFrontController extends HttpServlet {
 
 	    System.out.println(">>> [DEBUG] 컨트롤러 진입 - target: " + target);
 
-	    // 1. 상세페이지에서 결제 버튼 클릭 시 -> 결제 정보 확인 페이지(JSP)로 이동
+	    // 1. 결제 정보 확인 페이지 이동
 	    if (target.contains("/payment.pay")) {
-	        System.out.println(">>> [1] 결제 정보 확인 페이지 이동");
-	        // 별도의 DB 조회가 필요 없다면 바로 Result 객체 생성, 필요하다면 Controller 호출
 	        result = new PaymentController().execute(request, response);
-	        
-	        if(result == null) {
-	            System.out.println(">>> [ERROR] PaymentController가 null을 리턴했습니다!");
-	        } else {
-	            System.out.println(">>> [DEBUG] 이동 경로: " + result.getPath());
-	        }
 	    } 
-	    // 2. 결제 페이지에서 '카카오페이 결제' 버튼 클릭 시 -> API 준비 단계
+	    // 2. 카카오페이 결제 준비 (Ready API 호출)
 	    else if (target.contains("/paymentOk.pay")) {
 	        System.out.println(">>> [2] 카카오페이 결제 준비 시작");
 	        kakaoPayReady(request, response);
-	        // kakaoPayReady 내부에서 리다이렉트 처리를 하므로 result는 null로 둠
+	        // 리다이렉트를 수행하므로 result는 null 유지
 	    } 
-	    // 3. 결제 완료 후 돌아오는 경로
+	    // 3. 결제 승인 처리 (새로운 컨트롤러로 변경!)
 	    else if (target.contains("/paymentFinish.pay")) {
-	        System.out.println(">>> [7] 결제 승인 로직 시작");
-	        result = new PaymentOkController().execute(request, response);
+	        System.out.println(">>> [7] 결제 승인 및 DB 저장 로직 시작");
+	        // [수정 포인트] PaymentOkController 대신 PaymentFinishController 호출
+	        result = new PaymentFinishController().execute(request, response);
 	    }
 
-	    // [중요] Result 객체가 있는 경우에만 페이지 이동 처리
+	    // 페이지 이동 처리
 	    if (result != null) {
 	        if (result.isRedirect()) {
 	            response.sendRedirect(result.getPath());

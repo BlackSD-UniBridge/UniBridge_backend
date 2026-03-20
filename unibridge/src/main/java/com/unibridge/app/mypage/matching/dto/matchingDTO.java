@@ -21,7 +21,16 @@ public class matchingDTO {
     private String menteeName;
     private String subjectName;
     private String matchingCanReason;
+    private long payId;
 	
+    
+    
+	public long getPayId() {
+		return payId;
+	}
+	public void setPayId(long payId) {
+		this.payId = payId;
+	}
 	public String getMatchingCanReason() {
 		return matchingCanReason;
 	}

@@ -1,8 +1,17 @@
-/* ── 멘티 게시판 수정 페이지 ── */
+@charset "UTF-8";
+/* ── 멘토 게시판 수정 페이지 ── */
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 60px 40px;
+}
+
 .mentorBoardModifyWrap {
     width: 100%;
     box-sizing: border-box;
-    padding: 96px 75px 60px;
   }
   
   /* ── 제목 영역 ── */

@@ -36,7 +36,7 @@
 				href="${pageContext.request.contextPath}/mentor/mentorSearchOk.sch">멘토
 				검색</a> 
 			<a href="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardList.meb">게시판</a>
-			<a href="${pageContext.request.contextPath}/mvc/auth/reportList.rep">학습보고서</a>
+			<a href="${pageContext.request.contextPath}/mvc/auth/report.rep">학습보고서</a>
 			<a href="${pageContext.request.contextPath}/common/noticeBoardList.ntb">공지사항</a>
 		</nav>
 

@@ -17,11 +17,21 @@ function createMatchingGroup(response) {
 
 function createMatchingPerWeek(date, matchings) {
 	const matchingHtml = matchings.map(value => createMatching(value)).join("\n");
-	const [year, month] = date.split("-");
+	const [yearMonthDay, dayOfWeek] = date.split(" ");
+	const [_, month, day] = yearMonthDay.split("-");
+	const dayOfWeekFilter = {
+		"MONDAY"	: "월",
+		"TUESDAY"	: "화",
+		"WEDNESDAY"	: "수",
+		"THURSDAY"	: "목",
+		"FRIDAY"	: "금",
+		"SATURDAY"	: "토",
+		"SUNDAY"	: "일"	
+	}
 	
 	const html = `
 		<li class="report-content">
-		  <div class="title">${year}년 ${month}월</div>
+		  <div class="title">${month}월 ${day}일 (${dayOfWeekFilter[dayOfWeek]})</div>
 		  <div class="vertical-line"></div>
 		  <ul class="reports">${matchingHtml}</ul>
 		</li>
@@ -30,9 +40,10 @@ function createMatchingPerWeek(date, matchings) {
 	return html;
 }
 
-function createMatching({ mentorName, menteeName }) {
+
+function createMatching({ matchingNumber, mentorName, menteeName }) {
 	const html = `
-	  <li class="report-item">
+	  <li class="report-item" id="matching-id-${matchingNumber}"}>
 	    <div class="mentor-mentee">
 	      <div class="user-info mentor">
 	        <div class="user-icon"><img src ="${window.contextPath}/assets/img/admin/adminNoticeImg/userIcon.png"></div>
@@ -78,17 +89,17 @@ async function initMatchingGroup(
 	
 	const reportContainerEl = document.querySelector("#root > div > main > div.content-container > div > div.report-container > div > ul");
 	reportContainerEl.innerHTML = createMatchingGroup(filteredMatchingList);
+	const detailBtnEls = document.querySelectorAll("#root > div > main > div.content-container > div > div.report-container > div > ul > li > ul > li > div.detail-button");
+	detailBtnEls.forEach((element) => {
+		element.addEventListener('click', (event) => {
+			const targetNumber = Number(event.target.parentElement.id.split("-").at(-1));
+			window.location.href = `${window.contextPath}/reportDetail.admin?number=${targetNumber}`;
+		});
+	});
 }
 
 async function init() {
-	initMatchingGroup(true);
-		
-	const detailBtnEls = document.querySelectorAll("#root > div > main > div.content-container > div > div.report-container > div > ul > li > ul > li > div.detail-button");
-	detailBtnEls.forEach((element) => {
-		element.addEventListener('click', () => {
-			window.location.href = `${window.contextPath}/reportDetail.admin`;
-		});
-	});
+	await initMatchingGroup(true);
 	
 	const selectedYearEl = document.querySelector(".title-container .date-selector-container > .selected-year");
 	
