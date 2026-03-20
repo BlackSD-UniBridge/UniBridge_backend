@@ -28,7 +28,7 @@ public class MentorBoardDeleteOkController implements Execute {
 		// 게시글 삭제
 		mentorBoardDAO.deleteBoard(mentorBoardNumber);
 
-		result.setPath(request.getContextPath() + "/mentor/mentorBoard/MentorBoardList.mob");
+		result.setPath(request.getContextPath() + "/mentor/mentorBoard/mentorBoardList.mob");
 		result.setRedirect(true);
 
 		return result;

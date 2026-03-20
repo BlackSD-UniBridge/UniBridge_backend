@@ -44,16 +44,19 @@ public class MentorBoardFrontController extends HttpServlet {
 		Result result = new Result();
 
 		switch (target) {
+			case "mentorBoardList.mob":
 			case "MentorBoardList.mob":
 				System.out.println("Mentor 게시물 목록 처리 요청");
 				result = new MentorBoardListOkController().execute(request, response);
 				break;
 
+			case "mentorBoardRead.mob":
 			case "MentorBoardRead.mob":
 				System.out.println("Mentor 게시물 상세 페이지 처리 요청");
 				result = new MentorBoardReadOkController().execute(request, response);
 				break;
 
+			case "mentorBoardWrite.mob":
 			case "MentorBoardWrite.mob":
 				if ("POST".equals(request.getMethod())) {
 					System.out.println("Mentor 게시물 작성 처리");
@@ -64,6 +67,7 @@ public class MentorBoardFrontController extends HttpServlet {
 				}
 				break;
 
+			case "mentorBoardUpdate.mob":
 			case "MentorBoardUpdate.mob":
 				if ("POST".equals(request.getMethod())) {
 					System.out.println("Mentor 게시물 수정 처리");
@@ -74,6 +78,7 @@ public class MentorBoardFrontController extends HttpServlet {
 				}
 				break;
 
+			case "mentorBoardDelete.mob":
 			case "MentorBoardDelete.mob":
 				System.out.println("Mentor 게시물 삭제 처리");
 				result = new MentorBoardDeleteOkController().execute(request, response);

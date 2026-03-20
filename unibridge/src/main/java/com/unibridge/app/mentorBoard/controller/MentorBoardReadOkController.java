@@ -53,7 +53,7 @@ public class MentorBoardReadOkController implements Execute {
 		}
 
 		request.setAttribute("MentorBoard", mentorBoardListDTO);
-		result.setPath("/app/user/mentor/mentorBoard/MentorBoardDetail.jsp");
+		result.setPath("/app/user/mentor/mentorBoard/mentorBoardDetail.jsp");
 		result.setRedirect(false);
 
 		return result;

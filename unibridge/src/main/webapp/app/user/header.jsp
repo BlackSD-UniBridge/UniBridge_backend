@@ -35,7 +35,18 @@
 			<a
 				href="${pageContext.request.contextPath}/mentor/mentorSearchOk.sch">멘토
 				검색</a> 
-			<a href="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardList.meb">게시판</a>
+			<c:choose>
+				<c:when test="${fn:toLowerCase(sessionScope.loginUser.memberType) eq 'mentee'}">
+					<a href="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardList.meb">멘티전용 게시판</a>
+				</c:when>
+				<c:when test="${fn:toLowerCase(sessionScope.loginUser.memberType) eq 'mentor'}">
+					<a href="${pageContext.request.contextPath}/mentor/mentorBoard/MentorBoardList.mob">멘토전용 게시판</a>
+				</c:when>
+				<c:otherwise>
+					<%-- 비로그인 또는 미정 → 메인페이지로 이동 --%>
+					<a href="${pageContext.request.contextPath}/index.main">게시판</a>
+				</c:otherwise>
+			</c:choose>
 			<a href="${pageContext.request.contextPath}/mvc/auth/report.rep">학습보고서</a>
 			<a href="${pageContext.request.contextPath}/common/noticeBoardList.ntb">공지사항</a>
 		</nav>

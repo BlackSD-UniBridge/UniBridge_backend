@@ -54,7 +54,7 @@ public class MentorBoardWriteOkController implements Execute {
 		int mentorBoardNumber = mentorBoardDAO.insertBoard(mentorBoardDTO);
 		System.out.println("생성된 게시글 번호 : " + mentorBoardNumber);
 
-		result.setPath(request.getContextPath() + "/mentor/mentorBoard/MentorBoardList.mob");
+		result.setPath(request.getContextPath() + "/mentor/mentorBoard/mentorBoardList.mob");
 		result.setRedirect(true);
 
 		return result;

@@ -60,7 +60,7 @@
 		           b.menteeboard_number AS menteeBoardNumber,
 		           b.board_title    AS boardTitle,
 		           b.board_content  AS boardContent,
-		           b.board_date     AS boardDate,
+		           TO_CHAR(b.board_date, 'YYYY-MM-DD') AS boardDate,
 		           b.board_click    AS boardClick
 		    FROM UB_MEMBER m JOIN UB_MENTEE_BOARD b
 		    ON b.member_number = m.member_number
@@ -79,7 +79,7 @@
 			                  b.menteeboard_number AS menteeBoardNumber,
 			                  b.board_title    AS boardTitle,
 			                  b.board_content  AS boardContent,
-			                  b.board_date     AS boardDate,
+			                  TO_CHAR(b.board_date, 'YYYY-MM-DD') AS boardDate,
 			                  b.board_click    AS boardClick
 			           FROM UB_MEMBER m JOIN UB_MENTEE_BOARD b
 			           ON m.member_number = b.member_number

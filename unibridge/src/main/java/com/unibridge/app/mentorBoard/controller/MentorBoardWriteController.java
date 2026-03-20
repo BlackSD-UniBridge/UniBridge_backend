@@ -26,7 +26,7 @@ public class MentorBoardWriteController implements Execute {
 			return result;
 		}
 
-		result.setPath("/app/user/mentor/mentorBoard/MentorBoardCreate.jsp");
+		result.setPath("/app/user/mentor/mentorBoard/mentorBoardCreate.mob");
 		result.setRedirect(false);
 
 		return result;

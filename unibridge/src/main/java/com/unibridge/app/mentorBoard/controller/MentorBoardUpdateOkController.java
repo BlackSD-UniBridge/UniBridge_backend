@@ -61,7 +61,7 @@ public class MentorBoardUpdateOkController implements Execute {
 		mentorBoardDAO.updateBoard(mentorBoardDTO);
 		System.out.println("게시글 수정 완료");
 
-		result.setPath(request.getContextPath() + "/mentor/mentorBoard/MentorBoardList.mob");
+		result.setPath(request.getContextPath() + "/mentor/mentorBoard/mentorBoardList.mob");
 		result.setRedirect(true);
 
 		return result;

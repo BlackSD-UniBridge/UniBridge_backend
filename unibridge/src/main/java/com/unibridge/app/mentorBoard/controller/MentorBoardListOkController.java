@@ -59,7 +59,7 @@ public class MentorBoardListOkController implements Execute {
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("=========================");
 
-		result.setPath("/app/user/mentor/mentorBoard/MentorBoardList.jsp");
+		result.setPath("/app/user/mentor/mentorBoard/mentorBoardList.jsp");
 		result.setRedirect(false);
 
 		return result;
