@@ -1,5 +1,7 @@
 package com.unibridge.app.pay.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -22,7 +24,7 @@ public class PaymentDAO {
 
     // 2. 특정 회원의 결제 정보를 JOIN으로 가져오기
     public PaymentDTO selectLatestPaymentByMember(long memberNumber) {
-        return sqlSession.selectOne("pay.selectLatestPaymentByMember", memberNumber);
+        return sqlSession.selectOne("pay.selectLatestPaymentByMemberNew", memberNumber);
     }
     
     // 3. (대안) 만약 JOIN이 번거롭다면, 방금 생성된 pay_id로 직접 조회
@@ -35,4 +37,9 @@ public class PaymentDAO {
         return sqlSession.selectOne("pay.getLatestPayId");
     }
     
+    // 결제 내역 조회 메서드
+    public List<PaymentDTO> getPayLog(Long menteeNumber) {
+        // "namespace.id" 형식으로 호출합니다.
+        return sqlSession.selectList("com.unibridge.app.pay.mapper.PaymentMapper.selectPayLog", menteeNumber);
+    }
 }

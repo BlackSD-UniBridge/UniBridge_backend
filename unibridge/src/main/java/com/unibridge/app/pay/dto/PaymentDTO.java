@@ -6,6 +6,8 @@ public class PaymentDTO {
     private String payMethod;   // PAY_METHOD
     private String payDate;     // PAY_DATE (조회 시 String 또는 LocalDateTime 사용)
     private String payStatus;   // PAY_STATUS
+    private int memberNumber;   // JSP의 memberNumber와 일치시킴 (기존 menteeNumber 역할)
+    private long matchingNumber; // JSP의 matchingNumber를 위해 추가
 
     // 기본 생성자
     public PaymentDTO() {}
@@ -15,7 +17,23 @@ public class PaymentDTO {
         return payId;
     }
 
-    public void setPayId(long payId) {
+    public int getMemberNumber() {
+		return memberNumber;
+	}
+
+	public void setMemberNumber(int memberNumber) {
+		this.memberNumber = memberNumber;
+	}
+
+	public long getMatchingNumber() {
+		return matchingNumber;
+	}
+
+	public void setMatchingNumber(long matchingNumber) {
+		this.matchingNumber = matchingNumber;
+	}
+
+	public void setPayId(long payId) {
         this.payId = payId;
     }
 
@@ -51,10 +69,12 @@ public class PaymentDTO {
         this.payStatus = payStatus;
     }
 
-    @Override
-    public String toString() {
-        return "PaymentDTO [payId=" + payId + ", payAmount=" + payAmount 
-                + ", payMethod=" + payMethod + ", payDate=" + payDate 
-                + ", payStatus=" + payStatus + "]";
-    }
+	@Override
+	public String toString() {
+		return "PaymentDTO [payId=" + payId + ", payAmount=" + payAmount + ", payMethod=" + payMethod + ", payDate="
+				+ payDate + ", payStatus=" + payStatus + ", memberNumber=" + memberNumber + ", matchingNumber="
+				+ matchingNumber + "]";
+	}
+
+    
 }
