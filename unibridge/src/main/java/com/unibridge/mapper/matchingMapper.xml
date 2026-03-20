@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="matching">
+
 	<select id="selectMatchingList" parameterType="_int" resultType="matchingDTO">
-    SELECT * FROM (
-        SELECT 
-            m.MATCHING_NUMBER AS matchinNumber,  
-            m.MATCHING_START AS matchingStart,
-            m.MATCHING_STATE AS matchingState,
-            m.MENTOR_NUMBER AS mentorNumber,
-            m.MENTEE_NUMBER AS menteeNumber,
-            m.SUBJECT_NUMBER AS subjectNumber,
-            m.PAY_ID AS payId,
-            t1.MEMBER_NAME AS mentorName,        
-            t2.MEMBER_NAME AS menteeName,        
-            s.SUBJECT_NAME AS subjectName        
-        FROM UB_MATCHING m
-        JOIN UB_MEMBER t1 ON m.MENTOR_NUMBER = t1.MEMBER_NUMBER
-        JOIN UB_MEMBER t2 ON m.MENTEE_NUMBER = t2.MEMBER_NUMBER
-        JOIN UB_SUBJECT s ON m.SUBJECT_NUMBER = s.SUBJECT_NUMBER
-        WHERE (m.MENTOR_NUMBER = #{memberNumber} OR m.MENTEE_NUMBER = #{memberNumber})
-          AND m.MATCHING_STATE = '매칭중'  
-        ORDER BY m.MATCHING_START DESC
-    )
-    WHERE ROWNUM = 1  -- Oracle 기준 최신 1건만 추출
+	    SELECT * FROM (
+	        SELECT 
+	            m.MATCHING_NUMBER AS matchinNumber,  
+	            m.MATCHING_START AS matchingStart,
+	            m.MATCHING_STATE AS matchingState,
+	            m.MENTOR_NUMBER AS mentorNumber,
+	            m.MENTEE_NUMBER AS menteeNumber,
+	            m.SUBJECT_NUMBER AS subjectNumber,
+	            m.PAY_ID AS payId,
+	            t1.MEMBER_NAME AS mentorName,        
+	            t2.MEMBER_NAME AS menteeName,        
+	            s.SUBJECT_NAME AS subjectName,  /* 1. 쉼표 추가 완료 */
+	            p.PAY_AMOUNT AS payAmount,        
+	            p.PAY_METHOD AS payMethod,        
+	            p.PAY_DATE AS payDate,            
+	            p.PAY_STATUS AS payStatus       /* 2. DB에 이 컬럼명이 있는지 꼭 확인! */
+	        FROM UB_MATCHING m
+	        JOIN UB_MEMBER t1 ON m.MENTOR_NUMBER = t1.MEMBER_NUMBER
+	        JOIN UB_MEMBER t2 ON m.MENTEE_NUMBER = t2.MEMBER_NUMBER
+	        JOIN UB_SUBJECT s ON m.SUBJECT_NUMBER = s.SUBJECT_NUMBER
+	        JOIN UB_PAY p ON m.PAY_ID = p.PAY_ID  /* 3. JOIN 구문 추가 완료 */
+	        WHERE (m.MENTOR_NUMBER = #{memberNumber} OR m.MENTEE_NUMBER = #{memberNumber})
+	          AND m.MATCHING_STATE = '매칭중'  
+	        ORDER BY m.MATCHING_START DESC
+	    )
+	    WHERE ROWNUM = 1
 	</select>
 	
 	<!-- 매칭 취소 신청이 DB에 생기면 변경 -->

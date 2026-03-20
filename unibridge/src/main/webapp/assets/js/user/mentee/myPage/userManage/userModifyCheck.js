@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		        isAuthVerified = true;
 		        verifyBtn.disabled = true;
 		        verifyMsg.style.display = 'none'; // 성공 시 메시지 숨김
+				location.href = '/unibridge/mvc/auth/mentee/updateOk.my';
 		    } else {
 		        // 이미지와 동일한 실패 문구 노출
 		        verifyMsg.innerText = "인증에 실패하였습니다.";

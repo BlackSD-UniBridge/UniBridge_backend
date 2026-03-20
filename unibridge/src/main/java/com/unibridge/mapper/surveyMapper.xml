@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="survey">
+	
+	<resultMap id="surveyFullResultMap" type="SurveyDTO">
+	    <!-- 공통 -->
+	    <result property="surveyNumber" column="survey_number"/>
+	    <result property="surveyType" column="survey_type"/>
+	    <result property="surveyApproval" column="survey_approval"/>
+	    <result property="surveyRejReason" column="survey_rej_reason"/>
+	    <result property="surveyAppDate" column="survey_app_date"/>
+	    <result property="adminNumber" column="admin_number"/>
+	    <result property="fileNumber" column="file_number"/>
+	    <result property="memberNumber" column="member_number"/>
+	
+	    <!-- 회원 -->
+	    <result property="memberType" column="member_type"/>
+	    <result property="memberName" column="member_name"/>
+	
+	    <!-- 멘토 -->
+	    <result property="gradSchool" column="grad_school"/>
+	    <result property="gradDepart" column="grad_depart"/>
+	    <result property="gradScore" column="grad_score"/>
+	
+	    <!-- 멘티 -->
+	    <result property="menteeSchool" column="mentee_school"/>
+	    <result property="menteeGrade" column="mentee_grade"/>
+	    <result property="menteeHopeuni" column="mentee_hopeuni"/>
+	    <result property="menteeHopemajor" column="mentee_hopemajor"/>
+	
+	    <!-- 공통 과목 -->
+	    <result property="subjectNumber" column="subject_number"/>
+	</resultMap>
+
+
 
     <insert id="insertSurvey" parameterType="SurveyDTO">
         <selectKey keyProperty="surveyNumber" resultType="int" order="BEFORE">
@@ -17,11 +49,12 @@
             #{surveyNumber}, 
             #{surveyType}, 
             #{memberNumber}, 
-            5, 
+            1, 
             #{fileNumber, jdbcType=INTEGER} )
             <!-- #{fileNumber}의 처리 (NULL 값 대응) -->
     </insert>
 
+	<!-- 멘티 설문조사 작성 -->
     <insert id="insertMenteeSurvey" parameterType="SurveyDTO">
         INSERT INTO UB_SURVEY_MENTEE (
             survey_number, mentee_school, mentee_grade, 
@@ -33,6 +66,7 @@
         )
     </insert>
     
+    <!-- 멘토 설문조사 작성 -->
     <insert id="insertMentorSurvey" parameterType="SurveyDTO">
         INSERT INTO UB_SURVEY_MENTOR (
             survey_number, grad_school, grad_depart, grad_score, subject_number
@@ -42,8 +76,53 @@
         )
     </insert>
 
-    <select id="selectMySurvey" parameterType="int" resultType="SurveyDTO">
-        SELECT * FROM UB_SURVEY WHERE member_number = #{memberNumber}
+    <select id="selectLatestSurvey" parameterType="int" resultMap="surveyFullResultMap">
+	    SELECT * FROM (
+	        SELECT 
+	            m.member_type, m.member_name,
+	            s.survey_number, s.survey_type, s.survey_approval, s.survey_rej_reason, 
+	            s.survey_app_date, s.admin_number, s.file_number, s.member_number,
+	            sm.grad_school, sm.grad_depart, sm.grad_score, 
+	            se.mentee_school, se.mentee_grade, se.mentee_hopeuni, se.mentee_hopemajor,
+	            NVL(sm.subject_number, se.subject_number) AS subject_number
+	        FROM UB_MEMBER m
+	        JOIN UB_SURVEY s ON m.member_number = s.member_number
+	        LEFT JOIN UB_SURVEY_MENTOR sm ON s.survey_number = sm.survey_number
+	        LEFT JOIN UB_SURVEY_MENTEE se ON s.survey_number = se.survey_number
+	        WHERE m.member_number = #{memberNumber}
+	        ORDER BY s.survey_number DESC
+	    ) WHERE ROWNUM = 1
+	</select>
+	
+	<!-- 회원이 설문조사를 작성했는지 여부 판단 -->
+	<select id="checkSurveyExists" parameterType="int" resultType="int">
+	    SELECT COUNT(*)
+	    FROM UB_SURVEY
+	    WHERE member_number = #{value}
+	</select>
+    
+    <select id="selectMentorSurvey" parameterType="int" resultType="SurveyMentorDTO">
+        SELECT * FROM (
+            SELECT 
+                s.survey_number, s.member_number,
+                sm.grad_school, sm.grad_depart, sm.grad_score, sm.subject_number
+            FROM UB_SURVEY s
+            JOIN UB_SURVEY_MENTOR sm ON s.survey_number = sm.survey_number
+            WHERE s.member_number = #{memberNumber}
+            ORDER BY s.survey_number DESC
+        ) WHERE ROWNUM = 1
+    </select>
+    
+    <select id="selectMenteeSurvey" parameterType="int" resultType="SurveyMenteeDTO">
+        SELECT * FROM (
+            SELECT 
+                s.survey_number, s.member_number,
+                se.mentee_school, se.mentee_grade, se.mentee_hopeuni, se.mentee_hopemajor, se.subject_number
+            FROM UB_SURVEY s
+            JOIN UB_SURVEY_MENTEE se ON s.survey_number = se.survey_number
+            WHERE s.member_number = #{memberNumber}
+            ORDER BY s.survey_number DESC
+        ) WHERE ROWNUM = 1
     </select>
     
 </mapper>

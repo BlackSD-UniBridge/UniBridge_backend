@@ -20,18 +20,27 @@ public class MenteeUpdateOkController implements Execute {
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String method = request.getMethod().toUpperCase();
+    		String method = request.getMethod().toUpperCase();
+        Result result = new Result(); // 필드 변수 대신 지역 변수 사용 권장
 
         switch (method) {
             case "GET":
-                doGet(request, response);
-                break;
+                System.out.println("doGet 실행: 수정 폼 출력");
+                result.setPath("/app/user/mentee/myPage/userManage/userModify.jsp");
+                result.setRedirect(false); // Forward로 화면 출력
+                break; // 👈 이게 없어서 doPost까지 실행되었던 것임!
+
             case "POST":
-                doPost(request, response);
+                System.out.println("doPost 실행: DB 업데이트 처리");
+                // ... DB 업데이트 로직 (생략) ...
+                
+                // 처리 완료 후 리다이렉트 (ContextPath 중복 주의)
+                result.setPath(request.getContextPath() + "/auth/mentee/finishUpdate.my");
+                result.setRedirect(true);
                 break;
         }
 
-        return outResult;
+        return result;
     }
 
 	private void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -45,7 +54,6 @@ public class MenteeUpdateOkController implements Execute {
 	}
 
 	private void doPost(HttpServletRequest request, HttpServletResponse response) {
-		doGet(request, response);
 		System.out.println("[UpdateOk] DB 업데이트 시작");
 	    
 	    HttpSession session = request.getSession();

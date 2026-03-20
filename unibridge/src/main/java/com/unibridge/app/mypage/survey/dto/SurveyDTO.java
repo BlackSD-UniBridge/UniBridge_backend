@@ -10,6 +10,7 @@ package com.unibridge.app.mypage.survey.dto;
 //member_number         number   NOT NULL,
 
 public class SurveyDTO {
+	
 	private int surveyNumber;
 	private String surveyType;
 	private String surveyApproval;
@@ -19,6 +20,7 @@ public class SurveyDTO {
 	//Integer NULL 입력가능;
 	private Integer fileNumber;
 	private int memberNumber;
+	
 	public int getSurveyNumber() {
 		return surveyNumber;
 	}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentee/myPage/userSurvey/userSurvey.css">
+    <script>
+	    // JS 파일에서 사용할 수 있도록 전역 변수 선언
+	    const contextPath = "${pageContext.request.contextPath}";
+	</script>
     <script defer src="${pageContext.request.contextPath}/assets/js/user/mentee/myPage/userSurvey/userSurvey.js"></script>
 </head>
 <body>
@@ -32,6 +37,7 @@
                 <img src="${pageContext.request.contextPath}/assets/img/user/userMyPageImg/userManage.jpg" alt="프로필 아이콘">
                 <div class="title">설문조사</div>
             </div>
+            <c:if test="${not empty survey}">
             <div class="userTypeBox">
                 <div class="userItem">
                     <label>멘토/멘티</label>
@@ -39,20 +45,20 @@
                 </div>
                 <div class="userItem"></div> <div class="userItem">
                     <label>학교</label>
-                    <div class="userValue">한국고등학교</div>
+                    <div class="userValue">${survey.menteeSchool}</div>
                 </div>
                 <div class="userItem">
                     <label>학년</label>
-                    <div class="userValue">1</div>
+                    <div class="userValue">${survey.menteeGrade}</div>
                 </div>
 
                 <div class="userItem">
                     <label>희망 대학</label>
-                    <div class="userValue">서울대학교</div>
+                    <div class="userValue">${survey.menteeHopeuni}</div>
                 </div>
                 <div class="userItem">
                     <label>희망 전공</label>
-                    <div class="userValue">컴퓨터 공학</div>
+                    <div class="userValue">${survey.menteeHopemajor}</div>
                 </div>
             </div>
             <button id="userWriteBtn">재작성</button>
@@ -66,10 +72,16 @@
                                 <label>멘토/멘티</label>
                                 <div class="radioGroup">
                                     <label class="radioItem">
-                                        <span>멘토</span> <input type="radio" value="mentor" name="role" class="radioUserType"> 
+                                        <span>멘토</span> 
+                                        <input type="radio" value="mentor" name="role" class="radioUserType"> 
+                                        		${userRole eq 'mentee' ? 'disabled' : ''} 
+                								${userRole eq 'mentor' ? 'checked' : ''}
                                     </label>
                                     <label class="radioItem">
-                                        <span>멘티</span> <input type="radio" value="mentee" name="role" class="radioUserType" checked> 
+                                        <span>멘티</span> 
+                                        <input type="radio" value="mentee" name="role" class="radioUserType"> 
+                                        		${userRole eq 'mentee' ? 'disabled' : ''} 
+                								${userRole eq 'mentor' ? 'checked' : ''}
                                     </label>
                                 </div>
                             </div>
@@ -158,8 +170,8 @@
                     </div>
                 </div>
             </div>
-
-        </main>
+		</c:if>
+     </main>
 
     </div>
 

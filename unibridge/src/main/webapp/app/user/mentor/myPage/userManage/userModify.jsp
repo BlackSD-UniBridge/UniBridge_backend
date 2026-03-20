@@ -22,7 +22,11 @@
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/myPage.my" class="active">계정 관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/survey.my">설문 조사</a></li>
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my">매칭 정보</a></li>
+<<<<<<< HEAD
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoringMain.my">멘토링</a></li>
+=======
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my">멘토링</a></li>
+>>>>>>> main
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/delete.my">회원 탈퇴</a></li>
             </ul>
         </aside>

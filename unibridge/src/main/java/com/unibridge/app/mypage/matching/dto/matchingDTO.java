@@ -23,8 +23,36 @@ public class matchingDTO {
     private String matchingCanReason;
     private long payId;
 	
+    private int payAmount;      // 추가
+    private String payMethod;   // 추가
+    private String payDate;     // 추가
+    private String payStatus;
     
     
+	public int getPayAmount() {
+		return payAmount;
+	}
+	public void setPayAmount(int payAmount) {
+		this.payAmount = payAmount;
+	}
+	public String getPayMethod() {
+		return payMethod;
+	}
+	public void setPayMethod(String payMethod) {
+		this.payMethod = payMethod;
+	}
+	public String getPayDate() {
+		return payDate;
+	}
+	public void setPayDate(String payDate) {
+		this.payDate = payDate;
+	}
+	public String getPayStatus() {
+		return payStatus;
+	}
+	public void setPayStatus(String payStatus) {
+		this.payStatus = payStatus;
+	}
 	public long getPayId() {
 		return payId;
 	}
@@ -104,7 +132,9 @@ public class matchingDTO {
 				+ matchingState + ", mentorNumber=" + mentorNumber + ", menteeNumber=" + menteeNumber
 				+ ", subjectNumber=" + subjectNumber + ", matchinCancel=" + matchinCancel + ", mentorName=" + mentorName
 				+ ", menteeName=" + menteeName + ", subjectName=" + subjectName + ", matchingCanReason="
-				+ matchingCanReason + "]";
+				+ matchingCanReason + ", payId=" + payId + ", payAmount=" + payAmount + ", payMethod=" + payMethod
+				+ ", payDate=" + payDate + ", payStatus=" + payStatus + "]";
+
 	}
 
 }

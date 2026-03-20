@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +33,7 @@
                 <img src="${pageContext.request.contextPath}/assets/img/user/userMyPageImg/userManage.jpg" alt="프로필 아이콘">
                 <div class="title">설문조사</div>
             </div>
+         <c:if test="${not empty survey}">
             <div class="userTypeBox">
                 <div class="userItem">
                     <label>멘토/멘티</label>
@@ -40,21 +42,22 @@
                 <div class="userItem"></div> 
                 <div class="userItem">
                     <label>대학</label>
-                    <div class="userValue">한국대 학교</div>
+                    <div class="userValue">${survey.gradSchool}</div>
                 </div>
                 <div class="userItem">
                     <label>졸업학점</label>
-                    <div class="userValue">4.0</div>
+                    <div class="userValue">${survey.gradDepart}</div>
                 </div>
                 <div class="userItem">
                     <label>교육과목</label>
-                    <div class="userValue">Java</div>
+                    <div class="userValue">${survey.gradScore}</div>
                 </div>
                 <div class="userItem">
                     <label>전공</label>
-                    <div class="userValue">컴퓨터 공학</div>
+                    <div class="userValue">${survey.subjectNumber}</div>
                 </div>
-            </div>
+            </div> 
+         </c:if>
             <button id="userWriteBtn">재작성</button>
             <div id="surveyModal" class="modal">
                 <div class="modalContent">
