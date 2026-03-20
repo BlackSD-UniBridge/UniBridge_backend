@@ -13,7 +13,7 @@ import com.unibridge.app.member.dao.MemberDAO;
 import com.unibridge.app.member.dto.MemberDTO;
 
 public class MenteeUpdateOkController implements Execute {
-
+	
 	private Result outResult = new Result();
 
     @Override

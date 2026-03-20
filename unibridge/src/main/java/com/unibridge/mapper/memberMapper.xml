@@ -66,6 +66,21 @@
 	    WHERE member_number = #{memberNumber}
 	</delete>
 	
+	<!-- 회원의 현재 매칭이 진행중인지 체크 -->
+	<select id="isMatchingActive" parameterType="int" resultType="int">
+      SELECT COUNT(*)
+      FROM UB_MATCHING
+      WHERE (mentor_number = #{memberNumber} OR mentee_number = #{memberNumber})
+        AND matching_state = '매칭중'
+   </select>
+
+	<!-- 회원탈퇴 시 유저의 상태 변경 -->
+   <update id="updateMemberState" parameterType="int">
+      UPDATE UB_MEMBER
+      SET member_state = '계정 삭제'
+      WHERE member_number = #{memberNumber}
+   </update>
+	
 	<!-- 회원정보 가져오기 -->
 	<select id="selectMap" parameterType="int" resultType="map">
 	    SELECT 

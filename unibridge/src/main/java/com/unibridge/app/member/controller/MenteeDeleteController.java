@@ -1,91 +1,83 @@
 package com.unibridge.app.member.controller;
 
 import java.io.IOException;
-
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
-import com.unibridge.app.member.dao.MemberDAO;
-import com.unibridge.app.member.dto.MemberDTO;
 
-public class MenteeDeleteController implements Execute{
-
-	private Result outResult = new Result();
+public class MenteeDeleteController implements Execute {
 
     @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response)
+    public Result execute(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-
+        
+    	System.out.println("===============MenteeDeleteController================");
+    	
         String method = request.getMethod().toUpperCase();
 
-        switch (method) {
-            case "GET":
-                doGet(request, response);
-                break;
-            case "POST":
-                doPost(request, response);
-                break;
+        if ("GET".equals(method)) {
+        	System.out.println("get 방식 접근");
+        	
+            // 회원탈퇴 페이지로 이동
+            Result result = new Result();
+            result.setPath("/app/user/mentee/myPage/userDelete/userDelete.jsp");
+            result.setRedirect(false);
+            return result;
+        } else {
+        	System.out.println("post 방식 접근");
+        	
+            // POST 방식: AJAX 인증 처리
+            String mode = request.getParameter("mode");
+            response.setContentType("text/plain; charset=utf-8");
+
+            if ("send".equals(mode)) {
+                doSendSms(request, response);
+            } else if ("check".equals(mode)) {
+                doVerifyCode(request, response);
+            }
+            return null; // AJAX 응답이므로 페이지 이동 없음
         }
-
-        return outResult;
     }
 
-    // 탈퇴 페이지 이동
-    private void doGet(HttpServletRequest request, HttpServletResponse response) {
-
-    	//멘티 회원 탈퇴 이동
-        outResult.setPath("/app/user/mentee/myPage/userDelete/userDelete.jsp");
-        outResult.setRedirect(false);
-    }
-
-    // 탈퇴 처리
-    private void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    	System.out.println("[DeleteController] POST - 회원 탈퇴 진행");
-
-    	HttpSession session = request.getSession();
-		MemberDTO memberNumber = (MemberDTO) session.getAttribute("loginUser");
-	    System.out.println("MenteeMange컨트롤러 : " + memberNumber.getMemberNumber());
-
-//        int memberNumber = (int) memberNumObj;
-
-        // DTO에 값 세팅
-//        MemberDTO memberDTO = new MemberDTO();
-//        memberDTO.setMemberId(request.getParameter("userId"));
-//        memberDTO.setMemberPw(request.getParameter("userPw"));
-//        memberDTO.setMemberPhone(request.getParameter("userPhone"));
-//
-//        System.out.println("아이디: " + memberDTO.getMemberId());
-//        System.out.println("전화번호: " + memberDTO.getMemberPhone());
-//
-        MemberDAO memberDAO = new MemberDAO();
-
-        // 검증
-        boolean isValid = memberDAO.checkMember(memberNumber);
-
-        if (!isValid) {
-            System.out.println("[ERROR] 회원 정보 불일치");
-
-            outResult.setRedirect(false);
-            request.setAttribute("errorMsg", "정보가 일치하지 않습니다.");
-            outResult.setPath("/app/user/mentee/myPage/userDelete/userDelete.jsp");
+    private void doSendSms(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String phoneNumber = request.getParameter("phoneNumber");
+        if (phoneNumber == null || !phoneNumber.matches("^010\\d{8}$")) {
+            response.getWriter().write("invalid_format");
             return;
         }
 
-        // 탈퇴 처리
-        memberDAO.deleteMember(memberNumber.getMemberNumber());
+        String authCode = String.format("%06d", new Random().nextInt(1000000));
+        request.getSession().setAttribute("deleteAuthCode", authCode);
 
-        // 세션 제거
-        session.invalidate();
+        // 실제 문자 발송 API (기존 소스 활용)
+        // boolean isSent = requestSendApi(phoneNumber, authCode);
+        System.out.println("[DEBUG] 생성된 인증번호: " + authCode); // 테스트용
+        response.getWriter().write("success"); 
+    }
 
-        // 메인 이동
-        outResult.setRedirect(true);
-        outResult.setPath(request.getContextPath() + "/index.main");
+    private void doVerifyCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        JsonObject jsonBody = new Gson().fromJson(request.getReader(), JsonObject.class);
+        String userCode = jsonBody.get("authCode").getAsString();
         
+        HttpSession session = request.getSession();
+        String serverCode = (String) session.getAttribute("deleteAuthCode");
+
+        if (serverCode != null && serverCode.equals(userCode)) {
+        	// 1. 인증 완료 마크 저장 (최종 탈퇴 처리를 위해 필요)
+            session.setAttribute("isDeleteVerified", true); 
+            
+            // 2. ★ 사용이 끝난 인증번호는 즉시 삭제 ★
+            session.removeAttribute("deleteAuthCode"); 
+            
+            response.getWriter().write("verified");
+        } else {
+            response.getWriter().write("invalid");
+        }
     }
 }

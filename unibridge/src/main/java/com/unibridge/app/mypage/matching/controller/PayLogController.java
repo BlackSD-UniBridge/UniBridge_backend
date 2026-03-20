@@ -37,11 +37,11 @@ public class PayLogController implements Execute{
 	private void doGet(HttpServletRequest request, HttpServletResponse response) {
 
 		HttpSession session = request.getSession();
-		MemberDTO memberNumber = (MemberDTO) session.getAttribute("loginUser");
-	    System.out.println("MenteeMange컨트롤러 : " + memberNumber.getMemberNumber());
+		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+	    System.out.println("MenteeMange컨트롤러 : " + loginUser.getMemberNumber());
 
 	    PaymentDAO dao = new PaymentDAO();
-	    PaymentDTO payLog = dao.selectLatestPaymentByMember(memberNumber.getMemberNumber());
+	    PaymentDTO payLog = dao.selectLatestPaymentByMember(loginUser.getMemberNumber());
 
 	    // 핵심 분기
 	    if (payLog == null) {

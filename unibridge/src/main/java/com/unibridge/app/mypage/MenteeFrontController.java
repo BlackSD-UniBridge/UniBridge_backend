@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.member.controller.MenteeDeleteController;
+import com.unibridge.app.member.controller.MenteeDeleteOkController;
 import com.unibridge.app.member.controller.MenteeMangeController;
 import com.unibridge.app.member.controller.MatchingController;
 import com.unibridge.app.member.controller.MenteeUpdateOkController;
@@ -78,11 +79,18 @@ public class MenteeFrontController implements Execute {
 		    System.out.println("[Log] 결과: MenteeSurveyController 실행 완료!");
 		    break;
 		    
-		case "delete.my": //회원탈퇴
+		case "delete.my": // 회원탈퇴 페이지 이동 및 AJAX 인증 처리 전용
 			System.out.println("[Log] 결과: MenteeDeleteController 실행 시도...");
 			outResult = new MenteeDeleteController().execute(request, response);
 			System.out.println("[Log] 결과: MenteeDeleteController 실행 완료!");
 			break;
+			
+		case "deleteOk.my": // 최종 탈퇴 버튼 클릭 시 (비밀번호 & 매칭상태 최종 확인)
+		    System.out.println("[Log] 결과: MenteeDeleteOkController 실행 시도...");
+		    outResult = new MenteeDeleteOkController().execute(request, response);
+		    System.out.println("[Log] 결과: MenteeDeleteOkController 실행 완료!");
+		    break;
+		    
 		case "matching.my": // 매칭정보
 			System.out.println("[Log] 결과: MatchingController 실행 시도...");
 			outResult = new MatchingController().execute(request, response);
