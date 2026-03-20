@@ -83,6 +83,8 @@
       
       <!--  MVC  -->
       <mapper resource="com/unibridge/mapper/mvcAdminReportListMapper.xml" />
+      <mapper resource="com/unibridge/mapper/mvcAdminReportDetailMapper.xml" />
+      <mapper resource="com/unibridge/mapper/mvcAdminReportDeleteMapper.xml" />
       
       <!--  API  -->
       <mapper resource="com/unibridge/mapper/apiAdminUserMMMapper.xml" />

@@ -40,12 +40,15 @@ public class AdminReportListController implements Execute {
 		Integer matchingNumber = Integer.parseInt(request.getParameter("matchingNumber"));
 		List<AdminReportListDTO> learningReports = this.adminReportDetailDAO.selectReportDetail(matchingNumber);
 		
-		HttpSession httpSession = request.getSession(true);
+		HttpSession httpSession = request.getSession();
 		if (httpSession == null) {
 			result.setRedirect(true);
 			result.setPath(request.getContextPath() + "/index.main");
 			return;
 		}
+		
+		httpSession.setAttribute("lastMatchingNumber", matchingNumber);
+		httpSession.setAttribute("learningReports", learningReports);
 		
 		List<Integer> weekList = learningReports.stream()
 			    .map(AdminReportListDTO::getLrReportWeek)
@@ -56,7 +59,7 @@ public class AdminReportListController implements Execute {
 		Gson gson = new Gson();
 		request.setAttribute("learningReports", gson.toJson(learningReports));
 		request.setAttribute("learningReportWeeks", gson.toJson(weekList));
-			
+		
 		result.setRedirect(false);
 		result.setPath("/app/admin/adminReport/reportList.jsp");
 	}

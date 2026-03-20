@@ -47,7 +47,7 @@ function createLearningReport(report) {
 		  </div>
 		  <div 
 		  	class="lr-report-submit-button"
-		  	onclick="window.location.href='${window.contextPath}/adminDetail.admin'"
+		  	onclick="window.location.href='${window.contextPath}/reportDetail.admin?reportNumber=${report.lrReportNumber}'"
 		  >확인</div>
 		</li>
 	`;

@@ -16,7 +16,9 @@
 <body>
   <div id="root">
     <div class="root-container">
-      <div id="header-wrap"></div>
+      <div id="header-wrap">
+      	<jsp:include page="/header/adminHeader.jsp"/>
+      </div>
       <main class="content-container">
         <div class="selector-container">
           <div class="date-container">
@@ -34,14 +36,14 @@
         </div>
         <ul class="list-container">
 		  <c:forEach var="report" items="${sessionScope.learningReports}">
-            <li class="lr-report">
+            <li class="lr-report" id="report-id-${report.getMatchingNumber()} }">
               <div class="lr-report-desc">
                 <div class="lr-report-idx">${report.getLrReportWeek()}주차 ${report.getLrReportSession()}일차 - ${report.getLrSubjectTitle()}</div>
                 <div class="lr-report-date">${report.getLrReportDate()}</div>
               </div>
               <div 
               	class="lr-report-submit-button"
-              	onclick="window.location.href='${pageContext.request.contextPath}/adminDetail.admin'"
+              	onclick="window.location.href='${pageContext.request.contextPath}/reportDetail.admin?reportNumber=${report.getLrReportNumber()}'"
               >확인</div>
             </li>
     	  </c:forEach>
@@ -50,15 +52,6 @@
     </div>
   </div>
   <script>
-    fetch("${pageContext.request.contextPath}/header/adminHeader.jsp")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("header-wrap").innerHTML = html;
-        const s = document.createElement("script");
-        s.src = "${pageContext.request.contextPath}/header/adminHeader.js";
-        document.body.appendChild(s);
-      });
-    
     window.contextPath = "${pageContext.request.contextPath}";
     sessionStorage.setItem("learningReports", JSON.stringify(${learningReports}));
     sessionStorage.setItem("learningReportWeeks", JSON.stringify(${learningReportWeeks}));

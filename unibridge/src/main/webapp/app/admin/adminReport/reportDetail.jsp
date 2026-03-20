@@ -8,12 +8,16 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/fonts.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminReport/reportDetail.css">
+  
+  <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/admin/adminReport/reportDetail.js" defer></script>
   <title>Document</title>
 </head>
 <body>
   <div id="root">
     <div class="root-container">
-      <div id="header-wrap"></div>
+      <div id="header-wrap">
+      	<jsp:include page="/header/adminHeader.jsp"/>
+      </div>
       <div class="content-container">
         <div class="title-container">
           <span>학습보고서</span>
@@ -24,40 +28,36 @@
               <div class="config-title">학습 주제 및 목표</div>
               <div class="config-subject-name-container">
                 <div class="config-title__inner">학습 과목</div>
-                <div class="config-content__inner">수학</div>
+                <div class="config-content__inner">${subjectName}</div>
               </div>
               <div class="config-subject-topic-container">
                 <div class="config-title__inner">학습일지 주제</div>
-                <div class="config-content__inner">미적분 기초</div>
+                <div class="config-content__inner">${sessionScope.curLearningReport.getLrSubjectTitle()}</div>
               </div>
               <div class="config-subject-summary-container">
                 <div class="config-title__inner">학습일지 요약</div>
-                <div class="config-content__inner">미적분의 기초 다지기</div>
+                <div class="config-content__inner">${sessionScope.curLearningReport.getLrSubjectSummary()}</div>
               </div>
             </div>
             <div class="detail-content-container">
               <div class="detail-content-container__inner">
                 <div class="detail-content-title">학습보고서 상세 내용</div>
-                <div class="detail-content-textbox"></div>
+                <div class="detail-content-textbox">${sessionScope.curLearningReport.getLrSubjectContent()}</div>
               </div>
             </div>
-            <div class="button-container">
-              <div class="delete-button">삭제</div>
-            </div>
+            <form class="button-container" action="${pageContext.request.contextPath}/admin/reportDelete.admin" method="POST">
+              <input name="reportNumber" value="${sessionScope.curLearningReport.getLrReportNumber()}" style="display: none;">
+              <button class="delete-button" type="submit">삭제 </button>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <script>
-    fetch("${pageContext.request.contextPath}/header/adminHeader.jsp")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("header-wrap").innerHTML = html;
-        const s = document.createElement("script");
-        s.src = "${pageContext.request.contextPath}/header/adminHeader.js";
-        document.body.appendChild(s);
-      });
+  <script>    
+    window.contextPath = "${pageContext.request.contextPath}";
+    sessionStorage.setItem("subjectName", "${subjectName}");
+    sessionStorage.setItem("currentLeaningReport", JSON.stringify(${curLearningReport}));
   </script>
 </body>
 </html>
