@@ -28,15 +28,20 @@
       <typeAlias type="com.unibridge.app.noticeBoard.dto.NoticeBoardDTO"             alias="NoticeBoardDTO"    />
       <typeAlias type="com.unibridge.app.noticeBoard.dto.NoticeBoardListDTO"         alias="NoticeBoardListDTO"/>
       <typeAlias type="com.unibridge.app.mypage.mentoring.dto.MentoringDTO" alias="MentoringDTO"></typeAlias>
-
-      <typeAlias type="com.unibridge.app.admin.dto.AdminDTO" alias="AdminDTO"></typeAlias>
-      <typeAlias type="com.unibridge.app.admin.dto.AdMainDTO" alias="AdMainDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.learningReport.dto.LearningReportDTO" alias="LearningReportDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mypage.matching.dto.matchingDTO" alias="MatchingDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.menteeBoard.dto.MenteeBoardDTO"             alias="MenteeBoardDTO"    />
       <typeAlias type="com.unibridge.app.menteeBoard.dto.MenteeBoardListDTO"         alias="MenteeBoardListDTO"/>
       <typeAlias type="com.unibridge.app.mentorBoard.dto.MentorBoardDTO"             alias="MentorBoardDTO"    />
       <typeAlias type="com.unibridge.app.mentorBoard.dto.MentorBoardListDTO"         alias="MentorBoardListDTO"/>
+
+	<!-- admin DTO -->
+      <typeAlias type="com.unibridge.app.admin.dto.AdminDTO" alias="AdminDTO"></typeAlias>
+      <typeAlias type="com.unibridge.app.admin.dto.AdMainDTO" alias="AdMainDTO"></typeAlias>
+      <typeAlias type="com.unibridge.app.admin.dto.AdMenteeBoardListDTO" alias="AdMenteeBoardListDTO"></typeAlias>
+      <typeAlias type="com.unibridge.app.admin.dto.AdMentorBoardListDTO" alias="AdMentorBoardListDTO"></typeAlias>
+
+
       
       <!--  API DTO  -->
       <typeAlias type="com.unibridge.api.admin.dto.AdminUserMMDTO" alias="AdminUserMMDTO"></typeAlias>

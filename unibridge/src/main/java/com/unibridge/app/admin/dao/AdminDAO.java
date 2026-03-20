@@ -15,7 +15,7 @@ public class AdminDAO {
    
    // 로그인
    public Integer login(AdminDTO adminDTO) {
-      Integer admin = sqlSession.selectOne("admin.adminlogin", adminDTO);
+      Integer admin = sqlSession.selectOne("admin.adlogin", adminDTO);
       return admin == null? -1 : admin;
    }
    

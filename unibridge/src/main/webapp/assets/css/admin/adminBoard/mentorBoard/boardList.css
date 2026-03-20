@@ -8,6 +8,14 @@
 
 * { box-sizing: border-box; }
 
+ul{
+	display : flex;
+}
+
+ul li{
+	list-style: none;
+}
+
 html, body {
   margin: 0;
   padding: 0;

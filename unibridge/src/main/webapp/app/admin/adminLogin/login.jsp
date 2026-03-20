@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UniBridge 관리자 로그인</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminLogin/login.css" />
+  <script  defer src="${pageContext.request.contextPath}/assets/js/admin/adminLogin/login.js"></script>
 </head>
 <body>
   <main class="login-page">
@@ -24,7 +25,7 @@
       <p class="login-subtitle">ADMIN PANEL</p>
       <div class="login-divider"></div>
 
-      <form class="login-form" id="loginForm">
+      <form class="login-form" id="loginForm" method="post" action="${pageContext.request.contextPath}/loginOk.admin">
         <div class="input-wrap">
           <span class="input-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
@@ -32,13 +33,7 @@
               <path d="M5 19c1.4-3 4-4.5 7-4.5S17.6 16 19 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             </svg>
           </span>
-          <input
-            type="text"
-            id="adminId"
-            name="adminId"
-            placeholder="아이디를 입력하세요"
-            autocomplete="username"
-          />
+          <input type="text" id="adminId" name="adminId" placeholder="아이디를 입력하세요" autocomplete="username"/>
         </div>
 
         <div class="input-wrap">
@@ -50,13 +45,7 @@
               <path d="M12 16.2V17.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
             </svg>
           </span>
-          <input
-            type="password"
-            id="adminPw"
-            name="adminPw"
-            placeholder="비밀번호를 입력하세요"
-            autocomplete="current-password"
-          />
+          <input type="password" id="adminPw" name="adminPw"  placeholder="비밀번호를 입력하세요"/>
         </div>
 
         <p class="error-text" id="errorText"></p>
@@ -66,6 +55,6 @@
     </section>
   </main>
 
-  <script src="${pageContext.request.contextPath}/assets/js/admin/adminLogin/login.js"></script>
+
 </body>
 </html>

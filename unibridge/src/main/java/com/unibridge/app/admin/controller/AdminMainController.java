@@ -43,8 +43,8 @@ public class AdminMainController implements Execute{
       System.out.println(request.getAttribute("recentBoardsJson"));
       System.out.println(request.getAttribute("recentUsersJson"));
       
-      result.setPath("/app/admin/adminMain/main.jsp");
-      result.setRedirect(false);
+      result.setPath(request.getContextPath() + "/app/admin/adminMain/main.jsp");
+      result.setRedirect(true);
       return result;
    };
    
