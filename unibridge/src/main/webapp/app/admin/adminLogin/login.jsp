@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -48,7 +49,12 @@
           <input type="password" id="adminPw" name="adminPw"  placeholder="비밀번호를 입력하세요"/>
         </div>
 
-        <p class="error-text" id="errorText"></p>
+        <p class="error-text" id="errorText">
+        <c:choose>
+        	<c:when test="${param.login == 'fail'}">아이디 또는 비밀번호가 일치하지 않습니다.</c:when>
+        	<%-- <c:when test="${empty adminId or empty adminPw}">아이디와 비밀번호를 입력해주세요.</c:when> --%>
+        </c:choose>
+        </p>
 
         <button type="submit" class="login-btn">로그인</button>
       </form>
