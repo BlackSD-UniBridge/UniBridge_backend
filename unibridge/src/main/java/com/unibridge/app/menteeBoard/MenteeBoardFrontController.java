@@ -15,6 +15,9 @@ import com.unibridge.app.menteeBoard.controller.MenteeBoardUpdateController;
 import com.unibridge.app.menteeBoard.controller.MenteeBoardUpdateOkController;
 import com.unibridge.app.menteeBoard.controller.MenteeBoardWriteController;
 import com.unibridge.app.menteeBoard.controller.MenteeBoardWriteOkController;
+import com.unibridge.app.menteeBoardComment.controller.MenteeBoardCommentDeleteOkController;
+import com.unibridge.app.menteeBoardComment.controller.MenteeBoardCommentUpdateOkController;
+import com.unibridge.app.menteeBoardComment.controller.MenteeBoardCommentWriteOkController;
 
 /**
  * Servlet implementation class BoardFrontController
@@ -89,6 +92,18 @@ public class MenteeBoardFrontController extends HttpServlet {
 				System.out.println("Mentee 게시물 목록 처리 요청");
 				result = new MenteeBoardDeleteOkController().execute(request, response);
 				break;
+				
+			case "MenteeBoardCommentWrite.meb":
+                result = new MenteeBoardCommentWriteOkController().execute(request, response);
+                break;
+
+            case "MenteeBoardCommentUpdate.meb":
+                result = new MenteeBoardCommentUpdateOkController().execute(request, response);
+                break;
+
+            case "MenteeBoardCommentDelete.meb":
+                result = new MenteeBoardCommentDeleteOkController().execute(request, response);
+                break;
 
 			default:
 				System.out.println("실패! 현재 target 값: " + target); // 디버깅용

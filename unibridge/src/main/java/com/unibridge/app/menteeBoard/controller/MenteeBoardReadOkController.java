@@ -1,6 +1,7 @@
 package com.unibridge.app.menteeBoard.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.ServletException;
@@ -12,77 +13,53 @@ import com.unibridge.app.Result;
 import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.app.menteeBoard.dao.MenteeBoardDAO;
 import com.unibridge.app.menteeBoard.dto.MenteeBoardListDTO;
+import com.unibridge.app.menteeBoardComment.dao.MenteeBoardCommentDAO;
+import com.unibridge.app.menteeBoardComment.dto.MenteeBoardCommentDTO;
 
 public class MenteeBoardReadOkController implements Execute {
 
-	@Override
-	public Result execute(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("게시글 상세 페이지 이동 완료");
-		
-		Result result = new Result();
-		
-		//MenteeBoardNumber가 빈 문자열이거나 null인 경우
-		String MenteeBoardNumberStr = request.getParameter("MenteeBoardNumber");
-		if(MenteeBoardNumberStr == null || MenteeBoardNumberStr.trim().isEmpty()) {
-			System.out.println("MenteeBoardNumber 값이 없습니다");
-			result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.jsp"); //게시글 목록 페이지로 리다이렉트
-			result.setRedirect(true);
-			return result;
-		}
-		
-		int MenteeBoardNumber = Integer.parseInt(MenteeBoardNumberStr);
-		
-		MenteeBoardDAO MenteeBoardDAO = new MenteeBoardDAO();
-		
-		//DB에서 게시글 가져오기
-		MenteeBoardListDTO MenteeBoardListDTO = MenteeBoardDAO.selectBoard(MenteeBoardNumber);
-		
-		//게시글이 존재하지 않을 경우
-		if(MenteeBoardListDTO == null) {
-			System.out.println("존재하지 않는 게시물입니다." + MenteeBoardNumber);
-			result.setPath(request.getContextPath() + "/app/user/mentee/menteeBoard/MenteeBoardList.meb");
-			result.setRedirect(true);
-			return result;
-		}
-		
-		//로그인 한 사용자 번호 가져오기
-		MemberDTO loginUser = (MemberDTO) request.getSession().getAttribute("loginUser");
-		Integer loginMemberNumber = (loginUser != null) ? loginUser.getMemberNumber() : null;
-		System.out.println("로그인 한 멤버 번호 : " + loginMemberNumber);
-		
-		//현재 게시글 작성자 번호 가져오기
-		int MenteeBoardWriterNumber = MenteeBoardListDTO.getMemberNumber();
-		System.out.println("현재 게시글 작성자 번호 : " + MenteeBoardWriterNumber);
-		
-		//로그인한 사용자가 작성자가 아닐 때만 조회 수 증가
-		if(!Objects.equals(loginMemberNumber, MenteeBoardWriterNumber)) {
-			MenteeBoardDAO.updateClick(MenteeBoardNumber);
-		}
-		
-		request.setAttribute("MenteeBoard", MenteeBoardListDTO);
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardDetail.jsp");
-		result.setRedirect(false);
-		
-		return result;
-	}
-	
+    @Override
+    public Result execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("게시글 상세 페이지 이동 완료");
+
+        Result result = new Result();
+
+        String menteeBoardNumberStr = request.getParameter("MenteeBoardNumber");
+        if (menteeBoardNumberStr == null || menteeBoardNumberStr.trim().isEmpty()) {
+            result.setPath(request.getContextPath() + "/mentee/menteeBoard/MenteeBoardList.meb");
+            result.setRedirect(true);
+            return result;
+        }
+
+        int menteeBoardNumber = Integer.parseInt(menteeBoardNumberStr);
+        MenteeBoardDAO menteeBoardDAO = new MenteeBoardDAO();
+        MenteeBoardListDTO menteeBoardListDTO = menteeBoardDAO.selectBoard(menteeBoardNumber);
+
+        if (menteeBoardListDTO == null) {
+            result.setPath(request.getContextPath() + "/mentee/menteeBoard/MenteeBoardList.meb");
+            result.setRedirect(true);
+            return result;
+        }
+
+        MemberDTO loginUser = (MemberDTO) request.getSession().getAttribute("loginUser");
+        Integer loginMemberNumber = (loginUser != null) ? loginUser.getMemberNumber() : null;
+
+        if (!Objects.equals(loginMemberNumber, menteeBoardListDTO.getMemberNumber())) {
+            menteeBoardDAO.updateClick(menteeBoardNumber);
+        }
+
+        // ▼ 댓글 목록 조회
+        MenteeBoardCommentDAO commentDAO = new MenteeBoardCommentDAO();
+        List<MenteeBoardCommentDTO> commentList = commentDAO.selectCommentList(menteeBoardNumber);
+        int commentTotal = commentDAO.getCommentTotal(menteeBoardNumber);
+
+        request.setAttribute("MenteeBoard", menteeBoardListDTO);
+        request.setAttribute("commentList", commentList);
+        request.setAttribute("commentTotal", commentTotal);
+
+        result.setPath("/app/user/mentee/menteeBoard/MenteeBoardDetail.jsp");
+        result.setRedirect(false);
+        return result;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
