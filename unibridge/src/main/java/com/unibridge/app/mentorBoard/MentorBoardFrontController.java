@@ -15,6 +15,9 @@ import com.unibridge.app.mentorBoard.controller.MentorBoardUpdateController;
 import com.unibridge.app.mentorBoard.controller.MentorBoardUpdateOkController;
 import com.unibridge.app.mentorBoard.controller.MentorBoardWriteController;
 import com.unibridge.app.mentorBoard.controller.MentorBoardWriteOkController;
+import com.unibridge.app.mentorBoardComment.controller.MentorBoardCommentDeleteOkController;
+import com.unibridge.app.mentorBoardComment.controller.MentorBoardCommentUpdateOkController;
+import com.unibridge.app.mentorBoardComment.controller.MentorBoardCommentWriteOkController;
 
 public class MentorBoardFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -83,6 +86,18 @@ public class MentorBoardFrontController extends HttpServlet {
 				System.out.println("Mentor 게시물 삭제 처리");
 				result = new MentorBoardDeleteOkController().execute(request, response);
 				break;
+				
+			case "MentorBoardCommentWrite.mob":
+                result = new MentorBoardCommentWriteOkController().execute(request, response);
+                break;
+
+            case "MentorBoardCommentUpdate.mob":
+                result = new MentorBoardCommentUpdateOkController().execute(request, response);
+                break;
+
+            case "MentorBoardCommentDelete.mob":
+                result = new MentorBoardCommentDeleteOkController().execute(request, response);
+                break;
 
 			default:
 				System.out.println("실패! 현재 target 값: " + target);

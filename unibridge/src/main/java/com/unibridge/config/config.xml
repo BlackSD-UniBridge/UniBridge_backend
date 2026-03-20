@@ -34,7 +34,9 @@
       <typeAlias type="com.unibridge.app.menteeBoard.dto.MenteeBoardListDTO"         alias="MenteeBoardListDTO"/>
       <typeAlias type="com.unibridge.app.mentorBoard.dto.MentorBoardDTO"             alias="MentorBoardDTO"    />
       <typeAlias type="com.unibridge.app.mentorBoard.dto.MentorBoardListDTO"         alias="MentorBoardListDTO"/>
-
+	  <typeAlias type="com.unibridge.app.menteeBoardComment.dto.MenteeBoardCommentDTO" alias="MenteeBoardCommentDTO"  />
+	  <typeAlias type="com.unibridge.app.mentorBoardComment.dto.MentorBoardCommentDTO" alias="MentorBoardCommentDTO" />
+	  
 	<!-- admin DTO -->
       <typeAlias type="com.unibridge.app.admin.dto.AdminDTO" alias="AdminDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.admin.dto.AdMainDTO" alias="AdMainDTO"></typeAlias>
@@ -80,6 +82,8 @@
       <mapper resource="com/unibridge/mapper/matchingMapper.xml"/>
       <mapper resource="com/unibridge/mapper/menteeBoardMapper.xml" />
       <mapper resource="com/unibridge/mapper/mentorBoardMapper.xml" />
+      <mapper resource="com/unibridge/mapper/menteeBoardCommentMapper.xml"    />
+      <mapper resource="com/unibridge/mapper/mentorBoardCommentMapper.xml" />
       
       <!--  MVC  -->
       <mapper resource="com/unibridge/mapper/mvcAdminReportListMapper.xml" />

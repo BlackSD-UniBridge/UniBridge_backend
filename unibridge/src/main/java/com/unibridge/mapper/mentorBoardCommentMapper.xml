@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MentorBoardComment">
+
+    <!-- 댓글 총 개수 -->
+    <select id="getCommentTotal" parameterType="int" resultType="int">
+        SELECT COUNT(mentor_com_id)
+        FROM UB_MENTOR_BOARD_COMMENT
+        WHERE mentorBoard_id = #{mentorBoardId}
+    </select>
+
+    <!-- 댓글 목록 조회 (게시글 번호 기준, 날짜 오름차순) -->
+    <select id="selectCommentList" parameterType="int" resultType="MentorBoardCommentDTO">
+        SELECT c.mentor_com_id      AS mentorComId,
+               c.mentor_com_content AS mentorComContent,
+               TO_CHAR(c.mentor_com_date, 'YYYY-MM-DD') AS mentorComDate,
+               c.member_number      AS memberNumber,
+               c.mentorBoard_id     AS mentorBoardId,
+               m.member_id          AS memberId,
+               m.member_nickname    AS memberNickname
+        FROM UB_MENTOR_BOARD_COMMENT c
+        JOIN UB_MEMBER m ON c.member_number = m.member_number
+        WHERE c.mentorBoard_id = #{mentorBoardId}
+        ORDER BY c.mentor_com_date ASC
+    </select>
+
+    <!-- 댓글 등록 -->
+    <insert id="insertComment" parameterType="MentorBoardCommentDTO">
+        <selectKey keyProperty="mentorComId" resultType="int" order="BEFORE">
+            SELECT seq_mentor_board_comment.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO UB_MENTOR_BOARD_COMMENT
+            (mentor_com_id, mentor_com_content, mentor_com_date, member_number, mentorBoard_id)
+        VALUES
+            (#{mentorComId}, #{mentorComContent}, SYSDATE, #{memberNumber}, #{mentorBoardId})
+    </insert>
+
+    <!-- 댓글 수정 -->
+    <update id="updateComment" parameterType="MentorBoardCommentDTO">
+        UPDATE UB_MENTOR_BOARD_COMMENT
+        SET mentor_com_content = #{mentorComContent}
+        WHERE mentor_com_id = #{mentorComId}
+          AND member_number  = #{memberNumber}
+    </update>
+
+    <!-- 댓글 단건 삭제 -->
+    <delete id="deleteComment" parameterType="int">
+        DELETE FROM UB_MENTOR_BOARD_COMMENT
+        WHERE mentor_com_id = #{mentorComId}
+    </delete>
+
+</mapper>
