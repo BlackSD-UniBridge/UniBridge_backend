@@ -1,6 +1,7 @@
 package com.unibridge.api.admin.controller;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.WeekFields;
@@ -60,8 +61,16 @@ public class AdminReportController implements ApiExecute<String> {
 	                                .atZone(ZoneId.systemDefault())
 	                                .toLocalDate();
 	                        
-	                        int weekYear = date.get(weekFields.weekBasedYear());
-	                        return weekYear + "-" + String.format("%02d", date.getMonthValue());
+	                        int year = date.get(weekFields.weekBasedYear());
+	                    	int dayOfMonth = date.getDayOfMonth();
+	                    	DayOfWeek dayOfWeek = date.getDayOfWeek();
+	                    	
+	                    	// ex) 2026-02-20 FRIDAY
+	                        return 
+                        		year + "-" + 
+	                        	String.format("%02d", date.getMonthValue()) + "-" + 
+	                        	String.format("%02d", dayOfMonth) + " " + 
+	                        	dayOfWeek.toString();
 	                    },
 	                    LinkedHashMap::new,
 	                    Collectors.toList()
