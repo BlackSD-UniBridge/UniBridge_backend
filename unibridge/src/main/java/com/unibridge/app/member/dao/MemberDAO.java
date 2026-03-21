@@ -66,4 +66,68 @@ public class MemberDAO {
         // 기존 DELETE 쿼리 대신 새로 추가한 updateMemberState를 호출하여 안전하게 처리
         sqlSession.update("member.updateMemberState", memberNumber);
     }
+    
+    /**
+     * 회원의 닉네임을 변경합니다.
+     * @param memberNumber 회원 번호
+     * @param memberNickname 변경할 닉네임
+     */
+    public void updateNickname(int memberNumber, String memberNickname) {
+        java.util.Map<String, Object> map = new java.util.HashMap<>();
+        map.put("memberNumber", memberNumber);
+        map.put("memberNickname", memberNickname);
+        sqlSession.update("member.updateNickname", map);
+    }
+
+    /**
+     * 회원의 비밀번호를 변경합니다.
+     * @param memberNumber 회원 번호
+     * @param memberPw 변경할 새 비밀번호
+     */
+    public void updatePassword(int memberNumber, String memberPw) {
+        java.util.Map<String, Object> map = new java.util.HashMap<>();
+        map.put("memberNumber", memberNumber);
+        map.put("memberPw", memberPw);
+        sqlSession.update("member.updatePassword", map);
+    }
+
+    /**
+     * 회원의 전화번호를 변경합니다.
+     * @param memberNumber 회원 번호
+     * @param memberPhone 변경할 전화번호
+     */
+    public void updatePhone(int memberNumber, String memberPhone) {
+        java.util.Map<String, Object> map = new java.util.HashMap<>();
+        map.put("memberNumber", memberNumber);
+        map.put("memberPhone", memberPhone);
+        sqlSession.update("member.updatePhone", map);
+    }
+
+    /**
+     * 회원의 성별을 변경합니다.
+     * @param memberNumber 회원 번호
+     * @param memberGender 변경할 성별 ('M', 'W', 'N')
+     */
+    public void updateGender(int memberNumber, String memberGender) {
+        java.util.Map<String, Object> map = new java.util.HashMap<>();
+        map.put("memberNumber", memberNumber);
+        map.put("memberGender", memberGender);
+        sqlSession.update("member.updateGender", map);
+    }
+    
+    
+    /**
+     * 본인을 제외한 닉네임 중복 여부를 확인합니다.
+     * @param memberNickname 검사할 닉네임
+     * @param memberNumber 본인의 회원 번호
+     * @return 중복된 개수 (0이면 사용 가능)
+     */
+    public int checkNickname(String memberNickname, int memberNumber) {
+        java.util.Map<String, Object> map = new java.util.HashMap<>();
+        map.put("memberNickname", memberNickname);
+        map.put("memberNumber", memberNumber);
+        
+        // 두 개의 파라미터가 담긴 map을 전달합니다.
+        return sqlSession.selectOne("member.checkNicknameExceptMe", map);
+    }
 }

@@ -13,7 +13,6 @@ import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.app.mypage.surveyMentee.controller.SurveyMenteeController;
 import com.unibridge.app.mypage.surveyMentee.dao.SurveyMenteeDAO;
 import com.unibridge.app.mypage.surveyMentee.dto.SurveyMenteeDTO;
-import com.unibridge.app.mypage.surveyMentor.controller.SurveyMentorController;
 
 public class MenteeSurveyController implements Execute {
 
@@ -55,7 +54,7 @@ public class MenteeSurveyController implements Execute {
 		    // 사용자 유형 정보를 request에 추가 (예: "mentee" 또는 "mentor")
 	        // DTO의 필드명이 다를 경우 해당 getter로 수정하세요.
 	        request.setAttribute("userRole", loginUser.getMemberType());
-		    
+		    System.out.println("회원의 타입 : "+ loginUser.getMemberType());
 		    
 		    // 콘솔 출력용 코드
 		    System.out.println("------------------------------------------");
@@ -85,42 +84,17 @@ public class MenteeSurveyController implements Execute {
 	}
 
 	private void doPost(HttpServletRequest request, HttpServletResponse response) {
-		
-		System.out.println("[SurveyController] POST - 설문 처리");
-
-        String role = request.getParameter("role");
-
-        System.out.println("선택된 role: " + role);
-
-        if ("mentor".equals(role)) {
-            try {
-				outResult = new SurveyMentorController().execute(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        } 
-        else if ("mentee".equals(role)) {
-            try {
-				outResult = new SurveyMenteeController().execute(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        } 
-        else {
-            System.out.println("[ERROR] role 값 이상");
-
-            outResult.setPath(request.getContextPath() + "/index.main");
-            outResult.setRedirect(true);
-        }
-		
+	    System.out.println("[MenteeSurveyController] POST - 진입");
+	    
+	    // multipart 데이터이므로 여기서 getParameter는 무조건 null입니다.
+	    // 따라서 바로 전용 컨트롤러를 실행하여 그 안에서 처리하도록 합니다.
+	    try {
+	        // 현재 페이지의 유저 타입에 따라 기본적으로 멘티 컨트롤러를 실행하거나
+	        // 로직을 단순화하여 멘티 컨트롤러 내에서 분기 처리를 하도록 유도합니다.
+	        outResult = new SurveyMenteeController().execute(request, response);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 }

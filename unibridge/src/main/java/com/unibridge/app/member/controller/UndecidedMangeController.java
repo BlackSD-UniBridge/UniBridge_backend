@@ -38,7 +38,7 @@ public class UndecidedMangeController implements Execute{
 
 	private void doGet(HttpServletRequest request, HttpServletResponse response) {
 		
-		System.out.println("멘토/멘티 -- 회원 정보 출력");
+		System.out.println("미정 -- 회원 정보 출력");
 		
 		HttpSession session = request.getSession();
 		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
@@ -53,7 +53,7 @@ public class UndecidedMangeController implements Execute{
 	    request.setAttribute("member", member);
 	    
 	    // outResult로 forward 설정
-	    outResult.setPath("/app/user/undecied/myPage/myPage.jsp");
+	    outResult.setPath("/app/user/undetermined/myPage/myPage.jsp");
 	    outResult.setRedirect(false); // forward 처리
 	    
 	    System.out.println("request.getContextPath() :" + request.getContextPath());

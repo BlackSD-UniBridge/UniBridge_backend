@@ -1,7 +1,7 @@
 package com.unibridge.app.member.controller;
 
 import java.io.IOException;
-
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,69 +13,107 @@ import com.unibridge.app.member.dao.MemberDAO;
 import com.unibridge.app.member.dto.MemberDTO;
 
 public class MenteeUpdateOkController implements Execute {
-	
-	private Result outResult = new Result();
+
+    private Result outResult = new Result();
 
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        System.out.println("--------------MenteeMangeController-------------");
 
-    		String method = request.getMethod().toUpperCase();
-        Result result = new Result(); // 필드 변수 대신 지역 변수 사용 권장
+        String method = request.getMethod().toUpperCase();
 
         switch (method) {
             case "GET":
-                System.out.println("doGet 실행: 수정 폼 출력");
-                result.setPath("/app/user/mentee/myPage/userManage/userModify.jsp");
-                result.setRedirect(false); // Forward로 화면 출력
-                break; // 👈 이게 없어서 doPost까지 실행되었던 것임!
-
+                doGet(request, response);
+                break;
             case "POST":
-                System.out.println("doPost 실행: DB 업데이트 처리");
-                // ... DB 업데이트 로직 (생략) ...
-                
-                // 처리 완료 후 리다이렉트 (ContextPath 중복 주의)
-                result.setPath(request.getContextPath() + "/auth/mentee/finishUpdate.my");
-                result.setRedirect(true);
+                doPost(request, response);
                 break;
         }
 
-        return result;
+        return outResult;
     }
 
-	private void doGet(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		MemberDTO memberNumber = (MemberDTO) session.getAttribute("loginUser");
-		
-		System.out.println("doget 실행 됨");
-		outResult.setPath("/app/user/mentee/myPage/userManage/userModify.jsp");
-	    outResult.setRedirect(false); 
-		
-	}
+    // [GET] 수정 페이지로 이동할 때 실행 (최초 데이터 로드)
+    private void doGet(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("doGet 실행: 수정 폼 출력용 데이터 조회");
+        
+        HttpSession session = request.getSession();
+        MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+        MemberDAO dao = new MemberDAO();
 
-	private void doPost(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("[UpdateOk] DB 업데이트 시작");
-	    
-	    HttpSession session = request.getSession();
-	    MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
-	    String newPhone = (String) request.getAttribute("newPhoneNumber"); // SubmitController에서 전달
+        if (loginUser != null) {
+            // DB에서 최신 정보를 조회하여 request에 담기
+            Map<String, Object> member = dao.selectMember(loginUser.getMemberNumber());
+            request.setAttribute("member", member);
+        }
 
-//	    if (loginUser != null && newPhone != null) {
-//	        MemberDAO dao = new MemberDAO();
-//	        // 실제 DB 업데이트 실행 (DAO에 해당 메서드가 구현되어 있어야 함)
-//	        dao.updatePhoneNumber(loginUser.getMemberNumber(), newPhone);
-//	        
-//	        // 세션 정보 갱신 (선택 사항)
-//	        loginUser.setMemberPhone(newPhone);
-//	        session.setAttribute("loginUser", loginUser);
-//	        
-//	        System.out.println("[UpdateOk] 휴대폰 번호 변경 완료: " + newPhone);
-//	    }
-//
-//	    // 수정 완료 후 마이페이지 메인으로 리다이렉트
-	    outResult.setPath(request.getContextPath() + "/auth/mentee/finishUpdate.my");
-	    outResult.setRedirect(true);
-		
-	}
+        outResult.setPath("/app/user/mentee/myPage/userManage/userModify.jsp");
+        outResult.setRedirect(false); // Forward
+    }
 
+    // [POST] 각 폼에서 [변경] 버튼을 눌렀을 때 실행 (데이터 수정)
+    private void doPost(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("doPost 실행: DB 업데이트 처리");
+        
+        HttpSession session = request.getSession();
+        MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+        MemberDAO dao = new MemberDAO();
+        
+        int memberNumber = loginUser.getMemberNumber();
+        String updateType = request.getParameter("updateType");
+
+        // 1. 닉네임 수정
+        if ("nickname".equals(updateType)) {
+            String nickname = request.getParameter("memberNickname");
+            
+            // memberNumber를 함께 전달하도록 수정
+            if (dao.checkNickname(nickname, memberNumber) == 0) { 
+                dao.updateNickname(memberNumber, nickname);
+                request.setAttribute("updateStatus", "nickname_ok");
+            } else {
+                request.setAttribute("nickError", "중복된 닉네임입니다.");
+            }
+        }
+
+        // 2. 비밀번호 수정
+        if ("password".equals(updateType)) {
+            String pw = request.getParameter("newPw");
+            String pwConfirm = request.getParameter("newPwConfirm");
+            if (pw != null && pw.equals(pwConfirm) && !pw.isEmpty()) {
+                dao.updatePassword(memberNumber, pw);
+                request.setAttribute("updateStatus", "password_ok");
+            } else {
+                request.setAttribute("pwError", "비밀번호가 일치하지 않습니다. / 확인이 필요합니다.");
+            }
+        }
+
+        // 3. 전화번호 수정 (인증 여부 확인)
+        if ("phone".equals(updateType)) {
+            Boolean isVerified = (Boolean) session.getAttribute("isPhoneVerified");
+            String phone = request.getParameter("memberPhone");
+            if (isVerified != null && isVerified) {
+                dao.updatePhone(memberNumber, phone);
+                session.removeAttribute("isPhoneVerified"); // 인증 초기화
+                request.setAttribute("updateStatus", "phone_ok");
+            } else {
+                request.setAttribute("phoneError", "전화번호 인증이 필요합니다.");
+            }
+        }
+
+        // 4. 성별 수정
+        if ("gender".equals(updateType)) {
+            String gender = request.getParameter("memberGender");
+            System.out.println("선택된 성별 : "+ gender);
+            dao.updateGender(memberNumber, gender);
+            request.setAttribute("updateStatus", "gender_ok");
+        }
+
+        // 데이터 최신화 후 이동
+        request.setAttribute("member", dao.selectMember(memberNumber));
+        outResult.setPath("/app/user/mentee/myPage/userManage/userModify.jsp");
+        outResult.setRedirect(false);
+    }
 }

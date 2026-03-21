@@ -11,8 +11,8 @@ import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.member.dto.MemberDTO;
 
-public class UndecidedVerifySubmitController implements Execute{
-	
+public class MentorVerifySubmitController implements Execute{
+
 	private Result outResult = new Result();
 
     @Override
@@ -31,7 +31,7 @@ public class UndecidedVerifySubmitController implements Execute{
         // 3. 비밀번호 일치 검증
         if (loginUser == null || !loginUser.getMemberPw().equals(inputPw)) {
             request.setAttribute("pwError", "비밀번호가 일치하지 않습니다.");
-            outResult.setPath("/app/user/undetermined/myPage/userManage/userModifyCheck.jsp");
+            outResult.setPath("/app/user/mentor/myPage/userManage/userModifyCheck.jsp");
             outResult.setRedirect(false);
             return outResult;
         }
@@ -39,7 +39,7 @@ public class UndecidedVerifySubmitController implements Execute{
         // 4. 휴대폰 인증 완료 여부 검증
         if (isPhoneVerified == null || !isPhoneVerified) {
             request.setAttribute("authError", "휴대폰 인증이 완료되지 않았습니다.");
-            outResult.setPath("/app/user/undetermined/myPage/userManage/userModifyCheck.jsp");
+            outResult.setPath("/app/user/mentor/myPage/userManage/userModifyCheck.jsp");
             outResult.setRedirect(false);
             return outResult;
         }
@@ -48,7 +48,7 @@ public class UndecidedVerifySubmitController implements Execute{
         request.setAttribute("newPhoneNumber", inputPhone);
         
         // 실제 DB 업데이트를 처리하는 컨트롤러로 이동
-        outResult.setPath(request.getContextPath() + "/auth/undeterminedupdateOk.my");
+        outResult.setPath(request.getContextPath() + "/auth/mentor/updateOk.my");
         outResult.setRedirect(true); // 데이터를 가지고 가야 하므로 forward 방식 사용
         
         return outResult;

@@ -51,60 +51,60 @@
                         <div class="spacer"></div>
                     </div>
 
-                    <div class="inputGroup">
-                        <label>닉네임</label>
-                        <input type="text" class="userInput" id="nickInput" value="${member.MEMBER_NICKNAME}">
-                        <button class="duplication" id="nickCheckBtn">중복확인</button>
-            			<button class="change" id="nickChangeBtn">변경</button>
-            			<div class="errorMsg" id="nickError"></div>
-                    </div>
+                    <form action="${pageContext.request.contextPath}/mvc/auth/undecided/updateOk.my" method="post">
+					    <input type="hidden" name="updateType" value="nickname">
+					    <div class="inputGroup">
+					        <label>닉네임</label>
+					        <input type="text" class="userInput" name="memberNickname" value="${member.MEMBER_NICKNAME}">
+					        <button type="button" class="duplication" id="nickCheckBtn">중복확인</button>
+					        <button type="submit" class="change">변경</button> 
+					        <div class="errorMsg">${nickError}</div> </div>
+					</form>
 
-                    <div class="inputGroup">
-                        <label>변경할 비밀번호</label>
-                        <input type="text" class="userInput">
-                        <div class="spacer"></div>
-                        <div class="spacer"></div>
-                    </div>
+                    <form action="${pageContext.request.contextPath}/mvc/auth/undecided/updateOk.my" method="post">
+					    <input type="hidden" name="updateType" value="password">
+					    <div class="inputGroup">
+					        <label>변경할 비밀번호</label>
+					        <input type="password" class="userInput" name="newPw">
+					        <div class="errorMsg"></div>
+					    </div>
+					    <div class="inputGroup">
+					        <label>비밀번호 확인</label>
+					        <input type="password" class="userInput" name="newPwConfirm">
+					        <button type="submit" class="change">변경</button>
+					        <div class="errorMsg">${pwError}</div>
+					    </div>
+					</form>
 
-                    <div class="inputGroup">
-                        <label>비밀번호 확인</label>
-                        <input type="password" class="userInput">
-                        <button class="duplication">확인</button>
-                        <button class="change">변경</button>
-                        <div class="errorMsg"></div>
-                    </div>
+                    <form action="${pageContext.request.contextPath}/mvc/auth/undecided/updateOk.my" method="post" id="phoneForm">
+					    <input type="hidden" name="updateType" value="phone">
+					    
+					    <div class="inputGroup">
+					        <label>전화번호</label>
+					        <input type="text" class="userInput" name="memberPhone" id="memberPhone" value="${member.MEMBER_PHONE}">
+					        <button type="button" class="authBtn" onclick="sendSms()">인증번호전송</button>
+					        <div class="errorMsg" id="phoneSendError" style="color: red;">${phoneError}</div>
+					    </div>
+					
+					    <div class="inputGroup">
+					        <label>인증번호</label>
+					        <input type="text" class="userInput" id="authCodeInput">
+					        <button type="button" class="duplication" onclick="verifyCode()">확인</button>
+					        <button type="submit" class="change">전화번호변경</button>
+					        <div class="errorMsg" id="authCodeError"></div>
+					    </div>
+					</form>
 
-                    <div class="inputGroup">
-                        <label>전화번호</label>
-                        <input type="text" class="userInput" id="phoneInput" value="${member.MEMBER_PHONE}">
-            			<button class="authBtn" id="sendSmsBtn">인증번호전송</button>
-                        <div class="spacer2"></div>
-                        <div class="errorMsg" id="phoneError"></div>
-                    </div>
-
-                    <div class="inputGroup">
-                        <label>인증번호</label>
-                        <input type="text" class="userInput" id="authCodeInput">
-			            <button class="duplication" id="authConfirmBtn">확인</button>
-			            <button class="change" id="phoneChangeBtn">전화번호변경</button>
-			            <div class="errorMsg" id="authError"></div>
-                    </div>
-
-                    <div class="inputGroup">
-                        <label>성별</label>
-                        <div class="radioGroup">
-			                <span class="radioItem">
-			                    <span>남성</span> <input type="radio" value="M" name="gender" class="radioUserType" ${member.MEMBER_GENDER == 'M' ? 'checked' : ''}> 
-			                </span>
-			                <span class="radioItem">
-			                    <span>여성</span> <input type="radio" value="W" name="gender" class="radioUserType" ${member.MEMBER_GENDER == 'W' ? 'checked' : ''}> 
-			                </span>
-			                <span class="radioItem">
-			                    <span>선택안함</span> <input type="radio" value="N" name="gender" class="radioUserType" ${member.MEMBER_GENDER == 'N' ? 'checked' : ''}> 
-			                </span>
-			            </div>
-                        <button class="change" id="genderChangeBtn">변경</button>
-                    </div>
+                    <form action="${pageContext.request.contextPath}/mvc/auth/undecided/updateOk.my" method="post">
+					    <input type="hidden" name="updateType" value="gender"> <div class="inputGroup">
+					        <label>성별</label>
+					        <div class="radio-group">
+					            <input type="radio" value="M" name="memberGender" ${member.MEMBER_GENDER == 'M' ? 'checked' : ''}> 남성
+					            <input type="radio" value="W" name="memberGender" ${member.MEMBER_GENDER == 'W' ? 'checked' : ''}> 여성
+					            <input type="radio" value="N" name="memberGender" ${member.MEMBER_GENDER == 'N' ? 'checked' : ''}> 미정
+					        </div>
+					        <button type="submit" class="change">변경</button> </div>
+					</form>
                 </div>
             </div>
             <button class="userModifyBtn">완료</button>

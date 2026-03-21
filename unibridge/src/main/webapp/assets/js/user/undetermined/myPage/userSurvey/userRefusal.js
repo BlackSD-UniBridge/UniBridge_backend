@@ -1,5 +1,5 @@
 /**
- * 미정 설문조사
+ * 멘티 설문조사
  */
 const modal = document.getElementById("surveyModal");
 const openBtn = document.getElementById("userWriteBtn");
@@ -11,6 +11,26 @@ const submitBtn = document.getElementById("submitBtn"); //작성완료
 const roleRadios = document.querySelectorAll('.radioUserType');
 const mentorContent = document.getElementById('mentorContent');
 const menteeContent = document.getElementById('menteeContent');
+
+// 1. 초기 상태 설정 함수 추가
+function initSurveyForm() {
+	// 현재 선택(checked)된 라디오 버튼에 따라 컨텐츠 표시/숨김
+    const checkedRadio = document.querySelector('input[name="role"]:checked');
+    
+    if (checkedRadio) {
+        if (checkedRadio.value === 'mentor') {
+            document.getElementById('mentorContent').style.display = 'block';
+            document.getElementById('menteeContent').style.display = 'none';
+        } else if (checkedRadio.value === 'mentee') {
+            document.getElementById('mentorContent').style.display = 'none';
+            document.getElementById('menteeContent').style.display = 'block';
+        }
+    }
+}
+
+
+// 페이지 로드 시 및 모달 열 때 초기화 실행
+window.addEventListener('DOMContentLoaded', initSurveyForm);
 
 // 모달 열기
 openBtn.onclick = () => {
@@ -53,28 +73,30 @@ function updateFileName() {
     }
 }
 
+// 2. 제출 버튼 로직 수정
 submitBtn.onclick = (event) => {
-    // 1. 기본 동작(페이지 이동) 방지
     event.preventDefault();
 
     const form = document.getElementById("surveyForm");
+    const checkedInput = document.querySelector('input[name="role"]:checked');
     
-    // 2. 현재 선택된 라디오 버튼(멘토 또는 멘티) 가져오기
-    const selectedRole = document.querySelector('input[name="role"]:checked').value;
-    
-    // 3. 역할에 따라 전송할 컨트롤러 경로 설정
-    // contextPath가 필요한 경우 앞부분에 추가해 주세요 (예: /unibridge/mypage/...)
-    if (selectedRole === "mentor") {
-        form.action = "/mypage/surveyMentorOk.my";
-    } else if (selectedRole === "mentee") {
-        form.action = "/mypage/surveyMenteeOk.my";
+    if(!checkedInput) {
+        alert("역할을 선택해주세요.");
+        return;
     }
 
-    // 4. 데이터가 잘 수집되는지 확인하기 위한 로그 (선택 사항)
-    console.log("[JS LOG] 제출 역할: " + selectedRole);
-    console.log("[JS LOG] 전송 경로: " + form.action);
+    const selectedRole = checkedInput.value;
+    
+    // JSP에서 전역 변수로 contextPath를 선언해두어야 합니다. (아래 JSP 가이드 참고)
+    const finalContextPath = typeof contextPath !== 'undefined' ? contextPath : "";
 
-    // 5. 서버로 폼 데이터 전송
+    if (selectedRole === "mentor") {
+        form.action = finalContextPath + "/auth/mentor/survey.my";
+    } else if (selectedRole === "mentee") {
+        form.action = finalContextPath + "/auth/mentee/survey.my";
+    }
+
+    console.log("[JS LOG] 전송 경로: " + form.action);
     form.submit();
 };
 
@@ -89,6 +111,6 @@ roleRadios.forEach(radio => {
             menteeContent.style.display = 'block';
         }
     });
-});/**
+});;/**
  * 
  */

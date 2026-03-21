@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userSurvey/userSurvey.css">
+    <script>
+	    // JS 파일에서 사용할 수 있도록 전역 변수 선언
+	    const contextPath = "${pageContext.request.contextPath}";
+	</script>
     <script defer src="${pageContext.request.contextPath}/assets/js/user/mentor/myPage/userSurvey/userSurvey.js"></script>
 </head>
 <body>
@@ -65,19 +69,26 @@
                     <div class="surveyTitle">설문 조사</div>
                     <div class="modalBox">
                         <form id="surveyForm" action="${pageContext.request.contextPath}/auth/mentor/survey.my" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="role" value="${userRole eq 'MENTEE' ? 'mentee' : 'mentor'}">
                             <div class="inputRow">
                                 <label>멘토/멘티</label>
                                 <div class="radioGroup">
                                     <label class="radioItem">
-                                        <span>멘토</span> <input type="radio" value="mentor" name="role" class="radioUserType"> 
+                                        <span>멘토</span> 
+                                        <input type="radio" value="mentor" name="role" class="radioUserType" 
+                                        		${userRole eq 'MENTEE' ? 'disabled' : ''} 
+                								${userRole eq 'MENTOR' ? 'checked' : ''}>
                                     </label>
                                     <label class="radioItem">
-                                        <span>멘티</span> <input type="radio" value="mentee" name="role" class="radioUserType" checked> 
+                                        <span>멘티</span> 
+                                        <input type="radio" value="mentee" name="role" class="radioUserType"
+                                        		${userRole eq 'MENTOR' ? 'disabled' : ''} 
+                								${userRole eq 'MENTEE' ? 'checked' : ''}>
                                     </label>
                                 </div>
                             </div>
 
-                            <div id="mentorContent" class="mentorContentList" style="display: none;">
+                            <div id="mentorContent" class="mentorContentList" style="display: block;">
                                 <div class="inputRow">
                                     <label>대학</label>
                                     <input type="text" name="gradSchool" class="modalInput">
@@ -106,7 +117,7 @@
                                 </div>
                             </div>
 
-                            <div id="menteeContent" class="menteeContentList" style="display: block;">
+                            <div id="menteeContent" class="menteeContentList" style="display: none;">
                                 <div class="inputRow">
                                     <label>희망 과목</label>
                                     <select name="subjectNumber" class="modalSelect">
@@ -163,8 +174,5 @@
             </div>
         </main>
     </div>
-
-    <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
 </body>
 </html>

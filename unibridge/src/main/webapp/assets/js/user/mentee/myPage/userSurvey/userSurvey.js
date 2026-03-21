@@ -14,16 +14,16 @@ const menteeContent = document.getElementById('menteeContent');
 
 // 1. 초기 상태 설정 함수 추가
 function initSurveyForm() {
-    // 체크된 라디오 버튼 찾기
+	// 현재 선택(checked)된 라디오 버튼에 따라 컨텐츠 표시/숨김
     const checkedRadio = document.querySelector('input[name="role"]:checked');
     
     if (checkedRadio) {
         if (checkedRadio.value === 'mentor') {
-            mentorContent.style.display = 'block';
-            menteeContent.style.display = 'none';
+            document.getElementById('mentorContent').style.display = 'block';
+            document.getElementById('menteeContent').style.display = 'none';
         } else if (checkedRadio.value === 'mentee') {
-            mentorContent.style.display = 'none';
-            menteeContent.style.display = 'block';
+            document.getElementById('mentorContent').style.display = 'none';
+            document.getElementById('menteeContent').style.display = 'block';
         }
     }
 }

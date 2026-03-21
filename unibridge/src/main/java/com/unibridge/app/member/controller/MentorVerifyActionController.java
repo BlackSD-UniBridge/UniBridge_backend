@@ -25,13 +25,14 @@ import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.pay.controller.ConfigReader;
 
-public class MentorVerifyController implements Execute{
-
-    @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response)
+public class MentorVerifyActionController implements Execute{
+	
+	
+	@Override
+    public Result execute(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-    	
-    	String mode = request.getParameter("mode");
+        
+		String mode = request.getParameter("mode");
         response.setContentType("text/plain; charset=utf-8");
 
         if ("send".equals(mode)) {
@@ -44,9 +45,9 @@ public class MentorVerifyController implements Execute{
 
         // AJAX 요청이므로 Result(페이지 이동 정보)를 반환하지 않음
         return null;
-    }
 
- // [1] 문자 발송 로직
+	}
+	// [1] 문자 발송 로직
     private void doSendSms(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String phoneNumber = request.getParameter("phoneNumber");
         
@@ -101,50 +102,50 @@ public class MentorVerifyController implements Execute{
 
     // 솔라피 API 호출 메서드 (동일 로직)
     private boolean requestSendApi(String to, String code) {
-        try {
-            String apiKey = ConfigReader.getProperty("solapi.api.key"); //
-            String apiSecret = ConfigReader.getProperty("solapi.api.secret"); //
-            String from = ConfigReader.getProperty("solapi.from.number"); //
-            
-            // 로그 출력으로 값 확인 (운영 시에는 삭제)
-            System.out.println("[Debug] API Key: " + apiKey);
-            System.out.println("[Debug] From Number: " + from);
-
-            String salt = UUID.randomUUID().toString().replaceAll("-", ""); //
-            String date = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME); //
-            
-            Mac sha256_HMAC = Mac.getInstance("HmacSHA256"); //
-            sha256_HMAC.init(new SecretKeySpec(apiSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256")); //
-            String signature = String.format("%064x", new java.math.BigInteger(1, sha256_HMAC.doFinal((date + salt).getBytes(StandardCharsets.UTF_8)))); //
-
-            URL url = new URL("https://api.solapi.com/messages/v4/send"); //
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection(); //
-            conn.setRequestMethod("POST"); //
-            conn.setRequestProperty("Authorization", "HMAC-SHA256 apiKey=" + apiKey + ", date=" + date + ", salt=" + salt + ", signature=" + signature); //
-            conn.setRequestProperty("Content-Type", "application/json; charset=utf-8"); //
-            conn.setDoOutput(true); //
-
-            JsonObject msg = new JsonObject(); //
-            msg.addProperty("to", to); //
-            msg.addProperty("from", from); //
-            msg.addProperty("text", "[UniBridge] 인증번호는 [" + code + "] 입니다."); //
-            
-            JsonObject root = new JsonObject(); //
-            root.add("message", msg); //
-
-            try (OutputStream os = conn.getOutputStream()) { //
-                os.write(root.toString().getBytes(StandardCharsets.UTF_8)); //
-            }
-            
-            int responseCode = conn.getResponseCode();
-            System.out.println("[Debug] Solapi Response Code: " + responseCode);
-            
-            // 200이 아니면 실패 원인을 응답 본문에서 읽어와야 함
-            return responseCode == 200;
-//            return conn.getResponseCode() == 200; 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+	        try {
+	            String apiKey = ConfigReader.getProperty("solapi.api.key"); //
+	            String apiSecret = ConfigReader.getProperty("solapi.api.secret"); //
+	            String from = ConfigReader.getProperty("solapi.from.number"); //
+	            
+	            // 로그 출력으로 값 확인 (운영 시에는 삭제)
+	            System.out.println("[Debug] API Key: " + apiKey);
+	            System.out.println("[Debug] From Number: " + from);
+	
+	            String salt = UUID.randomUUID().toString().replaceAll("-", ""); //
+	            String date = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME); //
+	            
+	            Mac sha256_HMAC = Mac.getInstance("HmacSHA256"); //
+	            sha256_HMAC.init(new SecretKeySpec(apiSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256")); //
+	            String signature = String.format("%064x", new java.math.BigInteger(1, sha256_HMAC.doFinal((date + salt).getBytes(StandardCharsets.UTF_8)))); //
+	
+	            URL url = new URL("https://api.solapi.com/messages/v4/send"); //
+	            HttpURLConnection conn = (HttpURLConnection) url.openConnection(); //
+	            conn.setRequestMethod("POST"); //
+	            conn.setRequestProperty("Authorization", "HMAC-SHA256 apiKey=" + apiKey + ", date=" + date + ", salt=" + salt + ", signature=" + signature); //
+	            conn.setRequestProperty("Content-Type", "application/json; charset=utf-8"); //
+	            conn.setDoOutput(true); //
+	
+	            JsonObject msg = new JsonObject(); //
+	            msg.addProperty("to", to); //
+	            msg.addProperty("from", from); //
+	            msg.addProperty("text", "[UniBridge] 인증번호는 [" + code + "] 입니다."); //
+	            
+	            JsonObject root = new JsonObject(); //
+	            root.add("message", msg); //
+	
+	            try (OutputStream os = conn.getOutputStream()) { //
+	                os.write(root.toString().getBytes(StandardCharsets.UTF_8)); //
+	            }
+	            
+	            int responseCode = conn.getResponseCode();
+	            System.out.println("[Debug] Solapi Response Code: " + responseCode);
+	            
+	            // 200이 아니면 실패 원인을 응답 본문에서 읽어와야 함
+	            return responseCode == 200;
+	//            return conn.getResponseCode() == 200; 
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+    	}
     }
-}

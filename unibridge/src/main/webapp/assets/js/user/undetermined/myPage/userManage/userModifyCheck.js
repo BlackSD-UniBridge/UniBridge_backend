@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-		fetch('/unibridge/mvc/auth/mentee/verifyAction.my?mode=send', {
+		fetch('/unibridge/mvc/auth/undecided/verifyAction.my?mode=send', {
 		    method: 'POST',
 		    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 		    body: `phoneNumber=${encodeURIComponent(phone)}`
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 경로를 verifyAction.my로 수정
-		fetch('/unibridge/mvc/auth/mentee/verifyAction.my?mode=check', {
+		fetch('/unibridge/mvc/auth/undecided/verifyAction.my?mode=check', {
 		    method: 'POST',
 		    headers: { 'Content-Type': 'application/json' },
 		    body: JSON.stringify({ authCode: code })
@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		        isAuthVerified = true;
 		        verifyBtn.disabled = true;
 		        verifyMsg.style.display = 'none'; // 성공 시 메시지 숨김
+				location.href = '/unibridge/mvc/auth/undecided/updateOk.my';
 		    } else {
 		        // 이미지와 동일한 실패 문구 노출
 		        verifyMsg.innerText = "인증에 실패하였습니다.";

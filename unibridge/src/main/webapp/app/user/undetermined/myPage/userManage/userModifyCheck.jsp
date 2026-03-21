@@ -32,30 +32,47 @@
             </div>
             <div class="userMain">
                 <div class="modifyForm">
-                    <form action="" id="goUserModify">
+                    <form action="${pageContext.request.contextPath}/mvc/auth/mentee/verifySubmit.my" method="POST" id="goUserModify">
+
+                        <%-- 현재 비밀번호: spacer로 버튼 자리 확보 → input 너비 통일 --%>
                         <div class="inputGroup">
                             <label>현재 비밀번호</label>
-                            <input type="text" class="userInput">
-                            <div class="spacer"></div>
+                            <div class="inputRow">
+                                <input type="password" name="password" class="userInput" required>
+                                <div class="spacer"></div>
+                            </div>
+                            <c:if test="${not empty pwError}">
+                                <div class="errorText">${pwError}</div>
+                            </c:if>
                         </div>
-        
+
+                        <%-- ✅ 전화번호: 입력창 + 버튼 한 줄, 에러는 inputRow 바로 아래 --%>
                         <div class="inputGroup">
                             <label>전화번호</label>
-                            <input type="tel" class="userInput">
-                            <button class="duplication">인증 번호 전송</button>
+                            <div class="inputRow">
+                                <input type="tel" name="phoneNumber" class="userInput" id="phoneNum"
+                                       placeholder="휴대폰 번호 (숫자만 입력)" required>
+                                <button type="button" class="duplication" id="sendSmsBtn">인증번호전송</button>
+                            </div>
+                            <c:if test="${not empty authError}">
+                                <div class="errorText">${authError}</div>
+                            </c:if>
                         </div>
-    
+
+                        <%-- 인증번호: 입력창 + 버튼 한 줄, 에러는 inputRow 바로 아래 --%>
                         <div class="inputGroup">
                             <label>인증번호</label>
-                            <input type="text" class="userInput">
-                            <button class="duplication">인증 확인</button>
+                            <div class="inputRow">
+                                <input type="text" name="authCode" class="userInput" id="authNum"
+                                       placeholder="인증번호 입력">
+                                <button type="button" class="duplication" id="verifySmsBtn">인증확인</button>
+                            </div>
+                            <div id="verifyFailMsg" class="errorText" style="display: none;">인증에 실패하였습니다.</div>
                         </div>
                     </form>
-                    
                 </div>
             </div>
-            <button class="userModifyBtn" form="goUserModify">정보 수정</button>
-
+            <button type="submit" form="goUserModify" class="userModifyBtn">정보 수정</button>
         </main>
 
     </div>

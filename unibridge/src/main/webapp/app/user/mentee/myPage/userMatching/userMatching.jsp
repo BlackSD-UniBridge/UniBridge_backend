@@ -63,8 +63,10 @@
 							</div>
 							<div class="userText">
 	                            <label>학습보고서</label>
-	                            <button class="mentoringCheck" id="reportBtn">학습보고서 확인</button>
-                        		</div>
+	                            <form method="post" action="${pageContext.request.contextPath}/mvc/auth/report.rep">
+		                            <button class="mentoringCheck" id="reportBtn">학습보고서 확인</button>
+	                            </form>
+                        	</div>
 						</div>
 
 						<button type="button" class="matchingCancel"

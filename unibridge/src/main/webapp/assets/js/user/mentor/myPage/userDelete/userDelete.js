@@ -1,27 +1,20 @@
-/**
- * 
- */
 document.addEventListener("DOMContentLoaded", () => {
-    const deleteForm = document.getElementById("delete");
+    const deleteForm = document.getElementById("deleteForm");
     const userId = document.getElementById("userId");
     const userPw = document.getElementById("userPw");
     const userPhone = document.getElementById("userPhone");
     const authCode = document.getElementById("authCode");
     const submitBtn = document.getElementById("submitBtn");
     
-    const loginError = document.getElementById("login-error");
-    const authError = document.getElementById("auth-error");
+    const loginError = document.getElementById("loginError");
+    const authError = document.getElementById("authError");
 
-    // [추가] 버튼 요소들
-    const sendSmsBtn = document.getElementById("sendSms"); // 전송 버튼
-    const verifyBtn = document.getElementById("verifySms"); // 확인 버튼
-
-    const TEST_ID = "test";
-    const TEST_PW = "1234";
-    const TEST_AUTH = "12345";
+    const sendSmsBtn = document.getElementById("sendSms");
+    const verifyBtn = document.getElementById("verifySms");
 
     let isAuthVerified = false;
 
+    // 필드 체크 및 버튼 활성화 함수
     const validateForm = () => {
         const allFilled = userId.value.trim() !== "" && 
                           userPw.value.trim() !== "" && 
@@ -35,50 +28,58 @@ document.addEventListener("DOMContentLoaded", () => {
         input.addEventListener("input", validateForm);
     });
 
-    // 1. 인증번호 전송 로직 추가
+    // 1. 인증번호 전송 (MenteeDeleteController 호출)
     if (sendSmsBtn) {
         sendSmsBtn.addEventListener("click", () => {
-            if (userPhone.value.trim() === "") {
-                alert("전화번호를 입력해주세요.");
-                userPhone.focus();
+            const phone = userPhone.value.trim();
+            if (!/^010\d{8}$/.test(phone)) {
+                alert("올바른 전화번호를 입력하세요.");
                 return;
             }
-            // 발송 알림 및 비활성화
-            alert("인증번호가 발송되었습니다.");
-            sendSmsBtn.disabled = true;
-            sendSmsBtn.textContent = "발송 완료";
+
+            fetch(`${contextPath}/mvc/auth/mentor/delete.my?mode=send&phoneNumber=${phone}`, {
+                method: "POST"
+            })
+            .then(res => res.text())
+            .then(data => {
+                if(data === "success") {
+                    alert("인증번호가 발송되었습니다.");
+                    sendSmsBtn.disabled = true;
+                    sendSmsBtn.textContent = "발송 완료";
+                }
+            });
         });
     }
 
-    // 2. 인증 확인 로직 수정 (비활성화 추가)
+    // 2. 인증번호 확인 (MenteeDeleteController 호출)
     verifyBtn.addEventListener("click", () => {
-        if (authCode.value === TEST_AUTH) {
-            authError.textContent = ""; 
-            isAuthVerified = true;
-            alert("인증에 성공하였습니다.");
-            
-            // 인증 성공 시 비활성화 처리
-            authCode.readOnly = true; 
-            verifyBtn.disabled = true;
-            verifyBtn.textContent = "확인 완료";
-        } else {
-            authError.textContent = "인증번호가 일치하지 않습니다.";
-            isAuthVerified = false;
-        }
-        validateForm();
+        const code = authCode.value.trim();
+        fetch(`${contextPath}/mvc/auth/mentor/delete.my?mode=check`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ authCode: code })
+        })
+        .then(res => res.text())
+        .then(data => {
+            if (data === "verified") {
+                authError.textContent = "인증 성공";
+                authError.style.color = "blue";
+                isAuthVerified = true;
+                authCode.readOnly = true;
+                verifyBtn.disabled = true;
+            } else {
+                authError.textContent = "인증번호가 틀렸습니다.";
+                authError.style.color = "red";
+                isAuthVerified = false;
+            }
+            validateForm();
+        });
     });
 
+    // 3. 최종 탈퇴 폼 제출
     deleteForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        
-        if (userId.value === TEST_ID && userPw.value === TEST_PW) {
-            loginError.textContent = "";
-            if(confirm("정말로 탈퇴하시겠습니까?")) {
-                alert("탈퇴 신청이 완료되었습니다.");
-                window.location.href = '/frontend/main.html';
-            }
-        } else {
-            loginError.textContent = "정보가 맞지 않습니다. 다시 확인해주세요.";
+        if(!confirm("정말로 탈퇴하시겠습니까?")) {
+            e.preventDefault();
         }
     });
 });

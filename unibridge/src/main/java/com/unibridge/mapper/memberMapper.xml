@@ -99,5 +99,36 @@
 	   WHERE member_number = #{memberNumber}
 	</select>
 	
+	<update id="updateNickname" parameterType="map">
+	   UPDATE UB_MEMBER
+	   SET member_nickname = #{memberNickname}
+	   WHERE member_number = #{memberNumber}
+	</update>
+	
+	<update id="updatePassword" parameterType="map">
+	   UPDATE UB_MEMBER
+	   SET member_pw = #{memberPw}
+	   WHERE member_number = #{memberNumber}
+	</update>
+	
+	<update id="updatePhone" parameterType="map">
+	   UPDATE UB_MEMBER
+	   SET member_phone = #{memberPhone}
+	   WHERE member_number = #{memberNumber}
+	</update>
+	
+	<update id="updateGender" parameterType="map">
+	   UPDATE UB_MEMBER
+	   SET member_gender = #{memberGender}
+	   WHERE member_number = #{memberNumber}
+	</update>
+	
+
+	<select id="checkNicknameExceptMe" parameterType="map" resultType="_int">
+	    SELECT COUNT(member_number)
+	    FROM UB_MEMBER
+	    WHERE member_nickname = #{memberNickname}
+	      AND member_number != #{memberNumber}
+	</select>
    
 </mapper>

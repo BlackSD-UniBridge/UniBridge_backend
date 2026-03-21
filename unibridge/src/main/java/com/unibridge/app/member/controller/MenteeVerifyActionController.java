@@ -66,26 +66,35 @@ public class MenteeVerifyActionController implements Execute {
 
     // [2] 인증번호 확인 로직 (JSON 수신)
     private void doVerifyCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader reader = request.getReader()) { //
+    	StringBuilder sb = new StringBuilder();
+        try (BufferedReader reader = request.getReader()) {
             String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
         }
 
-        Gson gson = new Gson(); //
-        JsonObject jsonBody = gson.fromJson(sb.toString(), JsonObject.class); //
-        String userCode = jsonBody.get("authCode").getAsString(); //
+        Gson gson = new Gson();
+        JsonObject jsonBody = gson.fromJson(sb.toString(), JsonObject.class);
+        String userCode = jsonBody.get("authCode").getAsString();
         
         HttpSession session = request.getSession();
-        String serverCode = (String) session.getAttribute("serverAuthCode"); //
+        
+        // 1. 세션에서 코드를 꺼냅니다.
+        String serverCode = (String) session.getAttribute("serverAuthCode");
+        System.out.println("serverCode : "+ serverCode);
 
+        // 2. [핵심] 꺼내자마자 세션에서 삭제합니다. (딱 한 번만 비교 가능하게 함)
+        session.removeAttribute("serverAuthCode"); 
+
+        // 3. 비교 로직 진행
         if (serverCode != null && serverCode.equals(userCode)) {
-            session.setAttribute("isPhoneVerified", true); //
-            response.getWriter().write("verified"); //
+            // 인증 성공 시에만 '인증완료' 플래그를 세션에 남깁니다.
+            session.setAttribute("isPhoneVerified", true);
+            response.getWriter().write("verified");
         } else {
-            response.getWriter().write("invalid"); //
+            // 코드가 틀렸거나, 이미 삭제되었거나, 세션이 만료된 경우
+            response.getWriter().write("invalid");
         }
     }
 

@@ -68,20 +68,21 @@
                     <div class="surveyTitle">설문 조사</div>
                     <div class="modalBox">
                         <form id="surveyForm" action="${pageContext.request.contextPath}/auth/mentee/survey.my" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="role" value="${userRole eq 'MENTEE' ? 'mentee' : 'mentor'}">
                             <div class="inputRow">
                                 <label>멘토/멘티</label>
                                 <div class="radioGroup">
                                     <label class="radioItem">
                                         <span>멘토</span> 
-                                        <input type="radio" value="mentor" name="role" class="radioUserType"> 
-                                        		${userRole eq 'mentee' ? 'disabled' : ''} 
-                								${userRole eq 'mentor' ? 'checked' : ''}
+                                        <input type="radio" value="mentor" name="role" class="radioUserType" 
+                                        		${userRole eq 'MENTEE' ? 'disabled' : ''} 
+                								${userRole eq 'MENTOR' ? 'checked' : ''}>
                                     </label>
                                     <label class="radioItem">
                                         <span>멘티</span> 
-                                        <input type="radio" value="mentee" name="role" class="radioUserType"> 
-                                        		${userRole eq 'mentee' ? 'disabled' : ''} 
-                								${userRole eq 'mentor' ? 'checked' : ''}
+                                        <input type="radio" value="mentee" name="role" class="radioUserType"
+                                        		${userRole eq 'MENTOR' ? 'disabled' : ''} 
+                								${userRole eq 'MENTEE' ? 'checked' : ''}>
                                     </label>
                                 </div>
                             </div>
@@ -175,7 +176,4 @@
 
     </div>
 
-    <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
-</body>
 </html>

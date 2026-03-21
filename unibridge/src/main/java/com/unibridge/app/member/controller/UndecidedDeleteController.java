@@ -1,12 +1,15 @@
 package com.unibridge.app.member.controller;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.member.dao.MemberDAO;
@@ -14,79 +17,71 @@ import com.unibridge.app.member.dto.MemberDTO;
 
 public class UndecidedDeleteController implements Execute {
 
-    private Result outResult = new Result();
-
-    @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response)
+	@Override
+    public Result execute(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-
-    	System.out.println("===UndecidedDeleteController==");
+        
+    	System.out.println("===============MenteeDeleteController================");
     	
         String method = request.getMethod().toUpperCase();
 
-        switch (method) {
-            case "GET":
-                doGet(request, response);
-                break;
-            case "POST":
-                doPost(request, response);
-                break;
+        if ("GET".equals(method)) {
+        	System.out.println("get 방식 접근");
+        	
+            // 회원탈퇴 페이지로 이동
+            Result result = new Result();
+            result.setPath("/app/user/undetermined/myPage/userDelete/userDelete.jsp");
+            result.setRedirect(false);
+            return result;
+        } else {
+        	System.out.println("post 방식 접근");
+        	
+            // POST 방식: AJAX 인증 처리
+            String mode = request.getParameter("mode");
+            response.setContentType("text/plain; charset=utf-8");
+
+            if ("send".equals(mode)) {
+                doSendSms(request, response);
+            } else if ("check".equals(mode)) {
+                doVerifyCode(request, response);
+            }
+            return null; // AJAX 응답이므로 페이지 이동 없음
+        }
+    }
+
+    private void doSendSms(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String phoneNumber = request.getParameter("phoneNumber");
+        if (phoneNumber == null || !phoneNumber.matches("^010\\d{8}$")) {
+            response.getWriter().write("invalid_format");
+            return;
         }
 
-        return outResult;
+        String authCode = String.format("%06d", new Random().nextInt(1000000));
+        request.getSession().setAttribute("deleteAuthCode", authCode);
+
+        // 실제 문자 발송 API (기존 소스 활용)
+        // boolean isSent = requestSendApi(phoneNumber, authCode);
+        System.out.println("[DEBUG] 생성된 인증번호: " + authCode); // 테스트용
+        response.getWriter().write("success"); 
     }
 
-    // 탈퇴 페이지 이동
-    private void doGet(HttpServletRequest request, HttpServletResponse response) {
-    	
-    	// 회원 탈퇴 페이지
-    	outResult.setPath("/app/user/undetermined/myPage/userDelete/userDelete.jsp");
-        outResult.setRedirect(false);
+    private void doVerifyCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        JsonObject jsonBody = new Gson().fromJson(request.getReader(), JsonObject.class);
+        String userCode = jsonBody.get("authCode").getAsString();
         
-    }
+        HttpSession session = request.getSession();
+        String serverCode = (String) session.getAttribute("deleteAuthCode");
 
-    // 실제 탈퇴 처리
-    private void doPost(HttpServletRequest request, HttpServletResponse response) {
-
-    	System.out.println("[DeleteController] POST - 회원 탈퇴 진행");
-
-    	HttpSession session = request.getSession();
-		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
-	    System.out.println("MenteeMange컨트롤러 : " + loginUser.getMemberNumber());
-	    
-	    // 1. JSP에서 입력한 데이터(비밀번호 등) 받아오기
-	    String inputId = request.getParameter("memberId");
-	    String inputPw = request.getParameter("memberPw");
-	    
-	    System.out.println("입력받은 ID : "+ inputId);
-	    System.out.println("입력받은 PW : "+ inputPw);
-
-	    // 3. 검증 로직 (세션 정보와 입력 정보 비교)
-	    // 예: 로그인된 아이디와 입력한 아이디가 같은지, 비밀번호가 DB와 일치하는지 등
-	    if (loginUser.getMemberId().equals(inputId)) {
-	        MemberDAO memberDAO = new MemberDAO();
-	        
-	        // DTO에 입력받은 비밀번호를 담아서 DAO로 전달 (DB 비밀번호 확인용)
-	        MemberDTO checkDto = new MemberDTO();
-	        checkDto.setMemberNumber(loginUser.getMemberNumber());
-	        checkDto.setMemberPw(inputPw);
-	
-	        boolean isValid = memberDAO.checkMember(checkDto);
-	
-	        if (isValid) {
-	            // 탈퇴 처리
-	            memberDAO.deleteMember(loginUser.getMemberNumber());
-	            session.invalidate();
-	            outResult.setRedirect(true);
-	            outResult.setPath(request.getContextPath() + "/index.main");
-	            return;
-	        }
-	        // 검증 실패 시
-	        request.setAttribute("errorMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
-	    }
-
-//	    outResult.setPath("/app/user/undetermined/myPage/userDelete/userDelete.jsp");
-//	    outResult.setRedirect(false);
-        
+        if (serverCode != null && serverCode.equals(userCode)) {
+        	// 1. 인증 완료 마크 저장 (최종 탈퇴 처리를 위해 필요)
+            session.setAttribute("isDeleteVerified", true); 
+            
+            // 2. ★ 사용이 끝난 인증번호는 즉시 삭제 ★
+            session.removeAttribute("deleteAuthCode"); 
+            
+            response.getWriter().write("verified");
+        } else {
+            response.getWriter().write("invalid");
+        }
     }
 }

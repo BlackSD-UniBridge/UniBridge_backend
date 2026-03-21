@@ -28,29 +28,51 @@ function closeCancelModal(matchNum) {
 function submitCancel(matchNum) {
     const modal = document.getElementById('matchingModal_' + matchNum);
     const reasonArea = modal.querySelector('textarea[name="matchingCanReason"]');
+    // 공백 제거 후 값 가져오기
     const reason = reasonArea ? reasonArea.value.trim() : "";
 
-    // 1. 유효성 검사
+    // 1. [검사] 사유가 비어있는지 체크
     if (reason === "") {
         alert("취소 사유를 입력해주세요.");
         if(reasonArea) reasonArea.focus();
-        return false; // HTML 폼 전송을 중단함
+        return;
     }
 
+    // 2. [검사] 1024자 제한 체크 (DB 에러 방지)
     if (reason.length > 1024) {
-        alert("취소 사유는 1024자를 초과할 수 없습니다.");
-        return false; // HTML 폼 전송을 중단함
+        alert("취소 사유는 1024자를 초과할 수 없습니다. (현재: " + reason.length + "자)");
+        if(reasonArea) reasonArea.focus();
+        return;
     }
 
-    // 2. 최종 확인
+    // 3. 사용자 최종 확인
     if (confirm("정말로 매칭을 취소 신청하시겠습니까?")) {
-        // [중요] 여기서 별도로 form을 만들지 않습니다.
-        // true를 반환하면 HTML에 작성된 <form>이 자동으로 제출됩니다.
-        alert("매칭 취소 신청을 처리합니다.");
-        return true; 
-    }
+        const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
+        
+        // 가상의 폼 생성
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = contextPath + "/mvc/auth/mentor/matching.my"; 
 
-    return false; // 취소 버튼 누를 시 전송 중단
+        // 데이터 1: 매칭 번호 추가
+        const numInput = document.createElement('input');
+        numInput.type = 'hidden';
+        numInput.name = 'matchinNumber'; 
+        numInput.value = matchNum;
+        form.appendChild(numInput);
+
+        // 데이터 2: 취소 사유 추가 (이게 꼭 들어가야 DB에 저장됩니다!)
+        const reasonInput = document.createElement('input');
+        reasonInput.type = 'hidden';
+        reasonInput.name = 'matchingCanReason'; // 컨트롤러의 getParameter와 일치
+        reasonInput.value = reason;
+        form.appendChild(reasonInput);
+
+        document.body.appendChild(form);
+        form.submit();
+        
+        alert("매칭 취소 신청이 완료되었습니다.");
+    }
 }
 
 // 4. 모달 바깥쪽(어두운 배경) 클릭 시 닫기 처리

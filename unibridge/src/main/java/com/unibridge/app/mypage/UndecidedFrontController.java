@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
+import com.unibridge.app.member.controller.MenteeDeleteOkController;
 import com.unibridge.app.member.controller.UndecidedDeleteController;
 import com.unibridge.app.member.controller.UndecidedMangeController;
+import com.unibridge.app.member.controller.UndecidedUndecidedDeleteOkController;
 import com.unibridge.app.member.controller.UndecidedUpdateOkController;
 import com.unibridge.app.member.controller.UndecidedVerifyController;
 import com.unibridge.app.member.controller.UndecidedVerifySubmitController;
@@ -78,6 +80,12 @@ public class UndecidedFrontController implements Execute{
 			this.outResult = new UndecidedDeleteController().execute(request, response);
 			System.out.println("[Log] 결과: UndecidedDeleteController 실행 완료!");
 			break;
+			
+		case "deleteOk.my": // 최종 탈퇴 버튼 클릭 시 (비밀번호 & 매칭상태 최종 확인)
+		    System.out.println("[Log] 결과: MenteeDeleteOkController 실행 시도...");
+		    outResult = new UndecidedUndecidedDeleteOkController().execute(request, response);
+		    System.out.println("[Log] 결과: MenteeDeleteOkController 실행 완료!");
+		    break;
 			
 		default:
 			System.out.println("[Warn] 매칭되는 target이 없음: " + target);

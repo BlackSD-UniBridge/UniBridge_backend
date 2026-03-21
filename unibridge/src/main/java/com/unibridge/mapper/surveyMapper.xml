@@ -35,24 +35,24 @@
 
 
     <insert id="insertSurvey" parameterType="SurveyDTO">
-        <selectKey keyProperty="surveyNumber" resultType="int" order="BEFORE">
-            SELECT SEQ_SERVEY.NEXTVAL FROM DUAL
-        </selectKey>
-        INSERT INTO UB_SURVEY (
-            survey_number, 
-            survey_type, 
-            member_number,  
-            admin_number, 
-            file_number
-        )
-        VALUES (
-            #{surveyNumber}, 
-            #{surveyType}, 
-            #{memberNumber}, 
-            1, 
-            #{fileNumber, jdbcType=INTEGER} )
-            <!-- #{fileNumber}의 처리 (NULL 값 대응) -->
-    </insert>
+	    <selectKey keyProperty="surveyNumber" resultType="int" order="BEFORE">
+	        SELECT SEQ_SURVEY.NEXTVAL FROM DUAL
+	    </selectKey>
+		    INSERT INTO UB_SURVEY (
+		        survey_number, 
+		        survey_type, 
+		        member_number,  
+		        admin_number, 
+		        file_number
+		    )
+		    VALUES (
+		        #{surveyNumber}, 
+		        #{surveyType}, 
+		        #{memberNumber}, 
+		        1, 
+		        #{fileNumber, jdbcType=INTEGER} 
+		    )
+	</insert>
 
 	<!-- 멘티 설문조사 작성 -->
     <insert id="insertMenteeSurvey" parameterType="SurveyDTO">
