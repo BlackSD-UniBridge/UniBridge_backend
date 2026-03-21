@@ -44,7 +44,7 @@
 				</c:when>
 				<c:otherwise>
 					<%-- 비로그인 또는 미정 → 메인페이지로 이동 --%>
-					<a href="${pageContext.request.contextPath}/index.main">게시판</a>
+					<a href="${pageContext.request.contextPath}/signin.mem">게시판</a>
 				</c:otherwise>
 			</c:choose>
 			<a href="${pageContext.request.contextPath}/mvc/auth/report.rep">학습보고서</a>
