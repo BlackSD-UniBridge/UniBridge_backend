@@ -22,7 +22,7 @@ public class MentorBoardUpdateController implements Execute {
 		System.out.println("MentorBoardNumber 값 : " + mentorBoardNumber);
 		request.setAttribute("MentorBoard", mentorBoardDAO.selectBoard(mentorBoardNumber));
 
-		result.setPath("/app/user/mentor/mentorBoard/mentorBoardModify.mob");
+		result.setPath("/app/user/mentor/mentorBoard/mentorBoardModify.jsp");
 		result.setRedirect(false);
 
 		return result;
