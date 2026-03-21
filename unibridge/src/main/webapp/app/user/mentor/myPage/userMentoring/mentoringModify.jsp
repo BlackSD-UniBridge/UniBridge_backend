@@ -110,9 +110,6 @@
 						<div id="buttons">
 							<button type="submit">수정 완료</button>
 							<button type="button" onclick="history.back()">취소</button>
-							<%-- 2. 삭제 함수 호출 부분 수정 --%>
-							<button type="button" id="delBtn"
-								onclick="deleteMentoring(${mentoring.mentoringNumber})">삭제하기</button>
 						</div>
 					</form>
 				</div>
