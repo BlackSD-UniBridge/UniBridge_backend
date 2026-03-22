@@ -65,7 +65,7 @@
 							</div>
 							<div class="userText">
 	                            <label>학습보고서</label>
-	                            <form method="post" action="${pageContext.request.contextPath}/mvc/auth/report.rep">
+	                            <form method="get" action="${pageContext.request.contextPath}/mvc/auth/report.rep">
 		                            <button class="mentoringCheck" id="reportBtn">학습보고서 확인</button>
 	                            </form>
                         	</div>
