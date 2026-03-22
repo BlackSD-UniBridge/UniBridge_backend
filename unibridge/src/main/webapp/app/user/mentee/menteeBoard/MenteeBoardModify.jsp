@@ -20,7 +20,7 @@
   <div id="container">
   <form id="modify-form"
       action="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardUpdate.meb"
-      method="post" enctype="multipart/form-data">
+      method="post">
       
       <input type="hidden" name="MenteeBoardNumber" value="${MenteeBoard.menteeBoardNumber}" />
 	  <div class="menteeBoardModifyWrap">

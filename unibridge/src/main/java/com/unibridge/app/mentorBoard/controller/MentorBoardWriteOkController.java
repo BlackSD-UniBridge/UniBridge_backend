@@ -1,6 +1,5 @@
 package com.unibridge.app.mentorBoard.controller;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -12,8 +11,6 @@ import com.unibridge.app.Result;
 import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.app.mentorBoard.dao.MentorBoardDAO;
 import com.unibridge.app.mentorBoard.dto.MentorBoardDTO;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class MentorBoardWriteOkController implements Execute {
 
@@ -21,6 +18,8 @@ public class MentorBoardWriteOkController implements Execute {
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		
 		MentorBoardDTO mentorBoardDTO = new MentorBoardDTO();
 		MentorBoardDAO mentorBoardDAO = new MentorBoardDAO();
 		Result result = new Result();
@@ -32,29 +31,15 @@ public class MentorBoardWriteOkController implements Execute {
 			return null;
 		}
 
-		Integer memberNumber = loginUser.getMemberNumber();
-
-		final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "upload/";
-		final int FILE_SIZE = 1024 * 1024 * 5;
-		System.out.println("파일 업로드 경로 : " + UPLOAD_PATH);
-
-		File uploadDir = new File(UPLOAD_PATH);
-		if (!uploadDir.exists()) {
-			uploadDir.mkdirs();
-		}
-
-		MultipartRequest multipartRequest = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "utf-8",
-				new DefaultFileRenamePolicy());
-
-		mentorBoardDTO.setBoardTitle(multipartRequest.getParameter("MentorBoardTitle"));
-		mentorBoardDTO.setBoardContent(multipartRequest.getParameter("MentorBoardContent"));
-		mentorBoardDTO.setMemberNumber(memberNumber);
+		mentorBoardDTO.setBoardTitle(request.getParameter("MentorBoardTitle"));
+		mentorBoardDTO.setBoardContent(request.getParameter("MentorBoardContent"));
+		mentorBoardDTO.setMemberNumber(loginUser.getMemberNumber());
 		System.out.println("게시글 추가 - BoardDTO : " + mentorBoardDTO);
 
 		int mentorBoardNumber = mentorBoardDAO.insertBoard(mentorBoardDTO);
 		System.out.println("생성된 게시글 번호 : " + mentorBoardNumber);
 
-		result.setPath(request.getContextPath() + "/mentor/mentorBoard/mentorBoardList.mob");
+		result.setPath(request.getContextPath() + "/mentor/mentorBoard/MentorBoardList.mob");
 		result.setRedirect(true);
 
 		return result;

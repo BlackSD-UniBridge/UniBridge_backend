@@ -30,7 +30,7 @@
         SELECT *
         FROM (
             SELECT
-                contest_number,
+                c.contest_number,
                 title,
                 detail,
                 start_date,
@@ -38,7 +38,8 @@
                 host_company,
                 tech_stack,
                 status
-            FROM UB_CONTEST
+            FROM UB_CONTEST c
+            join UB_NOTICEBOARD n ON c.contest_number = n.contest_number
             WHERE status = '진행중'
             ORDER BY end_date ASC
         )

@@ -18,7 +18,7 @@
 		<!-- 작성완료 경로 처리하기 -->
 		<form id="write-form"
 			action="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardWrite.meb"
-			method="post" enctype="multipart/form-data">
+			method="post">
 			<h1>글쓰기</h1>
 			<div class="form-group">
 				<label for="menteeBoardCreateSubject">제목</label> 

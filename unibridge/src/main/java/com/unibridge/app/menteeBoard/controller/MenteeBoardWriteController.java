@@ -22,7 +22,7 @@ public class MenteeBoardWriteController implements Execute {
         // 로그인 체크 - 비로그인 시 로그인 페이지로 이동
         MemberDTO loginUser = (MemberDTO) request.getSession().getAttribute("loginUser");
         if (loginUser == null) {
-            result.setPath(request.getContextPath() + "/signin.jsp");
+            result.setPath(request.getContextPath() + "/signin.mem");
             result.setRedirect(true);
             return result;
         }

@@ -17,18 +17,18 @@
   <div class="container">
     <form id="write-form"
       action="${pageContext.request.contextPath}/mentor/mentorBoard/MentorBoardWrite.mob"
-      method="post" enctype="multipart/form-data">
+      method="post">
       <h1>글쓰기</h1>
       <div class="form-group">
         <label for="mentorBoardCreateSubject">제목</label>
         <input type="text" id="mentorBoardCreateSubject" name="MentorBoardTitle" required />
       </div>
-      <div class="form-group">
+      <div class="form-group"> 
         <label for="author">작성자</label>
         <div class="writer">
           <c:out value="${sessionScope.loginUser.memberId}" />
         </div>
-      </div>
+      </div> 
       <div class="form-group">
         <label for="mentorBoardCreateContent">내용</label>
         <textarea id="mentorBoardCreateContent" name="MentorBoardContent" required></textarea>

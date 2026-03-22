@@ -57,8 +57,7 @@
 							<c:forEach var="contest" items="${contestList}">
 								<div class="contestCard">
 									<div class="contestCardThumbEmpty"
-										onclick="location.href=`${pageContext.request.contextPath}/common/noticeBoardReadOk.ntb?contestNumber=${contest.contestNumber}`"
-										style="cursor:pointer;">
+										onclick="location.href=`${pageContext.request.contextPath}/common/noticeBoardReadOk.ntb?contestNumber=${contest.contestNumber}`">
 										<img
 											src="${pageContext.request.contextPath}/assets/img/UniBridge.png"
 											alt="대회 이미지" />
@@ -127,7 +126,7 @@
 						        <div class="mentoRecommendInfo">
 						            <p class="mentoRecommendName">${mentor.memberNickname} 멘토</p>
 						            <p class="mentoRecommendSchool">${mentor.gradSchool} ${mentor.gradDepart}</p>
-						            <p class="mentoRecommendTitle">${mentor.mentoringTitle}</p>
+						            <p class="mentoRecommendMentoTitle">${mentor.mentoringTitle}</p>
 						            <div class="mentoRecommendTags">
 						                <span class="tag">${mentor.subjectName}</span>
 						            </div>
@@ -169,7 +168,8 @@
 								<%-- employmentUrl이 있으면 클릭 시 해당 채용 페이지로 이동 --%>
 								<div class="jobBannerCard"
 									data-job-id="${company.employmentId}"
-									<c:if test="${not empty company.employmentUrl}">
+									<c:if test="${not empty company.employmentUrl}" >
+										onclick="window.open('${company.employmentUrl}', '_blank')"
 										style="cursor:pointer;"
 									</c:if>>
 

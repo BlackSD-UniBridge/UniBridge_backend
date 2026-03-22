@@ -18,7 +18,7 @@
   <div id="container">
     <form id="modify-form"
       action="${pageContext.request.contextPath}/mentor/mentorBoard/MentorBoardUpdate.mob"
-      method="post" enctype="multipart/form-data">
+      method="post">
 
       <input type="hidden" name="MentorBoardNumber" value="${MentorBoard.mentorBoardNumber}" />
       <div class="mentorBoardModifyWrap">
