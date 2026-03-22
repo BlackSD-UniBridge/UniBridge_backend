@@ -90,9 +90,9 @@ submitBtn.onclick = (event) => {
     const finalContextPath = typeof contextPath !== 'undefined' ? contextPath : "";
 
     if (selectedRole === "mentor") {
-        form.action = finalContextPath + "/auth/mentor/survey.my";
+        form.action = finalContextPath + "/auth/undecided/survey.my";
     } else if (selectedRole === "mentee") {
-        form.action = finalContextPath + "/auth/mentee/survey.my";
+        form.action = finalContextPath + "/auth/undecided/survey.my";
     }
 
     console.log("[JS LOG] 전송 경로: " + form.action);

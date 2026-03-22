@@ -32,7 +32,7 @@
             </div>
             <div class="userMain">
                 <div class="modifyForm">
-                    <form action="${pageContext.request.contextPath}/mvc/auth/mentee/verifySubmit.my" method="POST" id="goUserModify">
+                    <form action="${pageContext.request.contextPath}/mvc/auth/undecided/verifySubmit.my" method="POST" id="goUserModify">
 
                         <%-- 현재 비밀번호: spacer로 버튼 자리 확보 → input 너비 통일 --%>
                         <div class="inputGroup">
@@ -76,8 +76,5 @@
         </main>
 
     </div>
-
-    <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
 </body>
 </html>

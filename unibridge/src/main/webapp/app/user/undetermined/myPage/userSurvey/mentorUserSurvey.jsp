@@ -8,12 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>미정 - 멘토 설문조사</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userSurvey/userSurvey.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/undetermined/myPage/userSurvey/userSurvey.css">
     <script>
 	    // JS 파일에서 사용할 수 있도록 전역 변수 선언
 	    const contextPath = "${pageContext.request.contextPath}";
 	</script>
-    <script defer src="${pageContext.request.contextPath}/assets/js/user/mentor/myPage/userSurvey/userSurvey.js"></script>
+    <script defer src="${pageContext.request.contextPath}/assets/js/user/undetermined/myPage/userSurvey/userSurvey.js"></script>
 </head>
 <body>
 
@@ -23,11 +23,9 @@
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/myPage.my" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/survey.my" class="active">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my">매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my">멘토링</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/delete.my">회원 탈퇴</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/undecided/myPage.my" >계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/undecided/survey.my" class="active">설문 조사</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/undecided/delete.my">회원 탈퇴</a></li>
             </ul>
         </aside>
         <main>
@@ -76,22 +74,16 @@
                     <button class="closeBtn"><img src="${pageContext.request.contextPath}/assets/img/user/userProfile/close.png" alt=""></button>
                     <div class="surveyTitle">설문 조사</div>
                     <div class="modalBox">
-                        <form id="surveyForm" action="${pageContext.request.contextPath}/auth/mentor/survey.my" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="role" value="${userRole eq 'MENTEE' ? 'mentee' : 'mentor'}">
+                        <form id="surveyForm" action="${pageContext.request.contextPath}/auth/undecided/survey.my" method="post" enctype="multipart/form-data">
                             <div class="inputRow">
                                 <label>멘토/멘티</label>
                                 <div class="radioGroup">
-                                    <label class="radioItem" style="${userRole ne 'MENTOR' ? 'display: none;' : ''}">
-								        <span>멘토</span> 
-								        <input type="radio" value="mentor" name="role" class="radioUserType"
-								               ${userRole eq 'MENTOR' ? 'checked' : ''}>
-								    </label>
-								
-								    <label class="radioItem" style="${userRole ne 'MENTEE' ? 'display: none;' : ''}">
-								        <span>멘티</span> 
-								        <input type="radio" value="mentee" name="role" class="radioUserType"
-								               ${userRole eq 'MENTEE' ? 'checked' : ''}>
-								    </label>
+                                    <label class="radioItem">
+                                        <span>멘토</span> <input type="radio" value="mentor" name="role" class="radioUserType" checked> 
+                                    </label>
+                                    <label class="radioItem">
+                                        <span>멘티</span> <input type="radio" value="mentee" name="role" class="radioUserType" > 
+                                    </label>
                                 </div>
                             </div>
 

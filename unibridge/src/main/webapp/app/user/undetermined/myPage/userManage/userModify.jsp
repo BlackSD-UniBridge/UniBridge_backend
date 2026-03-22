@@ -20,8 +20,8 @@
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/undecided/myPage.my" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/undecided/survey.my" class="active">설문 조사</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/undecided/myPage.my" class="active">계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/undecided/survey.my" >설문 조사</a></li>
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/undecided/delete.my">회원 탈퇴</a></li>
             </ul>
         </aside>
@@ -51,28 +51,30 @@
                         <div class="spacer"></div>
                     </div>
 
-                    <form action="${pageContext.request.contextPath}/mvc/auth/undecided/updateOk.my" method="post">
+                    <form action="${pageContext.request.contextPath}/mvc/auth/undecided/updateOk.my" method="post" id="nickForm">
 					    <input type="hidden" name="updateType" value="nickname">
 					    <div class="inputGroup">
 					        <label>닉네임</label>
-					        <input type="text" class="userInput" name="memberNickname" value="${member.MEMBER_NICKNAME}">
-					        <button type="button" class="duplication" id="nickCheckBtn">중복확인</button>
+					        <input type="text" class="userInput" name="memberNickname" id="memberNickname" value="${member.MEMBER_NICKNAME}">
+					        <button type="button" class="duplication" id="nickCheckBtn" onclick="checkNick()">중복확인</button>
 					        <button type="submit" class="change">변경</button> 
-					        <div class="errorMsg">${nickError}</div> </div>
+					        <div class="errorMsg" id="nickErrorMsg"></div> 
+					    </div>
 					</form>
-
-                    <form action="${pageContext.request.contextPath}/mvc/auth/undecided/updateOk.my" method="post">
+					
+					<form action="${pageContext.request.contextPath}/mvc/auth/undecided/updateOk.my" method="post" id="pwForm">
 					    <input type="hidden" name="updateType" value="password">
 					    <div class="inputGroup">
 					        <label>변경할 비밀번호</label>
-					        <input type="password" class="userInput" name="newPw">
+					        <input type="password" class="userInput" name="newPw" id="newPw">
 					        <div class="errorMsg"></div>
 					    </div>
 					    <div class="inputGroup">
 					        <label>비밀번호 확인</label>
-					        <input type="password" class="userInput" name="newPwConfirm">
+					        <input type="password" class="userInput" name="newPwConfirm" id="newPwConfirm">
+					        <button type="button" class="duplication" onclick="checkPwMatch()">확인</button>
 					        <button type="submit" class="change">변경</button>
-					        <div class="errorMsg">${pwError}</div>
+					        <div class="errorMsg" id="pwErrorMsg"></div>
 					    </div>
 					</form>
 
@@ -83,6 +85,7 @@
 					        <label>전화번호</label>
 					        <input type="text" class="userInput" name="memberPhone" id="memberPhone" value="${member.MEMBER_PHONE}">
 					        <button type="button" class="authBtn" onclick="sendSms()">인증번호전송</button>
+					        <div class="spacer"></div>
 					        <div class="errorMsg" id="phoneSendError" style="color: red;">${phoneError}</div>
 					    </div>
 					
@@ -109,9 +112,11 @@
             </div>
             <button class="userModifyBtn">완료</button>
         </main>
+        <script>
+		    // 외부 JS 파일에서 사용할 수 있도록 전역 변수에 할당
+		    const contextPath = "${pageContext.request.contextPath}";
+		    const SERVER_UPDATE_STATUS = "${updateStatus}";
+		</script>
     </div>
-
-    <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
 </body>
 </html>

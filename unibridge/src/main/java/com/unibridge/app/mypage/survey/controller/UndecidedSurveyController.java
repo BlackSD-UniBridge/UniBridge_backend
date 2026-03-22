@@ -13,7 +13,6 @@ import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.app.mypage.survey.dao.SurveyDAO;
-import com.unibridge.app.mypage.surveyMentee.controller.SurveyMenteeController;
 import com.unibridge.app.mypage.surveyMentee.controller.UndecidedSurveyMentee;
 import com.unibridge.app.mypage.surveyMentee.dao.SurveyMenteeDAO;
 import com.unibridge.app.mypage.surveyMentee.dto.SurveyMenteeDTO;
@@ -55,8 +54,7 @@ public class UndecidedSurveyController implements Execute {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
         int memberNumber = loginUser.getMemberNumber();
 
-        // 2. 설문 작성 여부 확인 (MemberDTO의 surveyWrite 필드 활용)
-        // 'N'인 경우 설문을 한 번도 작성하지 않은 유저
+        // 2. 설문 작성 여부 확인 
         SurveyDAO surveyDao = new SurveyDAO();
         int surveyCount = surveyDao.checkSurveyExists(memberNumber); // 기존에 만드신 메서드 활용
 
@@ -79,7 +77,7 @@ public class UndecidedSurveyController implements Execute {
             request.setAttribute("survey", menteeSurvey);
             
             if ("F".equals(menteeSurvey.getSurveyApproval()) && menteeSurvey.getSurveyRejReason() != null) {
-                outResult.setPath("/app/user/mentee/myPage/userSurvey/userRefusal.jsp");
+                outResult.setPath("/app/user/undetermined/myPage/userSurvey/userRefusal.jsp");
             } else {
                 outResult.setPath("/app/user/undetermined/myPage/userSurvey/menteeUserSurvey.jsp");
             }
@@ -91,7 +89,7 @@ public class UndecidedSurveyController implements Execute {
             request.setAttribute("survey", mentorSurvey);
 
             if ("F".equals(mentorSurvey.getSurveyApproval()) && mentorSurvey.getSurveyRejReason() != null) {
-                outResult.setPath("/app/user/mentor/myPage/userSurvey/userRefusal.jsp");
+                outResult.setPath("/app/user/undetermined/myPage/userSurvey/userRefusal.jsp");
             } else {
                 outResult.setPath("/app/user/undetermined/myPage/userSurvey/mentorUserSurvey.jsp");
             }
@@ -106,6 +104,8 @@ public class UndecidedSurveyController implements Execute {
         try {
             // 1. MultipartRequest를 생성해야 내부 파라미터(role 등)를 읽을 수 있습니다.
             String UPLOAD_PATH = request.getServletContext().getRealPath("/") + "upload/";
+            
+            
             MultipartRequest multi = new MultipartRequest(
                 request, UPLOAD_PATH, 100*1024*1024, "UTF-8", new DefaultFileRenamePolicy()
             );
@@ -116,11 +116,9 @@ public class UndecidedSurveyController implements Execute {
 
             // 3. 분기 처리
             if ("mentor".equals(role)) {
-                // 멘토 전용 등록 로직 실행 (multi 객체를 넘겨주거나 직접 처리)
-            	outResult = new UndecidedSurveyMentee().execute(request, response);
+                this.outResult = new UndecidedSurveyMentor(multi).execute(request, response);
             } else {
-                // 멘티 전용 등록 로직 실행
-            	outResult = new UndecidedSurveyMentor().execute(request, response);
+                this.outResult = new UndecidedSurveyMentee(multi).execute(request, response);
             }
 
 
