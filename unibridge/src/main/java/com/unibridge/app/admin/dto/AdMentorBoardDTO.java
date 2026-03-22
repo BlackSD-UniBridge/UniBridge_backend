@@ -1,5 +1,7 @@
 package com.unibridge.app.admin.dto;
 
+import com.unibridge.app.file.dto.FileDTO;
+
 public class AdMentorBoardDTO {
 
 //	CREATE TABLE UB_MENTOR_BOARD (
@@ -23,14 +25,35 @@ public class AdMentorBoardDTO {
 	private String boardContent;
 	private int boardClick;
 	private String boardDate;
-	private int fileNumber;
+	private FileDTO fileName;
 	private int writeNumber;
 	private String writeNickname;
 
 	
+	public void setMentorboardNumber(int mentorboardNumber) {
+		this.mentorboardNumber = mentorboardNumber;
+	}
+	public void setBoardClick(int boardClick) {
+		this.boardClick = boardClick;
+	}
+	public void setBoardDate(String boardDate) {
+		this.boardDate = boardDate;
+	}
+	public void setWriteNumber(int writeNumber) {
+		this.writeNumber = writeNumber;
+	}
+	public void setWriteNickname(String writeNickname) {
+		this.writeNickname = writeNickname;
+	}
 	
 	public String getBoardTitle() {
 		return boardTitle;
+	}
+	public int getWriteNumber() {
+		return writeNumber;
+	}
+	public String getWriteNickname() {
+		return writeNickname;
 	}
 	public void setBoardTitle(String boardTitle) {
 		this.boardTitle = boardTitle;
@@ -40,12 +63,6 @@ public class AdMentorBoardDTO {
 	}
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
-	}
-	public int getFileNumber() {
-		return fileNumber;
-	}
-	public void setFileNumber(int fileNumber) {
-		this.fileNumber = fileNumber;
 	}
 	public int getMentorboardNumber() {
 		return mentorboardNumber;
@@ -61,6 +78,12 @@ public class AdMentorBoardDTO {
 	}
 	public String getMemberNickname() {
 		return writeNickname;
+	}
+	public FileDTO getFileName() {
+		return fileName;
+	}
+	public void setFileName(FileDTO fileName) {
+		this.fileName = fileName;
 	}
 
 

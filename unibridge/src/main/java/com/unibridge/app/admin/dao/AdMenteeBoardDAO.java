@@ -56,7 +56,7 @@ public class AdMenteeBoardDAO {
 		//멘티 게시판 작성
 		public int insertBoard(AdMenteeBoardDTO boardDTO) {
 			System.out.println("게시글 작성 - insertBoard 메소드 실행");
-			int insert = sqlSession.insert("admin.insert", boardDTO);
+			int insert = sqlSession.insert("admin.menteeInsert", boardDTO);
 			System.out.println(boardDTO + "===출력");
 			System.out.println("insert 결과 : " + insert);
 			System.out.println("생성된 boardNumber : " + boardDTO.getMenteeboardNumber());

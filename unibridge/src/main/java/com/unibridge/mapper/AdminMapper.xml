@@ -17,23 +17,24 @@
 	</select>
 	
 	<!-- 메인페이지  -->
+	<!-- 회원 전체 -->
 	<select id="membertotal" resultType="int">
 		SELECT count(*) FROM UB_MEMBER
 	</select>
-	
+	<!-- 멘토 전체 -->
 	<select id="mentortotal" resultType="int">
 		SELECT count(*) FROM UB_MEMBER WHERE MEMBER_TYPE = 'MENTOR'
 	</select>
-	
+	<!-- 멘티 전체 -->
 	<select id="menteetotal" resultType="int">
 		SELECT count(*) FROM UB_MEMBER WHERE MEMBER_TYPE = 'MENTEE'
 	</select>
-	
+	<!-- 현재 매칭 전체 -->
 	<select id="matchingtotal" resultType="int">
 		SELECT count(*) FROM UB_MATCHING WHERE MATCHING_STATE = '매칭중'
 	</select>
 	
-	
+	<!-- 최신 게시판 -->
 	<select id="recentboard" resultType="AdMainDTO">
 	<![CDATA[
 		SELECT * 
@@ -43,18 +44,19 @@
 		UNION ALL 
 		SELECT  umb.board_title, umb.board_date
 		FROM UB_MENTOR_BOARD umb
-		ORDER BY board_date)
+		ORDER BY board_date desc)
 		WHERE ROWNUM <= 5
 	]]>
 	</select>
 	
+	<!-- 최신 멤버 -->
 	<select id="recentMember" resultType="AdMainDTO">
 	<![CDATA[
 		SELECT * 
 		FROM (
 		SELECT MEMBER_NAME, MEMBER_type, member_date 
 		FROM UB_MEMBER
-		ORDER BY member_date)
+		ORDER BY member_date desc)
 		WHERE ROWNUM <= 5
 	]]>
 	</select>
@@ -132,7 +134,7 @@
 	</select>
 	
 	<!-- 멘티 게시판 작성 -->
-	<insert id="insert" parameterType="AdMenteeBoardDTO">
+	<insert id="menteeInsert" parameterType="AdMenteeBoardDTO">
 		<selectKey keyProperty="menteeboardNumber" resultType="int" order="BEFORE">
 			SELECT SEQ_MENTEE_BOARD.nextVal FROM DUAL
 		</selectKey>
@@ -160,10 +162,18 @@
 
 	
 	<!-- 멘토 게시판 -->
+	<!-- 전체 조회 게시판 갯수 -->
 	<select id="mentorGetTotal" resultType = "int">
 		select count(*) from UB_MENTOR_BOARD
 	</select>
 	
+	<!-- 랜더링 조회 게시판 갯수 -->
+	<select id="mentorGetRenderingTotal" resultType = "int">
+		select count(*) from UB_MENTOR_BOARD 
+		WHERE board_date BETWEEN TO_DATE(#{dateFrom}, 'YYYY-MM-DD') AND TO_DATE(#{dateTo}, 'YYYY-MM-DD') 
+	</select>
+	
+	<!-- 전체 조회 -->
 	<select id="mentorSelectAll" resultType = "AdMentorBoardListDTO">
 		<![CDATA[
 			SELECT * FROM (
@@ -183,6 +193,7 @@
 		]]>
 	</select>
 	
+	<!-- 멘토 랜더링 조회 -->
 	<select id="mentorSelectFilter" resultType="AdMentorBoardListDTO">
 		<![CDATA[
 			SELECT * FROM (
@@ -203,6 +214,51 @@
 			)WHERE rnum BETWEEN #{startRow} AND #{endRow}
 		]]>
 	</select>
+	
+	<!-- 멘토 상세 조회 -->
+	<select id="mentorSelectOne" resultType="AdMentorBoardDTO">
+		SELECT UMB.mentorboard_number, UMB.BOARD_TITLE , UMB.BOARD_CONTENT , UMB.BOARD_CONTENT , UMB.BOARD_CLICK , UMB.board_date, UF.FILE_NAME, 
+		CASE
+			WHEN umb.admin_number IS NOT NULL THEN ua.admin_Nickname
+			WHEN umb.MEMBER_number IS NOT NULL THEN um.MEMBER_nickname
+		END AS "write_nickname",
+		CASE
+			WHEN umb.admin_number IS NOT NULL THEN ua.admin_number
+			WHEN umb.MEMBER_number IS NOT NULL THEN um.MEMBER_number
+		END AS "write_number"
+		FROM  UB_MENTOR_BOARD UMB
+		LEFT JOIN UB_MEMBER UM  ON UMB.member_number = UM.member_number
+		LEFT JOIN UB_ADMIN UA ON UMB.admin_number = UA.admin_number
+		LEFT JOIN UB_FILE UF ON UMB.FILE_NUMBER = UF.FILE_NUMBER
+		WHERE UMB.MENTORBOARD_NUMBER = #{boardNumber}
+	</select>
+	
+	<!-- 멘토 게시판 작성 -->
+	<insert id="mentorInsert" parameterType="AdMentorBoardDTO">
+		<selectKey keyProperty="mentorboardNumber" resultType="int" order="BEFORE">
+			SELECT SEQ_MENTOR_BOARD.nextVal FROM DUAL
+		</selectKey>
+		INSERT INTO UB_mentor_board(mentorboard_number, board_title, board_content, admin_number)
+		VALUES(#{mentorboardNumber}, #{boardTitle}, #{boardContent}, #{writeNumber})
+	</insert>
+	
+	<!-- 멘토 게시판 수정 -->
+	<update id="mentorUpdate">
+		UPDATE UB_mentor_board 
+		SET board_title=#{boardTitle}, board_content=#{boardContent} 
+		WHERE mentorBoard_number=#{mentorboardNumber}
+	</update>
+	
+	<!-- 멘토 게시판 삭제 -->
+	<delete id="mentorDelete">
+		delete From UB_mentor_board
+		where mentorBoard_number=#{mentorboardNumber}
+	</delete>
+	
+	<!-- 멘토 게시판 댓글 전체 삭제 -->
+	<delete id="mentorDeleteAllComment">
+		DELETE FROM UB_mentor_board_comment WHERE mentorBoard_ID = #{mentorboardNumber}
+	</delete>
 	
 
 	

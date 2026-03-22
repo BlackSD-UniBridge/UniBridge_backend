@@ -21,8 +21,8 @@ public class AdminMentorBoardController implements Execute{
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("===AdminMenteeBoardController 실행===");
-		AdMentorBoardDAO AdMenteeBoardDAO = new AdMentorBoardDAO();
+		System.out.println("===AdminMentorBoardController 실행===");
+		AdMentorBoardDAO AdMentorBoardDAO = new AdMentorBoardDAO();
 		HttpSession session = request.getSession(true);
 		Result result = new Result();
 
@@ -32,7 +32,7 @@ public class AdminMentorBoardController implements Execute{
 		// 한 페이지당 게시글 수
 		int rowCount = 10;
 		// 페이지 버튼 수
-		int pageCount = 10;
+		int pageCount = 5;
 
 		int startRow = (page - 1) * rowCount + 1;
 		int endRow = startRow + rowCount - 1;
@@ -59,12 +59,12 @@ public class AdminMentorBoardController implements Execute{
 			pageFilter.put("dateFrom", dateFrom);
 			pageFilter.put("dateTo", dateTo);
 					
-			total = AdMenteeBoardDAO.getRenderingTotal(pageFilter);
+			total = AdMentorBoardDAO.getRenderingTotal(pageFilter);
 
 			System.out.println("pageFilter : " + pageFilter);
 
 			// 게시글 랜더링 조회
-			List<AdMentorBoardListDTO> boardList = AdMenteeBoardDAO.selectFilter(pageFilter);
+			List<AdMentorBoardListDTO> boardList = AdMentorBoardDAO.selectFilter(pageFilter);
 			request.setAttribute("boardList", boardList);
 			session.setAttribute("dateFrom", dateFrom);
 			session.setAttribute("dateTo", dateTo);
@@ -72,9 +72,9 @@ public class AdminMentorBoardController implements Execute{
 		}else {
 			System.out.println("--날짜 범위가 없는 경우--");
 			// 게시글 전체 조회
-			List<AdMentorBoardListDTO> boardList = AdMenteeBoardDAO.selectAll(pageFilter);
+			List<AdMentorBoardListDTO> boardList = AdMentorBoardDAO.selectAll(pageFilter);
 			request.setAttribute("boardList", boardList);
-			total = AdMenteeBoardDAO.getTotal();
+			total = AdMentorBoardDAO.getTotal();
 			
 		}
 		
@@ -109,7 +109,7 @@ public class AdminMentorBoardController implements Execute{
 				"startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("=========================");
 
-		result.setPath("/app/admin/adminBoard/menteeBoard/menteeBoardList.jsp");
+		result.setPath("/app/admin/adminBoard/mentorBoard/mentorBoardList.jsp");
 		result.setRedirect(false);
 		
 		return result;

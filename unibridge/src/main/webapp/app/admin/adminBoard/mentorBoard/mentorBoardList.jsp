@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
   <title>게시판 관리 - 멘티</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminBoard/boardList.css" />
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminBoard/boardList.js"></script>
+
 </head>
 <body>
 
@@ -116,6 +118,5 @@
 	    });
 	</script>
 	<script> const contextPath = "${pageContext.request.contextPath}"; </script>
-	<script src="${pageContext.request.contextPath}/assets/js/admin/adminBoard/boardList.js"></script>
 </body>
 </html>
