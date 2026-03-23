@@ -42,4 +42,6 @@ public class PaymentDAO {
         // "namespace.id" 형식으로 호출합니다.
         return sqlSession.selectList("com.unibridge.app.pay.mapper.PaymentMapper.selectPayLog", menteeNumber);
     }
+    
+    
 }

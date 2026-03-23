@@ -8,10 +8,6 @@
 <title>결제</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/user/mentorSearch/payment/payment.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/header.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/footer.css">
 <link href="${pageContext.request.contextPath}/assets/css/fonts.css"
 	rel="stylesheet">
 </head>
@@ -19,10 +15,12 @@
 	<jsp:include page="/app/user/header.jsp" />
 
 	<main>
+		<
 		<div id="mentoringInfo">
 			<img
-				src="${pageContext.request.contextPath}/assets/img/user/userProfile/ex1.png"
-				alt="사진">
+				src="${pageContext.request.contextPath}/display.file?fileName=${mentor.fileName != null ? mentor.fileName : 'default.png'}"
+				alt="프로필 사진" id="profileImg"
+				onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/user/userProfile/default.png';">
 			<div id="mentoringPurpose">국어를 집중적으로 공부하여, 수능 최저를 맞출 수 있도록 도와
 				드리겠습니다.</div>
 			<div id="price">10,000원</div>
@@ -55,6 +53,7 @@
 	</main>
 
 	<jsp:include page="/app/user/footer.jsp" />
-	<script src="${pageContext.request.contextPath}/assets/js/user/mentorSearch/payment/payment.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/js/user/mentorSearch/payment/payment.js"></script>
 </body>
 </html>

@@ -13,7 +13,8 @@
 		pay_method,
 		pay_date,
 		pay_status
-		) VALUES (
+		)
+		VALUES (
 		#{payId},
 		#{payAmount},
 		#{payMethod},
@@ -55,35 +56,58 @@
 		pay_id = #{payId}
 		WHERE matching_number = #{matchingNumber}
 	</update>
-	
-	<resultMap id="PaymentVOMap" type="PaymentDTO">
-        <result column="MENTEE_NUMBER" property="memberNumber"/>
-        <result column="PAY_ID" property="payId"/>
-        <result column="MATCHING_NUMBER" property="matchingNumber"/>
-        <result column="PAY_AMOUNT" property="payAmount"/>
-        <result column="PAY_METHOD" property="payMethod"/>
-        <result column="PAY_DATE" property="payDate"/>
-        <result column="PAY_STATUS" property="payStatus"/>
-    </resultMap>
 
-    <select id="selectLatestPaymentByMemberNew" parameterType="long" resultType="paymentDTO">
-	    SELECT *
-	    FROM (
-	        SELECT
-	            p.PAY_ID AS payId,
-	            p.PAY_AMOUNT AS payAmount,
-	            p.PAY_METHOD AS payMethod,
-	            TO_CHAR(p.PAY_DATE, 'YYYY-MM-DD') AS payDate,
-	            p.PAY_STATUS AS payStatus,
-	            m.MATCHING_NUMBER AS matchingNumber, 
-	            m.MENTEE_NUMBER AS memberNumber,
-	            u.MEMBER_ID AS memberId,     u.MEMBER_NAME AS memberName  FROM UB_PAY p
-	        JOIN UB_MATCHING m ON p.PAY_ID = m.PAY_ID
-	        JOIN UB_MEMBER u ON m.MENTEE_NUMBER = u.MEMBER_NUMBER
-	        WHERE m.MENTEE_NUMBER = #{memberNumber}
-	        ORDER BY p.PAY_ID DESC
-	    )
-	    WHERE ROWNUM = 1
+	<resultMap id="PaymentVOMap" type="PaymentDTO">
+		<result column="MENTEE_NUMBER" property="memberNumber" />
+		<result column="PAY_ID" property="payId" />
+		<result column="MATCHING_NUMBER" property="matchingNumber" />
+		<result column="PAY_AMOUNT" property="payAmount" />
+		<result column="PAY_METHOD" property="payMethod" />
+		<result column="PAY_DATE" property="payDate" />
+		<result column="PAY_STATUS" property="payStatus" />
+	</resultMap>
+
+	<select id="selectLatestPaymentByMemberNew" parameterType="long"
+		resultType="paymentDTO">
+		SELECT * FROM (
+		SELECT
+		P.PAY_ID as payId,
+		P.PAY_AMOUNT as
+		payAmount,
+		P.PAY_METHOD as payMethod,
+		TO_CHAR(P.PAY_DATE, 'YYYY-MM-DD
+		HH24:MI:SS') as payDate,
+		P.PAY_STATUS as payStatus,
+		M.MEMBER_NAME as
+		memberName,
+		F.FILE_NAME as fileName, MT.MENTORING_GOAL as purpose FROM
+		UB_PAY P
+		JOIN UB_MATCHING MAT ON P.PAY_ID = MAT.PAY_ID
+		JOIN UB_MEMBER M
+		ON MAT.MENTOR_NUMBER = M.MEMBER_NUMBER
+		LEFT JOIN UB_FILE F ON
+		M.FILE_NUMBER = F.FILE_NUMBER
+		LEFT JOIN UB_MENTORING MT ON
+		M.MEMBER_NUMBER = MT.MENTOR_NUMBER
+		WHERE MAT.MENTEE_NUMBER =
+		#{memberNumber}
+		ORDER BY P.PAY_ID DESC
+		) WHERE ROWNUM = 1
+	</select>
+
+	<select id="selectPaymentById" parameterType="long"
+		resultType="paymentDTO">
+		SELECT 
+	        P.PAY_ID as payId,
+	        P.PAY_AMOUNT as payAmount,
+	        P.PAY_METHOD as payMethod,
+	        TO_CHAR(P.PAY_DATE, 'YYYY-MM-DD HH24:MI:SS') as payDate,
+	        P.PAY_STATUS as payStatus,
+	        F.FILE_NAME as fileName  FROM UB_PAY P
+	    JOIN UB_MATCHING MAT ON P.PAY_ID = MAT.PAY_ID
+	    JOIN UB_MEMBER M ON MAT.MENTOR_NUMBER = M.MEMBER_NUMBER
+	    LEFT JOIN UB_FILE F ON M.FILE_NUMBER = F.FILE_NUMBER
+	    WHERE P.PAY_ID = #{payId}
 	</select>
 
 </mapper>

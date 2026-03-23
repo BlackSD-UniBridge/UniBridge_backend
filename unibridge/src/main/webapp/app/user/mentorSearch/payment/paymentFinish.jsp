@@ -28,8 +28,9 @@
 	<main>
 		<div id="mentoringInfo">
 			<img
-				src="${pageContext.request.contextPath}/assets/img/user/userProfile/ex1.png"
-				alt="사진">
+				src="${pageContext.request.contextPath}/display.file?fileName=${payInfo.fileName != null ? payInfo.fileName : 'default.png'}"
+				alt="프로필 사진" id="profileImg"
+				onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/user/userProfile/default.png';">
 			<div id="mentoringPurpose">국어를 집중적으로 공부하여, 수능 최저를 맞출 수 있도록 도와
 				드리겠습니다.</div>
 		</div>

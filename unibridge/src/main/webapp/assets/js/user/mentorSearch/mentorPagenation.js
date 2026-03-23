@@ -100,21 +100,13 @@ class MentorPagination {
  */
 function getProfileImageUrl(fileName) {
 	const cp = (typeof globalContextPath !== 'undefined') ? globalContextPath : '';
-	const defaultImg = cp + '/upload/profile/default.png'; // 기본 이미지 경로
+	const defaultImg = cp + '/assets/img/user/userProfile/default.png'; // 기본 이미지 경로
 
 	if (!fileName) return defaultImg;
 
 	// 1. FILE_NAME에서 _와 _ 사이의 숫자(member_number) 추출
 	// 정규식: _ 다음에 오는 숫자(\d+)를 찾고 그 뒤에 다시 _가 오는지 확인
-	const match = fileName.match(/_(\d+)_/);
-
-	if (match && match[1]) {
-		// match[1]이 추출된 member_number입니다.
-		// 요구하신 'profile' 폴더 경로를 조합합니다.
-		return cp + '/upload/profile/' + fileName;
-	}
-
-	return defaultImg;
+	return cp + '/display.file?fileName=' + fileName;
 }
 
 /**
