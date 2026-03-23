@@ -112,26 +112,32 @@
 				<c:choose>
 					<c:when test="${not empty mentorCardList}">
 						<c:forEach var="mentor" items="${mentorCardList}">
-						    <div class="mentoRecommendCard" onclick="location.href='${pageContext.request.contextPath}/mentor/mentorDetailOk.sch?memberNumber=${mentor.mentorNumber}'">
-						        <div class="mentoRecommendAvatar">
-						            <c:choose>
-						                <c:when test="${not empty mentor.fileName}">
-						                    <img src="${pageContext.request.contextPath}/upload/${mentor.fileName}" alt="프로필">
-						                </c:when>
-						                <c:otherwise>
-						                    <img src="${pageContext.request.contextPath}/static/img/default_avatar.png" alt="기본프로필">
-						                </c:otherwise>
-						            </c:choose>
-						        </div>
-						        <div class="mentoRecommendInfo">
-						            <p class="mentoRecommendName">${mentor.memberNickname} 멘토</p>
-						            <p class="mentoRecommendSchool">${mentor.gradSchool} ${mentor.gradDepart}</p>
-						            <p class="mentoRecommendMentoTitle">${mentor.mentoringTitle}</p>
-						            <div class="mentoRecommendTags">
-						                <span class="tag">${mentor.subjectName}</span>
-						            </div>
-						        </div>
-						    </div>
+							<div class="mentoRecommendCard"
+								onclick="location.href='${pageContext.request.contextPath}/mentor/mentorDetailOk.sch?memberNumber=${mentor.mentorNumber}'">
+								<div class="mentoRecommendAvatar">
+									<c:choose>
+										<c:when test="${not empty mentor.fileName}">
+											<img
+												src="${pageContext.request.contextPath}/upload/${mentor.fileName}"
+												alt="프로필">
+										</c:when>
+										<c:otherwise>
+											<img
+												src="${pageContext.request.contextPath}/static/img/default_avatar.png"
+												alt="기본프로필">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="mentoRecommendInfo">
+									<p class="mentoRecommendName">${mentor.memberNickname}멘토</p>
+									<p class="mentoRecommendSchool">${mentor.gradSchool}
+										${mentor.gradDepart}</p>
+									<p class="mentoRecommendMentoTitle">${mentor.mentoringTitle}</p>
+									<div class="mentoRecommendTags">
+										<span class="tag">${mentor.subjectName}</span>
+									</div>
+								</div>
+							</div>
 						</c:forEach>
 					</c:when>
 
@@ -153,7 +159,10 @@
 		<!-- 취업 섹션 -->
 		<section class="jobBannerWrap">
 			<div class="jobBannerHeader">
-				<h2 class="jobBannerTitle">취업</h2>
+				<h2 class="jobBannerTitle"
+					onclick="window.open('https://www.saramin.co.kr/', '_blank')"
+					style="cursor: pointer;">취업</h2>
+
 				<div class="jobBannerNavGroup">
 					<button class="jobBannerNavBtn" id="jobBannerPrev">&#8249;</button>
 					<button class="jobBannerNavBtn" id="jobBannerNext">&#8250;</button>
@@ -165,15 +174,11 @@
 					<c:choose>
 						<c:when test="${not empty companyList}">
 							<c:forEach var="company" items="${companyList}">
-								<%-- employmentUrl이 있으면 클릭 시 해당 채용 페이지로 이동 --%>
-								<div class="jobBannerCard"
-									data-job-id="${company.employmentId}"
-									<c:if test="${not empty company.employmentUrl}" >
-										onclick="window.open('${company.employmentUrl}', '_blank')"
-										style="cursor:pointer;"
-									</c:if>>
+								<div class="jobBannerCard" data-job-id="${company.employmentId}"
+									<%-- DB에 URL이 있으면 해당 URL로, 없으면 사람인 기본 페이지로 이동 --%>
+                            onclick="window.open('${not empty company.employmentUrl ? company.employmentUrl : 'https://www.saramin.co.kr/'}', '_blank')"
+									style="cursor: pointer;">
 
-									<%-- 로고 이미지 (emplymentLog 컬럼): 없으면 기본 이미지 표시 --%>
 									<c:choose>
 										<c:when test="${not empty company.employmentLog}">
 											<img class="jobBannerCardThumb"
@@ -187,19 +192,17 @@
 										</c:otherwise>
 									</c:choose>
 
-									<%-- 채용 공고 제목: employmentTitle 없으면 companyName 표시 --%>
 									<p class="jobBannerCardTitle">
 										<c:choose>
 											<c:when test="${not empty company.employmentTitle}">
-												${company.employmentTitle}
-											</c:when>
+                                        ${company.employmentTitle}
+                                    </c:when>
 											<c:otherwise>
-												${company.companyName}
-											</c:otherwise>
+                                        ${company.companyName}
+                                    </c:otherwise>
 										</c:choose>
 									</p>
 
-									<%-- 태그: 지역, 경력, 학력 --%>
 									<div class="jobBannerCardTagList">
 										<c:if test="${not empty company.employmentLocation}">
 											<span class="jobBannerCardTag active">${company.employmentLocation}</span>
@@ -214,14 +217,18 @@
 								</div>
 							</c:forEach>
 						</c:when>
+
 						<c:otherwise>
-							<div class="jobBannerCard">
+							<%-- 2. 등록된 정보가 없을 때의 기본 이미지 클릭 시 사람인 이동 --%>
+							<div class="jobBannerCard"
+								onclick="window.open('https://www.saramin.co.kr/', '_blank')"
+								style="cursor: pointer;">
 								<img class="jobBannerCardThumb"
 									src="${pageContext.request.contextPath}/assets/img/UniBridge.png"
 									alt="취업 썸네일" />
 								<p class="jobBannerCardTitle">등록된 채용 정보가 없습니다.</p>
 								<div class="jobBannerCardTagList">
-									<span class="jobBannerCardTag">준비중</span>
+									<span class="jobBannerCardTag">사람인에서 확인하기</span>
 								</div>
 							</div>
 						</c:otherwise>
