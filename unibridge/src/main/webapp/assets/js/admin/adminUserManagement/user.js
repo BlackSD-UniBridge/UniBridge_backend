@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		"공통"		: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,
 		
 		/* 멘토/멘티의 경우*/
-		"매칭 대기" 	: `${window.contextPath}/userMMDetailWait.admin?memberNumber=${u.memberNumber}`,
+		"매칭 대기" 	: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,
 		"매칭 취소"	: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,
 		"매칭중"		: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,
 		"매칭됨"	  	: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,

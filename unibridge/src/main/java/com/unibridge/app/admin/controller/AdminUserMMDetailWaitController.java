@@ -86,5 +86,6 @@ public class AdminUserMMDetailWaitController implements Execute {
 	}
 
 	private void doPost(HttpServletRequest request, HttpServletResponse response, Result result) {
+		
 	}
 }

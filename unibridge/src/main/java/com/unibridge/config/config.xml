@@ -107,6 +107,7 @@
       <mapper resource="com/unibridge/mapper/apiLearningReportWrite.xml" />
       <mapper resource="com/unibridge/mapper/apiLearningReportModify.xml" />
       <mapper resource="com/unibridge/mapper/apiMemberLoginMapper.xml" />
+      <mapper resource="com/unibridge/mapper/apiUserMMDetailMapper.xml" />
    </mappers>
    
 </configuration>

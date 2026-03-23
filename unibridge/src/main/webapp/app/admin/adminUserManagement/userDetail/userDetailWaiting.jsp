@@ -7,6 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>유저 상세 - 대기</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminUserManagement/userDetail/userModal.css" />
+  <script type="text/javascript">
+  	window.contextPath = "${pageContext.request.contextPath}";
+  </script>
 </head>
 <body>
 

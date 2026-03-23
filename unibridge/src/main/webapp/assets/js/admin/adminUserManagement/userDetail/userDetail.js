@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   /* ========================
      유저 유형 파악
      백엔드 연동 시: fetch("/api/user/{id}") 로 유형 받아와서 userType 교체
@@ -30,13 +29,32 @@ document.addEventListener("DOMContentLoaded", () => {
   ======================== */
   const btnWithdraw = document.getElementById("btnWithdraw");
   if (btnWithdraw) {
-    btnWithdraw.addEventListener("click", () => {
+    btnWithdraw.addEventListener("click", async () => {
       if (confirm("해당 유저를 퇴출하시겠습니까?")) {
+		const params = new URLSearchParams(window.location.search);
+		const memberNumber = params.get("memberNumber");
+		
         // 백엔드 연동 시: fetch("/api/user/{id}/withdraw", { method: "DELETE" })
+		const response = await fetch(
+			`${window.contextPath}/api/admin/userMM/updateUserPendingKill.admin`,
+			{
+				method: "post",
+				body: JSON.stringify({ "memberNumber": memberNumber })
+			}
+		);
+		
+		const respJson = await response.json();
+		if (respJson.state !== "ok") {
+			alert("API에 실패했습니다.");
+			return;	
+		}
+		
         alert("퇴출 처리되었습니다.");
-        location.href = "../userList.html";
+		console.log(respJson.detail);
+		
+        location.href = `${window.contextPath}/app/admin/adminUserManagement/userMM.admin`;
       }
-    });
+	});
   }
 
   /* ========================
@@ -47,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.target === overlay) closeModal(overlay.id);
     });
   });
-
 });
 
 function openModal(id) {

@@ -41,13 +41,33 @@ document.addEventListener("DOMContentLoaded", () => {
   ======================== */
   const btnSendReject = document.getElementById("btnSendReject");
   if (btnSendReject) {
-    btnSendReject.addEventListener("click", () => {
+    btnSendReject.addEventListener("click", async () => {
       const reason = document.getElementById("rejectReason")?.value.trim();
       if (!reason) { alert("거부 사유를 입력해주세요."); return; }
       // 백엔드 연동 시 여기서 fetch 호출
-      alert("거부 사유가 발송되었습니다.");
+	  
+	  const params = new URLSearchParams(window.location.search);
+	  const memberNumber = params.get("memberNumber");
+	  
+	  const response = await fetch(
+		`${window.contextPath}/api/admin/userMM/rejectUserStateBySurvey.admin`,
+		{
+		  method: "post",
+		  body: JSON.stringify({ 
+		  	"memberNumber": memberNumber,
+		  	"rejectReason": reason 
+		  })
+		}
+	  );
+	  const respJson = await response.json();
+	  if (respJson.state != "ok") {	
+	      alert("거부 처리에 실패했습니다.");
+		  return;
+	  }
+	  
+	  alert("거부 처리 되었습니다.");
       closeModal("modalReject");
-      location.href = "../userList.html";
+      location.href = `${window.contextPath}/app/admin/adminUserManagement/userMM.admin`;
     });
   }
 
@@ -57,11 +77,27 @@ document.addEventListener("DOMContentLoaded", () => {
   ======================== */
   const btnApprove = document.getElementById("btnApprove");
   if (btnApprove) {
-    btnApprove.addEventListener("click", () => {
+    btnApprove.addEventListener("click", async () => {
       if (confirm("해당 유저를 승인하시겠습니까?")) {
         // 백엔드 연동 시 여기서 fetch 호출
+		const params = new URLSearchParams(window.location.search);
+		const memberNumber = params.get("memberNumber");
+		
+		const response = await fetch(
+			`${window.contextPath}/api/admin/userMM/acceptUserStateBySurvey.admin`,
+			{
+				method: "post",
+				body: JSON.stringify({ "memberNumber": memberNumber })
+			}
+		);
+		const respJson = await response.json();
+		if (respJson.state != "ok") {
+			alert("승인처리가 실패했습니다.");
+			return;
+		}
+		
         alert("승인 처리되었습니다.");
-        location.href = "userList.html";
+        location.href = `${window.contextPath}/app/admin/adminUserManagement/userMM.admin`;
       }
     });
   }
