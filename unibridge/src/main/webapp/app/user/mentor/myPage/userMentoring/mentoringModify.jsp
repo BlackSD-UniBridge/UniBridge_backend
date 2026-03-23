@@ -65,9 +65,26 @@
 							<div id="mentoring">
 								<div id="mentoringTopics">
 									<div class="subject">
-										<label>학습 과목 번호</label> <input type="number"
-											name="mentoringSubject" value="${mentoring.subjectNumber}"
-											required>
+										<label>학습 과목</label> <select name="mentoringSubject"
+											id="mentoringSubject">
+											<option value="none">선택하세요</option>
+											<option value="1"
+												${mentoring.subjectNumber == 1 ? 'selected' : ''}>자바</option>
+											<option value="2"
+												${mentoring.subjectNumber == 2 ? 'selected' : ''}>파이썬</option>
+											<option value="3"
+												${mentoring.subjectNumber == 3 ? 'selected' : ''}>국어</option>
+											<option value="4"
+												${mentoring.subjectNumber == 4 ? 'selected' : ''}>수학</option>
+											<option value="5"
+												${mentoring.subjectNumber == 5 ? 'selected' : ''}>C++</option>
+											<option value="6"
+												${mentoring.subjectNumber == 6 ? 'selected' : ''}>C언어</option>
+											<option value="7"
+												${mentoring.subjectNumber == 7 ? 'selected' : ''}>영어</option>
+											<option value="8"
+												${mentoring.subjectNumber == 8 ? 'selected' : ''}>게임</option>
+										</select>
 									</div>
 									<div class="title">
 										<label>멘토링 제목</label> <input type="text" name="mentoringTitle"
@@ -90,8 +107,22 @@
 											required>${mentoring.mentoringDetail}</textarea>
 									</div>
 									<div id="file">
-										<div id="curriculumFileTitle">파일 수정 (기존 파일 존재)</div>
-										<input type="file" id="curriculumFile" name="mentoringFile">
+										<div id="curriculumFileTitle">커리큘럼 파일 수정</div>
+										<div class="file-info-area">
+											<c:choose>
+												<c:when test="${not empty mentoring.fileName}">
+													<p>
+														현재 등록된 파일: <strong>${mentoring.fileName}</strong>
+													</p>
+												</c:when>
+												<c:otherwise>
+													<p>등록된 파일이 없습니다.</p>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<input type="file" id="curriculumFile" name="mentoringFile"
+											accept=".pdf, .doc, .docx">
+										<p class="file-notice">* 새로 업로드하면 기존 파일은 교체됩니다.</p>
 									</div>
 								</div>
 							</div>
@@ -119,11 +150,12 @@
 
 	<jsp:include page="/app/user/footer.jsp" />
 	<script>
-    function deleteMentoring(internalId) {
-        if(confirm("정말로 이 멘토링을 삭제하시겠습니까?")) {
-            location.href = "${pageContext.request.contextPath}/mvc/auth/mentor/mentoringDeleteOk.my?mentoringNumber=" + mentoringNumber;
-        }
-    }
-</script>
+		function deleteMentoring(internalId) {
+			if (confirm("정말로 이 멘토링을 삭제하시겠습니까?")) {
+				location.href = "${pageContext.request.contextPath}/mvc/auth/mentor/mentoringDeleteOk.my?mentoringNumber="
+						+ mentoringNumber;
+			}
+		}
+	</script>
 </body>
 </html>

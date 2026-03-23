@@ -326,8 +326,41 @@ label[for="mentoringCurriculum"]{
   font-weight: bold;
 }
 
-
-
 footer{
   height : 204px;
+}
+
+#file {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.file-upload-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#customFileBtn {
+    padding: 8px 15px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#fileNameDisplay {
+    font-size: 14px;
+    color: #666;
+}
+
+.file-notice {
+    font-size: 12px;
+    color: #ff4d4d;
+    margin-top: 5px;
 }
