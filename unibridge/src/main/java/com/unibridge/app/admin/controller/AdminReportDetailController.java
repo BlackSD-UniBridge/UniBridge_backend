@@ -39,7 +39,7 @@ public class AdminReportDetailController implements Execute {
 	@SuppressWarnings("unchecked")
 	private void doGet(HttpServletRequest request, HttpServletResponse response, Result result) throws ServletException, IOException {
 		String strReportNumber = request.getParameter("reportNumber");
-		if (strReportNumber.isEmpty() || strReportNumber == null) {
+		if (strReportNumber == null || strReportNumber.isEmpty()) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "유효하지 않은 접근입니다.");
 			throw new ServletException("Invalid access detected.");
 		}

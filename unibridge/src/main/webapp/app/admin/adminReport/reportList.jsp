@@ -12,8 +12,8 @@
   <script src="${pageContext.request.contextPath}/assets/js/admin/adminReport/reportList.js" defer></script>
   <script>
     window.contextPath = "${pageContext.request.contextPath}";
-    sessionStorage.setItem("learningReports", JSON.stringify(${learningReports}));
-    sessionStorage.setItem("learningReportWeeks", JSON.stringify(${learningReportWeeks}));
+    sessionStorage.setItem("learningReports", JSON.stringify(${learningReportsJson}));
+    sessionStorage.setItem("learningReportWeeks", JSON.stringify(${learningReportWeeksJson}));
   </script>
   <title>Document</title>
 </head>

@@ -103,7 +103,8 @@ public class UndecidedSurveyController implements Execute {
         
         try {
             // 1. MultipartRequest를 생성해야 내부 파라미터(role 등)를 읽을 수 있습니다.
-            String UPLOAD_PATH = request.getServletContext().getRealPath("/") + "upload/";
+        	String UPLOAD_PATH = "C:/upload/survey/";
+//            String UPLOAD_PATH = request.getServletContext().getRealPath("/") + "upload/";
             
             
             MultipartRequest multi = new MultipartRequest(

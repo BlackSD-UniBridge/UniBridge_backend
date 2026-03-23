@@ -6,8 +6,24 @@ document.addEventListener('DOMContentLoaded', () => {
             case "password_ok": alert("비밀번호가 성공적으로 변경되었습니다."); break;
             case "phone_ok": alert("전화번호가 변경되었습니다."); break;
             case "gender_ok": alert("성별 정보가 업데이트되었습니다."); break;
+            case "profileImg_ok": alert("프로필 사진이 성공적으로 변경되었습니다."); break;
         }
     }
+
+	// 2. 프로필 사진 즉시 변경 로직
+    const profileFileInput = document.getElementById('profileFileInput');
+    if (profileFileInput) {
+        profileFileInput.addEventListener('change', function() {
+            if (this.files && this.files) {
+                if (confirm("선택하신 사진으로 프로필을 변경하시겠습니까?")) {
+                    document.getElementById('imageForm').submit();
+                } else {
+                    this.value = ""; // 취소 시 초기화
+                }
+            }
+        });
+    }
+    // --- 프로필 이미지 변경 로직 끝 ---
 
     // 2. 닉네임 중복 확인 (AJAX)
     window.checkNick = function() {
@@ -24,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if(data.trim() === "available") {
                 alert("사용 가능한 닉네임입니다.");
                 errorMsg.innerText = "";
-                window.isNickChecked = true; // 전역 변수로 체크 여부 저장
+                window.isNickChecked = true; 
             } else {
                 errorMsg.innerText = "이미 사용 중인 닉네임입니다.";
                 window.isNickChecked = false;
@@ -32,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // 3. 비밀번호 일치 확인 (단순 클라이언트 비교)
+    // 3. 비밀번호 일치 확인
     window.checkPwMatch = function() {
         const pw = document.getElementById('newPw').value;
         const confirm = document.getElementById('newPwConfirm').value;
@@ -48,24 +64,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // 4. 사진 변경 에러 처리 (완료 버튼 클릭 시)
+    // 4. 완료 버튼 클릭 시 최종 체크
     const modifyBtn = document.querySelector('.userModifyBtn');
     modifyBtn.addEventListener('click', () => {
-        const userImg = document.querySelector('.userImg img');
-        const imgError = document.querySelector('.userImg .errorMsg');
+        const userImg = document.getElementById('profileDisplay');
+        const imgError = document.getElementById('imageError'); // HTML에 추가된 id
         
-        // 이미지 소스가 기본이미지이거나 비어있는 경우 (프로젝트 상황에 맞게 수정)
+        // 이미지 필수 체크 (프로젝트 정책에 따라 선택)
         if (!userImg.src || userImg.src.includes("default")) { 
-            imgError.innerText = "프로필 사진은 필수입니다.";
+            if(imgError) imgError.innerText = "프로필 사진은 필수입니다.";
             alert("프로필 사진을 등록해주세요.");
-        } else {
-            // 모든 수정 완료 후 메인 마이페이지로 이동
-            location.href = `${window.contextPath}/mvc/auth/undecided/myPage.my`;
+            return;
         }
+        
+        // 최종 이동
+        location.href = `${window.contextPath}/mvc/auth/undecided/myPage.my`;
     });
 });
 
-// 전화번호 인증 관련 함수 (SmsAuthService 활용)
+// 전화번호 인증 관련 함수
 function sendSms() {
     const phone = document.getElementById('memberPhone').value;
     fetch(`${window.contextPath}/mvc/auth/undecided/verifyAction.my?mode=send&phoneNumber=${phone}`, { method: 'POST' })
@@ -86,7 +103,8 @@ function verifyCode() {
             alert("인증 성공!");
             window.isPhoneVerified = true;
         } else {
-            document.getElementById('authCodeError').innerText = "인증번호가 틀렸습니다.";
+            const codeError = document.getElementById('authCodeError');
+            if(codeError) codeError.innerText = "인증번호가 틀렸습니다.";
         }
     });
 }

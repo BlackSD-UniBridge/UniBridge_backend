@@ -14,9 +14,11 @@
 		m.FILE_NUMBER as fileNumber,
 		f.FILE_NAME as fileName
 		FROM UB_MENTORING m
-		LEFT JOIN UB_FILE f ON m.FILE_NUMBER =
+		LEFT JOIN UB_FILE f ON
+		m.FILE_NUMBER =
 		f.FILE_NUMBER
-		WHERE m.MENTORING_NUMBER = #{mentoringNumber}
+		WHERE m.MENTORING_NUMBER =
+		#{mentoringNumber}
 	</select>
 
 	<insert id="insert" parameterType="MentoringDTO">
@@ -25,7 +27,14 @@
 			SELECT SEQ_MENTORING.NEXTVAL FROM DUAL
 		</selectKey>
 
-		INSERT INTO UB_MENTORING (
+		INSERT ALL
+		INTO UB_FILE (
+		FILE_NUMBER, FILE_NAME, FILE_PATH, CATEGORY
+		)
+		VALUES (
+		#{fileNumber}, #{fileName}, '/upload/mentoring/', 'mentoring'
+		)
+		INTO UB_MENTORING (
 		MENTORING_NUMBER,
 		MENTOR_NUMBER,
 		SUBJECT_NUMBER,
@@ -55,6 +64,9 @@
 		MENTORING_TITLE = #{mentoringTitle},
 		MENTORING_GOAL = #{mentoringGoal},
 		MENTORING_DETAIL = #{mentoringDetail},
+		<if test="fileNumber != null">
+			FILE_NUMBER = #{fileNumber},
+		</if>
 		UPDATED_AT = CURRENT_TIMESTAMP
 		WHERE MENTORING_NUMBER = #{mentoringNumber}
 	</update>
@@ -65,16 +77,20 @@
 		MENTORING_NUMBER = #{mentoringNumber}
 	</delete>
 
-	<select id="checkAlreadyExists" parameterType="long" resultType="int">
-        SELECT COUNT(*)
-        FROM UB_MENTORING
-        WHERE MENTOR_NUMBER = #{mentorNumber}
-    </select>
-    
-    <select id="getMentoringNumberByMentor" parameterType="long" resultType="long">
-        SELECT MENTORING_NUMBER
-        FROM UB_MENTORING
-        WHERE MENTOR_NUMBER = #{mentorNumber}
-    </select>
+	<select id="checkAlreadyExists" parameterType="long"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM UB_MENTORING
+		WHERE MENTOR_NUMBER =
+		#{mentorNumber}
+	</select>
+
+	<select id="getMentoringNumberByMentor" parameterType="long"
+		resultType="long">
+		SELECT MENTORING_NUMBER
+		FROM UB_MENTORING
+		WHERE MENTOR_NUMBER
+		= #{mentorNumber}
+	</select>
 
 </mapper>

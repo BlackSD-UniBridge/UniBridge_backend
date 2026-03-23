@@ -45,11 +45,14 @@
       <typeAlias type="com.unibridge.app.admin.dto.AdMenteeBoardDTO" alias="AdMenteeBoardDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.admin.dto.AdMentorBoardDTO" alias="AdMentorBoardDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.admin.dto.AdNoticeBoardDTO" alias="AdNoticeBoardDTO"></typeAlias>
+      <typeAlias type="com.unibridge.app.admin.dto.AdMenteeBoardCommentDTO" alias="AdMenteeBoardCommentDTO"></typeAlias>
+      <typeAlias type="com.unibridge.app.admin.dto.AdMentorBoardCommentDTO" alias="AdMentorBoardCommentDTO"></typeAlias>
 
 
       
       <!--  MVC DTO  -->
       <typeAlias type="com.unibridge.app.admin.dto.AdminReportListDTO" alias="AdminReportListDTO"/>
+      <typeAlias type="com.unibridge.app.admin.dto.AdminUserMMDetailDTO" alias="AdminUserMMDetailDTO"/>
       
       <!--  API DTO  -->
       <typeAlias type="com.unibridge.api.admin.dto.AdminUserMMDTO" alias="AdminUserMMDTO"></typeAlias>
@@ -97,6 +100,7 @@
       <mapper resource="com/unibridge/mapper/mvcAdminReportListMapper.xml" />
       <mapper resource="com/unibridge/mapper/mvcAdminReportDetailMapper.xml" />
       <mapper resource="com/unibridge/mapper/mvcAdminReportDeleteMapper.xml" />
+      <mapper resource="com/unibridge/mapper/mvcAdminUserMMDetailMapper.xml" />
       
       <!--  API  -->
       <mapper resource="com/unibridge/mapper/apiAdminUserMMMapper.xml" />
@@ -104,6 +108,7 @@
       <mapper resource="com/unibridge/mapper/apiLearningReportWrite.xml" />
       <mapper resource="com/unibridge/mapper/apiLearningReportModify.xml" />
       <mapper resource="com/unibridge/mapper/apiMemberLoginMapper.xml" />
+      <mapper resource="com/unibridge/mapper/apiUserMMDetailMapper.xml" />
    </mappers>
    
 </configuration>

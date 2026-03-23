@@ -13,10 +13,30 @@ public class MentorSearchDTO {
 	private String createdAt;
 	private String subject;
 	private String purpose;
+	private String mentoringTitle;
+	private String mentoringGoal;
 
 	// getter, setter
+	
+	
 	public String getMemberName() {
 		return memberName;
+	}
+
+	public String getMentoringTitle() {
+		return mentoringTitle;
+	}
+
+	public void setMentoringTitle(String mentoringTitle) {
+		this.mentoringTitle = mentoringTitle;
+	}
+
+	public String getMentoringGoal() {
+		return mentoringGoal;
+	}
+
+	public void setMentoringGoal(String mentoringGoal) {
+		this.mentoringGoal = mentoringGoal;
 	}
 
 	public void setMemberName(String memberName) {

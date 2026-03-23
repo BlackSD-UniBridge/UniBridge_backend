@@ -1,170 +1,199 @@
 @charset "UTF-8";
+
 @font-face {
-  font-family: "NanumSquareRound";
-  src: url("/frontend/assets/fonts/nanum-square-round/NanumSquareRoundB.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
+	font-family: "NanumSquareRound";
+	src:
+		url("/frontend/assets/fonts/nanum-square-round/NanumSquareRoundB.ttf")
+		format("truetype");
+	font-weight: 700;
+	font-style: normal;
 }
 
-* { box-sizing: border-box; }
+* {
+	box-sizing: border-box;
+}
 
 html, body {
-  margin: 0;
-  padding: 0;
-  background: #ffffff;
-  font-family: "NanumSquareRound", sans-serif;
-  color: #111111;
-  min-width: 1280px;
+	margin: 0;
+	padding: 0;
+	background: #ffffff;
+	font-family: "NanumSquareRound", sans-serif;
+	color: #111111;
+	min-width: 1280px;
 }
 
+/* ── 전체 래퍼: 유저 페이지처럼 좌우 여백 ── */
 .detail-wrap {
-  padding: 0 48px 60px;
+	max-width: 1060px;
+	margin: 0 auto;
+	padding: 40px 24px 60px;
 }
 
 .page-title {
-  font-size: 28px;
-  font-weight: 700;
-  margin: 24px 0 28px;
+	font-size: 28px;
+	font-weight: 700;
+	margin: 0 0 32px;
+	padding-bottom: 16px;
+	border-bottom: 2px solid #111;
 }
 
+/* ── 제목 ── */
 .detail-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 24px 0 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 12px;
 }
 
 .detail-title-row {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
 }
 
 .detail-title-label {
-  font-size: 22px;
-  font-weight: 700;
+	font-size: 20px;
+	font-weight: 700;
 }
 
 .detail-title-text {
-  font-size: 22px;
-  font-weight: 700;
+	font-size: 20px;
+	font-weight: 700;
 }
 
+/* ── 메타 (날짜·조회수·댓글수) ── */
 .detail-meta {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  font-size: 15px;
-  color: #999;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	font-size: 14px;
+	color: #999;
+	margin-bottom: 28px;
 }
 
+/* ── 본문 박스 ── */
 .detail-content-box {
-  width: 100%;
-  min-height: 340px;
-  border: 1.5px solid #cccccc;
-  border-radius: 16px;
-  padding: 28px 32px;
-  font-size: 17px;
-  color: #aaaaaa;
-  margin-bottom: 18px;
-  line-height: 1.7;
+	width: 100%;
+	min-height: 260px;
+	border: 1.5px solid #cccccc;
+	border-radius: 12px;
+	padding: 24px 28px;
+	font-size: 16px;
+	margin-bottom: 16px;
+	line-height: 1.8;
 }
 
+/* ── 작성자 행 (삭제 버튼 제거 → 목록 버튼만) ── */
 .detail-author-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start; /* 왼쪽 정렬 */
+	margin-bottom: 28px;
 }
 
 .detail-author {
-  font-size: 18px;
-  font-weight: 700;
+	font-size: 16px;
+	color: #555;
 }
 
-.attach-box {
-  border: 1.5px solid #cccccc;
-  border-radius: 12px;
-  padding: 18px 24px;
-  font-size: 16px;
-  color: #444;
-  margin-bottom: 32px;
-  line-height: 1.8;
+/* 목록 버튼 영역 */
+.detail-actions {
+	display: flex;
+	justify-content: flex-start;
+	gap: 12px;
+	margin-bottom: 32px;
 }
 
-/* 댓글 */
+/* ── 구분선 ── */
+.section-divider {
+	border: none;
+	border-top: 1.5px solid #e0e0e0;
+	margin: 0 0 24px;
+}
+
+/* ── 댓글 목록 ── */
 .comment-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+	display: flex;
+	flex-direction: column;
+	gap: 0; /* 유저처럼 구분선으로만 분리 */
 }
 
 .comment-item {
-  border: 1.5px solid #cccccc;
-  border-radius: 14px;
-  padding: 18px 24px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
+	border: none;
+	border-bottom: 1px solid #eeeeee;
+	border-radius: 0;
+	padding: 16px 4px;
+	display: flex;
+	align-items: center; /* 한 줄 정렬 */
+	justify-content: space-between;
+	gap: 16px;
 }
 
-.comment-body { flex: 1; }
+.comment-item:last-child {
+	border-bottom: none;
+}
+
+.comment-body {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
 
 .comment-nickname {
-  font-size: 17px;
-  font-weight: 700;
-  margin-bottom: 4px;
+	font-size: 15px;
+	font-weight: 700;
+	color: #3a7bd5; /* 유저 페이지의 파란 닉네임 */
+	min-width: 90px;
+	flex-shrink: 0;
 }
 
 .comment-content {
-  font-size: 16px;
-  color: #aaaaaa;
-  margin-bottom: 6px;
+	font-size: 15px;
+	color: #222;
+	flex: 1;
 }
 
 .comment-date {
-  font-size: 14px;
-  color: #bbbbbb;
+	font-size: 13px;
+	color: #bbbbbb;
+	white-space: nowrap;
 }
 
+/* ── 공통 버튼 ── */
 .btn {
-  height: 44px;
-  padding: 0 22px;
-  border-radius: 10px;
-  font-family: "NanumSquareRound", sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  border: 1.5px solid #3a3a3a;
-  background: #fff;
-  color: #111;
-  transition: opacity 0.15s;
+	height: 38px;
+	padding: 0 18px;
+	border-radius: 8px;
+	font-family: "NanumSquareRound", sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+	border: 1.5px solid #3a3a3a;
+	background: #fff;
+	color: #111;
+	transition: opacity 0.15s;
+	white-space: nowrap;
 }
 
-.btn:hover { opacity: 0.7; }
+.btn:hover {
+	opacity: 0.7;
+}
 
 .btn-primary {
-  background: #111111;
-  color: #ffffff;
-  border-color: #111111;
+	background: #111111;
+	color: #ffffff;
+	border-color: #111111;
 }
 
 .btn-blue {
-  color: #1a5fff;
-  border-color: #1a5fff;
-  background: #fff;
+	color: #1a5fff;
+	border-color: #1a5fff;
+	background: #fff;
 }
 
 .btn-red {
-  color: #ff1f1f;
-  border-color: #ff1f1f;
-  background: #fff;
-}
-
-.detail-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-bottom: 24px;
+	color: #ff1f1f;
+	border-color: #ff1f1f;
+	background: #fff;
 }

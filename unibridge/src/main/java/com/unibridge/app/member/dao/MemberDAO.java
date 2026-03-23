@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.unibridge.app.file.dto.FileDTO;
 import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.config.MyBatisConfig;
 
@@ -140,5 +141,47 @@ public class MemberDAO {
         String dbPw = getMemberPw(memberNumber);
         // DB 비밀번호가 존재하고, 사용자가 입력한 비밀번호와 일치하는지 비교
         return dbPw != null && dbPw.equals(inputPw);
+    }
+    
+    // 1. 프로필 파일 새 등록 (fileMapper 호출)
+    public int insertProfileFile(FileDTO fileDTO) {
+        // fileMapper.xml의 namespace="file", id="insertFile" 호출
+        sqlSession.insert("file.insertFile", fileDTO);
+        return fileDTO.getFileNumber(); 
+    }
+
+    // 2. 회원과 파일 연결 (memberMapper 호출)
+    public void updateMemberFileNumber(int memberNumber, int fileNumber) {
+        java.util.Map<String, Object> map = new java.util.HashMap<>();
+        map.put("memberNumber", memberNumber);
+        map.put("fileNumber", fileNumber);
+        sqlSession.update("member.updateMemberFileNumber", map);
+    }
+
+    // 3. 기존 파일 정보 수정 (fileMapper 호출)
+    public void updateProfileFile(FileDTO fileDTO) {
+        // fileMapper.xml의 namespace="file", id="updateFile" 호출
+        sqlSession.update("file.updateFile", fileDTO);
+    }
+    
+    public Map<String, Object> selectMemberDetail(int memberNumber) {
+        try (SqlSession sqlSession = MyBatisConfig.getSqlSessionFactory().openSession()) {
+            // "member.selectMap" 대신 "member.selectMemberDetail" 호출
+            return sqlSession.selectOne("member.selectMemberDetail", memberNumber);
+        }
+    }
+    
+    /**
+     * 회원의 설문 번호를 업데이트하고 설문 작성 상태를 'Y'로 변경합니다.
+     * @param memberNumber 회원 번호
+     * @param surveyNumber 새로 생성된 설문 번호
+     */
+    public void updateMemberSurveyNumber(int memberNumber, int surveyNumber) {
+        java.util.Map<String, Object> map = new java.util.HashMap<>();
+        map.put("memberNumber", memberNumber);
+        map.put("surveyNumber", surveyNumber);
+        
+        // memberMapper.xml (또는 해당 namespace)의 updateMemberSurveyNumber 쿼리 호출
+        sqlSession.update("member.updateMemberSurveyNumber", map);
     }
 }

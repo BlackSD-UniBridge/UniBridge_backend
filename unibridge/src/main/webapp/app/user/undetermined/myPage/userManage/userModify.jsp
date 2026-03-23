@@ -32,10 +32,18 @@
             </div>
             <div class="userMain">
                 <div class="userImg">
-                    <img src="${pageContext.request.contextPath}/assets/img/user/userProfile/ex1.png" alt="유저의 프로필 사진">
-                    <button id="imgBtn">사진 변경</button>
-                    <div class="errorMsg"></div>
-                </div>
+				    <img src="/upload/profile/${member.MEMBER_IMG != null ? member.MEMBER_IMG : 'default.png'}?t=<%=System.currentTimeMillis()%>" 
+					     alt="유저의 프로필 사진" 
+					     id="profileDisplay"
+					     onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/user/userProfile/default.png';">
+				    
+				    <form action="${pageContext.request.contextPath}/mvc/auth/undecided/updateOk.my" method="post" enctype="multipart/form-data" id="imageForm">
+				        <input type="hidden" name="updateType" value="profileImg">
+				        <input type="file" name="profileFile" id="profileFileInput" style="display: none;" accept="image/*">
+				        <button type="button" id="imgBtn" onclick="document.getElementById('profileFileInput').click();">사진 변경</button>
+				    </form>
+				    <div class="errorMsg" id="imageError"></div>
+				</div>
                 <div class="modifyForm">
                     <div class="inputGroup">
                         <label>이름</label>
@@ -113,9 +121,8 @@
             <button class="userModifyBtn">완료</button>
         </main>
         <script>
-		    // 외부 JS 파일에서 사용할 수 있도록 전역 변수에 할당
-		    const contextPath = "${pageContext.request.contextPath}";
-		    const SERVER_UPDATE_STATUS = "${updateStatus}";
+		    window.contextPath = "${pageContext.request.contextPath}";
+		    window.SERVER_UPDATE_STATUS = "${updateStatus}";
 		</script>
     </div>
 </body>

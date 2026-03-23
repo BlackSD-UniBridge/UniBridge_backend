@@ -1,140 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-   <!-- 회원가입 쿼리 작성 -->
-   <insert id="join" parameterType="MemberDTO">
-      INSERT INTO UB_MEMBER(
-      	member_number, 
-      	member_id, 
-      	member_pw, 
-      	member_name,
-      	member_nickname,
-        member_phone, 
-        member_gender,
-        survey_number,
-        member_type,
-        member_state,
-        survey_write,
-        file_number 
-	  )
-      VALUES (
-      	seq_user.nextval, 
-      	#{memberId}, 
-      	#{memberPw}, 
-      	#{memberName},
-      	#{memberNickname}, 
-      	#{memberPhone}, 
-      	#{memberGender}, 
-      	null,
-      	'NODECIDED',
-      	'계정 활성화',
-      	'N',
-      	null
-      )
-   </insert>
-   
-   <!-- id 중복 검사 쿼리 작성 -->
-   <select id="checkId" parameterType="string" resultType="int">
-      SELECT count(member_number) FROM tbl_member
-      WHERE member_id = #{memberId}
-   </select>
-   
-   <!-- 로그인 쿼리 작성 -->
-   <select id="login" parameterType="MemberDTO" resultType="MemberDTO">
-      SELECT * FROM UB_MEMBER
-      WHERE member_id = #{memberId} and member_pw = #{memberPw}
-   </select>
-   
-   <!-- 멤버 번호에 해당하는 아이디 조회 쿼리 작성 -->
-   <select id="getMemberId" parameterType="int" resultType="string">
-      SELECT member_id FROM tbl_member
-      WHERE member_number = #{memberNumber}
-   </select>
-   
-   <!-- 회원 검증 -->
-   <select id="checkMember" parameterType="com.unibridge.app.member.dto.MemberDTO" resultType="int">
-	    SELECT COUNT(*) 
-	    FROM member
-	    WHERE member_id = #{memberId}
-	      AND member_pw = #{memberPw}
-	      AND member_phone = #{memberPhone}
+	<!-- 회원가입 쿼리 작성 -->
+	<insert id="join" parameterType="MemberDTO">
+		INSERT INTO UB_MEMBER(
+		member_number,
+		member_id,
+		member_pw,
+		member_name,
+		member_nickname,
+		member_phone,
+		member_gender,
+		survey_number,
+		member_type,
+		member_state,
+		survey_write,
+		file_number
+		)
+		VALUES (
+		seq_user.nextval,
+		#{memberId},
+		#{memberPw},
+		#{memberName},
+		#{memberNickname},
+		#{memberPhone},
+		#{memberGender},
+		null,
+		'NODECIDED',
+		'계정 활성화',
+		'N',
+		null
+		)
+	</insert>
+
+	<!-- id 중복 검사 쿼리 작성 -->
+	<select id="checkId" parameterType="string" resultType="int">
+		SELECT count(member_number) FROM tbl_member
+		WHERE member_id = #{memberId}
 	</select>
-   
-   <!-- 회원삭제 -->
-   <delete id="deleteMember" parameterType="int">
-	    DELETE FROM member
-	    WHERE member_number = #{memberNumber}
+
+	<!-- 로그인 쿼리 작성 -->
+	<select id="login" parameterType="MemberDTO"
+		resultType="MemberDTO">
+		SELECT * FROM UB_MEMBER
+		WHERE member_id = #{memberId} and member_pw = #{memberPw}
+	</select>
+
+	<!-- 멤버 번호에 해당하는 아이디 조회 쿼리 작성 -->
+	<select id="getMemberId" parameterType="int" resultType="string">
+		SELECT member_id FROM tbl_member
+		WHERE member_number = #{memberNumber}
+	</select>
+
+	<!-- 회원 검증 -->
+	<select id="checkMember"
+		parameterType="com.unibridge.app.member.dto.MemberDTO"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE member_id = #{memberId}
+		AND member_pw = #{memberPw}
+		AND member_phone = #{memberPhone}
+	</select>
+
+	<!-- 회원삭제 -->
+	<delete id="deleteMember" parameterType="int">
+		DELETE FROM member
+		WHERE member_number = #{memberNumber}
 	</delete>
-	
+
 	<!-- 회원의 현재 매칭이 진행중인지 체크 -->
-	<select id="isMatchingActive" parameterType="int" resultType="int">
-      SELECT COUNT(*)
-      FROM UB_MATCHING
-      WHERE (mentor_number = #{memberNumber} OR mentee_number = #{memberNumber})
-        AND matching_state = '매칭중'
-   </select>
+	<select id="isMatchingActive" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM UB_MATCHING
+		WHERE (mentor_number = #{memberNumber} OR mentee_number = #{memberNumber})
+		AND matching_state = '매칭중'
+	</select>
 
 	<!-- 회원탈퇴 시 유저의 상태 변경 -->
-   <update id="updateMemberState" parameterType="int">
-      UPDATE UB_MEMBER
-      SET member_state = '계정 삭제'
-      WHERE member_number = #{memberNumber}
-   </update>
-	
+	<update id="updateMemberState" parameterType="int">
+		UPDATE UB_MEMBER
+		SET member_state = '계정 삭제'
+		WHERE member_number = #{memberNumber}
+	</update>
+
 	<!-- 회원정보 가져오기 -->
 	<select id="selectMap" parameterType="int" resultType="map">
-	    SELECT 
-	        MEMBER_ID,
-	        MEMBER_NAME,
-	        MEMBER_NICKNAME,
-	        MEMBER_GENDER,
-	        MEMBER_PHONE
-	    FROM UB_MEMBER
-	    WHERE MEMBER_NUMBER = #{memberNumber}
+		SELECT
+		MEMBER_ID,
+		MEMBER_NAME,
+		MEMBER_NICKNAME,
+		MEMBER_GENDER,
+		MEMBER_PHONE
+		FROM UB_MEMBER
+		WHERE MEMBER_NUMBER = #{memberNumber}
 	</select>
-	
-	<select id="getMemberTypeByNum" parameterType="int" resultType="string">
-	   SELECT member_type 
-	   FROM UB_MEMBER
-	   WHERE member_number = #{memberNumber}
-	</select>
-	
-	<update id="updateNickname" parameterType="map">
-	   UPDATE UB_MEMBER
-	   SET member_nickname = #{memberNickname}
-	   WHERE member_number = #{memberNumber}
-	</update>
-	
-	<update id="updatePassword" parameterType="map">
-	   UPDATE UB_MEMBER
-	   SET member_pw = #{memberPw}
-	   WHERE member_number = #{memberNumber}
-	</update>
-	
-	<update id="updatePhone" parameterType="map">
-	   UPDATE UB_MEMBER
-	   SET member_phone = #{memberPhone}
-	   WHERE member_number = #{memberNumber}
-	</update>
-	
-	<update id="updateGender" parameterType="map">
-	   UPDATE UB_MEMBER
-	   SET member_gender = #{memberGender}
-	   WHERE member_number = #{memberNumber}
-	</update>
-	
 
-	<select id="checkNicknameExceptMe" parameterType="map" resultType="_int">
-	    SELECT COUNT(member_number)
-	    FROM UB_MEMBER
-	    WHERE member_nickname = #{memberNickname}
-	      AND member_number != #{memberNumber}
+	<select id="getMemberTypeByNum" parameterType="int"
+		resultType="string">
+		SELECT member_type
+		FROM UB_MEMBER
+		WHERE member_number = #{memberNumber}
 	</select>
+
+	<update id="updateNickname" parameterType="map">
+		UPDATE UB_MEMBER
+		SET member_nickname = #{memberNickname}
+		WHERE member_number = #{memberNumber}
+	</update>
+
+	<update id="updatePassword" parameterType="map">
+		UPDATE UB_MEMBER
+		SET member_pw = #{memberPw}
+		WHERE member_number = #{memberNumber}
+	</update>
+
+	<update id="updatePhone" parameterType="map">
+		UPDATE UB_MEMBER
+		SET member_phone = #{memberPhone}
+		WHERE member_number = #{memberNumber}
+	</update>
+
+	<update id="updateGender" parameterType="map">
+		UPDATE UB_MEMBER
+		SET member_gender = #{memberGender}
+		WHERE member_number = #{memberNumber}
+	</update>
+
+
+	<select id="checkNicknameExceptMe" parameterType="map"
+		resultType="_int">
+		SELECT COUNT(member_number)
+		FROM UB_MEMBER
+		WHERE member_nickname = #{memberNickname}
+		AND member_number != #{memberNumber}
+	</select>
+
+	<select id="getMemberPw" parameterType="_int"
+		resultType="string">
+		SELECT member_pw
+		FROM UB_MEMBER
+		WHERE member_number = #{memberNumber}
+	</select>
+
+
+	<select id="selectMemberDetail" parameterType="int" resultType="map">
+        SELECT
+            M.MEMBER_ID,
+            M.MEMBER_NAME,
+            M.MEMBER_NICKNAME,
+            M.MEMBER_GENDER,
+            M.MEMBER_PHONE,
+            F.FILE_NAME AS MEMBER_IMG,  M.FILE_NUMBER
+        FROM UB_MEMBER M
+        LEFT JOIN UB_FILE F ON M.FILE_NUMBER = F.FILE_NUMBER
+        WHERE M.MEMBER_NUMBER = #{memberNumber}
+    </select>
+
+    <update id="updateMemberFileNumber" parameterType="map">
+        UPDATE UB_MEMBER
+        SET file_number = #{fileNumber}
+        WHERE member_number = #{memberNumber}
+    </update>
+    
+    <update id="updateMemberSurveyNumber" parameterType="map">
+	    UPDATE UB_MEMBER
+	    SET
+	        survey_number = #{surveyNumber},
+	        survey_write  = 'Y' -- 설문을 작성했으므로 상태를 'Y'로 변경 (필요 없을 시 삭제)
+	    WHERE 
+	        member_number = #{memberNumber}
+	</update>
 	
-	<select id="getMemberPw" parameterType="_int" resultType="string">
-	   SELECT member_pw 
-	   FROM UB_MEMBER 
-	   WHERE member_number = #{memberNumber}
-	</select>
-   
 </mapper>

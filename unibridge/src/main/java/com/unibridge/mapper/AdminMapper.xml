@@ -2,38 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
 
-	<!-- 관리자 번호 닉네임 변환  -->
-	<select id="conversionNickname" parameterType="int" resultType="String">
+	<!-- 관리자 번호 닉네임 변환 -->
+	<select id="conversionNickname" parameterType="int"
+		resultType="String">
 		SELECT ADMIN_NICKNAME
-		FROM UB_ADMIN 
-		WHERE ADMIN_NUMBER = #{adminNumber}
+		FROM UB_ADMIN
+		WHERE ADMIN_NUMBER =
+		#{adminNumber}
 	</select>
-	
-	
+
+
 	<!-- 관리자 로그인 -->
 	<select id="adlogin" parameterType="AdminDTO" resultType="int">
-		SELECT * FROM UB_ADMIN
+		SELECT
+		* FROM UB_ADMIN
 		WHERE admin_id = #{adminId} and admin_pw = #{adminPw}
 	</select>
-	
-	<!-- 메인페이지  -->
+
+	<!-- 메인페이지 -->
 	<!-- 회원 전체 -->
 	<select id="membertotal" resultType="int">
-		SELECT count(*) FROM UB_MEMBER
+		SELECT count(*) FROM
+		UB_MEMBER
 	</select>
 	<!-- 멘토 전체 -->
 	<select id="mentortotal" resultType="int">
-		SELECT count(*) FROM UB_MEMBER WHERE MEMBER_TYPE = 'MENTOR'
+		SELECT count(*) FROM
+		UB_MEMBER WHERE MEMBER_TYPE = 'MENTOR'
 	</select>
 	<!-- 멘티 전체 -->
 	<select id="menteetotal" resultType="int">
-		SELECT count(*) FROM UB_MEMBER WHERE MEMBER_TYPE = 'MENTEE'
+		SELECT count(*) FROM
+		UB_MEMBER WHERE MEMBER_TYPE = 'MENTEE'
 	</select>
 	<!-- 현재 매칭 전체 -->
 	<select id="matchingtotal" resultType="int">
-		SELECT count(*) FROM UB_MATCHING WHERE MATCHING_STATE = '매칭중'
+		SELECT count(*) FROM
+		UB_MATCHING WHERE MATCHING_STATE = '매칭중'
 	</select>
-	
+
 	<!-- 최신 게시판 -->
 	<select id="recentboard" resultType="AdMainDTO">
 	<![CDATA[
@@ -48,7 +55,7 @@
 		WHERE ROWNUM <= 5
 	]]>
 	</select>
-	
+
 	<!-- 최신 멤버 -->
 	<select id="recentMember" resultType="AdMainDTO">
 	<![CDATA[
@@ -60,21 +67,25 @@
 		WHERE ROWNUM <= 5
 	]]>
 	</select>
-	
+
 	<!-- 멘티 게시판 -->
 	<!-- 전체 조회 게시판 갯수 -->
-	<select id="menteeGetTotal" resultType = "int">
-		select count(*) from UB_MENTEE_BOARD
+	<select id="menteeGetTotal" resultType="int">
+		select count(*) from
+		UB_MENTEE_BOARD
 	</select>
-	
+
 	<!-- 랜더링 조회 게시판 갯수 -->
-	<select id="menteeGetRenderingTotal" resultType = "int">
-		select count(*) from UB_MENTEE_BOARD 
-		WHERE board_date BETWEEN TO_DATE(#{dateFrom}, 'YYYY-MM-DD') AND TO_DATE(#{dateTo}, 'YYYY-MM-DD') 
+	<select id="menteeGetRenderingTotal" resultType="int">
+		select count(*)
+		from UB_MENTEE_BOARD
+		WHERE board_date BETWEEN TO_DATE(#{dateFrom},
+		'YYYY-MM-DD') AND
+		TO_DATE(#{dateTo}, 'YYYY-MM-DD')
 	</select>
-	
+
 	<!-- 전체 조회 -->
-	<select id="menteeSelectAll" resultType = "AdMenteeBoardListDTO">
+	<select id="menteeSelectAll" resultType="AdMenteeBoardListDTO">
 		<![CDATA[
 			SELECT * FROM (
 				SELECT ROWNUM AS rnum, subquery.*
@@ -92,9 +103,10 @@
 			)WHERE rnum BETWEEN #{startRow} AND #{endRow}
 		]]>
 	</select>
-	
+
 	<!-- 멘티 랜더링 조회 -->
-	<select id="menteeSelectFilter" resultType="AdMenteeBoardListDTO">
+	<select id="menteeSelectFilter"
+		resultType="AdMenteeBoardListDTO">
 		<![CDATA[
 			SELECT * FROM (
 				SELECT ROWNUM AS rnum, subquery.*
@@ -114,67 +126,103 @@
 			)WHERE rnum BETWEEN #{startRow} AND #{endRow}
 		]]>
 	</select>
-	
+
 	<!-- 멘티 상세 조회 -->
 	<select id="menteeSelectOne" resultType="AdMenteeBoardDTO">
-		SELECT UMB.menteeboard_number, UMB.BOARD_TITLE , UMB.BOARD_CONTENT , UMB.BOARD_CONTENT , UMB.BOARD_CLICK , UMB.board_date, UF.FILE_NAME, 
+		SELECT
+		UMB.menteeboard_number, UMB.BOARD_TITLE , UMB.BOARD_CONTENT ,
+		UMB.BOARD_CONTENT , UMB.BOARD_CLICK , UMB.board_date, UF.FILE_NAME,
 		CASE
-			WHEN umb.admin_number IS NOT NULL THEN ua.admin_Nickname
-			WHEN umb.MEMBER_number IS NOT NULL THEN um.MEMBER_nickname
-		END AS "write_nickname",
+		WHEN umb.admin_number IS NOT NULL THEN ua.admin_Nickname
+		WHEN
+		umb.MEMBER_number IS NOT NULL THEN um.MEMBER_nickname
+		END AS
+		"write_nickname",
 		CASE
-			WHEN umb.admin_number IS NOT NULL THEN ua.admin_number
-			WHEN umb.MEMBER_number IS NOT NULL THEN um.MEMBER_number
-		END AS "write_number"
-		FROM  UB_MENTEE_BOARD UMB
-		LEFT JOIN UB_MEMBER UM  ON UMB.member_number = UM.member_number
-		LEFT JOIN UB_ADMIN UA ON UMB.admin_number = UA.admin_number
-		LEFT JOIN UB_FILE UF ON UMB.FILE_NUMBER = UF.FILE_NUMBER
-		WHERE UMB.MENTEEBOARD_NUMBER = #{boardNumber}
+		WHEN umb.admin_number IS NOT NULL THEN
+		ua.admin_number
+		WHEN umb.MEMBER_number IS NOT NULL THEN
+		um.MEMBER_number
+		END AS
+		"write_number"
+		FROM UB_MENTEE_BOARD UMB
+		LEFT JOIN
+		UB_MEMBER UM ON
+		UMB.member_number = UM.member_number
+		LEFT JOIN UB_ADMIN
+		UA ON
+		UMB.admin_number = UA.admin_number
+		LEFT JOIN UB_FILE UF ON
+		UMB.FILE_NUMBER = UF.FILE_NUMBER
+		WHERE UMB.MENTEEBOARD_NUMBER =
+		#{boardNumber}
 	</select>
-	
+
 	<!-- 멘티 게시판 작성 -->
 	<insert id="menteeInsert" parameterType="AdMenteeBoardDTO">
-		<selectKey keyProperty="menteeboardNumber" resultType="int" order="BEFORE">
+		<selectKey keyProperty="menteeboardNumber" resultType="int"
+			order="BEFORE">
 			SELECT SEQ_MENTEE_BOARD.nextVal FROM DUAL
 		</selectKey>
-		INSERT INTO UB_mentee_board(menteeboard_number, board_title, board_content, admin_number)
-		VALUES(#{menteeboardNumber}, #{boardTitle}, #{boardContent}, #{writeNumber})
+		INSERT INTO UB_mentee_board(menteeboard_number, board_title,
+		board_content, admin_number)
+		VALUES(#{menteeboardNumber},
+		#{boardTitle}, #{boardContent}, #{writeNumber})
 	</insert>
-	
+
 	<!-- 멘티 게시판 수정 -->
 	<update id="menteeUpdate">
-		UPDATE UB_mentee_board 
-		SET board_title=#{boardTitle}, board_content=#{boardContent} 
-		WHERE menteeBoard_number=#{menteeboardNumber}
+		UPDATE UB_mentee_board
+		SET board_title=#{boardTitle},
+		board_content=#{boardContent}
+		WHERE
+		menteeBoard_number=#{menteeboardNumber}
 	</update>
-	
+
 	<!-- 멘티 게시판 삭제 -->
 	<delete id="menteeDelete">
 		delete From UB_mentee_board
-		where menteeBoard_number=#{menteeboardNumber}
-	</delete>
-	
-	<!-- 멘티 게시판 댓글 전체 삭제 -->
-	<delete id="menteeDeleteAllComment">
-		DELETE FROM UB_mentee_board_comment WHERE menteeBoard_ID = #{menteeboardNumber}
+		where
+		menteeBoard_number=#{menteeboardNumber}
 	</delete>
 
+	<!-- 멘티 게시판 댓글 전체 삭제 -->
+	<delete id="menteeDeleteAllComment">
+		DELETE FROM UB_mentee_board_comment WHERE
+		menteeBoard_ID = #{menteeboardNumber}
+	</delete>
 	
+	<!-- 멘티 게시판 댓글 전체 조회 -->
+	<select id="menteeSelectCommentList" parameterType="int" resultType="AdMenteeBoardCommentDTO">
+		SELECT 
+	        MENTEE_COM_ID as menteeComNumber,  MENTEE_COM_CONTENT as menteeComContent, 
+	        MENTEE_COM_DATE as menteeComDate, 
+	        UM.MEMBER_NICKNAME as memberNickname
+	    FROM UB_MENTEE_BOARD_COMMENT MBC
+	    JOIN UB_MEMBER UM ON MBC.MEMBER_NUMBER = UM.MEMBER_NUMBER
+	    WHERE MENTEEBOARD_ID = #{boardNumber}
+	    ORDER BY MENTEE_COM_DATE DESC
+	</select>
+
+
 	<!-- 멘토 게시판 -->
 	<!-- 전체 조회 게시판 갯수 -->
-	<select id="mentorGetTotal" resultType = "int">
-		select count(*) from UB_MENTOR_BOARD
+	<select id="mentorGetTotal" resultType="int">
+		select count(*) from
+		UB_MENTOR_BOARD
 	</select>
-	
+
 	<!-- 랜더링 조회 게시판 갯수 -->
-	<select id="mentorGetRenderingTotal" resultType = "int">
-		select count(*) from UB_MENTOR_BOARD 
-		WHERE board_date BETWEEN TO_DATE(#{dateFrom}, 'YYYY-MM-DD') AND TO_DATE(#{dateTo}, 'YYYY-MM-DD') 
+	<select id="mentorGetRenderingTotal" resultType="int">
+		select count(*)
+		from UB_MENTOR_BOARD
+		WHERE board_date BETWEEN TO_DATE(#{dateFrom},
+		'YYYY-MM-DD') AND
+		TO_DATE(#{dateTo}, 'YYYY-MM-DD')
 	</select>
-	
+
 	<!-- 전체 조회 -->
-	<select id="mentorSelectAll" resultType = "AdMentorBoardListDTO">
+	<select id="mentorSelectAll" resultType="AdMentorBoardListDTO">
 		<![CDATA[
 			SELECT * FROM (
 				SELECT ROWNUM AS rnum, subquery.*
@@ -192,9 +240,10 @@
 			)WHERE rnum BETWEEN #{startRow} AND #{endRow}
 		]]>
 	</select>
-	
+
 	<!-- 멘토 랜더링 조회 -->
-	<select id="mentorSelectFilter" resultType="AdMentorBoardListDTO">
+	<select id="mentorSelectFilter"
+		resultType="AdMentorBoardListDTO">
 		<![CDATA[
 			SELECT * FROM (
 				SELECT ROWNUM AS rnum, subquery.*
@@ -214,52 +263,73 @@
 			)WHERE rnum BETWEEN #{startRow} AND #{endRow}
 		]]>
 	</select>
-	
+
 	<!-- 멘토 상세 조회 -->
 	<select id="mentorSelectOne" resultType="AdMentorBoardDTO">
-		SELECT UMB.mentorboard_number, UMB.BOARD_TITLE , UMB.BOARD_CONTENT , UMB.BOARD_CONTENT , UMB.BOARD_CLICK , UMB.board_date, UF.FILE_NAME, 
+		SELECT
+		UMB.mentorboard_number, UMB.BOARD_TITLE , UMB.BOARD_CONTENT ,
+		UMB.BOARD_CONTENT , UMB.BOARD_CLICK , UMB.board_date, UF.FILE_NAME,
 		CASE
-			WHEN umb.admin_number IS NOT NULL THEN ua.admin_Nickname
-			WHEN umb.MEMBER_number IS NOT NULL THEN um.MEMBER_nickname
-		END AS "write_nickname",
+		WHEN umb.admin_number IS NOT NULL THEN ua.admin_Nickname
+		WHEN
+		umb.MEMBER_number IS NOT NULL THEN um.MEMBER_nickname
+		END AS
+		"write_nickname",
 		CASE
-			WHEN umb.admin_number IS NOT NULL THEN ua.admin_number
-			WHEN umb.MEMBER_number IS NOT NULL THEN um.MEMBER_number
-		END AS "write_number"
-		FROM  UB_MENTOR_BOARD UMB
-		LEFT JOIN UB_MEMBER UM  ON UMB.member_number = UM.member_number
-		LEFT JOIN UB_ADMIN UA ON UMB.admin_number = UA.admin_number
-		LEFT JOIN UB_FILE UF ON UMB.FILE_NUMBER = UF.FILE_NUMBER
-		WHERE UMB.MENTORBOARD_NUMBER = #{boardNumber}
+		WHEN umb.admin_number IS NOT NULL THEN
+		ua.admin_number
+		WHEN umb.MEMBER_number IS NOT NULL THEN
+		um.MEMBER_number
+		END AS
+		"write_number"
+		FROM UB_MENTOR_BOARD UMB
+		LEFT JOIN
+		UB_MEMBER UM ON
+		UMB.member_number = UM.member_number
+		LEFT JOIN UB_ADMIN
+		UA ON
+		UMB.admin_number = UA.admin_number
+		LEFT JOIN UB_FILE UF ON
+		UMB.FILE_NUMBER = UF.FILE_NUMBER
+		WHERE UMB.MENTORBOARD_NUMBER =
+		#{boardNumber}
 	</select>
-	
+
 	<!-- 멘토 게시판 작성 -->
 	<insert id="mentorInsert" parameterType="AdMentorBoardDTO">
-		<selectKey keyProperty="mentorboardNumber" resultType="int" order="BEFORE">
+		<selectKey keyProperty="mentorboardNumber" resultType="int"
+			order="BEFORE">
 			SELECT SEQ_MENTOR_BOARD.nextVal FROM DUAL
 		</selectKey>
-		INSERT INTO UB_mentor_board(mentorboard_number, board_title, board_content, admin_number)
-		VALUES(#{mentorboardNumber}, #{boardTitle}, #{boardContent}, #{writeNumber})
+		INSERT INTO UB_mentor_board(mentorboard_number, board_title,
+		board_content, admin_number)
+		VALUES(#{mentorboardNumber},
+		#{boardTitle}, #{boardContent}, #{writeNumber})
 	</insert>
-	
+
 	<!-- 멘토 게시판 수정 -->
 	<update id="mentorUpdate">
-		UPDATE UB_mentor_board 
-		SET board_title=#{boardTitle}, board_content=#{boardContent} 
-		WHERE mentorBoard_number=#{mentorboardNumber}
+		UPDATE UB_mentor_board
+		SET board_title=#{boardTitle},
+		board_content=#{boardContent}
+		WHERE
+		mentorBoard_number=#{mentorboardNumber}
 	</update>
-	
+
 	<!-- 멘토 게시판 삭제 -->
 	<delete id="mentorDelete">
 		delete From UB_mentor_board
-		where mentorBoard_number=#{mentorboardNumber}
+		where
+		mentorBoard_number=#{mentorboardNumber}
 	</delete>
-	
+
 	<!-- 멘토 게시판 댓글 전체 삭제 -->
 	<delete id="mentorDeleteAllComment">
-		DELETE FROM UB_mentor_board_comment WHERE mentorBoard_ID = #{mentorboardNumber}
+		DELETE FROM UB_mentor_board_comment WHERE
+		mentorBoard_ID = #{mentorboardNumber}
 	</delete>
 	
+
 	
 	<!-- 공지사항 -->
 	<!-- 전체 조회 게시판 갯수 -->
@@ -356,5 +426,18 @@
 	</select>
 	
 
-	
+	<!-- 멘토 게시판 댓글 전체 조회 -->
+	<select id="mentorSelectCommentList" parameterType="int" resultType="AdMentorBoardCommentDTO">
+		SELECT 
+	        MENTOR_COM_ID as mentorComNumber,  MENTOR_COM_CONTENT as mentorComContent, 
+	        MENTOR_COM_DATE as mentorComDate, 
+	        UM.MEMBER_NICKNAME as memberNickname
+	    FROM UB_MENTOR_BOARD_COMMENT MBC
+	    JOIN UB_MEMBER UM ON MBC.MEMBER_NUMBER = UM.MEMBER_NUMBER
+	    WHERE MENTORBOARD_ID = #{boardNumber}
+	    ORDER BY MENTOR_COM_DATE DESC
+	</select>
+
+
+
 </mapper>

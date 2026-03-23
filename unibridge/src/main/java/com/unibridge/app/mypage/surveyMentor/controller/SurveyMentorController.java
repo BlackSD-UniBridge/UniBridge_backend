@@ -13,6 +13,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.file.dto.FileDTO;
+import com.unibridge.app.member.dao.MemberDAO;
 import com.unibridge.app.member.dto.MemberDTO;
 import com.unibridge.app.mypage.survey.dao.SurveyDAO;
 import com.unibridge.app.mypage.surveyMentor.dto.SurveyMentorDTO;
@@ -24,7 +25,7 @@ public class SurveyMentorController implements Execute{
     public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//파일 저장 경로 설정 및 디렉토리 생성
-		String UPLOAD_PATH = request.getServletContext().getRealPath("/") + "upload/";
+		String UPLOAD_PATH = "C:/upload/survey/";
         File uploadDir = new File(UPLOAD_PATH);
         if (!uploadDir.exists()) uploadDir.mkdirs();
         
@@ -45,6 +46,7 @@ public class SurveyMentorController implements Execute{
         System.out.println("[LOG] 전달된 role: " + role);
 
         SurveyDAO surveyDAO = new SurveyDAO();
+        MemberDAO memberDAO = new MemberDAO();
         SurveyMentorDTO mentorDTO = new SurveyMentorDTO();
 
         try {
@@ -66,25 +68,42 @@ public class SurveyMentorController implements Execute{
 
             // 5. 파일 처리 로직
             FileDTO fileDTO = null;
-            // JSP의 <input type="file" name="surveyFile">에서 전송된 파일이 있는지 확인
-            if (multi.getFilesystemName("surveyFile") != null) {
-                fileDTO = new FileDTO();
-                String fileName = multi.getFilesystemName("surveyFile");
+            String originalName = multi.getOriginalFileName("surveyFile");
+
+            if (originalName != null) {
+                File oldFile = multi.getFile("surveyFile");
+                String extension = originalName.substring(originalName.lastIndexOf("."));
                 
-                fileDTO.setFileName(fileName);
-                fileDTO.setFileOriginalName(multi.getOriginalFileName("surveyFile"));
-                fileDTO.setFilePath("/upload/" + fileName);
-                fileDTO.setFileExtension(fileName.substring(fileName.lastIndexOf(".") + 1));
-                fileDTO.setFileSize(multi.getFile("surveyFile").length());
+                // 파일명 규칙: survey_회원번호_현재시간.확장자
+                String newFileName = "survey_" + loginUser.getMemberNumber() + "_" + System.currentTimeMillis() + extension;
                 
-                System.out.println("[DEBUG] 멘토 파일 업로드 성공: " + fileName);
-            } else {
-                System.out.println("[DEBUG] 멘토 파일 업로드 없음");
+                // 저장 경로 (C:/upload/survey/)
+                String savePath = "C:/upload/survey/";
+                File newFile = new File(savePath, newFileName);
+                
+                // 파일 이름 변경 실행
+                if (oldFile.renameTo(newFile)) {
+                    fileDTO = new FileDTO();
+                    fileDTO.setFileName(newFileName);              // 서버 저장명
+                    fileDTO.setFileOriginalName(originalName);     // 실제 원본명
+                    fileDTO.setFileExtension(extension.replace(".", ""));
+                    fileDTO.setFileSize(newFile.length());
+                    fileDTO.setFilePath("/upload/survey/" + newFileName); // 가상 경로
+                    
+                    System.out.println("[DEBUG] 멘토 파일명 변경 완료: " + newFileName);
+                } else {
+                	System.out.println("[DEBUG] 멘토 파일 업로드 없음");
+                }
             }
 
             // 6. DB 저장 (SurveyDAO 내부에서 파일 -> 설문마스터 -> 멘토상세 순으로 처리)
             surveyDAO.insertMentorSurvey(mentorDTO, fileDTO);
+            
+            int generatedSurveyNumber = mentorDTO.getSurveyNumber(); 
+            memberDAO.updateMemberSurveyNumber(loginUser.getMemberNumber(), generatedSurveyNumber);
+            
             System.out.println("[LOG] 멘토 설문 등록 성공 (회원번호: " + loginUser.getMemberNumber() + ")");
+            
 
         } catch (NumberFormatException e) {
             System.out.println("[ERROR] 숫자 형식 데이터 변환 중 오류 발생: " + e.getMessage());

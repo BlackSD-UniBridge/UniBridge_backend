@@ -48,9 +48,8 @@ public class MenteeMangeController implements Execute {
 
 	    // DAO로 회원정보 조회
 	    MemberDAO memberDAO = new MemberDAO();
-	    Map<String, Object> member = memberDAO.selectMember(loginUser.getMemberNumber());
-	    System.out.println("DB에서 가져온 데이터: " + member.toString()); // 여기서 Key 이름을 확인!
-
+	    Map<String, Object> member = memberDAO.selectMemberDetail(loginUser.getMemberNumber());
+	    System.out.println("마이페이지 출력 데이터: " + member.toString());
 	    request.setAttribute("member", member);
 	    
 	    // outResult로 forward 설정

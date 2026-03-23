@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.admin.dao.AdMenteeBoardDAO;
+import com.unibridge.app.admin.dto.AdMenteeBoardCommentDTO;
 import com.unibridge.app.admin.dto.AdMenteeBoardDTO;
 import com.unibridge.app.admin.dto.AdMenteeBoardListDTO;
 import com.unibridge.app.file.dao.FileDAO;
@@ -54,10 +55,14 @@ public class AdminMenteeBoardDetailController implements Execute {
 			return result;
 		}
 		
+		// 해당 게시글으 ㅣ댓글 리스트 가져오기
+		List<AdMenteeBoardCommentDTO> commentList = boardDAO.selectComments(boardNumber);
 		
 		//로그인 한 사용자 번호 가져오기
 		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("adminNumber");
 		System.out.println("로그인 한 멤버 번호 : " + loginMemberNumber);
+		
+		request.setAttribute("sessionNumber", request.getSession().getAttribute("adminNumber"));
 		
 		//현재 게시글 작성자 번호 가져오기
 		int writeNumber = boardDTO.getWriteNumber();
@@ -65,6 +70,7 @@ public class AdminMenteeBoardDetailController implements Execute {
 		
 		
 		request.setAttribute("board", boardDTO);
+		request.setAttribute("commentList", commentList);
 		request.setAttribute("loginMemberNumber",loginMemberNumber);
 		result.setPath("/app/admin/adminBoard/menteeBoard/menteeBoardDetail.jsp");
 		result.setRedirect(false);

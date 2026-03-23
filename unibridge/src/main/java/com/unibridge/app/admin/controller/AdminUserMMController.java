@@ -31,8 +31,8 @@ public class AdminUserMMController implements Execute {
 	}
 	
 	private void doGet(HttpServletRequest request, HttpServletResponse response, Result result) {
-		result.setRedirect(true);
-		result.setPath(request.getContextPath() + "/app/admin/adminUserManagement/userList.jsp");
+		result.setRedirect(false);
+		result.setPath("/app/admin/adminUserManagement/userList.jsp");
 	}
 
 	private void doPost(HttpServletRequest request, HttpServletResponse response, Result result) {

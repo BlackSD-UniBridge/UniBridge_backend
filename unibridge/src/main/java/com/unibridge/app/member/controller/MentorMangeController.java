@@ -42,14 +42,13 @@ public class MentorMangeController implements Execute{
 		System.out.println("멘토 -- 회원 정보 출력");
 		
 		HttpSession session = request.getSession();
-		MemberDTO memberNumber = (MemberDTO) session.getAttribute("loginUser");
-	    System.out.println("MentorMange컨트롤러 : " + memberNumber.getMemberNumber());
+		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+	    System.out.println("MentorMange컨트롤러 : " + loginUser.getMemberNumber());
 
 	    // DAO로 회원정보 조회
 	    MemberDAO memberDAO = new MemberDAO();
-	    Map<String, Object> member = memberDAO.selectMember(memberNumber.getMemberNumber());
-	    System.out.println("DB에서 가져온 데이터: " + member.toString()); // 여기서 Key 이름을 확인!
-
+	    Map<String, Object> member = memberDAO.selectMemberDetail(loginUser.getMemberNumber());
+	    System.out.println("마이페이지 출력 데이터: " + member.toString());
 	    request.setAttribute("member", member);
 	    
 	    // outResult로 forward 설정

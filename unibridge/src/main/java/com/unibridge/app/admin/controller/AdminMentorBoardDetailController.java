@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.admin.dao.AdMentorBoardDAO;
+import com.unibridge.app.admin.dto.AdMentorBoardCommentDTO;
 import com.unibridge.app.admin.dto.AdMentorBoardDTO;
 import com.unibridge.app.admin.dto.AdMentorBoardListDTO;
 import com.unibridge.app.file.dao.FileDAO;
@@ -54,6 +55,8 @@ public class AdminMentorBoardDetailController implements Execute {
 			return result;
 		}
 		
+		// 멘토 댓글 가져오기
+		List<AdMentorBoardCommentDTO> commentList = boardDAO.selectComments(boardNumber);
 		
 		//로그인 한 사용자 번호 가져오기
 		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("adminNumber");
@@ -65,6 +68,7 @@ public class AdminMentorBoardDetailController implements Execute {
 		
 		
 		request.setAttribute("board", boardDTO);
+		request.setAttribute("commentList", commentList);
 		request.setAttribute("loginMemberNumber",loginMemberNumber);
 		result.setPath("/app/admin/adminBoard/mentorBoard/mentorBoardDetail.jsp");
 		result.setRedirect(false);

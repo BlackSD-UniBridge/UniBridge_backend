@@ -130,5 +130,18 @@
 	        ORDER BY survey_number DESC
 	    ) WHERE ROWNUM = 1
 	</select>
+	
+	<update id="updateSurvey" parameterType="SurveyDTO">
+	    UPDATE UB_SURVEY
+	    SET
+	        survey_type     = #{surveyType},
+	        member_number   = #{memberNumber},
+	        admin_number    = #{adminNumber}, -- 혹은 고정값 1
+	        file_number     = #{fileNumber, jdbcType=INTEGER},
+	        survey_approval = #{surveyApproval}, -- 필요 시 'P' 등으로 고정
+	        survey_app_date = SYSDATE            -- 수정 시간을 현재로 갱신할 경우
+	    WHERE 
+	        survey_number   = #{surveyNumber}
+	</update>
     
 </mapper>

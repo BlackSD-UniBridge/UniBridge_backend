@@ -37,7 +37,10 @@
             </div>
             
             <div class="userMain">
-                <img src="${pageContext.request.contextPath}/assets/img/user/userProfile/ex1.png" alt="유저의 프로필 사진">
+                <img src="/upload/profile/${member.MEMBER_IMG != null ? member.MEMBER_IMG : 'default.png'}?t=<%=System.currentTimeMillis()%>" 
+					     alt="유저의 프로필 사진" 
+					     id="profileDisplay"
+					     onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/user/userProfile/default.png';">
                 <div class="userProfile">
                     <div class="userTextGroup">
                         <label for="">아이디</label>

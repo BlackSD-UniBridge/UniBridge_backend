@@ -110,6 +110,7 @@ public class MenteeSurveyController implements Execute {
 	        outResult = new SurveyMenteeController().execute(request, response);
 	    } catch (Exception e) {
 	        e.printStackTrace();
+	        System.out.println("멘티 설문조사 에러 발생");
 	    }
 	}
 

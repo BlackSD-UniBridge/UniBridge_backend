@@ -60,8 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.deleteComment = function(commentId) {
       if (confirm("댓글을 삭제하시겠습니까?")) {
-        BoardStore.deleteComment(boardType, postId, commentId);
-        renderComments();
+        location.href = `adminMenteeCommentDeleteOk.admin?commentNumber=${commentNumber}&boardNumber=${boardNumber}`;
       }
     };
   }

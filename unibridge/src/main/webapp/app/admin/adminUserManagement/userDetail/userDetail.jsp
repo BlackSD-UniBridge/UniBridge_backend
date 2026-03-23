@@ -7,6 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>유저 상세</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminUserManagement/userDetail/userModal.css" />
+  <script type="text/javascript">
+  	window.contextPath = "${pageContext.request.contextPath}";
+  </script>
 </head>
 <body>
 
@@ -29,17 +32,16 @@
 
         <div class="info-type-row">
           유형 :
-          <span class="type-badge" id="userType">멘토</span>
+          <span class="type-badge" id="userType">${memberDetail.memberType}</span>
         </div>
 
-        <div class="info-status-row">상태 :&nbsp;&nbsp;매칭 중</div>
+        <div class="info-status-row">상태 :&nbsp;&nbsp;${memberDetail.memberState}</div>
 
         <div class="info-fields">
-          <div class="info-field">닉네임 : testName123</div>
-          <div class="info-field">아이디 :&nbsp;&nbsp;test1234</div>
-          <div class="info-field">비밀번호 : qwer1234</div>
-          <div class="info-field">성별 :&nbsp;&nbsp;여</div>
-          <div class="info-field">전화번호 : 010-1234-5678</div>
+          <div class="info-field">닉네임 : ${memberDetail.memberNickname}</div>
+          <div class="info-field">아이디 :&nbsp;&nbsp;${memberDetail.memberId}</div>
+          <div class="info-field">성별 :&nbsp;&nbsp;${memberDetail.memberGender}</div>
+          <div class="info-field">전화번호 : ${memberDetail.memberPhone}</div>
         </div>
 
         <div class="detail-actions">
@@ -61,19 +63,19 @@
         <div class="survey-row">
           <span class="survey-label">대학</span>
           <!-- 백엔드 연동 시 data-field="university" 값으로 교체 -->
-          <span class="survey-value" data-field="university">서울대학교</span>
+          <span class="survey-value" data-field="university">${memberDetail.mtrGradSchool}</span>
         </div>
         <div class="survey-row">
           <span class="survey-label">전공</span>
-          <span class="survey-value" data-field="major">컴퓨터공학과</span>
+          <span class="survey-value" data-field="major">${memberDetail.mtrGradDepart}</span>
         </div>
         <div class="survey-row">
           <span class="survey-label">졸업학점</span>
-          <span class="survey-value" data-field="gpa">3.8점</span>
+          <span class="survey-value" data-field="gpa">${memberDetail.mtrGradScore}점</span>
         </div>
         <div class="survey-row">
           <span class="survey-label">교육과목</span>
-          <span class="survey-value" data-field="subject">C++</span>
+          <span class="survey-value" data-field="subject">${memberDetail.subjectName}</span>
         </div>
         <div class="survey-row survey-row--file">
           <span class="survey-label">첨부파일</span>
@@ -94,19 +96,19 @@
       <div class="survey-fields">
         <div class="survey-row">
           <span class="survey-label">학교</span>
-          <span class="survey-value" data-field="school">코리아고등학교</span>
+          <span class="survey-value" data-field="school">${memberDetail.mteSchool}</span>
         </div>
         <div class="survey-row">
           <span class="survey-label">학년</span>
-          <span class="survey-value" data-field="grade">2학년</span>
+          <span class="survey-value" data-field="grade">${memberDetail.mteGrade}학년</span>
         </div>
         <div class="survey-row">
           <span class="survey-label">희망대학</span>
-          <span class="survey-value" data-field="hopeUniv">서울대학교</span>
+          <span class="survey-value" data-field="hopeUniv">${memberDetail.mteHopeUni}</span>
         </div>
         <div class="survey-row">
           <span class="survey-label">희망과목</span>
-          <span class="survey-value" data-field="hopeSubject">수학</span>
+          <span class="survey-value" data-field="hopeSubject">${memberDetail.mteHopeMajor}</span>
         </div>
         <div class="survey-row survey-row--file">
           <span class="survey-label">첨부파일</span>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="api.userMMDetail">
+	<update id="setPendingKill" parameterType="int">
+		UPDATE UB_MEMBER um
+		SET um.member_state = '계정 삭제'
+		WHERE um.member_number = #{memberNumber}
+		  AND um.member_type IN ('MENTOR', 'MENTEE', 'NODECIDED')
+		  AND NOT EXISTS (
+		      SELECT 1
+		      FROM UB_MATCHING m
+		      WHERE m.matching_state = '매칭중'
+		        AND (
+		              (um.member_type = 'MENTOR' AND um.member_number = m.mentor_number)
+		           OR (um.member_type = 'MENTEE' AND um.member_number = m.mentee_number)
+		        )
+		  )
+	</update>
+	
+	<select id="selectUserDetail" parameterType="int" resultType="AdminUserMMDTO">
+		SELECT DISTINCT 
+		    um.member_number,
+		    um.member_name,
+		    NVL(um.member_type, 'UNKNOWN') AS "member_type"
+		    CASE
+		        WHEN um.member_type = 'MENTOR'    THEN mth_mentor.matching_state
+		        WHEN um.member_type = 'MENTEE' 	  THEN mth_mentee.matching_state
+		        WHEN um.member_type = 'NODECIDED' THEN ius.survey_approval
+		        ELSE 'UNKNOWN'
+		    END AS "member_state"
+		FROM UB_MEMBER um
+		LEFT JOIN UB_MATCHING mth_mentor
+		    ON um.member_type = 'MENTOR'
+		   AND um.member_number = mth_mentor.mentor_number
+		LEFT JOIN UB_MATCHING mth_mentee
+		    ON um.member_type = 'MENTEE'
+		   AND um.member_number = mth_mentee.mentee_number
+		WHERE um.member_type IN ('MENTOR', 'MENTEE', 'NODECIDED') 
+			AND um.member_number = #{memberNubmer}
+	</select>
+	
+	<update id="updateAcceptTrue" parameterType="int">
+		UPDATE UB_SURVEY us
+		SET us.survey_approval = 'T'
+		WHERE us.member_number = #{memberNumber}
+	</update>
+	
+	<update id="udpateMemberStateTrue" parameterType="int">
+		UPDATE UB_MEMBER um
+		SET um.member_type = (
+			SELECT survey_type
+			FROM UB_SURVEY us
+			WHERE us.member_number = #{memberNumber}
+		)
+		WHERE um.member_number= #{memberNumber}
+	</update>
+	
+	<update id="updateAcceptFalse" parameterType="Map">
+		UPDATE UB_SURVEY us
+		SET us.survey_approval = 'F'
+		  , us.survey_rej_reason = #{rejectReason}
+		WHERE us.member_number = #{memberNumber}
+	</update>
+</mapper>

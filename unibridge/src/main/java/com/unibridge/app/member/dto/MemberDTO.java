@@ -30,37 +30,19 @@ public class MemberDTO {
 	private String memberState;
 	private char surveyWrite;
 	private int fileNumber;
+	private String memberImg;
 	
 	
-	public MemberDTO() {
-		super();
-	}
-	
-	public MemberDTO(int memberNumber, String memberId, String memberPw, String memberName, String memberNickname,
-			String memberPhone, String memberGender, int surveyNumber, String memberType, String memberState,
-			char surveyWrite, int fileNumber) {
-		super();
-		this.memberNumber = memberNumber;
-		this.memberId = memberId;
-		this.memberPw = memberPw;
-		this.memberName = memberName;
-		this.memberNickname = memberNickname;
-		this.memberPhone = memberPhone;
-		this.memberGender = memberGender;
-		this.surveyNumber = surveyNumber;
-		this.memberType = memberType;
-		this.memberState = memberState;
-		this.surveyWrite = surveyWrite;
-		this.fileNumber = fileNumber;
+	public String getMemberImg() {
+		return memberImg;
 	}
 
-	@Override
-	public String toString() {
-		return "MemberDTO [memberNumber=" + memberNumber + ", memberId=" + memberId + ", memberName=" + memberName
-				+ ", memberNickname=" + memberNickname + ", memberPhone=" + memberPhone + ", memberGender="
-				+ memberGender + ", surveyNumber=" + surveyNumber + ", memberType=" + memberType + ", memberState="
-				+ memberState + ", surveyWrite=" + surveyWrite + ", fileNumber=" + fileNumber + ", toString()="
-				+ super.toString() + "]";
+	public void setMemberImg(String memberImg) {
+		this.memberImg = memberImg;
+	}
+
+	public MemberDTO() {
+		super();
 	}
 
 	public int getMemberNumber() {
@@ -135,4 +117,14 @@ public class MemberDTO {
 	public void setFileNumber(int fileNumber) {
 		this.fileNumber = fileNumber;
 	}
+
+	@Override
+	public String toString() {
+		return "MemberDTO [memberNumber=" + memberNumber + ", memberId=" + memberId + ", memberPw=" + memberPw
+				+ ", memberName=" + memberName + ", memberNickname=" + memberNickname + ", memberPhone=" + memberPhone
+				+ ", memberGender=" + memberGender + ", surveyNumber=" + surveyNumber + ", memberType=" + memberType
+				+ ", memberState=" + memberState + ", surveyWrite=" + surveyWrite + ", fileNumber=" + fileNumber
+				+ ", memberImg=" + memberImg + "]";
+	}
+	
 }

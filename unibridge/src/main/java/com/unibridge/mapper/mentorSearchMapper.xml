@@ -39,7 +39,9 @@
 		gradSchool,
 		s.grad_depart AS gradDepart,
 		f.file_name AS fileName,
-		TO_CHAR(mt.created_at, 'YYYY.MM.DD') AS createdAt
+		TO_CHAR(mt.created_at, 'YYYY.MM.DD') AS createdAt,
+		mt.MENTORING_TITLE AS mentoringTitle,
+        mt.MENTORING_GOAL AS mentoringGoal
 		FROM UB_MEMBER m
 		LEFT
 		JOIN UB_SURVEY_MENTOR s ON m.survey_number = s.survey_number

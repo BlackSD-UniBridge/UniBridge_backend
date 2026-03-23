@@ -44,7 +44,7 @@
         </a>
 
         <!-- 유저 관리 -->
-        <a href="${pageContext.request.contextPath}/app/admin/adminUserManagement/userList.admin" class="side-link">
+        <a href="${pageContext.request.contextPath}/app/admin/adminUserManagement/userMM.admin" class="side-link">
           <span class="side-icon" aria-hidden="true">
             <img src="${pageContext.request.contextPath}/assets/img/admin/유저 아이콘.png" alt="유저 아이콘" />
           </span>

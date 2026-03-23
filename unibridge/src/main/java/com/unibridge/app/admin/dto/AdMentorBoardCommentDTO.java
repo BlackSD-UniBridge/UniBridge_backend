@@ -1,6 +1,6 @@
 package com.unibridge.app.admin.dto;
 
-public class AdMentoBoardCommentDTO {
+public class AdMentorBoardCommentDTO {
 	
 //	CREATE TABLE UB_MENTOR_BOARD_COMMENT (
 //		    mentor_com_number      NUMBER         NOT NULL,

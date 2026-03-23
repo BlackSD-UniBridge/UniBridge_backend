@@ -1,19 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-  /* ========================
-     유저 목록 데이터
-  ======================== */
-  const users = [
-    { id: 1, name: "유저 이름 1", type: "미정",  status: "대기",   page: "./userDetail/userDetailWaiting.html" },
-    { id: 2, name: "유저 이름 2", type: "멘토",  status: "매칭됨", page: "./userDetail/userDetail.html" },
-    { id: 3, name: "유저 이름 3", type: "멘토",  status: "매칭중", page: "./userDetail/userDetail.html" },
-    { id: 4, name: "유저 이름 4", type: "멘티",  status: "매칭중", page: "./userDetail/userDetail.html" },
-    { id: 5, name: "유저 이름 5", type: "멘티",  status: "매칭됨", page: "./userDetail/userDetail.html" },
-    { id: 6, name: "유저 이름 6", type: "멘티",  status: "매칭됨", page: "./userDetail/userDetail.html" },
-    { id: 7, name: "유저 이름 7", type: "멘토",  status: "매칭중", page: "./userDetail/userDetail.html" },
-    { id: 8, name: "유저 이름 8", type: "멘티",  status: "매칭됨", page: "./userDetail/userDetail.html" },
-  ];
-
   /* ========================
      유저 카드 SVG 아이콘
   ======================== */
@@ -42,22 +27,22 @@ document.addEventListener("DOMContentLoaded", () => {
 	  /* 우선 고정 경로로 설정 후 나중에 서블릿 경로로 변경 */
 	  const redirectPaths = {
 		/* 공통 분모가 되는 경우 */
-		"공통"		: `${window.contextPath}/index.main`,
+		"공통"		: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,
 		
 		/* 멘토/멘티의 경우*/
-		"매칭 대기" 	: `${window.contextPath}/index.main`,
-		"매칭 취소"	: `${window.contextPath}/index.main`,
-		"매칭중"		: `${window.contextPath}/index.main`,
-		"매칭됨"	  	: `${window.contextPath}/index.main`,
+		"매칭 대기" 	: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,
+		"매칭 취소"	: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,
+		"매칭중"		: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,
+		"매칭됨"	  	: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,
 		
 		/* 미정의 경우 */
-		"대기"		: `${window.contextPath}/index.main`,
-		"거부"		: `${window.contextPath}/index.main`,
-		"승인"		: `${window.contextPath}/index.main`,
+		"대기"		: `${window.contextPath}/userMMDetailWait.admin?memberNumber=${u.memberNumber}`,
+		"거부"		: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,
+		"승인"		: `${window.contextPath}/userMMDetail.admin?memberNumber=${u.memberNumber}`,
 	  };
 	  
-	  u.redirectPath = redirectPaths[u.memberStatus] 
-	  	?? `${window.contextPath}/index.main`;
+	  u.redirectPath = redirectPaths[u.memberState] 
+	  	?? redirectPaths['공통'];
 		
 	  return u;
 	});
