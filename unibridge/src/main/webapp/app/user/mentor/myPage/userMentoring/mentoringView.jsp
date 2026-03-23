@@ -47,7 +47,7 @@
 		<main>
 			<div class="userManageTitle">
 				<img
-					src="${pageContext.request.contextPath}/frontend/assets/img/user/userMyPageImg/userMentoring.jpg"
+					src="${pageContext.request.contextPath}/assets/img/user/userMyPageImg/userMentoring.jpg"
 					alt="멘토링 관리 아이콘">
 				<div class="title">멘토링 관리</div>
 			</div>
@@ -118,9 +118,9 @@
 							<div id="profile">
 								<a href="#"> <%-- 프로필 이미지는 현재 DTO에 없으므로 기본 이미지 노출 혹은 추후 추가 필요 --%>
 									<img
-									src="${pageContext.request.contextPath}/frontend/assets/img/user/userProfile/ex1.png"
+									src="${pageContext.request.contextPath}/assets/img/user/userProfile/ex1.png"
 									alt="멘토 프로필" id="profileImg"
-									onerror="this.src='${pageContext.request.contextPath}/frontend/assets/img/user/userProfile/ex1.png'">
+									onerror="this.src='${pageContext.request.contextPath}/assets/img/user/userProfile/ex1.png'">
 								</a>
 							</div>
 						</div>
