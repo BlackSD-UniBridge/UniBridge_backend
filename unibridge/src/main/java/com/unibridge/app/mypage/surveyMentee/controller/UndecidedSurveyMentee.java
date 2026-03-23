@@ -1,5 +1,6 @@
 package com.unibridge.app.mypage.surveyMentee.controller;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,15 +40,32 @@ public class UndecidedSurveyMentee implements Execute {
         String subjectStr = multi.getParameter("subjectNumber");
         menteeDTO.setSubjectNumber(subjectStr != null ? Integer.parseInt(subjectStr) : 0);
 
+        // 파일 처리 및 DTO 조립 로직
         FileDTO fileDTO = null;
-        if (multi.getFilesystemName("surveyFile") != null) {
-            fileDTO = new FileDTO();
-            String fileName = multi.getFilesystemName("surveyFile");
-            fileDTO.setFileName(fileName);
-            fileDTO.setFileOriginalName(multi.getOriginalFileName("surveyFile"));
-            fileDTO.setFilePath("/upload/" + fileName);
-            fileDTO.setFileExtension(fileName.substring(fileName.lastIndexOf(".") + 1));
-            fileDTO.setFileSize(multi.getFile("surveyFile").length());
+        String originalName = multi.getOriginalFileName("surveyFile");
+
+        if (originalName != null) {
+            File oldFile = multi.getFile("surveyFile");
+            String extension = originalName.substring(originalName.lastIndexOf("."));
+            
+            // 파일명 규칙: survey_회원번호_현재시간.확장자
+            String newFileName = "survey_" + loginUser.getMemberNumber() + "_" + System.currentTimeMillis() + extension;
+            
+            // 저장 경로 (C:/upload/survey/)
+            String savePath = "C:/upload/survey/";
+            File newFile = new File(savePath, newFileName);
+            
+            // 파일 이름 변경 실행
+            if (oldFile.renameTo(newFile)) {
+                fileDTO = new FileDTO();
+                fileDTO.setFileName(newFileName);              // 서버 저장명
+                fileDTO.setFileOriginalName(originalName);     // 실제 원본명
+                fileDTO.setFileExtension(extension.replace(".", ""));
+                fileDTO.setFileSize(newFile.length());
+                fileDTO.setFilePath("/upload/survey/" + newFileName); // 가상 경로
+                
+                System.out.println("[DEBUG] 멘티 파일명 변경 완료: " + newFileName);
+            }
         }
 
         new SurveyDAO().insertMenteeSurvey(menteeDTO, fileDTO);
