@@ -49,6 +49,7 @@
       
       <!--  MVC DTO  -->
       <typeAlias type="com.unibridge.app.admin.dto.AdminReportListDTO" alias="AdminReportListDTO"/>
+      <typeAlias type="com.unibridge.app.admin.dto.AdminUserMMDetailDTO" alias="AdminUserMMDetailDTO"/>
       
       <!--  API DTO  -->
       <typeAlias type="com.unibridge.api.admin.dto.AdminUserMMDTO" alias="AdminUserMMDTO"></typeAlias>
@@ -96,6 +97,7 @@
       <mapper resource="com/unibridge/mapper/mvcAdminReportListMapper.xml" />
       <mapper resource="com/unibridge/mapper/mvcAdminReportDetailMapper.xml" />
       <mapper resource="com/unibridge/mapper/mvcAdminReportDeleteMapper.xml" />
+      <mapper resource="com/unibridge/mapper/mvcAdminUserMMDetailMapper.xml" />
       
       <!--  API  -->
       <mapper resource="com/unibridge/mapper/apiAdminUserMMMapper.xml" />

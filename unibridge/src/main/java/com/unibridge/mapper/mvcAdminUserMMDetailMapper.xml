@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mvc.adminUserMMDetail">
+	<select id="selectUserDetail" parameterType="int" resultType="AdminUserMMDetailDTO">
+		SELECT 
+			t.*,
+			usj.subject_name AS "subject_name"
+		FROM (
+			SELECT 
+				um.member_number AS "member_number",
+				um.member_id		AS "member_id",
+				um.member_name		AS "member_name",
+				um.member_nickname	AS "member_nickname",
+				um.member_gender	AS "member_gender",
+				um.member_phone		AS "member_phone",
+				um.member_type		AS "member_type",
+				um.member_state		AS "member_state",
+				usmtr.grad_school	AS "mtr_grad_school",
+				usmtr.grad_depart	AS "mtr_grad_depart",
+				usmtr.grad_score	AS "mtr_grad_score",
+				usmte.mentee_school	AS "mte_school",
+				usmte.mentee_grade	AS "mte_grade",
+				usmte.mentee_hopeuni	AS "mte_hope_uni",
+				usmte.mentee_hopemajor	AS "mte_hope_major",
+				NVL(usmtr.subject_number, usmte.subject_number) AS "subject_number"
+			FROM UB_MEMBER um 
+			LEFT OUTER JOIN UB_SURVEY_MENTEE usmte
+				ON um.member_type = 'MENTEE'
+				AND um.survey_number = usmte.survey_number
+			LEFT OUTER JOIN UB_SURVEY_MENTOR usmtr
+				ON um.member_type = 'MENTOR'
+				AND um.survey_number = usmtr.survey_number
+		) t
+		LEFT OUTER JOIN UB_SUBJECT usj
+			ON t."subject_number" = usj.subject_number
+			AND usj.subject_status = '활성'
+		WHERE t."member_number" = #{memberNumber}
+	</select>
+</mapper>

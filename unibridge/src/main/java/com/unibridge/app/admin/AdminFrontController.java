@@ -31,6 +31,8 @@ import com.unibridge.app.admin.controller.AdminReportDeleteController;
 import com.unibridge.app.admin.controller.AdminReportDetailController;
 import com.unibridge.app.admin.controller.AdminReportListController;
 import com.unibridge.app.admin.controller.AdminUserMMController;
+import com.unibridge.app.admin.controller.AdminUserMMDetailController;
+import com.unibridge.app.admin.controller.AdminUserMMDetailWaitController;
 
 public class AdminFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -209,6 +211,15 @@ public class AdminFrontController extends HttpServlet {
 			result = new AdminUserMMController().execute(request, response);
 			break;
 			
+		case  "userMMDetail.admin":
+		case "/userMMDetail.admin":
+			result = new AdminUserMMDetailController().execute(request, response);
+			break;
+			
+		case  "userMMDetailWait.admin":
+		case "/userMMDetailWait.admin":
+			result = new AdminUserMMDetailWaitController().execute(request, response);
+			break;
 			
 		default:
 			response.sendError(HttpServletResponse.SC_NOT_FOUND, "요청한 기능을 사용할 수 없습니다.");
