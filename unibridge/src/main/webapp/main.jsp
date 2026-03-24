@@ -31,6 +31,8 @@
 		<section class="adBanner">
 			<div class="bannerContainer">
 				<div class="bannerContent">
+					<img src="${pageContext.request.contextPath}/assets/img/header.png"
+						alt="메인 광고" />
 					<h1 class="bannerLogo">UNIBRIDGE</h1>
 					<p class="bannerSubtitle">멘토와 멘티를 잇는 다리</p>
 				</div>
@@ -54,12 +56,13 @@
 					<%-- DB 데이터가 있을 경우 동적 렌더링 --%>
 					<c:choose>
 						<c:when test="${not empty contestList}">
-							<c:forEach var="contest" items="${contestList}">
+							<c:forEach var="contest" items="${contestList}" varStatus="status">
+								<c:set var="imgNum" value="${(status.index % 5) + 1}" />
 								<div class="contestCard">
 									<div class="contestCardThumbEmpty"
 										onclick="location.href=`${pageContext.request.contextPath}/common/noticeBoardReadOk.ntb?contestNumber=${contest.contestNumber}`">
 										<img
-											src="${pageContext.request.contextPath}/assets/img/UniBridge.png"
+											src="${pageContext.request.contextPath}/assets/img/user/userContesting/대회이미지${imgNum}.png"
 											alt="대회 이미지" />
 									</div>
 									<p class="contestCardTitle">${contest.title}</p>
@@ -118,20 +121,19 @@
 									<c:choose>
 										<c:when test="${not empty mentor.fileName}">
 											<img
-												src="${pageContext.request.contextPath}/upload/${mentor.fileName}"
-												alt="프로필">
+												src="${pageContext.request.contextPath}/assets/img/user/userCompany/profile_003.jpg"
+												alt="기본 프로필">
 										</c:when>
 										<c:otherwise>
-											<img
-												src="${pageContext.request.contextPath}/static/img/default_avatar.png"
-												alt="기본프로필">
+											<%-- <img
+												src="${pageContext.request.contextPath}/display.file?fileName=${mentor.fileName}"
+												alt="프로필"> --%>
 										</c:otherwise>
 									</c:choose>
 								</div>
 								<div class="mentoRecommendInfo">
 									<p class="mentoRecommendName">${mentor.memberNickname}멘토</p>
-									<p class="mentoRecommendSchool">${mentor.gradSchool}
-										${mentor.gradDepart}</p>
+									<p class="mentoRecommendSchool">${mentor.gradSchool} ${mentor.gradDepart}</p>
 									<p class="mentoRecommendMentoTitle">${mentor.mentoringTitle}</p>
 									<div class="mentoRecommendTags">
 										<span class="tag">${mentor.subjectName}</span>
@@ -173,29 +175,29 @@
 
 					<c:choose>
 						<c:when test="${not empty companyList}">
-							<c:forEach var="company" items="${companyList}">
+							<c:forEach var="company" items="${companyList}" varStatus="status">
+							<c:set var="imgNum" value="${(status.index % 5) + 1}" />
 								<div class="jobBannerCard" data-job-id="${company.employmentId}"
 									<%-- DB에 URL이 있으면 해당 URL로, 없으면 사람인 기본 페이지로 이동 --%>
-                            onclick="window.open('${not empty company.employmentUrl ? company.employmentUrl : 'https://www.saramin.co.kr/'}', '_blank')"
+                            onclick="window.open('${not empty company.employmentUrl ? 'https://www.saramin.co.kr/' : 'https://www.saramin.co.kr/'}', '_blank')"
 									style="cursor: pointer;">
 
 									<c:choose>
 										<c:when test="${not empty company.employmentLog}">
 											<img class="jobBannerCardThumb"
-												src="${pageContext.request.contextPath}/upload/${company.employmentLog}"
-												alt="${company.companyName}" />
+												src="${pageContext.request.contextPath}/assets/img/user/userCompany/취업이미지${imgNum}.PNG"
+												alt="기업 이미지" />
 										</c:when>
 										<c:otherwise>
 											<img class="jobBannerCardThumb"
-												src="${pageContext.request.contextPath}/assets/img/UniBridge.png"
-												alt="기업 이미지" />
+												src="${pageContext.request.contextPath}/assets/img/Unibridge.png"
+												alt="기본 이미지" />
 										</c:otherwise>
 									</c:choose>
 
 									<p class="jobBannerCardTitle">
 										<c:choose>
-											<c:when test="${not empty company.employmentTitle}">
-                                        ${company.employmentTitle}
+											<c:when test="${not empty company.employmentTitle}"> ${company.employmentTitle}
                                     </c:when>
 											<c:otherwise>
                                         ${company.companyName}

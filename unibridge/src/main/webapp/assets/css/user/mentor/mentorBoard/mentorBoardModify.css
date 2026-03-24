@@ -1,12 +1,12 @@
 @charset "UTF-8";
 /* ── 멘토 게시판 수정 페이지 ── */
 
-.container {
+#container {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1500px;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 60px 40px;
+  padding: 40px 60px 60px;
 }
 
 .mentorBoardModifyWrap {
@@ -19,13 +19,13 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-bottom: 6px;
+    margin-bottom: 12px;
   }
   
   .mentorBoardModifyLabel {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
-    color: #2c5f8a;
+    color: #2F6FED;
     font-family: 'Noto Sans KR', sans-serif;
     white-space: nowrap;
   }
@@ -33,9 +33,9 @@
   .mentorBoardModifySubjectInput {
     flex: 1;
     border: 1px solid #dde6f0;
-    border-radius: 6px;
-    padding: 10px 16px;
-    font-size: 14px;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 15px;
     font-family: 'Noto Sans KR', sans-serif;
     color: #333;
     background: #f8fbff;
@@ -44,21 +44,24 @@
   }
   
   .mentorBoardModifySubjectInput:focus {
-    border-color: #2c5f8a;
+    border-color: #2F6FED;
   }
   
   /* ── 메타 정보 ── */
   .mentorBoardModifyMeta {
     display: flex;
-    justify-content: flex-end;
-    gap: 14px;
-    margin-bottom: 14px;
+    gap: 8px;
   }
   
   .mentorBoardModifyViews,
   .mentorBoardModifyCommentCount {
-    font-size: 12.5px;
-    color: #888;
+    font-size: 12px;
+    color: #2F6FED;
+    font-weight: 600;
+    background: #EEF4FF;
+  	border: 1px solid #CFE0FF;
+ 	border-radius: 8px;
+ 	padding: 3px 12px;
     font-family: 'Noto Sans KR', sans-serif;
   }
   
@@ -66,13 +69,13 @@
   .mentorBoardModifyContentTextarea {
     width: 100%;
     box-sizing: border-box;
-    min-height: 360px;
-    border: 1px solid #dde6f0;
-    border-radius: 8px;
-    background: #f8fbff;
-    padding: 20px;
+    min-height: 480px;
+    border: 1px solid #dfdfdf;
+    border-radius: 10px;
+    background: #fff;
+    padding: 24px;
     font-size: 14px;
-    color: #555;
+    color: #333;
     font-family: 'Noto Sans KR', sans-serif;
     line-height: 1.8;
     resize: vertical;
@@ -82,7 +85,8 @@
   }
   
   .mentorBoardModifyContentTextarea:focus {
-    border-color: #2c5f8a;
+    border-color: #2F6FED;
+    color: #333;
   }
   
   /* ── 하단 버튼 영역 ── */
@@ -94,21 +98,20 @@
   
   .mentorBoardModifyBackBtn {
     font-size: 13px;
-    font-weight: 500;
-    color: #555;
+    font-weight: 700;
+    color: #2F6FED;
     background: #fff;
-    border: 1px solid #ccd6e0;
+    border: 1px solid #2F6FED;
     border-radius: 20px;
-    padding: 7px 18px;
+    padding: 8px 22px;
     cursor: pointer;
     font-family: 'Noto Sans KR', sans-serif;
     transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
   
   .mentorBoardModifyBackBtn:hover {
-    background: #f0f6ff;
-    border-color: #2c5f8a;
-    color: #2c5f8a;
+    background: #2F6FED;
+    color: #fff;
   }
   
   .mentorBoardModifyActionGroup {
@@ -119,22 +122,22 @@
   .mentorBoardModifySubmitBtn,
   .mentorBoardModifyDeleteBtn {
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     border-radius: 20px;
-    padding: 7px 22px;
+    padding: 8px 24px;
     cursor: pointer;
     font-family: 'Noto Sans KR', sans-serif;
     transition: background 0.15s, color 0.15s;
   }
   
   .mentorBoardModifySubmitBtn {
-    color: #2c5f8a;
+    color: #2F6FED;
     background: #fff;
-    border: 1px solid #2c5f8a;
+    border: 1px solid #2F6FED;
   }
   
   .mentorBoardModifySubmitBtn:hover {
-    background: #2c5f8a;
+    background: #2F6FED;
     color: #fff;
   }
   

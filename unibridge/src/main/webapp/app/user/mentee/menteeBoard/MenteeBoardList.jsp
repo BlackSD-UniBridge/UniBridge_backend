@@ -17,9 +17,10 @@
     <%@ include file="/app/user/header.jsp"%>
 
 <div class="container">
+	<h2 class="page-title">멘티전용 게시판</h2>
       <div class="write-btn-wrap">
         <!-- 글쓰기 페이지 이동 처리 -->
-        <a href="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardWrite.meb" class="write-btn">글쓰기</a>
+        <a href="${pageContext.request.contextPath}/mentee/menteeBoard/MenteeBoardWrite.meb" class="write-btn">글작성</a>
       </div>
 
       <!-- 게시글 목록 -->

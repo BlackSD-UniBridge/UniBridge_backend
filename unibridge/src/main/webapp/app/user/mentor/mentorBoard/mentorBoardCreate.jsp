@@ -21,9 +21,10 @@
       <h1>글쓰기</h1>
       <div class="form-group">
         <label for="mentorBoardCreateSubject">제목</label>
-        <input type="text" id="mentorBoardCreateSubject" name="MentorBoardTitle" required />
+        <input type="text" id="mentorBoardCreateSubject" name="MentorBoardTitle"
+        	placeholder="제목을 입력해주세요*(최대 50자)" maxlength="50" required />
       </div>
-      <div class="form-group"> 
+      <div class="form-group" style="display:none;"> 
         <label for="author">작성자</label>
         <div class="writer">
           <c:out value="${sessionScope.loginUser.memberId}" />
@@ -34,8 +35,8 @@
         <textarea id="mentorBoardCreateContent" name="MentorBoardContent" required></textarea>
       </div>
       <div class="btn-group">
-        <button type="submit" class="submit-btn">작성 완료</button>
-        <button type="button" class="cancle-btn">취소</button>
+        <button type="submit" class="submit-btn">게시글 등록</button>
+        <button type="button" class="cancle-btn">글목록</button>
       </div>
     </form>
   </div>

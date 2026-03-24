@@ -44,11 +44,19 @@
 				</c:when>
 				<c:otherwise>
 					<%-- 비로그인 또는 미정 → 메인페이지로 이동 --%>
-					<a href="${pageContext.request.contextPath}/signin.mem">게시판</a>
 				</c:otherwise>
 			</c:choose>
-			<a href="${pageContext.request.contextPath}/mvc/auth/report.rep">학습보고서</a>
-			<a href="${pageContext.request.contextPath}/common/noticeBoardList.ntb">공지사항</a>
+			<c:choose>
+				<c:when test="${fn:toLowerCase(sessionScope.loginUser.memberType) eq 'mentee'}">
+					<a href="${pageContext.request.contextPath}/mvc/auth/report.rep">학습보고서</a>
+				</c:when>
+				<c:when test="${fn:toLowerCase(sessionScope.loginUser.memberType) eq 'mentor'}">
+					<a href="${pageContext.request.contextPath}/mvc/auth/report.rep">학습보고서</a>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+			</c:choose>
+				<a href="${pageContext.request.contextPath}/common/noticeBoardList.ntb">공지사항</a>
 		</nav>
 
 		<!-- 인증 영역 -->

@@ -54,7 +54,8 @@ public class FileFrontController extends HttpServlet {
 		System.out.println("파일 프론트 컨트롤러 현재 경로 : " + target);
 
 		switch (target) {
-		case "download.file":
+		case "/download.file",
+			 "download.file":
 			// 첨부파일 다운로드
 			new FileDownloadController().execute(request, response);
 			break;

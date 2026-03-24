@@ -59,6 +59,7 @@
             m.MENTORING_GOAL   AS mentoringGoal,
             s.subject_name     AS subjectName,
             mb.member_nickname AS memberNickname,
+            mb.member_gender    AS memberGender,
             f.file_name         AS fileName,
             sm.grad_school      AS gradSchool,
             sm.grad_depart      AS gradDepart

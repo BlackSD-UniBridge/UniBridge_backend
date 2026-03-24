@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.mentorBoard.dao.MentorBoardDAO;
+import com.unibridge.app.mentorBoardComment.dao.MentorBoardCommentDAO;
 
 public class MentorBoardUpdateController implements Execute {
 
@@ -21,6 +22,10 @@ public class MentorBoardUpdateController implements Execute {
 		Result result = new Result();
 		System.out.println("MentorBoardNumber 값 : " + mentorBoardNumber);
 		request.setAttribute("MentorBoard", mentorBoardDAO.selectBoard(mentorBoardNumber));
+		
+		MentorBoardCommentDAO commentDAO = new MentorBoardCommentDAO();
+		int commentTotal = commentDAO.getCommentTotal(mentorBoardNumber);
+		request.setAttribute("commentTotal", commentTotal);
 
 		result.setPath("/app/user/mentor/mentorBoard/mentorBoardModify.jsp");
 		result.setRedirect(false);

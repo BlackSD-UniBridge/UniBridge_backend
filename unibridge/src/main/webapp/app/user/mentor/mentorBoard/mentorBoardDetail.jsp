@@ -17,7 +17,7 @@
   <div class="container">
     <div class="view-wrap">
       <div class="view-title">
-        <h1><c:out value="${MentorBoard.boardTitle}" /></h1>
+        <h2><c:out value="${MentorBoard.boardTitle}" /></h2>
       </div>
       <div class="view-info">
         <div class="info-title">
@@ -33,20 +33,24 @@
             <span class="hit">조회수</span>
             <div class="content-hit"><c:out value="${MentorBoard.boardClick}" /></div>
           </div>
-        </div>
+            <div class="title-wrap">
+	            <span class="hit">댓글</span>
+	            <div class="content-hit"><c:out value="${commentTotal}" /></div>
+	        </div>
+	      </div>
       </div>
 
-      <div class="view-content">
-        <c:out value="${MentorBoard.boardContent}" />
-      </div>
+      <div class="view-content"><c:out value="${MentorBoard.boardContent}" /></div>
 
       <div class="btn-group">
         <button type="button" class="list-btn"
           data-board-number="${MentorBoard.mentorBoardNumber}"
           data-member-number="${sessionScope.loginUser.memberNumber}">목록</button>
         <c:if test="${sessionScope.loginUser.memberNumber == MentorBoard.memberNumber}">
-          <button type="button" class="modify-btn">수정</button>
-          <button type="button" class="delete-btn">삭제</button>
+	        <div style="display:flex; gap:8px;">
+	          <button type="button" class="modify-btn">수정</button>
+	          <button type="button" class="delete-btn">삭제</button>
+	        </div>
         </c:if>
       </div>
       
@@ -57,18 +61,20 @@
               method="post">
           <input type="hidden" name="mentorBoardId" value="${MentorBoard.mentorBoardNumber}" />
           <div class="comment-input-row">
-            <span class="comment-writer-label">
-              <c:choose>
-                <c:when test="${not empty sessionScope.loginUser}">
-                  <c:out value="${sessionScope.loginUser.memberNickname}" />
-                </c:when>
-                <c:otherwise>회원 닉네임</c:otherwise>
-              </c:choose>
-            </span>
-            <textarea class="comment-input" name="mentorComContent"
-                      placeholder="댓글내용" rows="2"></textarea>
-            <button type="submit" class="comment-submit-btn">등록</button>
-          </div>
+	          <div class="comment-input-box">
+	            <span class="comment-writer-label">
+	              <c:choose>
+	                <c:when test="${not empty sessionScope.loginUser}">
+	                  <c:out value="${sessionScope.loginUser.memberNickname}" />
+	                </c:when>
+	                <c:otherwise>회원 닉네임</c:otherwise>
+	              </c:choose>
+	            </span>
+	            <textarea class="comment-input" name="mentorComContent"
+	                      placeholder="댓글내용" rows="2"></textarea>
+	          </div>
+	        <button type="submit" class="comment-submit-btn">등록</button>
+	      </div>
         </form>
       </div>
 
@@ -78,6 +84,9 @@
           <c:when test="${not empty commentList}">
             <c:forEach var="comment" items="${commentList}">
               <div class="comment-item">
+	            <div class="comment-date-row">
+	               <span class="comment-date"><c:out value="${comment.mentorComDate}" /></span>
+	            </div>
                 <div class="comment-item-top">
                   <%-- 본인 댓글이면 (본인) 표시 --%>
                   <span class="comment-nickname">
@@ -87,7 +96,6 @@
                     </c:if>
                   </span>
                   <span class="comment-content"><c:out value="${comment.mentorComContent}" /></span>
-                  <span class="comment-date"><c:out value="${comment.mentorComDate}" /></span>
                 </div>
 
                 <%-- 본인 댓글에만 수정/삭제 버튼 표시 --%>

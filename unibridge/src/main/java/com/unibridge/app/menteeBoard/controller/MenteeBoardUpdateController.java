@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.menteeBoard.dao.MenteeBoardDAO;
+import com.unibridge.app.menteeBoardComment.dao.MenteeBoardCommentDAO;
 
 public class MenteeBoardUpdateController implements Execute {
 
@@ -26,8 +27,13 @@ public class MenteeBoardUpdateController implements Execute {
             return result;
         }
 		
+		
 		int MenteeBoardNumber = Integer.valueOf(request.getParameter("MenteeBoardNumber"));
 		System.out.println("MenteeBoardNumber 값 : " + MenteeBoardNumber);
+		
+		MenteeBoardCommentDAO commentDAO = new MenteeBoardCommentDAO();
+		int commentTotal = commentDAO.getCommentTotal(MenteeBoardNumber);
+		request.setAttribute("commentTotal", commentTotal);
 		
 		MenteeBoardDAO MenteeBoardDAO = new MenteeBoardDAO();
 		Result result = new Result();

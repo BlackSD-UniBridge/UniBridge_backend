@@ -42,7 +42,7 @@ public class MenteeBoardListOkController implements Execute {
 		// 게시글 목록 조회
 		List<MenteeBoardListDTO> MenteeBoardList = MenteeBoardDAO.selectAll(pageMap);
 		request.setAttribute("MenteeBoardList", MenteeBoardList);
-
+		
 		// 페이징 정보 설정
 		// MenteeBoardMapper.xml의 getTotal을 이용하여 전체 게시글 개수 조회
 		// 실제 마지막 페이지 번호(realEndPage)를 계산함

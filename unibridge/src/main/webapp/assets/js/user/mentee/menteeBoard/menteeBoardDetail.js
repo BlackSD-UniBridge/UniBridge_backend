@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		const listBtn = document.querySelector(".list-btn");
 		const modifyBtn = document.querySelector(".modify-btn");
 		const deleteBtn = document.querySelector(".delete-btn");
-		const submitBtn = document.querySelector(".submit-btn");
 		//데이터 읽기(data- 속성 사용)
 		const boardNumber = listBtn?.dataset.boardNumber??window.boardNumber;
 		const memberNumber = listBtn?.dataset.memberNumber??window.memberNumber;

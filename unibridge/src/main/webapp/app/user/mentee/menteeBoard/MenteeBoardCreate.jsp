@@ -23,9 +23,9 @@
 			<div class="form-group">
 				<label for="menteeBoardCreateSubject">제목</label> 
 				<input type="text" id="menteeBoardCreateSubject"
-					name="MenteeBoardTitle" required />
+					name="MenteeBoardTitle" placeholder="제목을 입력해주세요*(최대 50자)" maxlength="50" required />
 			</div>
-			<div class="form-group">
+			<div class="form-group" style="display:none;">
 				<label for="author">작성자</label>
 				<!-- 작성자 서버 연결시 로그인한 회원 아이디로 수정하기 -->
 				<!-- <div class="writer">홍길동</dv> -->
@@ -39,9 +39,9 @@
 			</div>
 			
 			<div class="btn-group">
-				<button type="submit" class="submit-btn">작성 완료</button>
+				<button type="submit" class="submit-btn">게시글 등록</button>
 				<!-- 취소 버튼 js로 처리하기 -->
-				<button type="button" class="cancle-btn">취소</button>
+				<button type="button" class="cancle-btn">글목록</button>
 			</div>
 		</form>
 	</div>
