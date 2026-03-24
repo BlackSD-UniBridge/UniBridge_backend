@@ -35,7 +35,7 @@
 	        <!-- 메타 정보 -->
 	        <div class="menteeBoardModifyMeta">
 	          <span class="menteeBoardModifyViews">조회수 <c:out value="${MenteeBoard.boardClick}" /></span>
-	          <%-- <span class="menteeBoardModifyCommentCount">댓글 <c:out value="${MenteeBoard.boardClick}" /></span> --%>
+	          <span class="menteeBoardModifyCommentCount">댓글 <c:out value="${commentTotal}" /></span>
 	        </div>
 	      </div>
 	
@@ -46,7 +46,7 @@
 	
 	      <!-- 하단 버튼 -->
 	      <div class="menteeBoardModifyFooter">
-	        <button type="button" class="menteeBoardModifyBackBtn" id="menteeBoardModifyBackBtn">수정 취소</button>
+	        <button type="button" class="menteeBoardModifyBackBtn" id="menteeBoardModifyBackBtn">글목록</button>
 	        <div class="menteeBoardModifyActionGroup">
 	          <button class="menteeBoardModifySubmitBtn" id="menteeBoardModifySubmitBtn">수정</button>
 	          <button class="menteeBoardModifyDeleteBtn" id="menteeBoardModifyDeleteBtn">삭제</button>

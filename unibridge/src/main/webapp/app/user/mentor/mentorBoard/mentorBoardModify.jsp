@@ -30,6 +30,7 @@
             placeholder="글제목" maxlength="50" />
           <div class="mentorBoardModifyMeta">
             <span class="mentorBoardModifyViews">조회수 <c:out value="${MentorBoard.boardClick}" /></span>
+            <span class="menteeBoardModifyCommentCount">댓글 <c:out value="${commentTotal}" /></span>
           </div>
         </div>
 
@@ -38,7 +39,7 @@
           placeholder="수정할 글 내용"><c:out value="${MentorBoard.boardContent}" /></textarea>
 
         <div class="mentorBoardModifyFooter">
-          <button type="button" class="mentorBoardModifyBackBtn" id="mentorBoardModifyBackBtn">수정 취소</button>
+          <button type="button" class="mentorBoardModifyBackBtn" id="mentorBoardModifyBackBtn">글목록</button>
           <div class="mentorBoardModifyActionGroup">
             <button class="mentorBoardModifySubmitBtn" id="mentorBoardModifySubmitBtn">수정</button>
             <button class="mentorBoardModifyDeleteBtn" id="mentorBoardModifyDeleteBtn">삭제</button>

@@ -20,9 +20,9 @@
     <div class="container">
       <div class="view-wrap">
         <div class="view-title">
-          <h1>
+          <h2>
           	<c:out value="${MenteeBoard.boardTitle}" />
-          </h1>
+          </h2>
         </div>
         <div class="view-info">
           <div class="info-title">
@@ -54,16 +54,16 @@
         </div>
         
         <!-- 임시 내용 -->
-        <div class="view-content">
-        	<c:out value="${MenteeBoard.boardContent}" />
-        </div>
+        <div class="view-content"><c:out value="${MenteeBoard.boardContent}" /></div>
         <div class="btn-group">
             <!-- 각 버튼 처리 경로 js로 수정하기 -->
             <button type="button" class="list-btn" data-board-number="${MenteeBoard.menteeBoardNumber}" data-member-number="${sessionScope.loginUser.memberNumber}">목록</button>
             <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->
             <c:if test="${sessionScope.loginUser.memberNumber == MenteeBoard.memberNumber}">
-                <button type="button" class="modify-btn">수정</button>
-          		<button type="button" class="delete-btn">삭제</button>
+            	<div style="display:flex; gap:8px;">
+	                <button type="button" class="modify-btn">수정</button>
+	          		<button type="button" class="delete-btn">삭제</button>
+	          	</div>
             </c:if>
         </div>
         
@@ -74,16 +74,18 @@
               method="post">
           <input type="hidden" name="menteeBoardId" value="${MenteeBoard.menteeBoardNumber}" />
           <div class="comment-input-row">
-            <span class="comment-writer-label">
-              <c:choose>
-                <c:when test="${not empty sessionScope.loginUser}">
-                  <c:out value="${sessionScope.loginUser.memberNickname}" />
-                </c:when>
-                <c:otherwise>회원 닉네임</c:otherwise>
-              </c:choose>
-            </span>
-            <textarea class="comment-input" name="menteeComContent"
-                      placeholder="댓글내용" rows="2"></textarea>
+          	<div class="comment-input-box">
+	            <span class="comment-writer-label">
+	              <c:choose>
+	                <c:when test="${not empty sessionScope.loginUser}">
+	                  <c:out value="${sessionScope.loginUser.memberNickname}" />
+	                </c:when>
+	                <c:otherwise>회원 닉네임</c:otherwise>
+	              </c:choose>
+	            </span>
+	            <textarea class="comment-input" name="menteeComContent"
+	                      placeholder="댓글내용" rows="2"></textarea>
+             </div>
             <button type="submit" class="comment-submit-btn">등록</button>
           </div>
         </form>
@@ -95,6 +97,9 @@
           <c:when test="${not empty commentList}">
             <c:forEach var="comment" items="${commentList}">
               <div class="comment-item">
+              	<div class="comment-date-row">
+                  <span class="comment-date"><c:out value="${comment.menteeComDate}" /></span>
+              	</div>
                 <div class="comment-item-top">
                   <span class="comment-nickname">
                     <c:out value="${comment.memberNickname}" />
@@ -103,7 +108,6 @@
                     </c:if>
                   </span>
                   <span class="comment-content"><c:out value="${comment.menteeComContent}" /></span>
-                  <span class="comment-date"><c:out value="${comment.menteeComDate}" /></span>
                 </div>
                 <c:if test="${sessionScope.loginUser.memberNumber == comment.memberNumber}">
                   <div class="comment-btn-group">

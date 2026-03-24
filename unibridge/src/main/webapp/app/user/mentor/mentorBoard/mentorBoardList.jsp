@@ -17,8 +17,9 @@
     <%@ include file="/app/user/header.jsp"%>
 
 <div class="container">
+	<h2 class="page-title">멘토전용 게시판</h2>
       <div class="write-btn-wrap">
-        <a href="${pageContext.request.contextPath}/mentor/mentorBoard/MentorBoardWrite.mob" class="write-btn">글쓰기</a>
+        <a href="${pageContext.request.contextPath}/mentor/mentorBoard/MentorBoardWrite.mob" class="write-btn">글작성</a>
       </div>
 
       <div class="board-list">

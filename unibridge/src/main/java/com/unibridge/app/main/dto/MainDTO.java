@@ -120,11 +120,20 @@ public class MainDTO {
 	    private String fileName;     // 프로필 이미지 파일명
 	    private String gradSchool;   // 학교 명
 	    private String gradDepart;   // 학과 명
+	    private String memberGender;
 
 		public MentorCardDTO() {
 		}
 		// [수정] Getter/Setter 명칭 변경
 
+		
+		public String getMemberGender() {
+			return memberGender;
+		}
+		
+		public void setMemberGender(String memberGender) {
+			this.memberGender = memberGender;
+		}
 		
 		public String getMentoringNumber() {
 			return mentoringNumber;
@@ -133,8 +142,6 @@ public class MainDTO {
 		public void setMentoringNumber(String mentoringNumber) {
 			this.mentoringNumber = mentoringNumber;
 		}
-
-
 
 		public long getMentorNumber() {
 			return mentorNumber;
@@ -210,7 +217,7 @@ public class MainDTO {
 			return "MentorCardDTO [mentoringNumber=" + mentoringNumber + ", mentorNumber=" + mentorNumber
 					+ ", mentoringTitle=" + mentoringTitle + ", subjectName=" + subjectName + ", memberNickname="
 					+ memberNickname + ", fileName=" + fileName + ", gradSchool=" + gradSchool + ", gradDepart="
-					+ gradDepart + "]";
+					+ gradDepart + "]" + ", memberGender=" + memberGender + "]";
 		}
 		
 	}
