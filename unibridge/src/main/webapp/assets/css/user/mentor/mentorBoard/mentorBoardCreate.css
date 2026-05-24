@@ -97,6 +97,8 @@ body {
   cursor: pointer;
   font-family: 'Noto Sans KR', sans-serif;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
+  left: 0;
+  order: 1;
 }
 
 .cancle-btn:hover {
@@ -107,26 +109,20 @@ body {
 
 /* 작성 완료 버튼 */
 .submit-btn {
-  font-size: 20px;
+  font-size: 13px;
   font-weight: 700;
   color: #333;
   background: #fff;
   border: 1.5px solid #2a2a2a;
   border-radius: 12px;
-  padding: 10px 40px;
+  padding: 10px 20px;
   cursor: pointer;
   font-family: 'Noto Sans KR', sans-serif;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-40%);
+  order: 2;
 }
 
 .submit-btn:hover {
   background: #EEF4FF;
   border-color: #2F6FED;
   color: #2F6FED;
-}
-
-.btn-group {
-  position: relative;
 }
