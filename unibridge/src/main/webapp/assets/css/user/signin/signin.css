@@ -8,7 +8,6 @@ body{
     /* 왼쪽 상단에서 오른쪽 하단으로 흐르는 그라데이션 */
     background: linear-gradient(135deg, #f5f7ff 0%, #e8eeff 100%);
     min-height: 100vh; /* 100vh는 부모와 무관 */
-    border : 1px solid black;
     display: flex;
     flex-direction: column;
     /* 폰트 글꼴 지정 NanumSquareRound */
