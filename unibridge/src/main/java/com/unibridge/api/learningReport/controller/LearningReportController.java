@@ -61,16 +61,23 @@ public class LearningReportController implements ApiExecute<String> {
 	private void doGet(HttpServletRequest request, HttpServletResponse response, ApiResult<String> apiResult) {
 		String requestURI = request.getRequestURI();
 		String target = extractTargetPath(requestURI);
+		
+		Integer memberNumber = Integer.parseInt(request.getParameter("userNumber"));
+		String  memberType 	 = request.getParameter("userType");
+		
 		switch (target) {
 		case  "lr/searchAllReports.rep":
 		case "/lr/searchAllReports.rep":
-			Integer memberNumber = Integer.parseInt(request.getParameter("userNumber"));
-			String  memberType 	 = request.getParameter("userType");
 			apiResult = this.getSearchAllReports(apiResult, memberNumber, memberType);
 			break;
 		case  "lr/selectAllSubjects.rep":
 		case "/lr/selectAllSubjects.rep":
 			apiResult = this.getSearchAllSubjects(apiResult);
+			break;
+		case  "lr/searchAllReportsNum.rep":
+		case "/lr/searchAllReportsNum.rep":
+
+			apiResult = this.getSearchAllReportsNum(apiResult, memberNumber, memberType);
 			break;
 		default:
 			break;
@@ -131,6 +138,46 @@ public class LearningReportController implements ApiExecute<String> {
 		List<LrSubjectDTO> subjects = this.learningReportDAO.selectLrAllSubjects();
 		String strJson = new Gson().toJson(subjects);
 		apiResult.setRawData(strJson);
+		apiResult.setContentType("application/json;charset=UTF-8");
+		return apiResult;
+	}
+	
+	private ApiResult<String> getSearchAllReportsNum(ApiResult<String> apiResult, int memberNumber,  String memberType) {
+		LrDetailDTO lrDetailDTO = this.learningReportDAO.selectLrDetail(memberNumber, memberType);
+		if (
+			lrDetailDTO.getReports() == null ||
+			lrDetailDTO.getMatchingInfo() == null
+		) {
+			Map<String, String> retMap = new HashMap<String, String>();
+			apiResult.setRawData(new Gson().toJson(retMap));
+			apiResult.setContentType("application/json;charset=UTF-8");
+			return apiResult;
+		}
+	    LocalDate matchingStartDate =
+	            LearningReportController.toLocalDate(
+	                    lrDetailDTO.getMatchingInfo().getMatchingStart()
+	            );
+	    
+	    Map<Integer, Long> groupedReportCounts = lrDetailDTO.getReports().stream()
+	            .map(value -> (LrDTO) value)
+	            .filter(report -> report.getLrReportDate() != null)
+	            .sorted(Comparator.comparing(report -> toLocalDate(report.getLrReportDate())))
+	            .collect(Collectors.groupingBy(
+	                    report -> calculateWeekGroup(
+	                            matchingStartDate,
+	                            toLocalDate(report.getLrReportDate())
+	                    ),
+	                    LinkedHashMap::new,
+	                    Collectors.counting()
+	            ));
+	    
+		int reportNum = lrDetailDTO.getReports().size();
+		
+		Map<String, Object> mapJson = new HashMap<String, Object>();
+		mapJson.put("reportNum", reportNum);
+		mapJson.put("reportNumPerWeek", groupedReportCounts);
+		
+		apiResult.setRawData(new Gson().toJson(mapJson));
 		apiResult.setContentType("application/json;charset=UTF-8");
 		return apiResult;
 	}

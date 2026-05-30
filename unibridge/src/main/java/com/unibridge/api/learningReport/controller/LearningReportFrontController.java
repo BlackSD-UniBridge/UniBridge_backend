@@ -57,6 +57,8 @@ public class LearningReportFrontController extends HttpServlet {
 		case "/lr/searchAllReports.rep":
 		case  "lr/selectAllSubjects.rep":
 		case "/lr/selectAllSubjects.rep":
+		case  "lr/searchAllReportsNum.rep":
+		case "/lr/searchAllReportsNum.rep":
 			apiResult = new LearningReportController().execute(request, response);
 			break;
 		case  "lr/newLearningReport.rep":
