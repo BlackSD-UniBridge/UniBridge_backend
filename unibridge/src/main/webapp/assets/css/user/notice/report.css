@@ -160,7 +160,7 @@ body, html {
     height: 21px;
     padding: 0px 20px;
 
-    background: url("/frontend/assets/img/user/userNoticeImg/filterDateIcon.png") no-repeat center;
+    background: url("../../../img/user/userNoticeImg/filterDateIcon.png") no-repeat center;
     background-size: contain;
 }
 
