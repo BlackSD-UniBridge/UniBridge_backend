@@ -62,22 +62,26 @@ public class LearningReportController implements ApiExecute<String> {
 		String requestURI = request.getRequestURI();
 		String target = extractTargetPath(requestURI);
 		
-		Integer memberNumber = Integer.parseInt(request.getParameter("userNumber"));
-		String  memberType 	 = request.getParameter("userType");
+
 		
 		switch (target) {
 		case  "lr/searchAllReports.rep":
-		case "/lr/searchAllReports.rep":
+		case "/lr/searchAllReports.rep": {			
+			Integer memberNumber = Integer.parseInt(request.getParameter("userNumber"));
+			String  memberType 	 = request.getParameter("userType");
 			apiResult = this.getSearchAllReports(apiResult, memberNumber, memberType);
+		}
 			break;
 		case  "lr/selectAllSubjects.rep":
 		case "/lr/selectAllSubjects.rep":
 			apiResult = this.getSearchAllSubjects(apiResult);
 			break;
 		case  "lr/searchAllReportsNum.rep":
-		case "/lr/searchAllReportsNum.rep":
-
+		case "/lr/searchAllReportsNum.rep": {
+			Integer memberNumber = Integer.parseInt(request.getParameter("userNumber"));
+			String  memberType 	 = request.getParameter("userType");
 			apiResult = this.getSearchAllReportsNum(apiResult, memberNumber, memberType);
+		}
 			break;
 		default:
 			break;

@@ -109,7 +109,7 @@
                         </div>
                         <div class="cur-status-content-container">
                             <div class="cur-status-content-container__inner">
-                                <div class="content-container">
+                                <div class="content-container report-num">
                                     <div class="status-title">
                                         <div class="title">전체 학습일지</div>
                                         <div class="value">128</div>
@@ -118,7 +118,7 @@
                                         <span>현재 등록된 멘토·멘티 학습일지 총 개수</span>
                                     </div>
                                 </div>
-                                <div class="content-container">
+                                <div class="content-container report-num-per-week">
                                     <div class="status-title">
                                         <div class="title">이번 주 작성 수</div>
                                         <div class="value">16</div>
