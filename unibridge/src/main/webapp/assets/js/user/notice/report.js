@@ -62,8 +62,8 @@ function createLearningReportWeek(stWeek, reports, index) {
 }
 
 function createLearningReport(report) {
-	const stDate  = new Date(report.lrReportDate).getDate();
-	const curDate = new Date().getDate();
+	const stDate  = new Date(report.lrReportDate).toDateString();
+	const curDate = new Date().toDateString();
 	const canEdit = stDate === curDate;
 	
   const html = `
@@ -139,6 +139,9 @@ async function init() {
 	
 	const responseSubjects = await fetch(`${window.contextPath}/api/user/lr/selectAllSubjects.rep`);
 	const responseSubjectsJson = await responseSubjects.json();
+	
+	const respReportNum = await fetch(`${window.contextPath}/api/user/lr/searchAllReportsNum.rep?userNumber=${userNumber}&userType=${userType}`);
+	const respReportNumJson = await respReportNum.json();
 	
 	// 학습보고서 컨텐츠 생성
 	await initLrLists(userNumber, responseJson);
@@ -240,6 +243,13 @@ async function init() {
 		
 		await initLrLists(userNumber, retLrJson);
 	});
+	
+	// 학습일지 개수 설정
+	const navStatusContainerEl = document.querySelector(".nav-container .cur-status-container");
+	const reportNumEl 		 = navStatusContainerEl.querySelector(".report-num .status-title .value");
+	const reportNumPerWeekEl = navStatusContainerEl.querySelector(".report-num-per-week .status-title .value");
+	reportNumEl		  .textContent = respReportNumJson["reportNum"];
+	reportNumPerWeekEl.textContent = respReportNumJson["reportNumPerWeek"]["1"];
 	
 	sessionStorage.setItem(
 	  "learningReportDummyResponse",
